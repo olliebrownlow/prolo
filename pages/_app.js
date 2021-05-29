@@ -1,12 +1,15 @@
-import { useState, useEffect } from 'react';
-import { UserContext } from '../lib/UserContext';
-import Router from 'next/router';
-import { magic } from '../lib/magic';
-import Layout from '../components/layout';
-import { ThemeProvider } from '@magiclabs/ui';
-import '@magiclabs/ui/dist/cjs/index.css';
+import { useState, useEffect } from "react";
+import { UserContext } from "../lib/UserContext";
+import App from "next/app";
+import Router from "next/router";
+import Head from "next/head";
+import Header from "../components/header";
+import { magic } from "../lib/magic";
+// import Layout from "../components/layout";
+import { ThemeProvider } from "@magiclabs/ui";
+import "@magiclabs/ui/dist/cjs/index.css";
 
-function MyApp({ Component, pageProps }) {
+function Prolo({ Component, pageProps }) {
   const [user, setUser] = useState();
 
   // If isLoggedIn is true, set the UserContext with user data
@@ -17,7 +20,7 @@ function MyApp({ Component, pageProps }) {
       if (isLoggedIn) {
         magic.user.getMetadata().then((userData) => setUser(userData));
       } else {
-        Router.push('/login');
+        Router.push("/login");
         setUser({ user: null });
       }
     });
@@ -26,12 +29,38 @@ function MyApp({ Component, pageProps }) {
   return (
     <ThemeProvider root>
       <UserContext.Provider value={[user, setUser]}>
-        <Layout>
+        <Head>
+          <title>pro.lo- cryptocurrency profit/loss tracker</title>
+          <link rel="icon" href="/prolo_black_symbolWhite_logo.png" />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Ubuntu"
+            rel="stylesheet"
+          />
+        </Head>
+        <Header />
+        <div className="container">
           <Component {...pageProps} />
-        </Layout>
+        </div>
       </UserContext.Provider>
+      <style jsx global>{`
+      * {
+        font-family: 'Ubuntu', sans-serif !important;
+        outline: none;
+      }
+      .container {
+        max-width: 42rem;
+        margin: 0 auto;
+        padding: 0 10px;
+        // background-color: lightgray;
+      }
+    `}</style>
     </ThemeProvider>
   );
 }
 
-export default MyApp;
+Prolo.getInitialProps = async (appContext) => {
+  const appProps = await App.getInitialProps(appContext);
+  return { ...appProps };
+};
+
+export default Prolo;
