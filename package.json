@@ -12,10 +12,12 @@
     "magic-sdk": "^4.0.0",
     "next": "latest",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "react-popper": "2.2.5"
   },
   "license": "MIT",
   "devDependencies": {
+    "eslint": "^7.27.0",
     "framer-motion": "^2.3.0",
     "rxjs": "^6.6.2"
   }

@@ -5,7 +5,6 @@ import Router from "next/router";
 import Head from "next/head";
 import Header from "../components/header";
 import { magic } from "../lib/magic";
-// import Layout from "../components/layout";
 import { ThemeProvider } from "@magiclabs/ui";
 import "@magiclabs/ui/dist/cjs/index.css";
 
