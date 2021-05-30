@@ -1,18 +1,18 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 const SocialLogins = ({ onSubmit }) => {
-  const providers = ['google', 'github'];
+  const providers = ["google", "github"];
   const [isRedirecting, setIsRedirecting] = useState(false);
 
   return (
     <>
-      <div className='or-login-with'>Or login with</div>
+      <div className="or-login-with">Or login with</div>
       {providers.map((provider) => {
         return (
           <div key={provider}>
             <button
-              type='submit'
-              className='social-btn'
+              type="submit"
+              className="social-btn"
               onClick={() => {
                 setIsRedirecting(true);
                 onSubmit(provider);
@@ -26,7 +26,7 @@ const SocialLogins = ({ onSubmit }) => {
           </div>
         );
       })}
-      {isRedirecting && <div className='redirecting'>Redirecting...</div>}
+      {isRedirecting && <div className="redirecting">Redirecting...</div>}
       <style jsx>{`
         .or-login-with {
           margin: 25px 0;

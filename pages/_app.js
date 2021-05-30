@@ -42,17 +42,17 @@ function Prolo({ Component, pageProps }) {
         </div>
       </UserContext.Provider>
       <style jsx global>{`
-      * {
-        font-family: 'Ubuntu', sans-serif !important;
-        outline: none;
-      }
-      .container {
-        max-width: 42rem;
-        margin: 0 auto;
-        padding: 0 10px;
-        // background-color: lightgray;
-      }
-    `}</style>
+        * {
+          font-family: "Ubuntu", sans-serif !important;
+          outline: none;
+        }
+        .container {
+          max-width: 42rem;
+          margin: 0 auto;
+          padding: 0 10px;
+          // background-color: lightgray;
+        }
+      `}</style>
     </ThemeProvider>
   );
 }
