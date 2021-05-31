@@ -27,21 +27,35 @@ const Header = () => {
               <li>
                 <Link href="/">
                   <TextButton color="primary" size="sm">
-                    Home
+                    home
                   </TextButton>
                 </Link>
               </li>
               <li>
-                <Link href="/profile">
+                <Link href="/balances">
                   <TextButton color="primary" size="sm">
-                    Profile
+                    balances
+                  </TextButton>
+                </Link>
+              </li>
+              <li>
+                <Link href="/trades">
+                  <TextButton color="primary" size="sm">
+                    trades
+                  </TextButton>
+                </Link>
+              </li>
+              <li>
+                <Link href="/settings">
+                  <TextButton color="primary" size="sm">
+                    settings
                   </TextButton>
                 </Link>
               </li>
               <li>
                 <a>
                   <TextButton color="warning" size="sm" onPress={logout}>
-                    Logout
+                    logout
                   </TextButton>
                 </a>
               </li>
@@ -50,7 +64,7 @@ const Header = () => {
             <li>
               <Link href="/login">
                 <CallToAction color="primary" size="sm">
-                  Login
+                  login
                 </CallToAction>
               </Link>
             </li>

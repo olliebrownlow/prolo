@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { UserContext } from "../lib/UserContext";
 import Loading from "../components/loading";
 
-const Profile = () => {
+const Settings = () => {
   const [user] = useContext(UserContext);
 
   return (
@@ -12,6 +12,7 @@ const Profile = () => {
       ) : (
         user?.issuer && (
           <>
+            <h1>settings</h1>
             <div className="label">Email</div>
             <div className="profile-info">{user.email}</div>
 
@@ -21,6 +22,10 @@ const Profile = () => {
         )
       )}
       <style jsx>{`
+        h1 {
+          font-size: 36px;
+          text-align: center;
+        }
         .label {
           font-size: 12px;
           color: #6851ff;
@@ -35,4 +40,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default Settings;
