@@ -31,10 +31,10 @@ function Prolo({ Component, pageProps }) {
         <Head>
           <title>pro.lo- cryptocurrency profit/loss tracker</title>
           <link rel="icon" href="/prolo_black_symbolWhite_logo.png" />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Ubuntu"
-            rel="stylesheet"
-          />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+          ></meta>
         </Head>
         <Header />
         <div className="container">
