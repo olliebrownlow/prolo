@@ -14,7 +14,7 @@ const EmailForm = ({ onEmailSubmit, disabled }) => {
       <form onSubmit={handleSubmit}>
         <h3 className="form-header">Login</h3>
         <div className="input-wrapper">
-          <Input
+          <input
             placeholder="Enter your email"
             size="sm"
             type="email"
