@@ -8,6 +8,8 @@ import { magic } from "../lib/magic";
 import { ThemeProvider } from "@magiclabs/ui";
 import "@magiclabs/ui/dist/cjs/index.css";
 
+import "../components/index.scss";
+
 function Prolo({ Component, pageProps }) {
   const [user, setUser] = useState();
 
@@ -41,18 +43,6 @@ function Prolo({ Component, pageProps }) {
           <Component {...pageProps} />
         </div>
       </UserContext.Provider>
-      <style jsx global>{`
-        * {
-          font-family: "Ubuntu", sans-serif !important;
-          outline: none;
-        }
-        .container {
-          max-width: 42rem;
-          margin: 0 auto;
-          padding: 0 10px;
-          // background-color: lightgray;
-        }
-      `}</style>
     </ThemeProvider>
   );
 }
