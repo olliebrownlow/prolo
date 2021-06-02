@@ -4,6 +4,8 @@ import App from "next/app";
 import Router from "next/router";
 import Head from "next/head";
 import Header from "../components/header";
+import NavBar from "../components/nav-bar";
+import navButtons from "../config/navButtons";
 import { magic } from "../lib/magic";
 import { ThemeProvider } from "@magiclabs/ui";
 import "@magiclabs/ui/dist/cjs/index.css";
@@ -42,6 +44,7 @@ function Prolo({ Component, pageProps }) {
         <div className="container">
           <Component {...pageProps} />
         </div>
+        <NavBar navButtons={navButtons} />
       </UserContext.Provider>
     </ThemeProvider>
   );
