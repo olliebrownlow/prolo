@@ -6,6 +6,7 @@ import Head from "next/head";
 import Header from "../components/header";
 import NavBar from "../components/nav-bar";
 import navButtons from "../config/navButtons";
+import authButtons from "../config/authButtons"
 import { magic } from "../lib/magic";
 import { ThemeProvider } from "@magiclabs/ui";
 import "@magiclabs/ui/dist/cjs/index.css";
@@ -14,6 +15,7 @@ import "../components/index.scss";
 
 function Prolo({ Component, pageProps }) {
   const [user, setUser] = useState();
+  const appTitle = `pro.lo-`;
 
   // If isLoggedIn is true, set the UserContext with user data
   // Otherwise, redirect to /login and set UserContext to { user: null }
@@ -40,7 +42,7 @@ function Prolo({ Component, pageProps }) {
             content="width=device-width, initial-scale=1.0"
           ></meta>
         </Head>
-        <Header />
+        <Header appTitle={appTitle} authButtons={authButtons} />
         <div className="container">
           <Component {...pageProps} />
         </div>
