@@ -1,0 +1,14 @@
+.AuthButton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  height: 100%;
+
+  cursor: pointer;
+}
+
+.Label {
+  font-size: 20px;
+  padding-left: 16px;
+}

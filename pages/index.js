@@ -10,7 +10,11 @@ const Home = () => {
       {user?.loading ? (
         <Loading />
       ) : (
-        user?.issuer && <div>You're logged in!</div>
+        user?.issuer && (
+          <>
+            <div>you're logged in!</div>
+          </>
+        )
       )}
     </>
   );

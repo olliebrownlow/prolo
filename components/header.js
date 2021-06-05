@@ -25,9 +25,9 @@ const Header = (props) => {
   };
 
   return (
-    <div className="Header">
+    <div className={styles.Header}>
       <Link href="/">
-        <div className="AppTitle">{props.appTitle}</div>
+        <div className={styles.Header}>{props.appTitle}</div>
       </Link>
       {user?.issuer && !user?.loading ? (
         //   <TextButton color="warning" size="sm" onPress={logout}>

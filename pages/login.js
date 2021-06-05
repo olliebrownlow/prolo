@@ -58,14 +58,14 @@ const Login = () => {
       <SocialLogins onSubmit={handleLoginWithSocial} />
       <style jsx>{`
         .login {
-          max-width: 20rem;
-          margin: 40px auto 0;
-          padding: 1rem;
-          border: 1px solid #dfe1e5;
-          border-radius: 4px;
+          // max-width: 20rem;
+          // margin: 40px auto 0;
+          padding:  3rem 1rem 3rem 1rem;
+          // border: 1px solid white;
+          // border-radius: 4px;
           text-align: center;
-          box-shadow: 0px 0px 6px 6px #f7f7f7;
-          box-sizing: border-box;
+          // box-shadow: 0px 0px 3px 3px red;
+          // box-sizing: border-box;
         }
       `}</style>
     </div>

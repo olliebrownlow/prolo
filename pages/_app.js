@@ -6,12 +6,11 @@ import Head from "next/head";
 import Header from "../components/header";
 import NavBar from "../components/nav-bar";
 import navButtons from "../config/navButtons";
-import authButtons from "../config/authButtons"
+import authButtons from "../config/authButtons";
 import { magic } from "../lib/magic";
-import { ThemeProvider } from "@magiclabs/ui";
-import "@magiclabs/ui/dist/cjs/index.css";
 
 import "../components/index.scss";
+import "../components/appLayout.scss";
 
 function Prolo({ Component, pageProps }) {
   const [user, setUser] = useState();
@@ -32,8 +31,8 @@ function Prolo({ Component, pageProps }) {
   }, []);
 
   return (
-    <ThemeProvider root>
-      <UserContext.Provider value={[user, setUser]}>
+    <UserContext.Provider value={[user, setUser]}>
+      <div className="Layout">
         <Head>
           <title>pro.lo- cryptocurrency profit/loss tracker</title>
           <link rel="icon" href="/prolo_black_symbolWhite_logo.png" />
@@ -43,12 +42,12 @@ function Prolo({ Component, pageProps }) {
           ></meta>
         </Head>
         <Header appTitle={appTitle} authButtons={authButtons} />
-        <div className="container">
+        <div className="Content">
           <Component {...pageProps} />
         </div>
         <NavBar navButtons={navButtons} />
-      </UserContext.Provider>
-    </ThemeProvider>
+      </div>
+    </UserContext.Provider>
   );
 }
 

@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Input, Icon, MonochromeIcons, CallToAction } from "@magiclabs/ui";
+import { Send } from "react-feather";
+const feather = require("feather-icons");
 
 const EmailForm = ({ onEmailSubmit, disabled }) => {
   const [email, setEmail] = useState("");
@@ -12,27 +13,21 @@ const EmailForm = ({ onEmailSubmit, disabled }) => {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <h3 className="form-header">Login</h3>
+        <h3 className="form-header">login to pro.lo-</h3>
         <div className="input-wrapper">
           <input
-            placeholder="Enter your email"
-            size="sm"
+            className="input"
+            placeholder="user@email.com..."
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            prefix={<Icon inline type={MonochromeIcons.Envelope} size={22} />}
           />
         </div>
         <div>
-          <CallToAction
-            leadingIcon={MonochromeIcons.PaperPlane}
-            color="primary"
-            size="sm"
-            disabled={disabled}
-            onClick={handleSubmit}
-          >
-            Send Magic Link
-          </CallToAction>
+          <button disabled={disabled} onClick={handleSubmit}>send magic link</button>
+        </div>
+        <div className="send">
+          <Send />
         </div>
       </form>
       <style jsx>{`
@@ -42,13 +37,30 @@ const EmailForm = ({ onEmailSubmit, disabled }) => {
           flex-flow: column;
           text-align: center;
         }
+        button {
+          padding: 5px 12px 5px 12px;
+          border-radius: 5px;
+          border: 1px solid white;
+          background-color: red;
+          font-family: Ubuntu;
+          color: white;
+        }
         .form-header {
-          font-size: 22px;
+          font-size: 32px;
           margin: 25px 0;
         }
         .input-wrapper {
-          width: 80%;
-          margin: 0 auto 20px;
+          margin: 0 auto 10px;
+        }
+        .input {
+          font-size: 17px;
+          padding: 5px 0 5px 5px;
+          border-radius: 5px;
+          border: 1px solid red;
+          font-family: Ubuntu;
+        }
+        .send {
+          margin-top: 5px;
         }
       `}</style>
     </>

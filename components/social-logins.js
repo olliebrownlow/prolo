@@ -6,7 +6,7 @@ const SocialLogins = ({ onSubmit }) => {
 
   return (
     <>
-      <div className="or-login-with">Or login with</div>
+      <div className="or-login-with">..or login with</div>
       {providers.map((provider) => {
         return (
           <div key={provider}>
@@ -29,16 +29,15 @@ const SocialLogins = ({ onSubmit }) => {
       {isRedirecting && <div className="redirecting">Redirecting...</div>}
       <style jsx>{`
         .or-login-with {
-          margin: 25px 0;
+          margin: 25px 0 10px 0;
           font-size: 12px;
           text-align: center;
-          color: gray;
         }
         .social-btn {
           cursor: pointer;
           border-radius: 50px;
-          margin-bottom: 20px;
-          border: 1px solid #8a8a8a;
+          margin-bottom: 10px;
+          border: 1px solid red;
           padding: 9px 24px 9px 35px;
           width: 80%;
 
@@ -48,7 +47,7 @@ const SocialLogins = ({ onSubmit }) => {
           background-position: 23% 50%;
         }
         .redirecting {
-          color: gray;
+          // color: gray;
           font-size: 12px;
           margin-bottom: 5px;
         }
