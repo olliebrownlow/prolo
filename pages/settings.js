@@ -12,19 +12,34 @@ const Settings = () => {
       ) : (
         user?.issuer && (
           <div className="settings">
-            <h1>settings</h1>
-            <div className="label">Email</div>
-            <div className="profile-info">{user.email}</div>
-
-            <div className="label">User Id</div>
-            <div className="profile-info">{user.issuer}</div>
+            <h1>app settings</h1>
+            <div className="buttons">
+              <button
+                className="button"
+                // onClick={handleSubmit}
+              >
+                eur
+              </button>
+              <button
+                className="button"
+                // onClick={handleSubmit}
+              >
+                gbp
+              </button>
+              <button
+                className="button"
+                // onClick={handleSubmit}
+              >
+                usd
+              </button>
+            </div>
           </div>
         )
       )}
       <style jsx>{`
         .settings {
-          max-width: 100%;
-          padding: 1rem
+          width: 100%;
+          padding: 1rem;
         }
         h1 {
           font-size: 36px;
@@ -36,11 +51,20 @@ const Settings = () => {
           color: #6851ff;
           margin: 30px 0 5px;
         }
-        .profile-info {
-          font-size: 17px;
-          // text-align: center;
-          word-wrap: break-word;
+        .buttons {
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+
+          max-width: 100%;
         }
+        .button {
+          padding: 5px 12px 5px 12px;
+          border-radius: 5px;
+          border: 1px solid white;
+          background-color: black;
+          font-family: Ubuntu;
+          color: white;
       `}</style>
     </>
   );

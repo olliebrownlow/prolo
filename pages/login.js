@@ -4,14 +4,15 @@ import { magic } from "../lib/magic";
 import { UserContext } from "../lib/UserContext";
 import EmailForm from "../components/email-form";
 import SocialLogins from "../components/social-logins";
+import styles from "../components/login.module.scss";
 
 const Login = () => {
   const [disabled, setDisabled] = useState(false);
   const [user, setUser] = useContext(UserContext);
 
-  // Redirec to /profile if the user is logged in
+  // Redirec to /balances if the user is logged in
   useEffect(() => {
-    user?.issuer && Router.push("/");
+    user?.issuer && Router.push("/balances");
   }, [user]);
 
   async function handleLoginWithEmail(email) {
@@ -21,7 +22,7 @@ const Login = () => {
       // Trigger Magic link to be sent to user
       let didToken = await magic.auth.loginWithMagicLink({
         email,
-        redirectURI: new URL("/callback", window.location.origin).href, // optional redirect back to your app after magic link is clicked
+        // redirectURI: new URL("/callback", window.location.origin).href, // optional redirect back to your app after magic link is clicked
       });
 
       // Validate didToken with server
@@ -37,7 +38,7 @@ const Login = () => {
         // Set the UserContext to the now logged in user
         let userMetadata = await magic.user.getMetadata();
         await setUser(userMetadata);
-        Router.push("/");
+        Router.push("/balances");
       }
     } catch (error) {
       setDisabled(false); // re-enable login button - user may have requested to edit their email
@@ -53,21 +54,9 @@ const Login = () => {
   }
 
   return (
-    <div className="login">
+    <div className={styles.login}>
       <EmailForm disabled={disabled} onEmailSubmit={handleLoginWithEmail} />
       <SocialLogins onSubmit={handleLoginWithSocial} />
-      <style jsx>{`
-        .login {
-          // max-width: 20rem;
-          // margin: 40px auto 0;
-          padding:  3rem 1rem 3rem 1rem;
-          // border: 1px solid white;
-          // border-radius: 4px;
-          text-align: center;
-          // box-shadow: 0px 0px 3px 3px red;
-          // box-sizing: border-box;
-        }
-      `}</style>
     </div>
   );
 };

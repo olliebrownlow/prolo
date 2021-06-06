@@ -1,0 +1,35 @@
+@import "../theme/theme";
+
+.form {
+  display: flex;
+  flex-flow: column;
+  text-align: center;
+}
+.span {
+  color: $highlight;
+}
+.button {
+  padding: 5px 12px 5px 12px;
+  border-radius: 5px;
+  border: 1px solid $secondary;
+  background-color: $highlight;
+  font-family: $core-font;
+  color: white;
+}
+.formHeader {
+  font-size: 32px;
+  margin: 25px 0;
+}
+.inputWrapper {
+  margin: 0 auto 10px;
+}
+.input {
+  font-size: 17px;
+  padding: 5px 0 5px 5px;
+  border-radius: 5px;
+  border: 1px solid $highlight;
+  font-family: $core-font;
+}
+.send {
+  margin-top: 5px;
+}

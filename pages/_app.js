@@ -24,7 +24,7 @@ function Prolo({ Component, pageProps }) {
       if (isLoggedIn) {
         magic.user.getMetadata().then((userData) => setUser(userData));
       } else {
-        Router.push("/login");
+        // Router.push("/login");
         setUser({ user: null });
       }
     });

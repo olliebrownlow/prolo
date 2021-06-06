@@ -1,4 +1,5 @@
 import { useState } from "react";
+import styles from "./socialLogins.module.scss";
 
 const SocialLogins = ({ onSubmit }) => {
   const providers = ["google", "github"];
@@ -6,13 +7,13 @@ const SocialLogins = ({ onSubmit }) => {
 
   return (
     <>
-      <div className="or-login-with">..or login with</div>
+      <div className={styles.orLoginWith}>..or login with</div>
       {providers.map((provider) => {
         return (
           <div key={provider}>
             <button
               type="submit"
-              className="social-btn"
+              className={styles.socialBtn}
               onClick={() => {
                 setIsRedirecting(true);
                 onSubmit(provider);
@@ -26,32 +27,9 @@ const SocialLogins = ({ onSubmit }) => {
           </div>
         );
       })}
-      {isRedirecting && <div className="redirecting">Redirecting...</div>}
-      <style jsx>{`
-        .or-login-with {
-          margin: 25px 0 10px 0;
-          font-size: 12px;
-          text-align: center;
-        }
-        .social-btn {
-          cursor: pointer;
-          border-radius: 50px;
-          margin-bottom: 10px;
-          border: 1px solid red;
-          padding: 9px 24px 9px 35px;
-          width: 80%;
-
-          background-color: #fff;
-          background-size: 20px;
-          background-repeat: no-repeat;
-          background-position: 23% 50%;
-        }
-        .redirecting {
-          // color: gray;
-          font-size: 12px;
-          margin-bottom: 5px;
-        }
-      `}</style>
+      {isRedirecting && (
+        <div className={styles.redirecting}>Redirecting...</div>
+      )}
     </>
   );
 };

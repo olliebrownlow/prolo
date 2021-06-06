@@ -14,22 +14,22 @@ import {
 
 const navButtons = [
   {
-    label: "Home",
+    label: "home",
     path: "/",
     icon: <Home />,
   },
   {
-    label: "Balances",
+    label: "balances",
     path: "/balances",
     icon: <TrendingUp />,
   },
   {
-    label: "Trades",
+    label: "trades",
     path: "/trades",
     icon: <Type />,
   },
   {
-    label: "Settings",
+    label: "settings",
     path: "/settings",
     icon: <Settings />,
   },
