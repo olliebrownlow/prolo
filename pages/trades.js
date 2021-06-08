@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { UserContext } from "../lib/UserContext";
 import Loading from "../components/loading";
-import styles from "../components/trades.module.scss";
+import styles from "../pageStyles/trades.module.scss";
 
 const Trades = () => {
   const [user] = useContext(UserContext);

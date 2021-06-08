@@ -6,7 +6,6 @@
 }
 .title {
   font-size: 36px;
-  text-align: center;
 }
 .buttons {
   display: flex;
@@ -15,10 +14,11 @@
   max-width: 100%;
 }
 .button {
-  padding: 5px 12px 5px 12px;
+  padding: 5px 0 5px 0;
   border-radius: 5px;
   border: 1px solid $secondary;
   background-color: $primary;
   font-family: $core-font;
-  color: $secondary;
+  font-size: 18px;
+  width: 5rem;
 }

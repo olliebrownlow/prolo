@@ -4,7 +4,7 @@ import { magic } from "../lib/magic";
 import { UserContext } from "../lib/UserContext";
 import EmailForm from "../components/email-form";
 import SocialLogins from "../components/social-logins";
-import styles from "../components/login.module.scss";
+import styles from "../pageStyles/login.module.scss";
 
 const Login = () => {
   const [disabled, setDisabled] = useState(false);

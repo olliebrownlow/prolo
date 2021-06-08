@@ -9,8 +9,8 @@ import navButtons from "../config/navButtons";
 import authButtons from "../config/authButtons";
 import { magic } from "../lib/magic";
 
-import "../components/index.scss";
-import "../components/appLayout.scss";
+import "../pageStyles/index.scss";
+import "../pageStyles/appLayout.scss";
 
 function Prolo({ Component, pageProps }) {
   const [user, setUser] = useState();

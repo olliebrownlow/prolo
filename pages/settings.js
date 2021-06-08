@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { UserContext } from "../lib/UserContext";
 import Loading from "../components/loading";
-import styles from "../components/settings.module.scss"
+import styles from "../pageStyles/settings.module.scss"
 
 const Settings = () => {
   const [user] = useContext(UserContext);
@@ -13,7 +13,7 @@ const Settings = () => {
       ) : (
         user?.issuer && (
           <div className={styles.settings}>
-            <h1 className={styles.title}>app settings</h1>
+            <h6 className={styles.title}>app currency</h6>
             <div className={styles.buttons}>
               <button
                 className={styles.button}

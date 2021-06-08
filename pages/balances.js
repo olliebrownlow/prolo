@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { UserContext } from "../lib/UserContext";
 import Loading from "../components/loading";
-import styles from "../components/balances.module.scss";
+import styles from "../pageStyles/balances.module.scss";
 
 const Balances = () => {
   const [user] = useContext(UserContext);
