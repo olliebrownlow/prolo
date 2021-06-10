@@ -7,6 +7,7 @@ import Header from "../components/header";
 import NavBar from "../components/nav-bar";
 import navButtons from "../config/navButtons";
 import authButtons from "../config/authButtons";
+import currencyButtons from "../config/currencyButtons";
 import { magic } from "../lib/magic";
 
 import "../pageStyles/index.scss";
@@ -43,7 +44,7 @@ function Prolo({ Component, pageProps }) {
         </Head>
         <Header appTitle={appTitle} authButtons={authButtons} />
         <div className="Content">
-          <Component {...pageProps} />
+          <Component {...pageProps} currencyButtons={currencyButtons} />
         </div>
         <NavBar navButtons={navButtons} />
       </div>

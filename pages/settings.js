@@ -1,10 +1,17 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "../lib/UserContext";
 import Loading from "../components/loading";
-import styles from "../pageStyles/settings.module.scss"
+import CurrencyButton from "../components/currency-button";
+import styles from "../pageStyles/settings.module.scss";
 
-const Settings = () => {
+const Settings = (props) => {
   const [user] = useContext(UserContext);
+  const [currency, setCurrency] = useState("");
+
+  const handleCurrency = (event) => {
+    const target = event.target;
+    setCurrency(target.value);
+  };
 
   return (
     <>
@@ -13,27 +20,28 @@ const Settings = () => {
       ) : (
         user?.issuer && (
           <div className={styles.settings}>
-            <h6 className={styles.title}>app currency</h6>
+            <div className={styles.title}>preferred app currency:</div>
             <div className={styles.buttons}>
-              <button
-                className={styles.button}
-                // onClick={handleSubmit}
-              >
-                eur
-              </button>
-              <button
-                className={styles.button}
-                // onClick={handleSubmit}
-              >
-                gbp
-              </button>
-              <button
-                className={styles.button}
-                // onClick={handleSubmit}
-              >
-                usd
-              </button>
+              {props.currencyButtons.map((button) => (
+                <CurrencyButton
+                  className={
+                    styles.button +
+                    " " +
+                    `${currency === button.value ? styles.active : ""}`
+                  }
+                  key={button.label}
+                  value={button.value}
+                  label={currency === button.value ? null : button.label}
+                  onClick={handleCurrency}
+                  style={
+                    currency === button.value
+                      ? { backgroundImage: `url(${button.label}Flag.jpg)` }
+                      : {}
+                  }
+                />
+              ))}
             </div>
+            <div className={styles.title}>current setting: {currency}</div>
           </div>
         )
       )}
