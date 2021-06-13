@@ -1,5 +1,6 @@
 [
   {
-    "currency": "eur"
+    "currencyCode": "eur",
+    "currencyName": "euros"
   }
 ]

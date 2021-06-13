@@ -44,7 +44,10 @@ function Prolo({ Component, pageProps }) {
         </Head>
         <Header appTitle={appTitle} authButtons={authButtons} />
         <div className="Content">
-          <Component {...pageProps} currencyButtons={currencyButtons} />
+          <Component
+            {...pageProps}
+            currencyButtons={currencyButtons}
+          />
         </div>
         <NavBar navButtons={navButtons} />
       </div>
