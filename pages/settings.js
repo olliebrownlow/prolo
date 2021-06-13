@@ -5,7 +5,7 @@ import React from "react";
 import Router from "next/router";
 import CurrencyButton from "../components/currency-button";
 import styles from "../pageStyles/settings.module.scss";
-import { getSettings, updateCurrency } from "../actions/index";
+import { getCurrencySettings, updateCurrencySettings } from "../actions/index";
 
 const Settings = (props) => {
   const [user] = useContext(UserContext);
@@ -13,7 +13,7 @@ const Settings = (props) => {
   const [currencyInUse, setCurrencyInUse] = useState(currency);
 
   const handleUpdateCurrency = (currency) => {
-    updateCurrency(currency);
+    updateCurrencySettings(currency);
   };
 
   const handleCurrency = (event) => {
@@ -82,7 +82,7 @@ const Settings = (props) => {
 };
 
 Settings.getInitialProps = async () => {
-  const currency = await getSettings();
+  const currency = await getCurrencySettings();
   return { currency };
 };
 

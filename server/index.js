@@ -6,26 +6,26 @@ const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
-const filePath = "./settingsData.json";
+const currencyFilePath = "./currencySettingsData.json";
 fs = require("fs");
 path = require("path");
-const settingsData = require(filePath);
+const currencySettingsData = require(currencyFilePath);
 
 app.prepare().then(() => {
   const server = express();
   server.use(bodyParser.json());
 
-  server.get("/api/v1/settings", (req, res) => {
-    return res.json(settingsData);
+  server.get("/api/v1/currencySettings", (req, res) => {
+    return res.json(currencySettingsData);
   });
 
-  server.patch("/api/v1/settings", (req, res) => {
+  server.patch("/api/v1/currencySettings", (req, res) => {
     const currency = req.body[0];
 
-    settingsData[0] = currency;
+    currencySettingsData[0] = currency;
 
-    const pathToFile = path.join(__dirname, filePath);
-    const stringifiedData = JSON.stringify(settingsData, null, 2);
+    const pathToFile = path.join(__dirname, currencyFilePath);
+    const stringifiedData = JSON.stringify(currencySettingsData, null, 2);
 
     fs.writeFile(pathToFile, stringifiedData, (err) => {
       if (err) {
