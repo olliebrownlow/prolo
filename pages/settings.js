@@ -3,7 +3,7 @@ import { UserContext } from "../lib/UserContext";
 import Loading from "../components/loading";
 import React from "react";
 import Router from "next/router";
-import CurrencyButton from "../components/currency-button";
+import CurrencySettings from "../components/currency-settings";
 import styles from "../pageStyles/settings.module.scss";
 import { getCurrencySettings, updateCurrencySettings } from "../actions/index";
 
@@ -41,39 +41,11 @@ const Settings = (props) => {
       ) : (
         user?.issuer && (
           <div className={styles.settings}>
-            <div className={styles.title}>preferred app currency:</div>
-            <div className={styles.buttons}>
-              {props.currencyButtons.map((button) => (
-                <CurrencyButton
-                  className={
-                    styles.button +
-                    " " +
-                    `${
-                      currencyInUse[0].currencyCode === button.label
-                        ? styles.active
-                        : ""
-                    }`
-                  }
-                  key={button.label}
-                  name={button.label}
-                  value={button.value}
-                  label={
-                    currencyInUse[0].currencyCode === button.label
-                      ? null
-                      : button.label
-                  }
-                  onClick={handleCurrency}
-                  style={
-                    currencyInUse[0].currencyCode === button.label
-                      ? { backgroundImage: `url(${button.label}Flag.jpg)` }
-                      : {}
-                  }
-                />
-              ))}
-            </div>
-            <div className={styles.title}>
-              current setting: {currencyInUse[0].currencyName}
-            </div>
+            <CurrencySettings
+              handleCurrency={handleCurrency}
+              currencyInUse={currencyInUse}
+              currencyButtons={props.currencyButtons}
+            />
           </div>
         )
       )}

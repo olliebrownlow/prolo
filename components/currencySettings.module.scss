@@ -1,0 +1,32 @@
+@import "../theme/theme";
+
+.title {
+  font-size: 18px;
+  padding: 8px;
+}
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  max-width: 100%;
+}
+.button {
+  padding: 5px 0 5px 0;
+  border-radius: 5px;
+  border: 1px solid $secondary;
+  background-color: $primary;
+  font-family: $core-font;
+  font-size: 18px;
+  width: 5rem;
+  height: 2.5rem;
+  outline-color: $highlight;
+}
+
+.active {
+  color: black;
+
+  background-color: white;
+  background-size: 5rem;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
