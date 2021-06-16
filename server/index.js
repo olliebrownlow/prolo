@@ -7,9 +7,11 @@ const app = next({ dev });
 const handle = app.getRequestHandler();
 
 const currencyFilePath = "./currencySettingsData.json";
+const themeFilePath = "./themeSettingsData.json";
 fs = require("fs");
 path = require("path");
 const currencySettingsData = require(currencyFilePath);
+const themeSettingsData = require(themeFilePath);
 
 app.prepare().then(() => {
   const server = express();
@@ -17,6 +19,10 @@ app.prepare().then(() => {
 
   server.get("/api/v1/currencySettings", (req, res) => {
     return res.json(currencySettingsData);
+  });
+
+  server.get("/api/v1/themeSettings", (req, res) => {
+    return res.json(themeSettingsData);
   });
 
   server.patch("/api/v1/currencySettings", (req, res) => {
@@ -33,6 +39,23 @@ app.prepare().then(() => {
       }
 
       return res.json("Currency has been successfully updated :)");
+    });
+  });
+
+  server.patch("/api/v1/themeSettings", (req, res) => {
+    const theme = req.body[0];
+
+    themeSettingsData[0] = theme;
+
+    const pathToFile = path.join(__dirname, themeFilePath);
+    const stringifiedData = JSON.stringify(themeSettingsData, null, 2);
+
+    fs.writeFile(pathToFile, stringifiedData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+
+      return res.json("Theme has been successfully updated :)");
     });
   });
 

@@ -4,7 +4,7 @@ import CurrencyButton from "./currency-button";
 const CurrencySettings = (props) => {
   return (
     <>
-      <div className={styles.title}>preferred app currency:</div>
+      <div className={styles.title}>currency:</div>
       <div className={styles.buttons}>
         {props.currencyButtons.map((button) => (
           <CurrencyButton
@@ -33,9 +33,6 @@ const CurrencySettings = (props) => {
             }
           />
         ))}
-      </div>
-      <div className={styles.title}>
-        current setting: {props.currencyInUse[0].currencyName}
       </div>
     </>
   );

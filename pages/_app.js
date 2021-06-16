@@ -8,13 +8,16 @@ import NavBar from "../components/nav-bar";
 import navButtons from "../config/navButtons";
 import authButtons from "../config/authButtons";
 import currencyButtons from "../config/currencyButtons";
+import themeButtons from "../config/themeButtons";
 import { magic } from "../lib/magic";
+import { getThemeSettings } from "../actions"
 
 import "../pageStyles/index.scss";
 import "../pageStyles/appLayout.scss";
 
 function Prolo({ Component, pageProps }) {
   const [user, setUser] = useState();
+  const [appTheme, setAppTheme] = useState();
   const appTitle = `pro.lo-`;
 
   // If isLoggedIn is true, set the UserContext with user data
@@ -30,6 +33,30 @@ function Prolo({ Component, pageProps }) {
       }
     });
   }, []);
+
+  useEffect(async () => {
+    const theme = await getThemeSettings();
+    console.log(theme[0].theme)
+    setAppTheme(theme[0].theme)
+
+    const root = document.documentElement;
+    root?.style.setProperty(
+      "--background-color",
+      appTheme === "dark" ? "#000000" : "#ffffff"
+    );
+    root?.style.setProperty(
+      "--background",
+      appTheme === "dark" ? "#000000" : "#ffffff"
+    );
+    root?.style.setProperty(
+      "--color",
+      appTheme === "light" ? "#000000" : "#ffffff"
+    );
+    root?.style.setProperty(
+      "--border",
+      appTheme === "light" ? "#000000" : "#ffffff"
+    );
+  }, [appTheme]);
 
   return (
     <UserContext.Provider value={[user, setUser]}>
@@ -47,6 +74,7 @@ function Prolo({ Component, pageProps }) {
           <Component
             {...pageProps}
             currencyButtons={currencyButtons}
+            themeButtons={themeButtons}
           />
         </div>
         <NavBar navButtons={navButtons} />

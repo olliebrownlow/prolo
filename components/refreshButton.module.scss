@@ -7,19 +7,14 @@
   justify-content: flex-start;
   align-items: center;
   max-width: 100%;
-  padding-bottom: 2rem;
 }
-.button {
+.refresh {
   padding: 5px 0 5px 0;
   border-radius: 5px;
+  color: white;
   font-size: 18px;
   width: 5rem;
   height: 2.5rem;
   margin-right: 1rem;
-}
-
-.active {
-  background-size: 5rem;
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
+  background-color: red;
 }

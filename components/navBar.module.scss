@@ -1,5 +1,3 @@
-@import "../theme/theme";
-
 .NavBar {
   display: flex;
   justify-content: space-around;
@@ -11,7 +9,6 @@
 
   background: white;
 
-  font-family: $core-font;
   font-size: 22px;
   color: black;
 

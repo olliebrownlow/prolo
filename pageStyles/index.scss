@@ -1,36 +1,55 @@
-@import '../theme/theme';
+@import "../theme/fonts";
+
+#root {
+  $background: #000000;
+  $background-color: #000000;
+  $color: #ffffff;
+  $border: #ffffff;
+}
 
 html {
   box-sizing: border-box;
 }
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
- 
+
 html,
 body,
 #__next {
   height: 100%;
   width: 100%;
 }
- 
+
 body {
   margin: 0;
   padding: 0;
-  font-family: $core-font, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  font-family: $core-font, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Oxygen", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: var(--background);
+  color: var(--color);
 }
- 
+
+button {
+  font-family: $core-font;
+  color: var(--color);
+  outline-color: red;
+  border: 1px solid var(--border);
+  background-color: var(--background-color);
+}
+
+input {
+  border: 1px solid red;
+  font-family: $core-font;
+}
+
 code {
-  font-family: $core-font, source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: $core-font, source-code-pro, Menlo, Monaco, Consolas,
+    "Courier New", monospace;
 }
- 
-#root {
-  display: flex;
-  flex-direction: column;
-}
- 

@@ -1,5 +1,3 @@
-@import "../theme/theme";
-
 .Layout {
   flex: 1;
   display: flex;
@@ -16,16 +14,8 @@
   align-items: center;
 
   width: 100%;
-
-  background: $primary;
-  color: $secondary;
-  font-family: $core-font;
 }
 
 a {
-  color: inherit;
-}
-
-button {
   color: inherit;
 }

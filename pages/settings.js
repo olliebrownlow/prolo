@@ -2,15 +2,22 @@ import { useContext, useState } from "react";
 import { UserContext } from "../lib/UserContext";
 import Loading from "../components/loading";
 import React from "react";
-import Router from "next/router";
 import CurrencySettings from "../components/currency-settings";
+import ThemeSettings from "../components/theme-settings";
+import RefreshButton from "../components/refresh-button"
 import styles from "../pageStyles/settings.module.scss";
-import { getCurrencySettings, updateCurrencySettings } from "../actions/index";
+import {
+  getCurrencySettings,
+  updateCurrencySettings,
+  getThemeSettings,
+  updateThemeSettings,
+} from "../actions/index";
 
 const Settings = (props) => {
   const [user] = useContext(UserContext);
-  const { currency } = props;
+  const { currency, theme } = props;
   const [currencyInUse, setCurrencyInUse] = useState(currency);
+  const [themeInUse, setThemeInUse] = useState(theme);
 
   const handleUpdateCurrency = (currency) => {
     updateCurrencySettings(currency);
@@ -20,18 +27,31 @@ const Settings = (props) => {
     const target = event.target;
     const code = target.name;
     const name = target.value;
-    const newState = [
+    const newCurrency = [
       {
         currencyCode: code,
         currencyName: name,
       },
     ];
 
-    setCurrencyInUse(newState);
-    handleUpdateCurrency(newState);
-    // .then((updatedCurrency) => {
-    //   Router.push("/settings");
-    // });
+    setCurrencyInUse(newCurrency);
+    handleUpdateCurrency(newCurrency);
+  };
+
+  const handleUpdateTheme = (theme) => {
+    updateThemeSettings(theme);
+  };
+
+  const handleTheme = (event) => {
+    const target = event.target;
+    const theme = target.name;
+    const newTheme = [
+      {
+        theme: theme,
+      },
+    ];
+    setThemeInUse(newTheme);
+    handleUpdateTheme(newTheme);
   };
 
   return (
@@ -46,6 +66,12 @@ const Settings = (props) => {
               currencyInUse={currencyInUse}
               currencyButtons={props.currencyButtons}
             />
+            <ThemeSettings
+              handleTheme={handleTheme}
+              themeInUse={themeInUse}
+              themeButtons={props.themeButtons}
+            />
+            <RefreshButton />
           </div>
         )
       )}
@@ -55,7 +81,8 @@ const Settings = (props) => {
 
 Settings.getInitialProps = async () => {
   const currency = await getCurrencySettings();
-  return { currency };
+  const theme = await getThemeSettings();
+  return { currency, theme };
 };
 
 export default Settings;
