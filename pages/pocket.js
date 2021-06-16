@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { UserContext } from "../lib/UserContext";
 import Loading from "../components/loading";
-import styles from "../pageStyles/trades.module.scss";
+import styles from "../pageStyles/pocket.module.scss";
 
-const Trades = () => {
+const Pocket = () => {
   const [user] = useContext(UserContext);
 
   return (
@@ -12,8 +12,8 @@ const Trades = () => {
         <Loading />
       ) : (
         user?.issuer && (
-          <div className={styles.trades}>
-            <h1 className={styles.title}>trades</h1>
+          <div className={styles.pocket}>
+            <h1 className={styles.title}>pocket</h1>
             <div className={styles.label}>Email</div>
             <div className={styles.profileInfo}>{user.email}</div>
 
@@ -26,4 +26,4 @@ const Trades = () => {
   );
 };
 
-export default Trades;
+export default Pocket;

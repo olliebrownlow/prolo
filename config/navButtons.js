@@ -24,9 +24,9 @@ const navButtons = [
     icon: <TrendingUp />,
   },
   {
-    label: "trades",
-    path: "/trades",
-    icon: <Type />,
+    label: "pocket",
+    path: "/pocket",
+    icon: <Pocket />,
   },
   {
     label: "settings",
