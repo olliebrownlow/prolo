@@ -8,10 +8,12 @@ const handle = app.getRequestHandler();
 
 const currencyFilePath = "./currencySettingsData.json";
 const themeFilePath = "./themeSettingsData.json";
+const coinFilePath = "./coinData.json"
 fs = require("fs");
 path = require("path");
 const currencySettingsData = require(currencyFilePath);
 const themeSettingsData = require(themeFilePath);
+const coinData = require(coinFilePath);
 
 app.prepare().then(() => {
   const server = express();
@@ -23,6 +25,10 @@ app.prepare().then(() => {
 
   server.get("/api/v1/themeSettings", (req, res) => {
     return res.json(themeSettingsData);
+  });
+
+  server.get("/api/v1/coins", (req, res) => {
+    return res.json(coinData);
   });
 
   server.patch("/api/v1/currencySettings", (req, res) => {

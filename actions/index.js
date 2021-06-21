@@ -1,6 +1,15 @@
 import axios from "axios";
 
 const BASE_URL = "http://localhost:3000";
+const NOMICS_URL = "https://api.nomics.com/v1/currencies/ticker?key=";
+const NOMICS_KEY = process.env.NOMIC_API_KEY;
+
+// https://api.nomics.com/v1/currencies/ticker?key=570ae60704022cc640967bce3ce74f14&ids=ETH&convert=EUR
+
+export const getCryptoData = (coinCodes, fiatConvert) => {
+  const url = `${NOMICS_URL}${NOMICS_KEY}&ids=${coinCodes}&convert=${fiatConvert}`;
+  return axios.get(url).then((res) => res.data);
+};
 
 export const getCurrencySettings = () => {
   return axios
@@ -10,6 +19,10 @@ export const getCurrencySettings = () => {
 
 export const getThemeSettings = () => {
   return axios.get(`${BASE_URL}/api/v1/themeSettings`).then((res) => res.data);
+};
+
+export const getCoins = () => {
+  return axios.get(`${BASE_URL}/api/v1/coins`).then((res) => res.data);
 };
 
 export const updateCurrencySettings = (currency) => {

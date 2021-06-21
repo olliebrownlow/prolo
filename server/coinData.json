@@ -1,0 +1,17 @@
+[
+  {
+    "code": "ETH",
+    "coinName": "etherium",
+    "amount": "3.0001"
+  },
+  {
+    "code": "BTC",
+    "coinName": "bitcoin",
+    "amount": "1.00"
+  },
+  {
+    "code": "DOGE",
+    "coinName": "dogecoin",
+    "amount": "4000"
+  }
+]

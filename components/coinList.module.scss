@@ -1,0 +1,48 @@
+.coinList {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50px;
+  max-width: 100%;
+  // overflow: hidden;
+}
+.currencyImg {
+  display: block;
+  margin-left: auto;
+  margin-top: 1rem;
+  max-width: 64px;
+  max-height: 32px;
+  margin-right: 1rem;
+}
+.coinListRow li {
+  display: inline-block;
+  vertical-align: middle;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.totalValue {
+  width: 40%;
+  font-size: 18px;
+}
+.coinLogoContainer {
+  width: 10%;
+}
+.editIcon {
+  width: 10%;
+}
+.coinName {
+  font-size: 18px;
+  width: 40%;
+}
+.coinAmount {
+  color: grey;
+  font-size: 16px;
+}
+.coinLogo {
+  position: relative;
+  display: block;
+  width: 25px;
+  left: -25px;
+  border: none;
+  // height:40px;
+}

@@ -1,7 +1,12 @@
+import styles from "./loading.module.scss";
+
 const Loading = () => (
-  <div style={{ textAlign: "center" }}>
-    <img src="./puff.svg" height="80px" alt="Loading" />
-  </div>
+  <img
+    className={styles.loading}
+    src="./puff.svg"
+    height="80px"
+    alt="Loading"
+  />
 );
 
 export default Loading;

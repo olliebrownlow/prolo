@@ -1,10 +1,12 @@
 import { useContext } from "react";
 import { UserContext } from "../lib/UserContext";
 import Loading from "../components/loading";
-import styles from "../pageStyles/pocket.module.scss";
+import CoinList from "../components/coin-list";
+import { getCoins, getCurrencySettings, getCryptoData } from "../actions";
 
-const Pocket = () => {
+const Pocket = (props) => {
   const [user] = useContext(UserContext);
+  const { coinData } = props;
 
   return (
     <>
@@ -12,18 +14,48 @@ const Pocket = () => {
         <Loading />
       ) : (
         user?.issuer && (
-          <div className={styles.pocket}>
-            <h1 className={styles.title}>pocket</h1>
-            <div className={styles.label}>Email</div>
-            <div className={styles.profileInfo}>{user.email}</div>
-
-            <div className={styles.label}>User Id</div>
-            <div className={styles.profileInfo}>{user.issuer}</div>
+          <div>
+            <CoinList coinData={coinData} />
           </div>
         )
       )}
     </>
   );
+};
+
+Pocket.getInitialProps = async () => {
+  const coins = await getCoins();
+  const currencySettings = await getCurrencySettings();
+  const fiatConvert = currencySettings[0].currencyCode.toUpperCase();
+
+  const coinCodeArray = [];
+  coins.map((coin) => {
+    coinCodeArray.push(coin.code);
+  });
+  const coinCodes = coinCodeArray.join(",");
+
+  const coinDataFull = await getCryptoData(coinCodes, fiatConvert);
+
+  const amount = (code) => {
+    let result = 0;
+    coins.filter((coin) => {
+      if (coin.code === code) {
+        result = coin.amount;
+      }
+    });
+    return result;
+  };
+
+  const coinData = coinDataFull.map((coin) => ({
+    id: coin.id,
+    name: coin.name.toLowerCase(),
+    logo_url: coin.logo_url,
+    price: coin.price,
+    amount: amount(coin.id),
+    currencyInUse: currencySettings[0].currencyCode,
+  }));
+
+  return { coinData };
 };
 
 export default Pocket;

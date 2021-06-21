@@ -49,6 +49,10 @@ input {
   font-family: $core-font;
 }
 
+img {
+  border: 1px solid var(--border);
+}
+
 code {
   font-family: $core-font, source-code-pro, Menlo, Monaco, Consolas,
     "Courier New", monospace;
