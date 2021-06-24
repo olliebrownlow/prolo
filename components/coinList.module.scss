@@ -10,9 +10,22 @@
   display: block;
   margin-left: auto;
   margin-top: 1rem;
-  max-width: 64px;
+  max-width: 40px;
   max-height: 32px;
+  border-radius: 16px;
   margin-right: 1rem;
+}
+.heading {
+  font-size: 30px;
+  margin-left: 1rem;
+  letter-spacing: 5px;
+}
+.balance {
+  text-align: center;
+  font-weight: 900;
+  font-size: 35px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 .coinListRow li {
   display: inline-block;

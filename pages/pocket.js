@@ -2,12 +2,16 @@ import { useContext } from "react";
 import { UserContext } from "../lib/UserContext";
 import Loading from "../components/loading";
 import CoinList from "../components/coin-list";
-import { getCoins, getCurrencySettings, getCryptoData } from "../actions";
+import {
+  getCoins,
+  getCurrencySettings,
+  getCryptoData,
+  getFiat,
+} from "../actions";
 
 const Pocket = (props) => {
   const [user] = useContext(UserContext);
-  const { coinData } = props;
-
+  const { coinData, fiatData } = props;
   return (
     <>
       {user?.loading ? (
@@ -15,7 +19,7 @@ const Pocket = (props) => {
       ) : (
         user?.issuer && (
           <div>
-            <CoinList coinData={coinData} />
+            <CoinList coinData={coinData} fiatData={fiatData} />
           </div>
         )
       )}
@@ -52,10 +56,15 @@ Pocket.getInitialProps = async () => {
     logo_url: coin.logo_url,
     price: coin.price,
     amount: amount(coin.id),
+    total: amount(coin.id) * coin.price,
     currencyInUse: currencySettings[0].currencyCode,
   }));
 
-  return { coinData };
+  const fiatData = await getFiat();
+  console.log(coinData);
+  console.log(fiatData);
+
+  return { coinData, fiatData };
 };
 
 export default Pocket;
