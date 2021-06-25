@@ -65,14 +65,12 @@ Pocket.getInitialProps = async () => {
   }));
 
   const fiatData = await getFiat();
-  // console.log(coinData);
-  // console.log(fiatData);
 
-  let convertedBalanceData = [];
+  let convertedBalanceDataFull = [];
 
   await Promise.all(
     fiatData.map(async (item) => {
-      convertedBalanceData.push(
+      convertedBalanceDataFull.push(
         await getConvertedAmount(
           item.fiatCode.toUpperCase(),
           fiatConvert,
@@ -82,7 +80,26 @@ Pocket.getInitialProps = async () => {
     })
   );
 
-  // console.log(convertedBalanceData);
+  const fullFiatName = (fiatCode) => {
+    let result = "unknown currency";
+    fiatData.filter((fiat) => {
+      if (fiat.fiatCode === fiatCode) {
+        result = fiat.fiatName;
+      }
+    });
+    return result;
+  };
+
+  const convertedBalanceData = convertedBalanceDataFull.map(
+    (convertedBalance) => ({
+      id: convertedBalance.response.from,
+      from: convertedBalance.response.from,
+      to: convertedBalance.response.to,
+      amount: convertedBalance.response.amount,
+      value: convertedBalance.response.value,
+      fullFiatName: fullFiatName(convertedBalance.response.from.toLowerCase()),
+    })
+  );
 
   return { coinData, convertedBalanceData };
 };

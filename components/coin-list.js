@@ -10,34 +10,15 @@ const CoinList = (props) => {
         return prev + next.total;
       }, 0) +
       convertedBalanceData.reduce(function (prev, next) {
-        console.log(next.response.value);
-        return prev + next.response.value;
+        return prev + next.value;
       }, 0);
     const rounded = roundTo2DP(unrounded);
-    // (Math.round(unrounded * 100) / 100).toFixed(2);
 
     return rounded;
   };
 
   const roundTo2DP = (unrounded) => {
     return (Math.round(unrounded * 100) / 100).toFixed(2);
-  };
-
-  const fullFiatName = (codeName) => {
-    switch (codeName) {
-      case (codeName = "GBP"):
-        codeName = "british sterling";
-        break;
-      case (codeName = "EUR"):
-        codeName = "euros";
-        break;
-      case (codeName = "USD"):
-        codeName = "american dollar";
-        break;
-      default:
-        "unknown currency";
-    }
-    return codeName;
   };
 
   return (
@@ -78,26 +59,26 @@ const CoinList = (props) => {
           </div>
         ))}
         <div className={styles.heading}>fiat holdings</div>
-        {convertedBalanceData.map((fiat) => (
-          <div key={fiat.response.from}>
+        {convertedBalanceData.map((fiatData) => (
+          <div key={fiatData.id}>
             <ul className={styles.coinListRow}>
               <li className={styles.coinLogoContainer}>
                 <img
                   className={styles.coinLogo}
-                  src={`./${fiat.response.from.toLowerCase()}Flag.jpg`}
-                  alt={fiat.response.from}
+                  src={`./${fiatData.from.toLowerCase()}Flag.jpg`}
+                  alt={fiatData.from}
                 />
               </li>
               <li className={styles.coinName}>
-                {fullFiatName(fiat.response.from)}
+                {fiatData.fullFiatName}
                 <div className={styles.coinAmount}>
-                  ({fiat.response.to.toLowerCase()})
+                  ({fiatData.to.toLowerCase()})
                 </div>
               </li>
               <li className={styles.totalValue}>
-                {fiat.response.amount}
+                {fiatData.amount}
                 <div className={styles.coinAmount}>
-                  ({roundTo2DP(fiat.response.value)})
+                  ({roundTo2DP(fiatData.value)})
                 </div>
               </li>
               <li className={styles.editIcon}>
