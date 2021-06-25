@@ -4,6 +4,7 @@ import Loading from "../components/loading";
 import CoinList from "../components/coin-list";
 import {
   getCoins,
+  getConvertedAmount,
   getCurrencySettings,
   getCryptoData,
   getFiat,
@@ -11,7 +12,7 @@ import {
 
 const Pocket = (props) => {
   const [user] = useContext(UserContext);
-  const { coinData, fiatData } = props;
+  const { coinData, convertedBalanceData } = props;
   return (
     <>
       {user?.loading ? (
@@ -19,7 +20,10 @@ const Pocket = (props) => {
       ) : (
         user?.issuer && (
           <div>
-            <CoinList coinData={coinData} fiatData={fiatData} />
+            <CoinList
+              coinData={coinData}
+              convertedBalanceData={convertedBalanceData}
+            />
           </div>
         )
       )}
@@ -61,10 +65,26 @@ Pocket.getInitialProps = async () => {
   }));
 
   const fiatData = await getFiat();
-  console.log(coinData);
-  console.log(fiatData);
+  // console.log(coinData);
+  // console.log(fiatData);
 
-  return { coinData, fiatData };
+  let convertedBalanceData = [];
+
+  await Promise.all(
+    fiatData.map(async (item) => {
+      convertedBalanceData.push(
+        await getConvertedAmount(
+          item.fiatCode.toUpperCase(),
+          fiatConvert,
+          item.amount
+        )
+      );
+    })
+  );
+
+  // console.log(convertedBalanceData);
+
+  return { coinData, convertedBalanceData };
 };
 
 export default Pocket;
