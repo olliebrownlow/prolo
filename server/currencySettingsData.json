@@ -1,6 +1,7 @@
 [
   {
-    "currencyCode": "usd",
-    "currencyName": "american dollars"
+    "currencyCode": "eur",
+    "currencyName": "euros",
+    "sign": "€"
   }
 ]

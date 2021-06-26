@@ -19,6 +19,7 @@ const CurrencySettings = (props) => {
             }
             key={button.label}
             name={button.label}
+            sign={button.sign}
             value={button.value}
             label={
               props.currencyInUse[0].currencyCode === button.label

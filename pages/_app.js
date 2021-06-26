@@ -10,7 +10,7 @@ import authButtons from "../config/authButtons";
 import currencyButtons from "../config/currencyButtons";
 import themeButtons from "../config/themeButtons";
 import { magic } from "../lib/magic";
-import { getThemeSettings } from "../actions"
+import { getThemeSettings } from "../actions";
 
 import "../pageStyles/index.scss";
 import "../pageStyles/appLayout.scss";
@@ -36,8 +36,7 @@ function Prolo({ Component, pageProps }) {
 
   useEffect(async () => {
     const theme = await getThemeSettings();
-    console.log(theme[0].theme)
-    setAppTheme(theme[0].theme)
+    setAppTheme(theme[0].theme);
 
     const root = document.documentElement;
     root?.style.setProperty(

@@ -22,7 +22,7 @@ const Login = () => {
       // Trigger Magic link to be sent to user
       let didToken = await magic.auth.loginWithMagicLink({
         email,
-        // redirectURI: new URL("/callback", window.location.origin).href, // optional redirect back to your app after magic link is clicked
+        redirectURI: new URL("/callback", window.location.origin).href, // optional redirect back to your app after magic link is clicked
       });
 
       // Validate didToken with server
@@ -38,6 +38,7 @@ const Login = () => {
         // Set the UserContext to the now logged in user
         let userMetadata = await magic.user.getMetadata();
         await setUser(userMetadata);
+        console.log(user)
         Router.push("/balances");
       }
     } catch (error) {

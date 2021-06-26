@@ -15,7 +15,7 @@ path = require("path");
 const currencySettingsData = require(currencyFilePath);
 const themeSettingsData = require(themeFilePath);
 const coinData = require(coinFilePath);
-const fiatData = require(fiatFilePath)
+const fiatData = require(fiatFilePath);
 
 app.prepare().then(() => {
   const server = express();

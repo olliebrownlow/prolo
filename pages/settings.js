@@ -4,7 +4,7 @@ import Loading from "../components/loading";
 import React from "react";
 import CurrencySettings from "../components/currency-settings";
 import ThemeSettings from "../components/theme-settings";
-import RefreshButton from "../components/refresh-button"
+import RefreshButton from "../components/refresh-button";
 import styles from "../pageStyles/settings.module.scss";
 import {
   getCurrencySettings,
@@ -27,10 +27,12 @@ const Settings = (props) => {
     const target = event.target;
     const code = target.name;
     const name = target.value;
+    const sign = event.target.dataset.sign;
     const newCurrency = [
       {
         currencyCode: code,
         currencyName: name,
+        sign: sign,
       },
     ];
 

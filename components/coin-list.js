@@ -2,7 +2,7 @@ import styles from "./coinList.module.scss";
 import { Edit3 } from "react-feather";
 
 const CoinList = (props) => {
-  const { coinData, convertedBalanceData } = props;
+  const { coinData, convertedBalanceData, settingsCurrencySign } = props;
 
   const balance = () => {
     const unrounded =
@@ -30,7 +30,10 @@ const CoinList = (props) => {
           alt={coinData[0].currencyInUse}
         />
         <div className={styles.heading}>balance</div>
-        <div className={styles.balance}>{balance()}</div>
+        <div className={styles.balance}>
+          {settingsCurrencySign}
+          {balance()}
+        </div>
         <div className={styles.heading}>coin holdings</div>
         {coinData.map((coin) => (
           <div key={coin.id}>
@@ -45,10 +48,12 @@ const CoinList = (props) => {
               <li className={styles.coinName}>
                 {coin.name}
                 <div className={styles.coinAmount}>
+                  {settingsCurrencySign}
                   {parseFloat(+coin.price).toPrecision(10)}
                 </div>
               </li>
               <li className={styles.totalValue}>
+                {settingsCurrencySign}
                 {parseFloat(coin.total).toPrecision(10)}
                 <div className={styles.coinAmount}>{coin.amount}</div>
               </li>
@@ -71,14 +76,16 @@ const CoinList = (props) => {
               </li>
               <li className={styles.coinName}>
                 {fiatData.fullFiatName}
-                <div className={styles.coinAmount}>
-                  ({fiatData.to.toLowerCase()})
+                <div className={styles.hidden}>
+                  placeholder
                 </div>
               </li>
               <li className={styles.totalValue}>
+                {fiatData.fiatSign}
                 {fiatData.amount}
                 <div className={styles.coinAmount}>
-                  ({roundTo2DP(fiatData.value)})
+                  {settingsCurrencySign}
+                  {roundTo2DP(fiatData.value)}
                 </div>
               </li>
               <li className={styles.editIcon}>

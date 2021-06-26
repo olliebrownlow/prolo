@@ -12,7 +12,7 @@ import {
 
 const Pocket = (props) => {
   const [user] = useContext(UserContext);
-  const { coinData, convertedBalanceData } = props;
+  const { coinData, convertedBalanceData, settingsCurrencySign } = props;
   return (
     <>
       {user?.loading ? (
@@ -23,6 +23,7 @@ const Pocket = (props) => {
             <CoinList
               coinData={coinData}
               convertedBalanceData={convertedBalanceData}
+              settingsCurrencySign={settingsCurrencySign}
             />
           </div>
         )
@@ -90,6 +91,16 @@ Pocket.getInitialProps = async () => {
     return result;
   };
 
+  const fiatSign = (fiatCode) => {
+    let result = "";
+    fiatData.filter((fiat) => {
+      if (fiat.fiatCode === fiatCode) {
+        result = fiat.fiatSign;
+      }
+    });
+    return result;
+  };
+
   const convertedBalanceData = convertedBalanceDataFull.map(
     (convertedBalance) => ({
       id: convertedBalance.response.from,
@@ -98,10 +109,13 @@ Pocket.getInitialProps = async () => {
       amount: convertedBalance.response.amount,
       value: convertedBalance.response.value,
       fullFiatName: fullFiatName(convertedBalance.response.from.toLowerCase()),
+      fiatSign: fiatSign(convertedBalance.response.from.toLowerCase()),
     })
   );
 
-  return { coinData, convertedBalanceData };
+  const settingsCurrencySign = currencySettings[0].sign;
+
+  return { coinData, convertedBalanceData, settingsCurrencySign };
 };
 
 export default Pocket;
