@@ -68,7 +68,9 @@ function Prolo({ Component, pageProps }) {
             content="width=device-width, initial-scale=1.0"
           ></meta>
         </Head>
-        <Header appTitle={appTitle} authButtons={authButtons} />
+        <div className="Header">
+          <Header appTitle={appTitle} authButtons={authButtons} />
+        </div>
         <div className="Content">
           <Component
             {...pageProps}
@@ -76,7 +78,9 @@ function Prolo({ Component, pageProps }) {
             themeButtons={themeButtons}
           />
         </div>
-        <NavBar navButtons={navButtons} />
+        <div className="Footer">
+          <NavBar navButtons={navButtons} />
+        </div>
       </div>
     </UserContext.Provider>
   );

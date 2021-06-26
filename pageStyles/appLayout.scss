@@ -6,14 +6,31 @@
   height: 100%;
   width: 100%;
 }
-
+.Header {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+}
 .Content {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-
+  position: absolute;
+  overflow: auto;
+  left: 0;
+  top: 50px;
+  right: 0;
+  bottom: 0;
+}
+.Footer {
+  position: absolute;
   width: 100%;
+  bottom: 0;
+  overflow: hidden;
 }
 
 a {
