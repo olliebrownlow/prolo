@@ -1,31 +1,31 @@
 import styles from "./listing.module.scss";
 import { Edit3 } from "react-feather";
 
-const CoinList = (props) => {
-  const { roundTo2DP, coinData, settingsCurrencySign } = props;
+const FiatList = (props) => {
+  const { roundTo2DP, convertedBalanceData, settingsCurrencySign } = props;
 
   return (
     <>
-      {coinData.map((coin) => (
-        <div key={coin.id}>
+      {convertedBalanceData.map((fiatData) => (
+        <div key={fiatData.id}>
           <ul className={styles.listRow}>
             <li className={styles.logoContainer}>
               <img
                 className={styles.logo}
-                src={coin.logo_url}
-                alt={coin.name}
+                src={`./${fiatData.from.toLowerCase()}Flag.jpg`}
+                alt={fiatData.from}
               />
             </li>
             <li className={styles.name}>
-              {coin.name}
-              <div className={styles.amount}>{coin.amount}</div>
+              {fiatData.fullFiatName}
+              <div className={styles.hidden}>placeholder</div>
             </li>
             <li className={styles.totalValue}>
-              {settingsCurrencySign}
-              {roundTo2DP(coin.total)}
+              {fiatData.fiatSign}
+              {fiatData.amount}
               <div className={styles.amount}>
                 {settingsCurrencySign}
-                {roundTo2DP(+coin.price)}
+                {roundTo2DP(fiatData.value)}
               </div>
             </li>
             <li className={styles.editIcon}>
@@ -38,4 +38,4 @@ const CoinList = (props) => {
   );
 };
 
-export default CoinList;
+export default FiatList;

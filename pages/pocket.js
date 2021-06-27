@@ -2,6 +2,8 @@ import { useContext } from "react";
 import { UserContext } from "../lib/UserContext";
 import Loading from "../components/loading";
 import CoinList from "../components/coin-list";
+import FiatList from "../components/fiat-list";
+import PocketBalance from "../components/pocket-balance";
 import {
   getCoins,
   getConvertedAmount,
@@ -9,19 +11,44 @@ import {
   getCryptoData,
   getFiat,
 } from "../actions";
+import styles from "../pageStyles/pocket.module.scss";
 
 const Pocket = (props) => {
   const [user] = useContext(UserContext);
   const { coinData, convertedBalanceData, settingsCurrencySign } = props;
+
+  const roundTo2DP = (unrounded) => {
+    return (Math.round(unrounded * 100) / 100).toFixed(2);
+  };
+
   return (
     <>
       {user?.loading ? (
         <Loading />
       ) : (
         user?.issuer && (
-          <div>
-            <CoinList
+          <div className={styles.pocketLayout}>
+            <img
+              className={styles.currencyImg}
+              src={`./${coinData[0].currencyInUse}Flag.jpg`}
+              alt={coinData[0].currencyInUse}
+            />
+            <div className={styles.heading}>balance</div>
+            <PocketBalance
+              roundTo2DP={roundTo2DP}
               coinData={coinData}
+              convertedBalanceData={convertedBalanceData}
+              settingsCurrencySign={settingsCurrencySign}
+            />
+            <div className={styles.heading}>coin holdings</div>
+            <CoinList
+              roundTo2DP={roundTo2DP}
+              coinData={coinData}
+              settingsCurrencySign={settingsCurrencySign}
+            />
+            <div className={styles.heading}>fiat holdings</div>
+            <FiatList
+              roundTo2DP={roundTo2DP}
               convertedBalanceData={convertedBalanceData}
               settingsCurrencySign={settingsCurrencySign}
             />

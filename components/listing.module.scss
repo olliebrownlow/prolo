@@ -1,0 +1,36 @@
+.listRow li {
+  display: inline-block;
+  vertical-align: middle;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.totalValue {
+  width: 35%;
+  font-size: 18px;
+}
+.logoContainer {
+  width: 10%;
+}
+.editIcon {
+  width: 10%;
+}
+.name {
+  font-size: 18px;
+  width: 45%;
+}
+.amount {
+  color: grey;
+  font-size: 16px;
+}
+.logo {
+  position: relative;
+  display: block;
+  width: 25px;
+  left: -25px;
+  border: none;
+  // height:40px;
+}
+.hidden {
+  visibility: hidden;
+  font-size: 16px;
+}
