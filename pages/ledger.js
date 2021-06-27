@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { UserContext } from "../lib/UserContext";
 import Loading from "../components/loading";
-import styles from "../pageStyles/balances.module.scss";
+import styles from "../pageStyles/ledger.module.scss";
 
-const Balances = () => {
+const Ledger = () => {
   const [user] = useContext(UserContext);
 
   return (
@@ -13,7 +13,7 @@ const Balances = () => {
       ) : (
         user?.issuer && (
           <div className={styles.balances}>
-            <h1 className={styles.title}>balances</h1>
+            <h1 className={styles.title}>ledger</h1>
             <div className={styles.label}>Email</div>
             <div className={styles.profileInfo}>{user.email}</div>
 
@@ -26,4 +26,4 @@ const Balances = () => {
   );
 };
 
-export default Balances;
+export default Ledger;

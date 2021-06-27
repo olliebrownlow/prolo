@@ -19,8 +19,8 @@ const navButtons = [
     icon: <Home />,
   },
   {
-    label: "balances",
-    path: "/balances",
+    label: "ledger",
+    path: "/ledger",
     icon: <TrendingUp />,
   },
   {
