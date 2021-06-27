@@ -8,10 +8,10 @@
   align-items: center;
   max-width: 100%;
 }
-.refresh {
+.button {
   display: flex;
   justify-content: space-between;
-  padding: 5px 0 5px 0;
+  padding: 5px 0px 5px 0;
   border-radius: 5px;
   color: white;
   font-size: 18px;
@@ -20,6 +20,11 @@
   padding-right: 8px;
   background-color: red;
 }
-.refreshLogo {
+.listingAddButton {
+  margin-top: 20px;
+  margin-left: 1rem;
+  outline: none;
+}
+.logo {
   padding-left: 8px;
 }

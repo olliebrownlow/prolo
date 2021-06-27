@@ -3,7 +3,9 @@ import { UserContext } from "../lib/UserContext";
 import Loading from "../components/loading";
 import CoinList from "../components/coin-list";
 import FiatList from "../components/fiat-list";
+import AddButton from "../components/add-button";
 import PocketBalance from "../components/pocket-balance";
+import Link from "next/link";
 import {
   getCoins,
   getConvertedAmount,
@@ -28,11 +30,13 @@ const Pocket = (props) => {
       ) : (
         user?.issuer && (
           <div className={styles.pocketLayout}>
-            <img
-              className={styles.currencyImg}
-              src={`./${coinData[0].currencyInUse}Flag.jpg`}
-              alt={coinData[0].currencyInUse}
-            />
+            <Link href="/settings">
+              <img
+                className={styles.currencyImg}
+                src={`./${coinData[0].currencyInUse}Flag.jpg`}
+                alt={coinData[0].currencyInUse}
+              />
+            </Link>
             <div className={styles.heading}>balance</div>
             <PocketBalance
               roundTo2DP={roundTo2DP}
@@ -41,12 +45,14 @@ const Pocket = (props) => {
               settingsCurrencySign={settingsCurrencySign}
             />
             <div className={styles.heading}>coin holdings</div>
+            <AddButton buttonText={"add coin"}/>
             <CoinList
               roundTo2DP={roundTo2DP}
               coinData={coinData}
               settingsCurrencySign={settingsCurrencySign}
             />
             <div className={styles.heading}>fiat holdings</div>
+            <AddButton buttonText={"add fiat"}/>
             <FiatList
               roundTo2DP={roundTo2DP}
               convertedBalanceData={convertedBalanceData}

@@ -30,9 +30,6 @@ const Header = (props) => {
         <div className={styles.Header}>{props.appTitle}</div>
       </Link>
       {user?.issuer && !user?.loading ? (
-        //   <TextButton color="warning" size="sm" onPress={logout}>
-        //   logout
-        // </TextButton>
         <AuthButton
           auth={logout}
           key={logoutButton.path}

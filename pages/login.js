@@ -38,7 +38,7 @@ const Login = () => {
         // Set the UserContext to the now logged in user
         let userMetadata = await magic.user.getMetadata();
         await setUser(userMetadata);
-        Router.push("/balances");
+        Router.push("/ledger");
       }
     } catch (error) {
       setDisabled(false); // re-enable login button - user may have requested to edit their email
