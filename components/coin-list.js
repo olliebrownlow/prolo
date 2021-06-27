@@ -47,15 +47,15 @@ const CoinList = (props) => {
               </li>
               <li className={styles.coinName}>
                 {coin.name}
-                <div className={styles.coinAmount}>
-                  {settingsCurrencySign}
-                  {parseFloat(+coin.price).toPrecision(10)}
-                </div>
+                <div className={styles.coinAmount}>{coin.amount}</div>
               </li>
               <li className={styles.totalValue}>
                 {settingsCurrencySign}
-                {parseFloat(coin.total).toPrecision(10)}
-                <div className={styles.coinAmount}>{coin.amount}</div>
+                {roundTo2DP(coin.total)}
+                <div className={styles.coinAmount}>
+                  {settingsCurrencySign}
+                  {roundTo2DP(+coin.price)}
+                </div>
               </li>
               <li className={styles.editIcon}>
                 <Edit3 />
@@ -76,9 +76,7 @@ const CoinList = (props) => {
               </li>
               <li className={styles.coinName}>
                 {fiatData.fullFiatName}
-                <div className={styles.hidden}>
-                  placeholder
-                </div>
+                <div className={styles.hidden}>placeholder</div>
               </li>
               <li className={styles.totalValue}>
                 {fiatData.fiatSign}
