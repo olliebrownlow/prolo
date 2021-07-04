@@ -19,7 +19,7 @@ const EmailForm = ({ onEmailSubmit, disabled }) => {
         </h3>
         <div className={styles.inputWrapper}>
           <input
-            className={styles.input}
+            // className={styles.input}
             placeholder="user@email.com..."
             type="email"
             value={email}

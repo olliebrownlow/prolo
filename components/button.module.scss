@@ -12,19 +12,24 @@
   display: flex;
   justify-content: space-between;
   padding: 5px 0px 5px 0;
-  border-radius: 5px;
+  border-radius: 3px;
   color: white;
   font-size: 18px;
   height: 2rem;
   padding-left: 8px;
   padding-right: 8px;
   background-color: red;
+  outline: none;
 }
 .listingAddButton {
-  margin-top: 20px;
   margin-left: 1rem;
-  outline: none;
+  margin-top: 20px;
+}
+.modalAddButton {
+  padding: 5px 20px 5px 20px;
+  margin-bottom: 20px;
 }
 .logo {
   padding-left: 8px;
 }
+

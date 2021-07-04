@@ -3,15 +3,24 @@ import { Plus } from "react-feather";
 import styles from "./button.module.scss";
 
 const AddButton = (props) => {
-  const { buttonText } = props;
+  const { buttonText, showModal, showLogo, submitForm } = props;
   return (
     <>
       <div className={styles.buttons}>
-        <button className={styles.button + " " + `${styles.listingAddButton}`}>
+        <button
+          className={
+            styles.button +
+            " " +
+            `${showLogo ? styles.listingAddButton : styles.modalAddButton}`
+          }
+          onClick={showLogo ? showModal : submitForm}
+        >
           {buttonText}
-          <span className={styles.logo}>
-            <Plus size={18} />
-          </span>
+          {showLogo && (
+            <span className={styles.logo}>
+              <Plus size={18} />
+            </span>
+          )}
         </button>
       </div>
     </>

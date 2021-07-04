@@ -3,7 +3,7 @@ import { UserContext } from "../lib/UserContext";
 import Loading from "../components/loading";
 import CoinList from "../components/coin-list";
 import FiatList from "../components/fiat-list";
-import AddButton from "../components/add-button";
+import Modal from "../components/modal";
 import PocketBalance from "../components/pocket-balance";
 import Link from "next/link";
 import {
@@ -45,14 +45,18 @@ const Pocket = (props) => {
               settingsCurrencySign={settingsCurrencySign}
             />
             <div className={styles.heading}>coin holdings</div>
-            <AddButton buttonText={"add coin"}/>
+            <Modal buttonText={"add coin"} labelName={"coin"} data={coinData} />
             <CoinList
               roundTo2DP={roundTo2DP}
               coinData={coinData}
               settingsCurrencySign={settingsCurrencySign}
             />
             <div className={styles.heading}>fiat holdings</div>
-            <AddButton buttonText={"add fiat"}/>
+            <Modal
+              buttonText={"add fiat"}
+              labelName={"fiat"}
+              data={convertedBalanceData}
+            />
             <FiatList
               roundTo2DP={roundTo2DP}
               convertedBalanceData={convertedBalanceData}
@@ -105,11 +109,7 @@ Pocket.getInitialProps = async () => {
   await Promise.all(
     fiatData.map(async (item) => {
       convertedBalanceDataFull.push(
-        await getConvertedAmount(
-          item.fiatCode.toUpperCase(),
-          fiatConvert,
-          item.amount
-        )
+        await getConvertedAmount(item.code, fiatConvert, item.amount)
       );
     })
   );
@@ -117,8 +117,8 @@ Pocket.getInitialProps = async () => {
   const fullFiatName = (fiatCode) => {
     let result = "unknown currency";
     fiatData.filter((fiat) => {
-      if (fiat.fiatCode === fiatCode) {
-        result = fiat.fiatName;
+      if (fiat.code === fiatCode) {
+        result = fiat.name;
       }
     });
     return result;
@@ -127,8 +127,8 @@ Pocket.getInitialProps = async () => {
   const fiatSign = (fiatCode) => {
     let result = "";
     fiatData.filter((fiat) => {
-      if (fiat.fiatCode === fiatCode) {
-        result = fiat.fiatSign;
+      if (fiat.code === fiatCode) {
+        result = fiat.sign;
       }
     });
     return result;
@@ -141,8 +141,8 @@ Pocket.getInitialProps = async () => {
       to: convertedBalance.response.to,
       amount: convertedBalance.response.amount,
       value: convertedBalance.response.value,
-      fullFiatName: fullFiatName(convertedBalance.response.from.toLowerCase()),
-      fiatSign: fiatSign(convertedBalance.response.from.toLowerCase()),
+      fullFiatName: fullFiatName(convertedBalance.response.from),
+      fiatSign: fiatSign(convertedBalance.response.from),
     })
   );
 

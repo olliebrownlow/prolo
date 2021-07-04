@@ -1,8 +1,8 @@
 [
   {
-    "fiatCode": "gbp",
-    "fiatName": "british sterling",
+    "code": "GBP",
+    "name": "british sterling",
     "amount": 1378.98,
-    "fiatSign": "£"
+    "sign": "£"
   }
 ]

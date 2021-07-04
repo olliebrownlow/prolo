@@ -33,8 +33,38 @@ app.prepare().then(() => {
     return res.json(coinData);
   });
 
+  server.post("/api/v1/coins", (req, res) => {
+    const coin = req.body;
+    coinData.push(coin);
+    const pathToFile = path.join(__dirname, coinFilePath);
+    const stringifiedData = JSON.stringify(coinData, null, 2);
+
+    fs.writeFile(pathToFile, stringifiedData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+
+      return res.json("Coin has been successfully added :)");
+    });
+  });
+
   server.get("/api/v1/fiat", (req, res) => {
     return res.json(fiatData);
+  });
+
+  server.post("/api/v1/fiat", (req, res) => {
+    const fiat = req.body;
+    fiatData.push(fiat);
+    const pathToFile = path.join(__dirname, fiatFilePath);
+    const stringifiedData = JSON.stringify(fiatData, null, 2);
+
+    fs.writeFile(pathToFile, stringifiedData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+
+      return res.json("Fiat has been successfully added :)");
+    });
   });
 
   server.patch("/api/v1/currencySettings", (req, res) => {
