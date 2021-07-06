@@ -1,10 +1,8 @@
-import { useRouter } from "next/router";
 import { getCoinByCode, deleteCoin } from "../../../actions";
 import styles from "../../../pageStyles/coinPage.module.scss";
 
 const Coin = (props) => {
-  const { coin } = props;
-  const router = useRouter();
+  const { coin, logo_url } = props;
 
   const refreshData = () => {
     window.location = "/pocket";
@@ -18,16 +16,13 @@ const Coin = (props) => {
 
   return (
     <div className={styles.coinPageLayout}>
+      <img src={logo_url} alt={coin.name} />
       <div className={styles.coinName}>{coin.name}</div>
       <div className={styles.coinAmount}>{coin.amount}</div>
       <div className={styles.buttons}>
         <button
           className={styles.button}
-          onClick={() =>
-            handleDeleteCoin().then(() => {
-              router.push("/pocket");
-            })
-          }
+          onClick={() => handleDeleteCoin()}
           role="button"
         >
           delete
@@ -39,8 +34,9 @@ const Coin = (props) => {
 };
 
 Coin.getInitialProps = async ({ query }) => {
+  const logo_url = query.logo_url;
   const coin = await getCoinByCode(query.id);
-  return { coin };
+  return { coin, logo_url };
 };
 
 export default Coin;

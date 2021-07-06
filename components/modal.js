@@ -1,5 +1,4 @@
 import AddButton from "./add-button";
-import { useRouter } from "next/router";
 import React, { useState } from "react";
 import ModalContainer from "./modal-container";
 import { addCoin, addFiat } from "../actions";
@@ -7,7 +6,6 @@ import { addCoin, addFiat } from "../actions";
 const Modal = (props) => {
   const [isShown, setIsShown] = useState(false);
   const { buttonText, labelName, data } = props;
-  const router = useRouter();
 
   const showModal = () => {
     setIsShown(true);
@@ -29,10 +27,11 @@ const Modal = (props) => {
   };
 
   const handleAddCoinOrFiat = async (currency) => {
+    let res = "";
     if (currency.sign) {
-      const res = await addFiat(currency);
+      res = await addFiat(currency);
     } else {
-      const res = await addCoin(currency);
+      res = await addCoin(currency);
     }
     console.log(res)
     closeModal();

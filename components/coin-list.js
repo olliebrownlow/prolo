@@ -9,7 +9,15 @@ const CoinList = (props) => {
     <>
       {coinData.map((coin) => (
         <div key={coin.id}>
-          <Link href="/coins/[id]" as={`/coins/${coin.id}`}>
+          <Link
+            href={{
+              pathname: "/coins/[id]",
+              query: {
+                id: coin.id,
+                logo_url: coin.logo_url,
+              },
+            }}
+          >
             <ul className={styles.listRow}>
               <li className={styles.logoContainer}>
                 <img

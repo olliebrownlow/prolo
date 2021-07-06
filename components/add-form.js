@@ -12,7 +12,6 @@ const AddForm = (props) => {
     code: "",
     name: "",
     amount: "",
-    //url: "",
   };
 
   const [form, setForm] = useState(defaultData);
@@ -68,7 +67,6 @@ const AddForm = (props) => {
 
   const submitForm = () => {
     handleFormSubmit({ ...form });
-    // console.log(form);
   };
 
   return (
