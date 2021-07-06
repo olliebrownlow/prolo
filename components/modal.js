@@ -24,22 +24,19 @@ const Modal = (props) => {
     }
   };
 
-  const handleAddCoinOrFiat = (currency) => {
+  const refreshData = () => {
+    window.location = "/pocket";
+  };
+
+  const handleAddCoinOrFiat = async (currency) => {
     if (currency.sign) {
-      console.log("fiat");
-      addFiat(currency).then((fiat) => {
-        console.log(JSON.stringify(fiat));
-        closeModal();
-        router.push("/pocket");
-      });
+      const res = await addFiat(currency);
     } else {
-      console.log("coin");
-      addCoin(currency).then((coins) => {
-        console.log(JSON.stringify(coins));
-        closeModal();
-        router.push("/pocket");
-      });
+      const res = await addCoin(currency);
     }
+    console.log(res)
+    closeModal();
+    refreshData();
   };
 
   return (

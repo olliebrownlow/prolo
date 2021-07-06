@@ -4,5 +4,11 @@
     "name": "british sterling",
     "amount": 1378.98,
     "sign": "£"
+  },
+  {
+    "code": "EUR",
+    "name": "euros",
+    "amount": "5985.95566",
+    "sign": "€"
   }
 ]

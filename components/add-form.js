@@ -12,7 +12,7 @@ const AddForm = (props) => {
     code: "",
     name: "",
     amount: "",
-    // sign: "",
+    //url: "",
   };
 
   const [form, setForm] = useState(defaultData);

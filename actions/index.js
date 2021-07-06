@@ -30,6 +30,10 @@ export const getCoins = () => {
   return axios.get(`${BASE_URL}/api/v1/coins`).then((res) => res.data);
 };
 
+export const getCoinByCode = (code) => {
+  return axios.get(`${BASE_URL}/api/v1/coins/${code}`).then((res) => res.data);
+};
+
 export const getFiat = () => {
   return axios.get(`${BASE_URL}/api/v1/fiat`).then((res) => res.data);
 };
@@ -52,4 +56,10 @@ export const updateThemeSettings = (theme) => {
   return axios
     .patch(`${BASE_URL}/api/v1/themeSettings`, theme)
     .then((res) => console.log(res.data));
+};
+
+export const deleteCoin = (code) => {
+  return axios
+    .delete(`${BASE_URL}/api/v1/coins/${code}`)
+    .then((res) => res.data);
 };
