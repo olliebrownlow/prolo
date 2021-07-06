@@ -66,7 +66,12 @@ const AddForm = (props) => {
   };
 
   const submitForm = () => {
-    handleFormSubmit({ ...form });
+    if (form.amount == 0 || form.code == "" || form.name == "") {
+      alert("fields must not be left empty")
+      closeModal
+    } else {
+      handleFormSubmit({ ...form });
+    }
   };
 
   return (
