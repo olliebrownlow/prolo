@@ -55,6 +55,10 @@ function Prolo({ Component, pageProps }) {
       "--border",
       appTheme === "light" ? "#000000" : "#ffffff"
     );
+    root?.style.setProperty(
+      "--border-top",
+      appTheme === "light" ? "#000000" : "#ffffff"
+    );
   }, [appTheme]);
 
   return (

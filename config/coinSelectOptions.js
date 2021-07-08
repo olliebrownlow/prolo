@@ -22,6 +22,14 @@ const coinSelectOptions = [
     code: "[ADA]",
   },
   {
+    name: "ripple",
+    code: "[XRP]",
+  },
+  {
+    name: "polkadot",
+    code: "[DOT]",
+  },
+  {
     name: "decentraland",
     code: "[MANA]",
   },

@@ -28,7 +28,10 @@
   width: 25px;
   left: -25px;
   border: none;
-  // height:40px;
+}
+.withBackground {
+  background-color: white;
+  border-radius: 12.5px;
 }
 .hidden {
   visibility: hidden;

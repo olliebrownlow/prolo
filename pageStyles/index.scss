@@ -5,6 +5,8 @@
   $background-color: #000000;
   $color: #ffffff;
   $border: #ffffff;
+  $border-top: #ffffff;
+
 }
 
 html {
@@ -43,7 +45,6 @@ button {
   border: 1px solid var(--border);
   background-color: var(--background-color);
 }
-
 input,
 select {
   border: 1px solid red;
@@ -53,7 +54,13 @@ select {
   border-radius: 5px;
   background-color: white;
 }
-
+hr {
+  border-top: 3px solid var(--border-top);
+}
+p {
+  color: var(--background-color);
+  background-color: var(--color);;
+}
 img {
   border: 1px solid var(--border);
 }

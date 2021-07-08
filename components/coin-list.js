@@ -14,14 +14,24 @@ const CoinList = (props) => {
               pathname: "/coins/[id]",
               query: {
                 id: coin.id,
+                name: coin.name,
                 logo_url: coin.logo_url,
+                amount: coin.amount,
+                total: coin.total,
+                price: coin.price,
+                currencyInUse: coin.currencyInUse,
+                settingsCurrencySign: settingsCurrencySign,
               },
             }}
           >
             <ul className={styles.listRow}>
               <li className={styles.logoContainer}>
                 <img
-                  className={styles.logo}
+                  className={
+                    styles.logo +
+                    " " +
+                    `${coin.name === "polkadot" ? styles.withBackground : ""}`
+                  }
                   src={coin.logo_url}
                   alt={coin.name}
                 />
