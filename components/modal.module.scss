@@ -53,6 +53,22 @@
   width: 1px !important;
   white-space: nowrap !important;
 }
+.cancelButton {
+  float: right;
+  background-color: white;
+  color: red;
+  font-size: 18px;
+  border-radius: 3px;
+  outline: none;
+  border: 1px solid red;
+  padding: 5px 20px 5px 20px;
+  margin-bottom: 20px;
+}
+.solidDivider {
+  border-top: 3px solid white;
+  margin-bottom: 20px;
+  max-width: 80%;
+}
 .scrollLock {
   overflow: hidden;
   margin-right: 17px;

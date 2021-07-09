@@ -67,8 +67,8 @@ const AddForm = (props) => {
 
   const submitForm = () => {
     if (form.amount == 0 || form.code == "" || form.name == "") {
-      alert("fields must not be left empty")
-      closeModal
+      alert("fields must not be left empty");
+      closeModal;
     } else {
       handleFormSubmit({ ...form });
     }
@@ -120,10 +120,6 @@ const AddForm = (props) => {
         </div>
       </form>
       <AddButton buttonText={"add"} showLogo={false} submitForm={submitForm} />
-      <hr className={styles.solidDivider} />
-      <button className={styles.cancelButton} onClick={closeModal}>
-        cancel
-      </button>
     </>
   );
 };

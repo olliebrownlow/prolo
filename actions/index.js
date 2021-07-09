@@ -63,3 +63,9 @@ export const deleteCoin = (code) => {
     .delete(`${BASE_URL}/api/v1/coins/${code}`)
     .then((res) => res.data);
 };
+
+export const deleteFiat = (code) => {
+  return axios
+    .delete(`${BASE_URL}/api/v1/fiat/${code}`)
+    .then((res) => res.data);
+};

@@ -1,6 +1,6 @@
 import styles from "./listing.module.scss";
 import Link from "next/link";
-import { Edit3 } from "react-feather";
+import { Edit2, Edit3 } from "react-feather";
 
 const CoinList = (props) => {
   const { roundTo2DP, coinData, settingsCurrencySign } = props;
@@ -49,7 +49,7 @@ const CoinList = (props) => {
                 </div>
               </li>
               <li className={styles.editIcon}>
-                <Edit3 />
+                <Edit2 />
               </li>
             </ul>
           </Link>

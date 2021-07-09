@@ -28,5 +28,35 @@
     "code": "ADA",
     "name": "cardano",
     "amount": "55"
+  },
+  {
+    "code": "DOT",
+    "name": "polkadot",
+    "amount": "53"
+  },
+  {
+    "code": "MANA",
+    "name": "decentraland",
+    "amount": "65"
+  },
+  {
+    "code": "DOGE",
+    "name": "dogecoin",
+    "amount": "555"
+  },
+  {
+    "code": "LTC",
+    "name": "litecoin",
+    "amount": "25"
+  },
+  {
+    "code": "ETH",
+    "name": "ethereum",
+    "amount": "2"
+  },
+  {
+    "code": "XRP",
+    "name": "ripple",
+    "amount": "58"
   }
 ]
