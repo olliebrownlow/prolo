@@ -1,20 +1,20 @@
 [
   {
-    "code": "GBP",
-    "name": "british sterling",
-    "amount": 1378.98,
-    "sign": "£"
-  },
-  {
     "code": "USD",
     "name": "american dollars",
     "amount": "589",
     "sign": "$"
   },
   {
+    "code": "GBP",
+    "name": "british sterling",
+    "amount": "1500",
+    "sign": "£"
+  },
+  {
     "code": "EUR",
     "name": "euros",
-    "amount": "1965",
+    "amount": "5585.65",
     "sign": "€"
   }
 ]

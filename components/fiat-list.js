@@ -33,7 +33,7 @@ const FiatList = (props) => {
               </li>
               <li className={styles.name}>
                 {fiatData.fullFiatName}
-                <div className={styles.hidden}>placeholder</div>
+                {/* <div className={styles.hidden}>placeholder</div> */}
               </li>
               <li className={styles.totalValue}>
                 {fiatData.fiatSign}

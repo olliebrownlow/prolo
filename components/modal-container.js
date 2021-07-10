@@ -2,6 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import styles from "./modal.module.scss";
 import AddForm from "./add-form";
+import NoSupport from "./no-support";
+import coinSelectOptions from "../config/coinSelectOptions";
+import fiatSelectOptions from "../config/fiatSelectOptions";
 
 const ModalContainer = (props) => {
   const {
@@ -22,17 +25,25 @@ const ModalContainer = (props) => {
             <path d="M 10,10 L 30,30 M 30,10 L 10,30" />
           </svg>
         </button>
-        <AddForm
-          handleFormSubmit={handleFormSubmit}
-          title={title}
-          labelName={labelName}
-          closeModal={closeModal}
-          data={data}
-        />
-        <hr className={styles.solidDivider} />
-        <button className={styles.cancelButton} onClick={closeModal}>
-          cancel
-        </button>
+        {(coinSelectOptions.length === data.length && labelName === "coin") ||
+        (fiatSelectOptions.length === data.length && labelName === "fiat") ? (
+          <NoSupport labelName={labelName} title={title} />
+        ) : (
+          <>
+            <AddForm
+              handleFormSubmit={handleFormSubmit}
+              title={title}
+              labelName={labelName}
+              closeModal={closeModal}
+              data={data}
+            />
+            {/* )} */}
+            <hr className={styles.solidDivider} />
+            <button className={styles.cancelButton} onClick={closeModal}>
+              cancel
+            </button>
+          </>
+        )}
       </div>
     </aside>,
     document.body

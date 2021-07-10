@@ -111,11 +111,12 @@ const AddForm = (props) => {
             onChange={handleChange}
             value={form.amount}
             name="amount"
-            type="number"
+            type="tel"
             required
             className={styles.formControl}
             id="amount"
             placeholder="2.7865..."
+            maxLength="12"
           />
         </div>
       </form>

@@ -1,7 +1,7 @@
 [
   {
-    "currencyCode": "gbp",
-    "currencyName": "british sterling",
-    "sign": "£"
+    "currencyCode": "usd",
+    "currencyName": "american dollars",
+    "sign": "$"
   }
 ]
