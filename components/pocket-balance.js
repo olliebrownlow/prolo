@@ -8,9 +8,21 @@ const PocketBalance = (props) => {
     settingsCurrencySign,
   } = props;
 
-  const balance = () => {
+  // when user has no coins, an
+  // empty array must be returned for 
+  // the balance function to reliably reduce,
+  // due to the lack of a "total" value.
+  const emptyArrayIfNeeded = () => {
+    if (coinData[0].total) {
+      return coinData;
+    } else {
+      return [];
+    }
+  };
+
+  const balance = (array) => {
     const unrounded =
-      coinData.reduce(function (prev, next) {
+      array.reduce(function (prev, next) {
         return prev + next.total;
       }, 0) +
       convertedBalanceData.reduce(function (prev, next) {
@@ -24,7 +36,7 @@ const PocketBalance = (props) => {
   return (
     <div className={styles.pocketBalance}>
       {settingsCurrencySign}
-      {balance()}
+      {balance(emptyArrayIfNeeded())}
     </div>
   );
 };

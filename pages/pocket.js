@@ -69,7 +69,7 @@ const Pocket = (props) => {
   );
 };
 
-Pocket.getInitialProps = async () => {
+export async function getServerSideProps() {
   const coins = await getCoins();
   const currencySettings = await getCurrencySettings();
   const fiatConvert = currencySettings[0].currencyCode.toUpperCase();
@@ -80,7 +80,12 @@ Pocket.getInitialProps = async () => {
   });
   const coinCodes = coinCodeArray.join(",");
 
-  const coinDataFull = await getCryptoData(coinCodes, fiatConvert);
+  let coinDataFull;
+  if (coinCodes.length > 0) {
+    coinDataFull = await getCryptoData(coinCodes, fiatConvert);
+  } else {
+    coinDataFull = [];
+  }
 
   const amount = (code) => {
     let result = 0;
@@ -92,15 +97,24 @@ Pocket.getInitialProps = async () => {
     return result;
   };
 
-  const coinData = coinDataFull.map((coin) => ({
-    id: coin.id,
-    name: coin.name.toLowerCase(),
-    logo_url: coin.logo_url,
-    price: coin.price,
-    amount: amount(coin.id),
-    total: amount(coin.id) * coin.price,
-    currencyInUse: currencySettings[0].currencyCode,
-  }));
+  let coinData;
+  if (coinDataFull.length > 0) {
+    coinData = coinDataFull.map((coin) => ({
+      id: coin.id,
+      name: coin.name.toLowerCase(),
+      logo_url: coin.logo_url,
+      price: coin.price,
+      amount: amount(coin.id),
+      total: amount(coin.id) * coin.price,
+      currencyInUse: currencySettings[0].currencyCode,
+    }));
+  } else {
+    coinData = [
+      {
+        currencyInUse: currencySettings[0].currencyCode,
+      },
+    ];
+  }
 
   const fiatData = await getFiat();
 
@@ -148,7 +162,17 @@ Pocket.getInitialProps = async () => {
 
   const settingsCurrencySign = currencySettings[0].sign;
 
-  return { coinData, convertedBalanceData, settingsCurrencySign };
-};
+  // console.log(coinData);
+  // console.log(convertedBalanceData);
+  // console.log(settingsCurrencySign);
+
+  return {
+    props: {
+      coinData,
+      convertedBalanceData,
+      settingsCurrencySign,
+    },
+  };
+}
 
 export default Pocket;

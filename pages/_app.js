@@ -28,7 +28,7 @@ function Prolo({ Component, pageProps }) {
       if (isLoggedIn) {
         magic.user.getMetadata().then((userData) => setUser(userData));
       } else {
-        // Router.push("/login");
+        Router.push("/login");
         setUser({ user: null });
       }
     });
@@ -89,10 +89,5 @@ function Prolo({ Component, pageProps }) {
     </UserContext.Provider>
   );
 }
-
-Prolo.getInitialProps = async (appContext) => {
-  const appProps = await App.getInitialProps(appContext);
-  return { ...appProps };
-};
 
 export default Prolo;

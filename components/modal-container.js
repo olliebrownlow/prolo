@@ -37,7 +37,6 @@ const ModalContainer = (props) => {
               closeModal={closeModal}
               data={data}
             />
-            {/* )} */}
             <hr className={styles.solidDivider} />
             <button className={styles.cancelButton} onClick={closeModal}>
               cancel

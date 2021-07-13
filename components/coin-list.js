@@ -5,9 +5,20 @@ import { Edit2, Edit3 } from "react-feather";
 const CoinList = (props) => {
   const { roundTo2DP, coinData, settingsCurrencySign } = props;
 
+  // when user has no coins, an
+  // empty array must be returned for
+  // reliable mapping.
+  const emptyArrayIfNeeded = () => {
+    if (coinData[0].total) {
+      return coinData;
+    } else {
+      return [];
+    }
+  };
+
   return (
     <>
-      {coinData.map((coin) => (
+      {emptyArrayIfNeeded().map((coin) => (
         <div key={coin.id}>
           <Link
             href={{

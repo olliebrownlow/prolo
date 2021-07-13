@@ -81,10 +81,16 @@ const Settings = (props) => {
   );
 };
 
-Settings.getInitialProps = async () => {
+export async function getStaticProps() {
   const currency = await getCurrencySettings();
   const theme = await getThemeSettings();
-  return { currency, theme };
-};
+
+  return {
+    props: {
+      currency,
+      theme,
+    },
+  };
+}
 
 export default Settings;
