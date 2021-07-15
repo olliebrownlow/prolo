@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { UserContext } from "../lib/UserContext";
-import App from "next/app";
+// import App from "next/app";
 import Router from "next/router";
 import Head from "next/head";
 import Header from "../components/header";

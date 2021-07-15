@@ -9,7 +9,7 @@ const PocketBalance = (props) => {
   } = props;
 
   // when user has no coins, an
-  // empty array must be returned for 
+  // empty array must be returned for
   // the balance function to reliably reduce,
   // due to the lack of a "total" value.
   const emptyArrayIfNeeded = () => {
@@ -34,10 +34,13 @@ const PocketBalance = (props) => {
   };
 
   return (
-    <div className={styles.pocketBalance}>
-      {settingsCurrencySign}
-      {balance(emptyArrayIfNeeded())}
-    </div>
+    <>
+      <div className={styles.pocketBalance}>
+        {settingsCurrencySign}
+        {balance(emptyArrayIfNeeded())}
+      </div>
+      <hr className={styles.solidDivider} />
+    </>
   );
 };
 
