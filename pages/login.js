@@ -10,9 +10,9 @@ const Login = () => {
   const [disabled, setDisabled] = useState(false);
   const [user, setUser] = useContext(UserContext);
 
-  // Redirec to /balances if the user is logged in
+  // Redirec to /ledger if the user is logged in
   useEffect(() => {
-    user?.issuer && Router.push("/balances");
+    user?.issuer && Router.push("/ledger");
   }, [user]);
 
   async function handleLoginWithEmail(email) {

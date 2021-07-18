@@ -1,6 +1,12 @@
+.ledgerLayout {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+}
 .balances {
   max-width: 100%;
-  padding: 1rem
+  padding: 1rem;
 }
 .title {
   font-size: 36px;
@@ -14,4 +20,13 @@
 .profileInfo {
   font-size: 17px;
   word-wrap: break-word;
+}
+.currencyImg {
+  display: block;
+  margin-left: auto;
+  margin-top: 1rem;
+  max-width: 40px;
+  max-height: 32px;
+  border-radius: 16px;
+  margin-right: 1rem;
 }

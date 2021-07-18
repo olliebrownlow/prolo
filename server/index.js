@@ -10,12 +10,14 @@ const currencyFilePath = "./currencySettingsData.json";
 const themeFilePath = "./themeSettingsData.json";
 const coinFilePath = "./coinData.json";
 const fiatFilePath = "./fiatData.json";
+const balanceFilePath = "./balanceData.json";
 fs = require("fs");
 path = require("path");
 const currencySettingsData = require(currencyFilePath);
 const themeSettingsData = require(themeFilePath);
 const coinData = require(coinFilePath);
 const fiatData = require(fiatFilePath);
+const balanceData = require(balanceFilePath);
 
 app.prepare().then(() => {
   const server = express();
@@ -115,6 +117,28 @@ app.prepare().then(() => {
 
       return res.json("Fiat has been successfully added :)");
     });
+  });
+
+  server.get("/api/v1/balance", (req, res) => {
+    return res.json(balanceData);
+  });
+
+  server.patch("/api/v1/balance", (req, res) => {
+    const balance = req.body[0];
+
+    balanceData[0] = balance;
+
+    const pathToFile = path.join(__dirname, balanceFilePath);
+    const stringifiedData = JSON.stringify(balanceData, null, 2);
+
+    fs.writeFile(pathToFile, stringifiedData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+
+      return res.json("Balance has been successfully updated :)");
+    });
+    return balance;
   });
 
   server.patch("/api/v1/currencySettings", (req, res) => {

@@ -61,6 +61,10 @@ function Prolo({ Component, pageProps }) {
     );
   }, [appTheme]);
 
+  const roundTo2DP = (unrounded) => {
+    return (Math.round(unrounded * 100) / 100).toFixed(2);
+  };
+
   return (
     <UserContext.Provider value={[user, setUser]}>
       <div className="Layout">
@@ -80,6 +84,7 @@ function Prolo({ Component, pageProps }) {
             {...pageProps}
             currencyButtons={currencyButtons}
             themeButtons={themeButtons}
+            roundTo2DP={roundTo2DP}
           />
         </div>
         <div className="Footer">

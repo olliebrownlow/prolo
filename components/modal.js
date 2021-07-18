@@ -31,10 +31,9 @@ const Modal = (props) => {
     if (currency.sign) {
       res = await addFiat(currency);
     } else {
-      
       res = await addCoin(currency);
     }
-    console.log(res)
+    console.log(res);
     closeModal();
     refreshData();
   };

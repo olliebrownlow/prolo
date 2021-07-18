@@ -17,11 +17,12 @@ import styles from "../pageStyles/pocket.module.scss";
 
 const Pocket = (props) => {
   const [user] = useContext(UserContext);
-  const { coinData, convertedBalanceData, settingsCurrencySign } = props;
-
-  const roundTo2DP = (unrounded) => {
-    return (Math.round(unrounded * 100) / 100).toFixed(2);
-  };
+  const {
+    coinData,
+    convertedBalanceData,
+    settingsCurrencySign,
+    roundTo2DP,
+  } = props;
 
   return (
     <>

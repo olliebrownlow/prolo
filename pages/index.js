@@ -12,7 +12,7 @@ const Home = () => {
       ) : (
         user?.issuer && (
           <>
-            <div>you're logged in!</div>
+            <div>logged in as {user.email}</div>
           </>
         )
       )}
