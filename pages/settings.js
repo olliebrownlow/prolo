@@ -4,7 +4,6 @@ import Loading from "../components/loading";
 import React from "react";
 import CurrencySettings from "../components/currency-settings";
 import ThemeSettings from "../components/theme-settings";
-import RefreshButton from "../components/refresh-button";
 import styles from "../pageStyles/settings.module.scss";
 import {
   getCurrencySettings,
@@ -12,6 +11,7 @@ import {
   getThemeSettings,
   updateThemeSettings,
 } from "../actions/index";
+import useSWR, { mutate } from "swr";
 
 const Settings = (props) => {
   const [user] = useContext(UserContext);
@@ -54,6 +54,7 @@ const Settings = (props) => {
     ];
     setThemeInUse(newTheme);
     handleUpdateTheme(newTheme);
+    mutate("http://localhost:3000/api/v1/themeSettings");
   };
 
   return (
@@ -73,7 +74,6 @@ const Settings = (props) => {
               themeInUse={themeInUse}
               themeButtons={props.themeButtons}
             />
-            <RefreshButton />
           </div>
         )
       )}
