@@ -1,13 +1,27 @@
+import { useState, useEffect } from "react";
 import { useContext } from "react";
 import Link from "next/link";
 import { UserContext } from "../lib/UserContext";
 import Loading from "../components/loading";
-import { getBalance } from "../actions";
+import useSWR, { mutate } from "swr";
+import axios from "axios";
 import styles from "../pageStyles/ledger.module.scss";
 
+const fetcher = (url) => axios.get(url);
+
 const Ledger = (props) => {
-  const { balance, roundTo2DP } = props;
+  const { roundTo2DP } = props;
   const [user] = useContext(UserContext);
+  const [balanceData, setBalanceData] = useState([]);
+
+  const BASE_URL = "http://localhost:3000";
+
+  const { data, error } = useSWR(`${BASE_URL}/api/v1/balance`, fetcher);
+
+  useEffect(async () => {
+    // mutate("http://localhost:3000/api/v1/balance");
+    setBalanceData(data.data[0]);
+  }, [data, balanceData]);
 
   return (
     <>
@@ -19,14 +33,14 @@ const Ledger = (props) => {
             <Link href="/settings">
               <img
                 className={styles.currencyImg}
-                src={`./${balance[0].code}Flag.jpg`}
-                alt={balance[0].code}
+                src={`./${balanceData.code}Flag.jpg`}
+                alt={balanceData.code}
               />
             </Link>
             <div className={styles.balances}>
               <h1 className={styles.title}>ledger</h1>
               <h1 className={styles.title}>
-                {balance[0].sign} {roundTo2DP(balance[0].amount)}
+                {balanceData.sign} {roundTo2DP(balanceData.amount)}
               </h1>
             </div>
           </div>
@@ -35,16 +49,5 @@ const Ledger = (props) => {
     </>
   );
 };
-
-export async function getServerSideProps() {
-  const balance = await getBalance();
-
-  // console.log(balance);
-  return {
-    props: {
-      balance,
-    },
-  };
-}
 
 export default Ledger;

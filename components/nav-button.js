@@ -6,9 +6,11 @@ import styles from "./navButton.module.scss";
 const NavButton = (props) => (
   <Link href={props.path}>
     <div
-      className={styles.NavButton + " " + `${
-        props.router.pathname === props.path ? styles.active : ""
-      }`}
+      className={
+        styles.NavButton +
+        " " +
+        `${props.router.pathname === props.path ? styles.active : ""}`
+      }
     >
       <div className={styles.Icon}>{props.icon}</div>
       <span className={styles.Label}>{props.label}</span>

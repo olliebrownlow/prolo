@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { UserContext } from "../lib/UserContext";
-// import App from "next/app";
 import Router from "next/router";
 import Head from "next/head";
 import Header from "../components/header";
@@ -10,7 +9,6 @@ import authButtons from "../config/authButtons";
 import currencyButtons from "../config/currencyButtons";
 import themeButtons from "../config/themeButtons";
 import { magic } from "../lib/magic";
-import { getThemeSettings } from "../actions";
 import useSWR from "swr";
 import axios from "axios";
 
@@ -21,11 +19,15 @@ const fetcher = (url) => axios.get(url);
 
 function Prolo({ Component, pageProps }) {
   const [user, setUser] = useState();
-  const BASE_URL = "http://localhost:3000";
-
-  const [appTheme, setAppTheme] = useState();
+  const [appTheme, setAppTheme] = useState("light");
   const appTitle = `pro.lo-`;
-  const { data, error } = useSWR(`${BASE_URL}/api/v1/themeSettings`, fetcher);
+
+  const BASE_URL = "http://localhost:3000";
+  
+  const { data: themeSettings, error: themeSettingsError } = useSWR(
+    `${BASE_URL}/api/v1/themeSettings`,
+    fetcher
+  );
 
   // If isLoggedIn is true, set the UserContext with user data
   // Otherwise, redirect to /login and set UserContext to { user: null }
@@ -42,7 +44,7 @@ function Prolo({ Component, pageProps }) {
   }, []);
 
   useEffect(async () => {
-    setAppTheme(data.data[0].theme);
+    setAppTheme(themeSettings.data[0].theme);
     const root = document.documentElement;
     root?.style.setProperty(
       "--background-color",
@@ -64,34 +66,7 @@ function Prolo({ Component, pageProps }) {
       "--border-top",
       appTheme === "light" ? "#000000" : "#ffffff"
     );
-  }, [data, appTheme]);
-
-  // useEffect(async () => {
-  //   const theme = await getThemeSettings();
-  //   setAppTheme(theme[0].theme);
-
-  //   const root = document.documentElement;
-  //   root?.style.setProperty(
-  //     "--background-color",
-  //     appTheme === "dark" ? "#000000" : "#ffffff"
-  //   );
-  //   root?.style.setProperty(
-  //     "--background",
-  //     appTheme === "dark" ? "#000000" : "#ffffff"
-  //   );
-  //   root?.style.setProperty(
-  //     "--color",
-  //     appTheme === "light" ? "#000000" : "#ffffff"
-  //   );
-  //   root?.style.setProperty(
-  //     "--border",
-  //     appTheme === "light" ? "#000000" : "#ffffff"
-  //   );
-  //   root?.style.setProperty(
-  //     "--border-top",
-  //     appTheme === "light" ? "#000000" : "#ffffff"
-  //   );
-  // }, [appTheme]);
+  }, [themeSettings, appTheme]);
 
   const roundTo2DP = (unrounded) => {
     return (Math.round(unrounded * 100) / 100).toFixed(2);
@@ -103,12 +78,6 @@ function Prolo({ Component, pageProps }) {
         <Head>
           <title>pro.lo- cryptocurrency profit/loss tracker</title>
           <link rel="icon" href="/prolo_black_symbolWhite_logo.png" />
-          <link
-            rel="preload"
-            href="/api/v1/themeSettings"
-            as="fetch"
-            crossOrigin="anonymous"
-          ></link>
           <meta
             name="viewport"
             content="width=device-width, initial-scale=1.0"
@@ -117,7 +86,6 @@ function Prolo({ Component, pageProps }) {
         <div className="Header">
           <Header appTitle={appTitle} authButtons={authButtons} />
         </div>
-        {/* <pre>{JSON.stringify(data.data[0].theme, null, 2)}</pre>; */}
         <div className="Content">
           <Component
             {...pageProps}
