@@ -38,6 +38,7 @@ const Settings = (props) => {
 
     setCurrencyInUse(newCurrency);
     handleUpdateCurrency(newCurrency);
+    mutate("http://localhost:3000/api/v1/currencySettings");
   };
 
   const handleUpdateTheme = (theme) => {

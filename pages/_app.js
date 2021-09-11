@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { UserContext } from "../lib/UserContext";
+import CurrencySettingsContext from "../context/currencySettings";
 import Router from "next/router";
 import Head from "next/head";
 import Header from "../components/header";
@@ -20,12 +21,19 @@ const fetcher = (url) => axios.get(url);
 function Prolo({ Component, pageProps }) {
   const [user, setUser] = useState();
   const [appTheme, setAppTheme] = useState("light");
+  const [appCurrencySign, setAppCurrencySign] = useState("€");
+  const [appCurrencyCode, setAppCurrencyCode] = useState("eur");
   const appTitle = `pro.lo-`;
 
   const BASE_URL = "http://localhost:3000";
-  
+
   const { data: themeSettings, error: themeSettingsError } = useSWR(
     `${BASE_URL}/api/v1/themeSettings`,
+    fetcher
+  );
+
+  const { data: currencySettings, error: currencySettingsError } = useSWR(
+    `${BASE_URL}/api/v1/currencySettings`,
     fetcher
   );
 
@@ -68,36 +76,48 @@ function Prolo({ Component, pageProps }) {
     );
   }, [themeSettings, appTheme]);
 
+  useEffect(async () => {
+    setAppCurrencySign(currencySettings.data[0].sign);
+    setAppCurrencyCode(currencySettings.data[0].currencyCode);
+  }, [currencySettings, appCurrencySign, appCurrencyCode]);
+
   const roundTo2DP = (unrounded) => {
     return (Math.round(unrounded * 100) / 100).toFixed(2);
   };
 
   return (
     <UserContext.Provider value={[user, setUser]}>
-      <div className="Layout">
-        <Head>
-          <title>pro.lo- cryptocurrency profit/loss tracker</title>
-          <link rel="icon" href="/prolo_black_symbolWhite_logo.png" />
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0"
-          ></meta>
-        </Head>
-        <div className="Header">
-          <Header appTitle={appTitle} authButtons={authButtons} />
+      <CurrencySettingsContext.Provider
+        value={{
+          appCurrencySign: appCurrencySign,
+          appCurrencyCode: appCurrencyCode,
+        }}
+      >
+        <div className="Layout">
+          <Head>
+            <title>pro.lo- cryptocurrency profit/loss tracker</title>
+            <link rel="icon" href="/prolo_black_symbolWhite_logo.png" />
+            <meta
+              name="viewport"
+              content="width=device-width, initial-scale=1.0"
+            ></meta>
+          </Head>
+          <div className="Header">
+            <Header appTitle={appTitle} authButtons={authButtons} />
+          </div>
+          <div className="Content">
+            <Component
+              {...pageProps}
+              currencyButtons={currencyButtons}
+              themeButtons={themeButtons}
+              roundTo2DP={roundTo2DP}
+            />
+          </div>
+          <div className="Footer">
+            <NavBar navButtons={navButtons} />
+          </div>
         </div>
-        <div className="Content">
-          <Component
-            {...pageProps}
-            currencyButtons={currencyButtons}
-            themeButtons={themeButtons}
-            roundTo2DP={roundTo2DP}
-          />
-        </div>
-        <div className="Footer">
-          <NavBar navButtons={navButtons} />
-        </div>
-      </div>
+      </CurrencySettingsContext.Provider>
     </UserContext.Provider>
   );
 }

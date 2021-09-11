@@ -10,11 +10,6 @@
     "amount": "972.14813889"
   },
   {
-    "code": "ADA",
-    "name": "cardano",
-    "amount": "347.375002"
-  },
-  {
     "code": "LTC",
     "name": "litecoin",
     "amount": "0.63248"
@@ -23,5 +18,10 @@
     "code": "MANA",
     "name": "decentraland",
     "amount": "354.79617"
+  },
+  {
+    "code": "ADA",
+    "name": "cardano",
+    "amount": "0.0001"
   }
 ]

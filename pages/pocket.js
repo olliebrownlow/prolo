@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { UserContext } from "../lib/UserContext";
+import CurrencySettingsContext from "../context/currencySettings";
 import Loading from "../components/loading";
 import CoinList from "../components/coin-list";
 import FiatList from "../components/fiat-list";
@@ -17,10 +18,12 @@ import styles from "../pageStyles/pocket.module.scss";
 
 const Pocket = (props) => {
   const [user] = useContext(UserContext);
+  const { appCurrencySign, appCurrencyCode } = useContext(
+    CurrencySettingsContext
+  );
   const {
     coinData,
     convertedBalanceData,
-    settingsCurrencySign,
     roundTo2DP,
   } = props;
 
@@ -34,8 +37,8 @@ const Pocket = (props) => {
             <Link href="/settings">
               <img
                 className={styles.currencyImg}
-                src={`./${coinData[0].currencyInUse}Flag.jpg`}
-                alt={coinData[0].currencyInUse}
+                src={`./${appCurrencyCode}Flag.jpg`}
+                alt={appCurrencyCode}
               />
             </Link>
             <div className={styles.heading}>balance</div>
@@ -43,14 +46,14 @@ const Pocket = (props) => {
               roundTo2DP={roundTo2DP}
               coinData={coinData}
               convertedBalanceData={convertedBalanceData}
-              settingsCurrencySign={settingsCurrencySign}
+              settingsCurrencySign={appCurrencySign}
             />
             <div className={styles.heading}>coin holdings</div>
             <Modal buttonText={"add coin"} labelName={"coin"} data={coinData} />
             <CoinList
               roundTo2DP={roundTo2DP}
               coinData={coinData}
-              settingsCurrencySign={settingsCurrencySign}
+              settingsCurrencySign={appCurrencySign}
             />
             <div className={styles.heading}>fiat holdings</div>
             <Modal
@@ -61,7 +64,7 @@ const Pocket = (props) => {
             <FiatList
               roundTo2DP={roundTo2DP}
               convertedBalanceData={convertedBalanceData}
-              settingsCurrencySign={settingsCurrencySign}
+              settingsCurrencySign={appCurrencySign}
             />
           </div>
         )
@@ -72,6 +75,7 @@ const Pocket = (props) => {
 
 export async function getServerSideProps() {
   const coins = await getCoins();
+
   const currencySettings = await getCurrencySettings();
   const fiatConvert = currencySettings[0].currencyCode.toUpperCase();
 
@@ -161,17 +165,13 @@ export async function getServerSideProps() {
     })
   );
 
-  const settingsCurrencySign = currencySettings[0].sign;
-
   // console.log(coinData);
   // console.log(convertedBalanceData);
-  // console.log(settingsCurrencySign);
 
   return {
     props: {
       coinData,
       convertedBalanceData,
-      settingsCurrencySign,
     },
   };
 }
