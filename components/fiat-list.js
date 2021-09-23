@@ -5,9 +5,13 @@ import { Edit2, Edit3 } from "react-feather";
 const FiatList = (props) => {
   const { roundTo2DP, convertedBalanceData, settingsCurrencySign } = props;
 
+  const orderedArray = () => {
+    return convertedBalanceData.sort((a, b) => b.value - a.value);
+  };
+
   return (
     <>
-      {convertedBalanceData.map((fiatData) => (
+      {orderedArray().map((fiatData) => (
         <div key={fiatData.id}>
           <Link
             href={{

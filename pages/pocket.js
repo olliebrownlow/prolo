@@ -21,11 +21,7 @@ const Pocket = (props) => {
   const { appCurrencySign, appCurrencyCode } = useContext(
     CurrencySettingsContext
   );
-  const {
-    coinData,
-    convertedBalanceData,
-    roundTo2DP,
-  } = props;
+  const { coinData, convertedBalanceData, roundTo2DP } = props;
 
   return (
     <>
@@ -91,6 +87,7 @@ export async function getServerSideProps() {
   } else {
     coinDataFull = [];
   }
+  // console.log(coinDataFull);
 
   const amount = (code) => {
     let result = 0;

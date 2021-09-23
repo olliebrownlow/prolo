@@ -8,9 +8,9 @@ const CoinList = (props) => {
   // when user has no coins, an
   // empty array must be returned for
   // reliable mapping.
-  const emptyArrayIfNeeded = () => {
+  const emptyOrOrderedArray = () => {
     if (coinData[0].total) {
-      return coinData;
+      return coinData.sort((a, b) => b.total - a.total);
     } else {
       return [];
     }
@@ -18,7 +18,7 @@ const CoinList = (props) => {
 
   return (
     <>
-      {emptyArrayIfNeeded().map((coin) => (
+      {emptyOrOrderedArray().map((coin) => (
         <div key={coin.id}>
           <Link
             href={{

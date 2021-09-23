@@ -20,8 +20,13 @@
     "amount": "354.79617"
   },
   {
+    "code": "BTC",
+    "name": "bitcoin",
+    "amount": "0.0000000001"
+  },
+  {
     "code": "ADA",
     "name": "cardano",
-    "amount": "0.0001"
+    "amount": "300.81068679"
   }
 ]
