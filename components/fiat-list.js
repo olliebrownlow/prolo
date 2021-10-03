@@ -3,10 +3,10 @@ import Link from "next/link";
 import { Edit2, Edit3 } from "react-feather";
 
 const FiatList = (props) => {
-  const { roundTo2DP, convertedBalanceData, settingsCurrencySign } = props;
+  const { roundTo2DP, fiatData, settingsCurrencySign } = props;
 
   const orderedArray = () => {
-    return convertedBalanceData.sort((a, b) => b.value - a.value);
+    return fiatData.sort((a, b) => b.value - a.value);
   };
 
   return (

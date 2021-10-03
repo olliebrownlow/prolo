@@ -8,7 +8,7 @@ import Modal from "../components/modal";
 import PocketBalance from "../components/pocket-balance";
 import Link from "next/link";
 import { getCoinData } from "../lib/core/coinData";
-import { getConvertedBalanceData } from "../lib/core/convertedBalanceData";
+import { getFiatData } from "../lib/core/fiatData";
 import styles from "../pageStyles/pocket.module.scss";
 
 const Pocket = (props) => {
@@ -16,7 +16,7 @@ const Pocket = (props) => {
   const { appCurrencySign, appCurrencyCode } = useContext(
     CurrencySettingsContext
   );
-  const { coinData, convertedBalanceData, roundTo2DP } = props;
+  const { coinData, fiatData, roundTo2DP } = props;
 
   return (
     <>
@@ -36,7 +36,7 @@ const Pocket = (props) => {
             <PocketBalance
               roundTo2DP={roundTo2DP}
               coinData={coinData}
-              convertedBalanceData={convertedBalanceData}
+              fiatData={fiatData}
               settingsCurrencySign={appCurrencySign}
             />
             <div className={styles.heading}>coin holdings</div>
@@ -47,14 +47,10 @@ const Pocket = (props) => {
               settingsCurrencySign={appCurrencySign}
             />
             <div className={styles.heading}>fiat holdings</div>
-            <Modal
-              buttonText={"add fiat"}
-              labelName={"fiat"}
-              data={convertedBalanceData}
-            />
+            <Modal buttonText={"add fiat"} labelName={"fiat"} data={fiatData} />
             <FiatList
               roundTo2DP={roundTo2DP}
-              convertedBalanceData={convertedBalanceData}
+              fiatData={fiatData}
               settingsCurrencySign={appCurrencySign}
             />
           </div>
@@ -66,14 +62,14 @@ const Pocket = (props) => {
 
 export async function getServerSideProps() {
   const coinData = await getCoinData();
-  const convertedBalanceData = await getConvertedBalanceData();
-  // console.log(convertedBalanceData);
+  const fiatData = await getFiatData();
+  // console.log(fiatData);
   // console.log(coinData);
 
   return {
     props: {
       coinData,
-      convertedBalanceData,
+      fiatData,
     },
   };
 }

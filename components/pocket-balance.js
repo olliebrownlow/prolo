@@ -6,7 +6,7 @@ const PocketBalance = (props) => {
   const {
     roundTo2DP,
     coinData,
-    convertedBalanceData,
+    fiatData,
     settingsCurrencySign,
   } = props;
   const [balance, setBalance] = useState(0.5);
@@ -29,7 +29,7 @@ const PocketBalance = (props) => {
         array.reduce(function (prev, next) {
           return prev + next.total;
         }, 0) +
-        convertedBalanceData.reduce(function (prev, next) {
+        fiatData.reduce(function (prev, next) {
           return prev + next.value;
         }, 0);
 
@@ -50,7 +50,7 @@ const PocketBalance = (props) => {
       console.log(res);
     }
     handleUpdateBalance();
-  }, [coinData, convertedBalanceData, settingsCurrencySign]);
+  }, [coinData, fiatData, settingsCurrencySign]);
 
   return (
     <>
