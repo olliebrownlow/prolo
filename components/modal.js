@@ -2,7 +2,7 @@ import AddButton from "./add-button";
 import React, { useState } from "react";
 import ModalContainer from "./modal-container";
 import { addCoin, addFiat } from "../actions";
-import Router from 'next/router';
+import Router from "next/router";
 
 const Modal = (props) => {
   const [isShown, setIsShown] = useState(false);
@@ -23,19 +23,24 @@ const Modal = (props) => {
     }
   };
 
-  const refreshData = () => {
-    Router.push("/pocket");
+  const refreshCoinData = () => {
+    Router.replace("/pocket");
+  };
+
+  const refreshFiatData = () => {
+    window.location = "/pocket";
   };
 
   const handleAddCoinOrFiat = async (currency) => {
     let res = "";
     if (currency.sign) {
       res = await addFiat(currency);
+      refreshFiatData();
     } else {
       res = await addCoin(currency);
+      refreshCoinData();
     }
     console.log(res);
-    refreshData();
     closeModal();
   };
 

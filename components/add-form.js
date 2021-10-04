@@ -22,7 +22,7 @@ const AddForm = (props) => {
   };
 
   const filteredFiatSelectOptions = () => {
-    _.pullAllBy(fiatSelectOptions, data, "fullFiatName");
+    _.pullAllBy(fiatSelectOptions, data, "id");
     return fiatSelectOptions;
   };
 
@@ -99,7 +99,7 @@ const AddForm = (props) => {
                   </option>
                 ))
               : filteredFiatSelectOptions().map((option) => (
-                  <option key={option.name}>
+                  <option key={option.id}>
                     {option.fullFiatName} {option.code}
                   </option>
                 ))}
