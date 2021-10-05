@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { UserContext } from "../lib/UserContext";
 import CurrencySettingsContext from "../context/currencySettings";
 import Loading from "../components/loading";

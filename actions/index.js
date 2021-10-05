@@ -38,10 +38,6 @@ export const getFiat = () => {
   return axios.get(`${BASE_URL}/api/v1/fiat`).then((res) => res.data);
 };
 
-export const getBalance = () => {
-  return axios.get(`${BASE_URL}/api/v1/balance`).then((res) => res.data);
-};
-
 export const addCoin = (coin) => {
   return axios.post(`${BASE_URL}/api/v1/coins`, coin).then((res) => res.data);
 };
@@ -59,12 +55,6 @@ export const updateCurrencySettings = (currency) => {
 export const updateThemeSettings = (theme) => {
   return axios
     .patch(`${BASE_URL}/api/v1/themeSettings`, theme)
-    .then((res) => console.log(res.data));
-};
-
-export const updateBalance = (balance) => {
-  return axios
-    .patch(`${BASE_URL}/api/v1/balance`, balance)
     .then((res) => console.log(res.data));
 };
 
