@@ -7,14 +7,10 @@ const PocketBalance = (props) => {
   const [balance, setBalance] = useState(0.5);
 
   useEffect(async () => {
-    const balance = await calculateBalance(
-      coinData,
-      fiatData,
-      settingsCurrencySign
-    );
+    const balance = await calculateBalance(coinData, fiatData);
 
     setBalance(balance);
-  }, [coinData, fiatData, settingsCurrencySign]);
+  }, [coinData, fiatData]);
 
   return (
     <>

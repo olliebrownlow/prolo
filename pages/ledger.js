@@ -6,11 +6,14 @@ import Loading from "../components/loading";
 import useSWR, { mutate } from "swr";
 import axios from "axios";
 import styles from "../pageStyles/ledger.module.scss";
+import { getCoinData } from "../lib/core/coinData";
+import { getFiatData } from "../lib/core/fiatData";
+import { calculateBalance } from "../lib/core/calculateBalance";
 
 const fetcher = (url) => axios.get(url);
 
 const Ledger = (props) => {
-  const { roundTo2DP } = props;
+  const { roundTo2DP, balance } = props;
   const [user] = useContext(UserContext);
   const [balanceData, setBalanceData] = useState([]);
 
@@ -40,7 +43,7 @@ const Ledger = (props) => {
             <div className={styles.balances}>
               <h1 className={styles.title}>ledger</h1>
               <h1 className={styles.title}>
-                {balanceData.sign} {roundTo2DP(balanceData.amount)}
+                {balanceData.sign} {roundTo2DP(balance)}
               </h1>
             </div>
           </div>
@@ -49,5 +52,20 @@ const Ledger = (props) => {
     </>
   );
 };
+
+export async function getServerSideProps() {
+  const coinData = await getCoinData();
+  const fiatData = await getFiatData();
+  const balance = await calculateBalance(coinData, fiatData);
+  // console.log(fiatData);
+  // console.log(coinData);
+  // console.log(balance)
+
+  return {
+    props: {
+      balance,
+    },
+  };
+}
 
 export default Ledger;
