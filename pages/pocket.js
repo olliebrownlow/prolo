@@ -37,21 +37,21 @@ const Pocket = (props) => {
               roundTo2DP={roundTo2DP}
               coinData={coinData}
               fiatData={fiatData}
-              settingsCurrencySign={appCurrencySign}
+              appCurrencySign={appCurrencySign}
             />
             <div className={styles.heading}>coin holdings</div>
             <Modal buttonText={"add coin"} labelName={"coin"} data={coinData} />
             <CoinList
               roundTo2DP={roundTo2DP}
               coinData={coinData}
-              settingsCurrencySign={appCurrencySign}
+              appCurrencySign={appCurrencySign}
             />
             <div className={styles.heading}>fiat holdings</div>
             <Modal buttonText={"add fiat"} labelName={"fiat"} data={fiatData} />
             <FiatList
               roundTo2DP={roundTo2DP}
               fiatData={fiatData}
-              settingsCurrencySign={appCurrencySign}
+              appCurrencySign={appCurrencySign}
             />
           </div>
         )

@@ -11,7 +11,7 @@ const Coin = (props) => {
     amount,
     code,
     currencyInUse,
-    settingsCurrencySign,
+    appCurrencySign,
   } = props;
 
   // const defaultData = {
@@ -63,7 +63,7 @@ const Coin = (props) => {
       <div className={styles.code}>[{code}]</div>
       <div className={styles.amount}>{amount} coins</div>
       <p className={styles.total}>
-        {settingsCurrencySign} {roundTo2DP(total)}
+        {appCurrencySign} {roundTo2DP(total)}
       </p>
       <hr className={styles.solidDivider} />
       <div className={styles.buttons}>
@@ -88,7 +88,7 @@ Coin.getInitialProps = async ({ query }) => {
   const amount = query.amount;
   const code = query.id;
   const currencyInUse = query.currencyInUse;
-  const settingsCurrencySign = query.settingsCurrencySign;
+  const appCurrencySign = query.appCurrencySign;
 
   // const coin = await getCoinByCode(query.id);
   return {
@@ -98,7 +98,7 @@ Coin.getInitialProps = async ({ query }) => {
     amount,
     code,
     currencyInUse,
-    settingsCurrencySign,
+    appCurrencySign,
   };
 };
 

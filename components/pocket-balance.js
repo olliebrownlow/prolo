@@ -3,7 +3,7 @@ import styles from "./pocketBalance.module.scss";
 import { calculateBalance } from "../lib/core/calculateBalance";
 
 const PocketBalance = (props) => {
-  const { roundTo2DP, coinData, fiatData, settingsCurrencySign } = props;
+  const { roundTo2DP, coinData, fiatData, appCurrencySign } = props;
   const [balance, setBalance] = useState(0.5);
 
   useEffect(async () => {
@@ -15,7 +15,7 @@ const PocketBalance = (props) => {
   return (
     <>
       <div className={styles.pocketBalance}>
-        {settingsCurrencySign}
+        {appCurrencySign}
         {roundTo2DP(balance)}
       </div>
       <hr className={styles.solidDivider} />

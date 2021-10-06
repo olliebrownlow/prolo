@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Edit2, Edit3 } from "react-feather";
 
 const FiatList = (props) => {
-  const { roundTo2DP, fiatData, settingsCurrencySign } = props;
+  const { roundTo2DP, fiatData, appCurrencySign } = props;
 
   const orderedArray = () => {
     return fiatData.sort((a, b) => b.value - a.value);
@@ -23,7 +23,7 @@ const FiatList = (props) => {
                 total: fiatData.value,
                 fiatSign: fiatData.fiatSign,
                 currencyInUse: fiatData.to,
-                settingsCurrencySign: settingsCurrencySign,
+                appCurrencySign: appCurrencySign,
               },
             }}
           >
@@ -37,13 +37,13 @@ const FiatList = (props) => {
               </li>
               <li className={styles.name}>
                 {fiatData.fullFiatName}
-                <div className={styles.hidden}>placeholder</div>
+                {/* <div className={styles.hidden}>placeholder</div> */}
               </li>
               <li className={styles.totalValue}>
                 {fiatData.fiatSign}
                 {roundTo2DP(fiatData.amount)}
                 <div className={styles.amount}>
-                  {settingsCurrencySign}
+                  {appCurrencySign}
                   {roundTo2DP(fiatData.value)}
                 </div>
               </li>

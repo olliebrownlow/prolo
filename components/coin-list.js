@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Edit2, Edit3 } from "react-feather";
 
 const CoinList = (props) => {
-  const { roundTo2DP, coinData, settingsCurrencySign } = props;
+  const { roundTo2DP, coinData, appCurrencySign } = props;
 
   // when user has no coins, an
   // empty array must be returned for
@@ -31,7 +31,7 @@ const CoinList = (props) => {
                 total: coin.total,
                 price: coin.price,
                 currencyInUse: coin.currencyInUse,
-                settingsCurrencySign: settingsCurrencySign,
+                appCurrencySign: appCurrencySign,
               },
             }}
           >
@@ -52,10 +52,10 @@ const CoinList = (props) => {
                 <div className={styles.amount}>{coin.amount}</div>
               </li>
               <li className={styles.totalValue}>
-                {settingsCurrencySign}
+                {appCurrencySign}
                 {roundTo2DP(coin.total)}
                 <div className={styles.amount}>
-                  {settingsCurrencySign}
+                  {appCurrencySign}
                   {roundTo2DP(+coin.price)}
                 </div>
               </li>

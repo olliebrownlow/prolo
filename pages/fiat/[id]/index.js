@@ -11,7 +11,7 @@ const Fiat = (props) => {
     code,
     fiatSign,
     currencyInUse,
-    settingsCurrencySign,
+    appCurrencySign,
   } = props;
 
   // const defaultData = {
@@ -21,7 +21,7 @@ const Fiat = (props) => {
   //   code: code,
   //   fiatSign: fiatSign,
   //   currencyInUse: currencyInUse,
-  //   settingsCurrencySign: settingsCurrencySign,
+  //   appCurrencySign: appCurrencySign,
   // };
 
   // const [data, setData] = useState(defaultData);
@@ -61,7 +61,7 @@ const Fiat = (props) => {
         {fiatSign} {roundTo2DP(amount)}
       </div>
       <p className={styles.total}>
-        {settingsCurrencySign} {roundTo2DP(total)}
+        {appCurrencySign} {roundTo2DP(total)}
       </p>
       <hr className={styles.solidDivider} />
       <div className={styles.buttons}>
@@ -85,7 +85,7 @@ Fiat.getInitialProps = async ({ query }) => {
   const code = query.id;
   const fiatSign = query.fiatSign;
   const currencyInUse = query.currencyInUse;
-  const settingsCurrencySign = query.settingsCurrencySign;
+  const appCurrencySign = query.appCurrencySign;
 
   // const fiat = await getFiatByCode(query.id);
   return {
@@ -95,7 +95,7 @@ Fiat.getInitialProps = async ({ query }) => {
     code,
     fiatSign,
     currencyInUse,
-    settingsCurrencySign,
+    appCurrencySign,
   };
 };
 
