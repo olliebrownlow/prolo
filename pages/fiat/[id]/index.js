@@ -1,5 +1,6 @@
 import { deleteFiat } from "../../../actions";
 import Link from "next/link";
+import Router from 'next/router';
 import { useState } from "react";
 import styles from "../../../pageStyles/dynamicPage.module.scss";
 
@@ -34,6 +35,10 @@ const Fiat = (props) => {
     const res = await deleteFiat(code);
     console.log(res);
     refreshData();
+  };
+
+  const handleCancel = () => {
+    Router.replace("/pocket")
   };
 
   const roundTo2DP = (unrounded) => {
@@ -72,6 +77,13 @@ const Fiat = (props) => {
           role="button"
         >
           delete
+        </button>
+        <button
+          className={styles.cancelButton}
+          onClick={() => handleCancel()}
+          role="button"
+        >
+          cancel
         </button>
       </div>
     </div>

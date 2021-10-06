@@ -1,5 +1,6 @@
 import { deleteCoin } from "../../../actions";
 import Link from "next/link";
+import Router from "next/router";
 import { useState } from "react";
 import styles from "../../../pageStyles/dynamicPage.module.scss";
 
@@ -34,6 +35,10 @@ const Coin = (props) => {
     const res = await deleteCoin(code);
     console.log(res);
     refreshData();
+  };
+
+  const handleCancel = () => {
+    Router.replace("/pocket")
   };
 
   const roundTo2DP = (unrounded) => {
@@ -75,6 +80,13 @@ const Coin = (props) => {
           role="button"
         >
           delete
+        </button>
+        <button
+          className={styles.cancelButton}
+          onClick={() => handleCancel()}
+          role="button"
+        >
+          cancel
         </button>
       </div>
     </div>

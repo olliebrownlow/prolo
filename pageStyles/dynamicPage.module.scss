@@ -41,10 +41,10 @@
 .buttons {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 .deleteButton {
-  margin: 0 50px;
+  margin: 0 15px;
   display: flex;
   padding: 5px 0px 5px 0;
   border-radius: 3px;
@@ -56,7 +56,7 @@
   outline: none;
 }
 .updateButton {
-  margin: 0 50px;
+  margin: 0 15px;
   display: flex;
   padding: 5px 0px 5px 0;
   border-radius: 3px;
@@ -66,6 +66,19 @@
   padding-left: 8px;
   padding-right: 8px;
   background-color: white;
+  outline: none;
+}
+.cancelButton {
+  margin: 0 15px;
+  display: flex;
+  padding: 5px 0px 5px 0;
+  border-radius: 3px;
+  color: red;
+  border-color: red;
+  font-size: 24px;
+  padding-left: 8px;
+  padding-right: 8px;
+  background-color: lightgrey;
   outline: none;
 }
 .logo {
