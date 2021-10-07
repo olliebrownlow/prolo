@@ -38,7 +38,7 @@ const Coin = (props) => {
   };
 
   const handleCancel = () => {
-    Router.replace("/pocket")
+    Router.replace("/pocket");
   };
 
   const roundTo2DP = (unrounded) => {
@@ -72,7 +72,9 @@ const Coin = (props) => {
       </p>
       <hr className={styles.solidDivider} />
       <div className={styles.buttons}>
-        <button className={styles.updateButton}>update</button>
+        <button className={styles.updateButton} role="button">
+          update
+        </button>
 
         <button
           className={styles.deleteButton}
