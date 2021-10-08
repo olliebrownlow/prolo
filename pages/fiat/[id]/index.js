@@ -13,6 +13,7 @@ const Fiat = (props) => {
     fiatSign,
     currencyInUse,
     appCurrencySign,
+    roundTo2DP,
   } = props;
 
   // const defaultData = {
@@ -39,10 +40,6 @@ const Fiat = (props) => {
 
   const handleCancel = () => {
     Router.replace("/pocket")
-  };
-
-  const roundTo2DP = (unrounded) => {
-    return (Math.round(unrounded * 100) / 100).toFixed(2);
   };
 
   return (

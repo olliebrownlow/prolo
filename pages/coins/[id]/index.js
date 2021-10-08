@@ -13,6 +13,7 @@ const Coin = (props) => {
     code,
     currencyInUse,
     appCurrencySign,
+    roundTo2DP,
   } = props;
 
   // const defaultData = {
@@ -39,10 +40,6 @@ const Coin = (props) => {
 
   const handleCancel = () => {
     Router.replace("/pocket");
-  };
-
-  const roundTo2DP = (unrounded) => {
-    return (Math.round(unrounded * 100) / 100).toFixed(2);
   };
 
   return (
@@ -75,7 +72,6 @@ const Coin = (props) => {
         <button className={styles.updateButton} role="button">
           update
         </button>
-
         <button
           className={styles.deleteButton}
           onClick={() => handleDeleteCoin()}
