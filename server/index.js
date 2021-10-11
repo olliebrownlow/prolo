@@ -39,6 +39,25 @@ app.prepare().then(() => {
     return res.json(coin);
   });
 
+  server.patch("/api/v1/coins/:id", (req, res) => {
+    const { id } = req.params;
+    const updatedAmount = req.body[0];
+    const coinIndex = coinData.findIndex((coin) => coin.code === id);
+
+    coinData[coinIndex].amount = updatedAmount.amount;
+
+    const pathToFile = path.join(__dirname, coinFilePath);
+    const stringifiedData = JSON.stringify(coinData, null, 2);
+
+    fs.writeFile(pathToFile, stringifiedData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+
+      return res.json("Coin has been successfully updated :)");
+    });
+  });
+
   server.delete("/api/v1/coins/:id", (req, res) => {
     const { id } = req.params;
     const coinIndex = coinData.findIndex((coin) => coin.code === id);

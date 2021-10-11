@@ -1,7 +1,7 @@
-import { deleteCoin } from "../../../actions";
-import Link from "next/link";
+import React, { useState } from "react";
+import { deleteCoin, updateCoin } from "../../../actions";
 import Router from "next/router";
-import { useState } from "react";
+import UpdateModal from "../../../components/update-modal";
 import styles from "../../../pageStyles/dynamicPage.module.scss";
 
 const Coin = (props) => {
@@ -11,29 +11,55 @@ const Coin = (props) => {
     name,
     amount,
     code,
-    currencyInUse,
     appCurrencySign,
     roundTo2DP,
   } = props;
 
-  // const defaultData = {
-  //   logo_url: logo_url,
-  //   total: total,
-  //   currencyInUse: currencyInUse,
-  //   settingsCurrencySign: settingsCurrencySign,
-  //   code: code,
-  //   name: name,
-  //   amount: amount,
-  // };
+  const [isShown, setIsShown] = useState(false);
+  const [currentAmount, setCurrentAmount] = useState(amount);
 
-  // const [data, setData] = useState(defaultData);
+  const showModal = () => {
+    setIsShown(true);
+  };
+
+  const closeModal = () => {
+    setIsShown(false);
+  };
+
+  // close modal from window surrounding the modal itself
+  const windowOnClick = (event) => {
+    if (event.target === event.currentTarget) {
+      setIsShown(false);
+    }
+  };
 
   const refreshData = () => {
     window.location = "/pocket";
   };
 
-  const handleDeleteCoin = async () => {
-    const res = await deleteCoin(code);
+  const refreshCoinData = () => {
+    Router.replace("/pocket");
+  };
+
+  const handleCoinUpdate = (newAmount) => {
+    const res = updateCoin(code, newAmount);
+    console.log(res);
+  };
+
+  const handleUpdate = (amount) => {
+    const newAmount = [
+      {
+        amount: amount,
+      },
+    ];
+    setCurrentAmount(amount);
+    refreshCoinData();
+    // closeModal();
+    handleCoinUpdate(newAmount);
+  };
+
+  const handleDeleteCoin = () => {
+    const res = deleteCoin(code);
     console.log(res);
     refreshData();
   };
@@ -44,13 +70,6 @@ const Coin = (props) => {
 
   return (
     <div className={styles.pageLayout}>
-      <Link href="/settings">
-        <img
-          className={styles.currencyImg}
-          src={`../${currencyInUse}Flag.jpg`}
-          alt={currencyInUse}
-        />
-      </Link>
       <img
         className={
           styles.logo +
@@ -60,16 +79,37 @@ const Coin = (props) => {
         src={logo_url}
         alt={name}
       />
-
+      {isShown ? (
+        <UpdateModal
+          closeModal={closeModal}
+          windowOnClick={windowOnClick}
+          handleFormSubmit={handleUpdate}
+          name={name}
+          code={code}
+          amount={amount}
+        />
+      ) : (
+        <React.Fragment />
+      )}
       <div className={styles.name}>{name}</div>
       <div className={styles.code}>[{code}]</div>
-      <div className={styles.amount}>{amount} coins</div>
-      <p className={styles.total}>
-        {appCurrencySign} {roundTo2DP(total)}
-      </p>
+      <div className={styles.amount}>{currentAmount} coins</div>
+      {currentAmount === amount ? (
+        <p className={styles.total}>
+          {appCurrencySign} {roundTo2DP(total)}
+        </p>
+      ) : (
+        <p className={styles.total}>
+          recalculating..
+        </p>
+      )}
       <hr className={styles.solidDivider} />
       <div className={styles.buttons}>
-        <button className={styles.updateButton} role="button">
+        <button
+          className={styles.updateButton}
+          onClick={() => showModal()}
+          role="button"
+        >
           update
         </button>
         <button
@@ -98,9 +138,7 @@ Coin.getInitialProps = async ({ query }) => {
   const amount = query.amount;
   const code = query.id;
   const currencyInUse = query.currencyInUse;
-  const appCurrencySign = query.appCurrencySign;
 
-  // const coin = await getCoinByCode(query.id);
   return {
     logo_url,
     total,
@@ -108,7 +146,6 @@ Coin.getInitialProps = async ({ query }) => {
     amount,
     code,
     currencyInUse,
-    appCurrencySign,
   };
 };
 

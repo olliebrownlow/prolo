@@ -30,7 +30,6 @@ const CoinList = (props) => {
                 amount: coin.amount,
                 total: coin.total,
                 price: coin.price,
-                currencyInUse: coin.currencyInUse,
                 appCurrencySign: appCurrencySign,
               },
             }}

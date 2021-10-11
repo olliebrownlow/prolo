@@ -1,6 +1,6 @@
 import { deleteFiat } from "../../../actions";
 import Link from "next/link";
-import Router from 'next/router';
+import Router from "next/router";
 import { useState } from "react";
 import styles from "../../../pageStyles/dynamicPage.module.scss";
 
@@ -39,7 +39,7 @@ const Fiat = (props) => {
   };
 
   const handleCancel = () => {
-    Router.replace("/pocket")
+    Router.replace("/pocket");
   };
 
   return (
@@ -56,7 +56,6 @@ const Fiat = (props) => {
         src={`../${code.toLowerCase()}Flag.jpg`}
         alt={name}
       />
-
       <div className={styles.name}>{name}</div>
       <div className={styles.code}>[{code}]</div>
       <div className={styles.amount}>

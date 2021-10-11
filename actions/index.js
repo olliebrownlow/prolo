@@ -46,6 +46,12 @@ export const addFiat = (fiat) => {
   return axios.post(`${BASE_URL}/api/v1/fiat`, fiat).then((res) => res.data);
 };
 
+export const updateCoin = (code, amount) => {
+  return axios
+    .patch(`${BASE_URL}/api/v1/coins/${code}`, amount)
+    .then((res) => console.log(res.data));
+};
+
 export const updateCurrencySettings = (currency) => {
   return axios
     .patch(`${BASE_URL}/api/v1/currencySettings`, currency)

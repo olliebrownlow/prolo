@@ -33,6 +33,10 @@ const coinSelectOptions = [
     name: "decentraland",
     code: "[MANA]",
   },
+  {
+    name: "solana",
+    code: "[SOL]",
+  },
 ];
 
 export default coinSelectOptions;
