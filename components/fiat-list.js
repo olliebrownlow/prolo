@@ -22,7 +22,6 @@ const FiatList = (props) => {
                 amount: fiatData.amount,
                 total: fiatData.value,
                 fiatSign: fiatData.fiatSign,
-                currencyInUse: fiatData.to,
                 appCurrencySign: appCurrencySign,
               },
             }}

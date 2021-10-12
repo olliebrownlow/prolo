@@ -87,6 +87,7 @@ const Coin = (props) => {
           name={name}
           code={code}
           amount={amount}
+          label="coin"
         />
       ) : (
         <React.Fragment />
@@ -99,9 +100,7 @@ const Coin = (props) => {
           {appCurrencySign} {roundTo2DP(total)}
         </p>
       ) : (
-        <p className={styles.total}>
-          recalculating..
-        </p>
+        <p className={styles.total}>recalculating..</p>
       )}
       <hr className={styles.solidDivider} />
       <div className={styles.buttons}>

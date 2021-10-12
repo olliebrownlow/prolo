@@ -1,7 +1,7 @@
-import { deleteFiat } from "../../../actions";
-import Link from "next/link";
+import React, { useState } from "react";
+import { deleteFiat, updateFiat } from "../../../actions";
 import Router from "next/router";
-import { useState } from "react";
+import UpdateModal from "../../../components/update-modal";
 import styles from "../../../pageStyles/dynamicPage.module.scss";
 
 const Fiat = (props) => {
@@ -11,25 +11,51 @@ const Fiat = (props) => {
     amount,
     code,
     fiatSign,
-    currencyInUse,
     appCurrencySign,
     roundTo2DP,
   } = props;
 
-  // const defaultData = {
-  //   total: total,
-  //   name: name,
-  //   amount: amount,
-  //   code: code,
-  //   fiatSign: fiatSign,
-  //   currencyInUse: currencyInUse,
-  //   appCurrencySign: appCurrencySign,
-  // };
+  const [isShown, setIsShown] = useState(false);
+  const [currentAmount, setCurrentAmount] = useState(amount);
 
-  // const [data, setData] = useState(defaultData);
+  const showModal = () => {
+    setIsShown(true);
+  };
+
+  const closeModal = () => {
+    setIsShown(false);
+  };
+
+  // close modal from window surrounding the modal itself
+  const windowOnClick = (event) => {
+    if (event.target === event.currentTarget) {
+      setIsShown(false);
+    }
+  };
 
   const refreshData = () => {
     window.location = "/pocket";
+  };
+
+  const refreshFiatData = () => {
+    Router.replace("/pocket");
+  };
+
+  const handleFiatUpdate = (newAmount) => {
+    const res = updateFiat(code, newAmount);
+    console.log(res);
+  };
+
+  const handleUpdate = (amount) => {
+    const newAmount = [
+      {
+        amount: amount,
+      },
+    ];
+    setCurrentAmount(amount);
+    refreshFiatData();
+    // closeModal();
+    handleFiatUpdate(newAmount);
   };
 
   const handleDeleteFiat = async () => {
@@ -44,18 +70,24 @@ const Fiat = (props) => {
 
   return (
     <div className={styles.pageLayout}>
-      <Link href="/settings" replace>
-        <img
-          className={styles.currencyImg}
-          src={`../${currencyInUse.toLowerCase()}Flag.jpg`}
-          alt={currencyInUse}
-        />
-      </Link>
       <img
         className={styles.logo}
         src={`../${code.toLowerCase()}Flag.jpg`}
         alt={name}
       />
+      {isShown ? (
+        <UpdateModal
+          closeModal={closeModal}
+          windowOnClick={windowOnClick}
+          handleFormSubmit={handleUpdate}
+          name={name}
+          code={code}
+          amount={amount}
+          label="fiat"
+        />
+      ) : (
+        <React.Fragment />
+      )}
       <div className={styles.name}>{name}</div>
       <div className={styles.code}>[{code}]</div>
       <div className={styles.amount}>
@@ -66,7 +98,13 @@ const Fiat = (props) => {
       </p>
       <hr className={styles.solidDivider} />
       <div className={styles.buttons}>
-        <button className={styles.updateButton}>update</button>
+        <button
+          className={styles.updateButton}
+          onClick={() => showModal()}
+          role="button"
+        >
+          update
+        </button>
         <button
           className={styles.deleteButton}
           onClick={() => handleDeleteFiat()}
@@ -92,17 +130,14 @@ Fiat.getInitialProps = async ({ query }) => {
   const amount = query.amount;
   const code = query.id;
   const fiatSign = query.fiatSign;
-  const currencyInUse = query.currencyInUse;
   const appCurrencySign = query.appCurrencySign;
 
-  // const fiat = await getFiatByCode(query.id);
   return {
     total,
     name,
     amount,
     code,
     fiatSign,
-    currencyInUse,
     appCurrencySign,
   };
 };

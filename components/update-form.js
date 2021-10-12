@@ -3,7 +3,7 @@ import { useState } from "react";
 import AddButton from "./add-button";
 
 const UpdateForm = (props) => {
-  const { code, name, closeModal, handleFormSubmit, amount } = props;
+  const { code, name, closeModal, handleFormSubmit, amount, label } = props;
   const [form, setForm] = useState(amount);
   const [select, setSelect] = useState(`${name} [${code}]`);
 
@@ -20,7 +20,7 @@ const UpdateForm = (props) => {
       alert("new amount must differ from current amount");
       closeModal;
     } else if (form === "0") {
-      alert("did you want to delete this coin?");
+      alert("did you want to delete this currency?");
       closeModal;
     } else {
       handleFormSubmit(form);
@@ -29,12 +29,17 @@ const UpdateForm = (props) => {
 
   return (
     <>
-      <h1 className={styles.heading}>update coin</h1>
+      <h1 className={styles.heading}>update {label}</h1>
       <hr className={styles.solidDivider} />
       <form>
         <div className={styles.formGroup}>
-          <label htmlFor="name">coin</label>
-          <select name={name} defaultValue={select} className={styles.formControl} id={name}>
+          <label htmlFor="name">{label}</label>
+          <select
+            name={name}
+            defaultValue={select}
+            className={styles.formControl}
+            id={name}
+          >
             <option key={"option"} disabled hidden>
               {name} [{code}]
             </option>

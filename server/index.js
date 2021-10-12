@@ -99,6 +99,25 @@ app.prepare().then(() => {
     return res.json(fiatData);
   });
 
+  server.patch("/api/v1/fiat/:id", (req, res) => {
+    const { id } = req.params;
+    const updatedAmount = req.body[0];
+    const fiatIndex = fiatData.findIndex((fiat) => fiat.code === id);
+
+    fiatData[fiatIndex].amount = updatedAmount.amount;
+
+    const pathToFile = path.join(__dirname, fiatFilePath);
+    const stringifiedData = JSON.stringify(fiatData, null, 2);
+
+    fs.writeFile(pathToFile, stringifiedData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+
+      return res.json("Fiat has been successfully updated :)");
+    });
+  });
+
   server.delete("/api/v1/fiat/:id", (req, res) => {
     const { id } = req.params;
     const fiatIndex = fiatData.findIndex((fiat) => fiat.code === id);

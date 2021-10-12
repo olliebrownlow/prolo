@@ -11,6 +11,7 @@ const UpdateModal = (props) => {
     name,
     code,
     amount,
+    label
   } = props;
 
   return ReactDOM.createPortal(
@@ -28,6 +29,7 @@ const UpdateModal = (props) => {
           code={code}
           closeModal={closeModal}
           amount={amount}
+          label={label}
         />
         <hr className={styles.solidDivider} />
         <button className={styles.cancelButton} onClick={closeModal}>
