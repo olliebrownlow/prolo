@@ -23,6 +23,7 @@ function Prolo({ Component, pageProps }) {
   const [appTheme, setAppTheme] = useState("light");
   const [appCurrencySign, setAppCurrencySign] = useState("€");
   const [appCurrencyCode, setAppCurrencyCode] = useState("eur");
+  const [appCurrencyName, setAppCurrencyName] = useState("euros");
   const appTitle = `pro.lo-`;
 
   const BASE_URL = "http://localhost:3000";
@@ -79,7 +80,8 @@ function Prolo({ Component, pageProps }) {
   useEffect(async () => {
     setAppCurrencySign(currencySettings.data[0].sign);
     setAppCurrencyCode(currencySettings.data[0].currencyCode);
-  }, [currencySettings, appCurrencySign, appCurrencyCode]);
+    setAppCurrencyName(currencySettings.data[0].currencyName);
+  }, [currencySettings, appCurrencySign, appCurrencyCode, appCurrencyName]);
 
   const roundTo2DP = (unrounded) => {
     return (Math.round(unrounded * 100) / 100).toFixed(2);
@@ -91,6 +93,7 @@ function Prolo({ Component, pageProps }) {
         value={{
           appCurrencySign: appCurrencySign,
           appCurrencyCode: appCurrencyCode,
+          appCurrencyName: appCurrencyName,
         }}
       >
         <div className="Layout">

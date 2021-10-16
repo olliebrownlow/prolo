@@ -9,11 +9,25 @@
   font-size: 18px;
   border-bottom: solid 1px dimgrey;
 }
+.fundingValue {
+  width: 27%;
+  font-size: 18px;
+  border-bottom: solid 1px dimgrey;
+}
+.date {
+  width: 25%;
+  font-size: 18px;
+  border-bottom: solid 1px dimgrey;
+}
 .logoContainer {
-  width: 10%;
+  width: 5%;
 }
 .editIcon {
-  width: 10%;
+  width: 5%;
+  // position: relative;
+  // display: block;
+  // left: -20px;
+  // border: none;
 }
 .name {
   font-size: 18px;
@@ -21,6 +35,10 @@
   border-bottom: solid 1px dimgrey;
 }
 .amount {
+  color: grey;
+  font-size: 16px;
+}
+.direction {
   color: grey;
   font-size: 16px;
 }

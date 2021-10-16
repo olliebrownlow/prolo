@@ -45,6 +45,7 @@ const Modal = (props) => {
   };
 
   return (
+    
     <>
       <AddButton
         buttonText={buttonText}

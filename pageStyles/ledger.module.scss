@@ -4,23 +4,6 @@
   right: 0;
   top: 0;
 }
-.balances {
-  max-width: 100%;
-  padding: 1rem;
-}
-.title {
-  font-size: 36px;
-  text-align: center;
-}
-.label {
-  font-size: 12px;
-  color: #6851ff;
-  margin: 30px 0 5px;
-}
-.profileInfo {
-  font-size: 17px;
-  word-wrap: break-word;
-}
 .currencyImg {
   display: block;
   margin-left: auto;
@@ -29,4 +12,30 @@
   max-height: 32px;
   border-radius: 16px;
   margin-right: 1rem;
+}
+.prolo {
+  text-align: center;
+  font-weight: 900;
+  font-size: 45px;
+  letter-spacing: 5px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.balance {
+  text-align: center;
+  font-weight: 700;
+  font-size: 30px;
+  letter-spacing: 5px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.heading {
+  font-size: 24px;
+  margin-left: 1rem;
+  letter-spacing: 8px;
+}
+.solidDivider {
+  // border-top: 3px solid white;
+  margin-bottom: 20px;
+  max-width: 80%;
 }
