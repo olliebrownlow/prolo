@@ -26,6 +26,10 @@ export const getThemeSettings = () => {
   return axios.get(`${BASE_URL}/api/v1/themeSettings`).then((res) => res.data);
 };
 
+export const getFundingData = () => {
+  return axios.get(`${BASE_URL}/api/v1/fundingHistory`).then((res) => res.data);
+};
+
 export const getCoins = () => {
   return axios.get(`${BASE_URL}/api/v1/coins`).then((res) => res.data);
 };

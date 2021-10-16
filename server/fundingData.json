@@ -1,0 +1,26 @@
+[
+  {
+    "id": "1",
+    "date": "23-02-21",
+    "direction": "in",
+    "amount": "6000.00",
+    "currencyName": "euros",
+    "currencyCode": "eur",
+    "currencySign": "€",
+    "euros": "6000.00",
+    "britishSterling": "5170.68714",
+    "americanDollars": "7287.55374"
+  },
+  {
+    "id": "2",
+    "date": "15-03-21",
+    "direction": "in",
+    "amount": "900.00",
+    "currencyName": "euros",
+    "currencyCode": "eur",  
+    "currencySign": "€",
+    "euros": "900.00",
+    "britishSterling": "773.610543",
+    "americanDollars": "1072.370484"
+  }
+]
