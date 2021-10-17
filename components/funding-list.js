@@ -63,7 +63,7 @@ const FundingList = (props) => {
             <li className={styles.fundingValue}>
               {investment.currencySign}
               {investment.amount}
-              <div className={styles.direction}>{investment.direction}</div>
+              <div className={styles.type}>{investment.type}</div>
             </li>
             <li className={styles.date}>
               {investment.date}

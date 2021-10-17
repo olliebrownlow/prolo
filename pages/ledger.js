@@ -3,6 +3,7 @@ import CurrencySettingsContext from "../context/currencySettings";
 import Link from "next/link";
 import { UserContext } from "../lib/UserContext";
 import Loading from "../components/loading";
+import AddButton from "../components/add-button";
 import FundingList from "../components/funding-list";
 import styles from "../pageStyles/ledger.module.scss";
 import { getCoinData } from "../lib/core/coinData";
@@ -61,6 +62,11 @@ const Ledger = (props) => {
             </div>
             <hr className={styles.solidDivider} />
             <div className={styles.heading}>funding history</div>
+            <AddButton
+              buttonText={"add item"}
+              // showModal={showModal}
+              showLogo={true}
+            />
             <FundingList
               roundTo2DP={roundTo2DP}
               fundingHistoryData={fundingHistoryData}

@@ -2,7 +2,7 @@
   {
     "id": "1",
     "date": "23-02-21",
-    "direction": "in",
+    "type": "investment",
     "amount": "6000.00",
     "currencyName": "euros",
     "currencyCode": "eur",
@@ -14,7 +14,7 @@
   {
     "id": "2",
     "date": "15-03-21",
-    "direction": "in",
+    "type": "investment",
     "amount": "900.00",
     "currencyName": "euros",
     "currencyCode": "eur",  
