@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import { RefreshCw } from "react-feather";
 import styles from "./pocketBalance.module.scss";
 import { calculateBalance } from "../lib/core/calculateBalance";
 
@@ -14,10 +16,12 @@ const PocketBalance = (props) => {
 
   return (
     <>
-      <div className={styles.pocketBalance}>
-        {appCurrencySign}
-        {roundTo2DP(balance)}
-      </div>
+      <Link href="/pocket">
+        <div className={styles.pocketBalance}>
+          {appCurrencySign}
+          {roundTo2DP(balance)} <RefreshCw />
+        </div>
+      </Link>
       <hr className={styles.solidDivider} />
     </>
   );

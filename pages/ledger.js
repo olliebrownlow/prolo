@@ -9,6 +9,7 @@ import { getCoinData } from "../lib/core/coinData";
 import { getFiatData } from "../lib/core/fiatData";
 import { calculateBalance } from "../lib/core/calculateBalance";
 import { getFundingData } from "../actions";
+import { RefreshCw } from "react-feather";
 const camelCase = require("camelcase");
 
 const Ledger = (props) => {
@@ -46,10 +47,12 @@ const Ledger = (props) => {
               />
             </Link>
             <div className={styles.heading}>profit/loss</div>
-            <div className={styles.prolo}>
-              {appCurrencySign}
-              {roundTo2DP(prolo())}
-            </div>
+            <Link href="/ledger">
+              <div className={styles.prolo}>
+                {appCurrencySign}
+                {roundTo2DP(prolo())} <RefreshCw />
+              </div>
+            </Link>
             <hr className={styles.solidDivider} />
             <div className={styles.heading}>balance</div>
             <div className={styles.balance}>
