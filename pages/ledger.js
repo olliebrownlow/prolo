@@ -1,4 +1,5 @@
-import { useContext } from "react";
+import React, { useContext, useState } from "react";
+import Router from "next/router";
 import CurrencySettingsContext from "../context/currencySettings";
 import Link from "next/link";
 import { UserContext } from "../lib/UserContext";
@@ -9,9 +10,14 @@ import styles from "../pageStyles/ledger.module.scss";
 import { getCoinData } from "../lib/core/coinData";
 import { getFiatData } from "../lib/core/fiatData";
 import { calculateBalance } from "../lib/core/calculateBalance";
-import { getFundingData } from "../actions";
+import {
+  getFundingData,
+  getHistoricalData,
+  addInvestmentItem,
+} from "../actions";
 import { RefreshCw } from "react-feather";
-const camelCase = require("camelcase");
+import InvestmentModal from "../components/investment-modal";
+import _ from "lodash";
 
 const Ledger = (props) => {
   const { roundTo2DP, balance, fundingHistoryData } = props;
@@ -20,9 +26,48 @@ const Ledger = (props) => {
   const { appCurrencySign, appCurrencyCode, appCurrencyName } = useContext(
     CurrencySettingsContext
   );
+  const [isShown, setIsShown] = useState(false);
+
+  const showModal = () => {
+    setIsShown(true);
+  };
+
+  const closeModal = () => {
+    setIsShown(false);
+  };
+
+  // close modal from window surrounding the modal itself
+  const windowOnClick = (event) => {
+    if (event.target === event.currentTarget) {
+      setIsShown(false);
+    }
+  };
+
+  const refreshFundingHistoryData = () => {
+    Router.replace("/ledger");
+  };
+
+  const handleAddInvestmentItem = async (item) => {
+    const historicalData = await getHistoricalData(
+      item.currencyCode,
+      item.date
+    );
+
+    // add remaining properties and format others
+    item.euros = historicalData.response.rates.EUR * item.amount;
+    item.britishSterling = historicalData.response.rates.GBP * item.amount;
+    item.americanDollars = historicalData.response.rates.USD * item.amount;
+    item.currencyCode = item.currencyCode.toLowerCase();
+    item.date = _.words(item.date.substring(2)).reverse().join("-");
+
+    const res = await addInvestmentItem(item);
+    refreshFundingHistoryData();
+    console.log(res);
+    closeModal();
+  };
 
   const prolo = () => {
-    const propertyName = camelCase(appCurrencyName);
+    const propertyName = _.camelCase(appCurrencyName);
     const valuesArray = [];
     fundingHistoryData.map((investment) => {
       valuesArray.push(parseFloat(investment[propertyName]));
@@ -64,9 +109,18 @@ const Ledger = (props) => {
             <div className={styles.heading}>funding history</div>
             <AddButton
               buttonText={"add item"}
-              // showModal={showModal}
+              showModal={showModal}
               showLogo={true}
             />
+            {isShown ? (
+              <InvestmentModal
+                closeModal={closeModal}
+                windowOnClick={windowOnClick}
+                handleFormSubmit={handleAddInvestmentItem}
+              />
+            ) : (
+              <React.Fragment />
+            )}
             <FundingList
               roundTo2DP={roundTo2DP}
               fundingHistoryData={fundingHistoryData}

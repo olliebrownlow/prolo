@@ -4,6 +4,8 @@ const BASE_URL = "http://localhost:3000";
 const NOMICS_URL = "https://api.nomics.com/v1/currencies/ticker?key=";
 const NOMICS_KEY = process.env.NOMIC_API_KEY;
 const CURRENCYSCOOP_URL = "https://api.currencyscoop.com/v1/convert?api_key=";
+const CURRENCYSCOOP_HISTORICAL_URL =
+  "https://api.currencyscoop.com/v1/historical?api_key=";
 const CURRENCYSCOOP_KEY = process.env.CURRENCYSCOOP_API_KEY;
 
 export const getCryptoData = (coinCodes, fiatConvert) => {
@@ -13,6 +15,11 @@ export const getCryptoData = (coinCodes, fiatConvert) => {
 
 export const getConvertedAmount = (fromCurrency, toCurrency, amount) => {
   const url = `${CURRENCYSCOOP_URL}${CURRENCYSCOOP_KEY}&from=${fromCurrency}&to=${toCurrency}&amount=${amount}`;
+  return axios.get(url).then((res) => res.data);
+};
+
+export const getHistoricalData = (currencyCode, date) => {
+  const url = `${CURRENCYSCOOP_HISTORICAL_URL}${process.env.PRIVATE_CURRENCYSCOOP_API_KEY}&base=${currencyCode}&date=${date}&symbols=EUR,GBP,USD`;
   return axios.get(url).then((res) => res.data);
 };
 
@@ -40,6 +47,14 @@ export const getCoinByCode = (code) => {
 
 export const getFiat = () => {
   return axios.get(`${BASE_URL}/api/v1/fiat`).then((res) => res.data);
+};
+
+export const addInvestmentItem = (item) => {
+  item.id = Math.random().toString(36).substr(2, 7);
+
+  return axios
+    .post(`${BASE_URL}/api/v1/fundingHistory`, item)
+    .then((res) => res.data);
 };
 
 export const addCoin = (coin) => {

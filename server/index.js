@@ -101,6 +101,21 @@ app.prepare().then(() => {
     });
   });
 
+  server.post("/api/v1/fundingHistory", (req, res) => {
+    const item = req.body;
+    fundingData.push(item);
+
+    const pathToFile = path.join(__dirname, fundingFilePath);
+    const stringifiedData = JSON.stringify(fundingData, null, 2);
+    fs.writeFile(pathToFile, stringifiedData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+
+      return res.json("Funding history item has been successfully added :)");
+    });
+  });
+
   server.get("/api/v1/fiat", (req, res) => {
     return res.json(fiatData);
   });
