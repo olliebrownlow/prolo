@@ -70,7 +70,13 @@ const Ledger = (props) => {
     const propertyName = _.camelCase(appCurrencyName);
     const valuesArray = [];
     fundingHistoryData.map((investment) => {
-      valuesArray.push(parseFloat(investment[propertyName]));
+      const positiveValue = parseFloat(investment[propertyName]);
+      if (investment.type === "withdrawal") {
+        const negativeValue = positiveValue * -1;
+        valuesArray.push(negativeValue);
+      } else {
+        valuesArray.push(positiveValue);
+      }
     });
     const unroundedInvestmentValue = valuesArray.reduce(
       (accumulator, current) => accumulator + current

@@ -71,9 +71,6 @@ const AddInvestmentItemForm = (props) => {
       alert("fields must not be left empty");
       closeModal;
     } else {
-      if (form.type === "withdrawal") {
-        form.amount = form.amount - form.amount * 2;
-      }
       handleFormSubmit({ ...form });
     }
   };
