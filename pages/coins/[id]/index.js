@@ -11,6 +11,9 @@ const Coin = (props) => {
     name,
     amount,
     code,
+    price,
+    high,
+    highDate,
     appCurrencySign,
     roundTo2DP,
   } = props;
@@ -94,10 +97,24 @@ const Coin = (props) => {
       )}
       <div className={styles.name}>{name}</div>
       <div className={styles.code}>[{code}]</div>
+      <div className={styles.amount}>
+        {appCurrencySign}
+        {roundTo2DP(high)} all time high
+      </div>
+      <div className={styles.amount}>
+        {highDate} date of all time high
+      </div>
+
+      <div className={styles.amount}>
+        {appCurrencySign}
+        {roundTo2DP(price)} current price
+      </div>
+
       <div className={styles.amount}>{currentAmount} coins</div>
       {currentAmount === amount ? (
         <p className={styles.total}>
-          {appCurrencySign} {roundTo2DP(total)}
+          {appCurrencySign}
+          {roundTo2DP(total)}
         </p>
       ) : (
         <p className={styles.total}>recalculating..</p>
@@ -136,7 +153,10 @@ Coin.getInitialProps = async ({ query }) => {
   const name = query.name;
   const amount = query.amount;
   const code = query.id;
-  const currencyInUse = query.currencyInUse;
+  const appCurrencySign = query.appCurrencySign;
+  const price = query.price;
+  const high = query.high;
+  const highDate = query.highDate;
 
   return {
     logo_url,
@@ -144,7 +164,10 @@ Coin.getInitialProps = async ({ query }) => {
     name,
     amount,
     code,
-    currencyInUse,
+    appCurrencySign,
+    price,
+    high,
+    highDate,
   };
 };
 
