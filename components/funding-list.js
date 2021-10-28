@@ -38,20 +38,24 @@ const FundingList = (props) => {
     <>
       {fundingHistoryData.map((investment) => (
         <div key={investment.id}>
-          {/* <Link
+          <Link
             href={{
-              pathname: "/coins/[id]",
+              pathname: "/investments/[id]",
               query: {
-                id: coin.id,
-                name: coin.name,
-                logo_url: coin.logo_url,
-                amount: coin.amount,
-                total: coin.total,
-                price: coin.price,
+                id: investment.id,
+                currencyName: investment.currencyName,
+                currencyCode: investment.currencyCode,
+                currencySign: investment.currencySign,
+                type: investment.type,
+                amount: investment.amount,
+                date: investment.date,
+                euros: investment.euros,
+                britishSterling: investment.britishSterling,
+                americanDollars: investment.americanDollars,
                 appCurrencySign: appCurrencySign,
               },
             }}
-          > */}
+          >
           <ul className={styles.listRow}>
             <li className={styles.logoContainer}>
               <img
@@ -62,7 +66,7 @@ const FundingList = (props) => {
             </li>
             <li className={styles.fundingValue}>
               {investment.currencySign}
-              {investment.amount}
+              {roundTo2DP(investment.amount)}
               <div className={styles.type}>{investment.type}</div>
             </li>
             <li className={styles.date}>
@@ -78,7 +82,7 @@ const FundingList = (props) => {
               <Edit2 />
             </li>
           </ul>
-          {/* </Link> */}
+          </Link>
         </div>
       ))}
     </>

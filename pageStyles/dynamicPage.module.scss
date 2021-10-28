@@ -6,6 +6,17 @@
   width: 100%;
   position: relative;
 }
+.tableLayout {
+  width: 90%;
+  margin-bottom: 20px;
+}
+.tableItem {
+  font-size: 24px;
+  text-align: left;
+}
+.tableCell {
+  padding: 24px 8px 8px 8px;
+}
 .currencyImg {
   display: block;
   margin-left: auto;
@@ -14,6 +25,7 @@
   max-height: 32px;
   border-radius: 16px;
   margin-right: 1rem;
+  align-items: center;
 }
 .name {
   font-size: 40px;
@@ -24,6 +36,10 @@
 .code {
   font-size: 24px;
   margin-bottom: 40px;
+}
+.code2 {
+  font-size: 24px;
+  margin-bottom: 10px;
 }
 .amount {
   font-size: 24px;
