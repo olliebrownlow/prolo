@@ -116,6 +116,28 @@ app.prepare().then(() => {
     });
   });
 
+  server.delete("/api/v1/fundingHistory/:id", (req, res) => {
+    const { id } = req.params;
+    const itemIndex = fundingData.findIndex((item) => item.id === id);
+
+    if (itemIndex < 0) {
+      return res.json("Funding item already deleted :)");
+    }
+
+    fundingData.splice(itemIndex, 1);
+
+    const pathToFile = path.join(__dirname, fundingFilePath);
+    const stringifiedData = JSON.stringify(fundingData, null, 2);
+
+    fs.writeFile(pathToFile, stringifiedData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+
+      return res.json("Funding item has been successfully deleted :)");
+    });
+  });
+
   server.get("/api/v1/fiat", (req, res) => {
     return res.json(fiatData);
   });

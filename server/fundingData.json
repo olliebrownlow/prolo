@@ -22,53 +22,5 @@
     "euros": 6000,
     "britishSterling": 5170.68714,
     "americanDollars": 7287.553739999999
-  },
-  {
-    "id": "bc9t7sd",
-    "date": "24-10-21",
-    "type": "withdrawal",
-    "amount": "100",
-    "currencyName": "euros",
-    "currencyCode": "eur",
-    "currencySign": "€",
-    "euros": 100,
-    "britishSterling": 84.62228,
-    "americanDollars": 116.63110599999999
-  },
-  {
-    "id": "l8w0i8q",
-    "date": "24-10-21",
-    "type": "investment",
-    "amount": "100",
-    "currencyName": "euros",
-    "currencyCode": "eur",
-    "currencySign": "€",
-    "euros": 100,
-    "britishSterling": 84.62228,
-    "americanDollars": 116.63110599999999
-  },
-  {
-    "id": "f4cd0ln",
-    "date": "16-10-21",
-    "type": "investment",
-    "amount": "100",
-    "currencyName": "british sterling",
-    "currencyCode": "gbp",
-    "currencySign": "£",
-    "euros": 118.27922900000002,
-    "britishSterling": 100,
-    "americanDollars": 137.196067
-  },
-  {
-    "id": "fuavxq2",
-    "date": "15-10-21",
-    "type": "withdrawal",
-    "amount": "100",
-    "currencyName": "british sterling",
-    "currencyCode": "gbp",
-    "currencySign": "£",
-    "euros": 118.529063,
-    "britishSterling": 100,
-    "americanDollars": 137.483222
   }
 ]

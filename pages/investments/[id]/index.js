@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import { deleteCoin, updateCoin } from "../../../actions";
+import { deleteInvestmentItem } from "../../../actions";
 import Router from "next/router";
 // import UpdateModal from "../../../components/update-modal";
 import styles from "../../../pageStyles/dynamicPage.module.scss";
@@ -42,9 +42,9 @@ const Investment = (props) => {
   //   window.location = "/ledger";
   // };
 
-  // const refreshInvestmentData = () => {
-  //   Router.replace("/ledger");
-  // };
+  const refreshInvestmentData = () => {
+    Router.replace("/ledger");
+  };
 
   // const handleInvestmentUpdate = (newAmount) => {
   //   const res = updateCoin(code, newAmount);
@@ -63,11 +63,11 @@ const Investment = (props) => {
   //   handleInvestmentUpdate(newAmount);
   // };
 
-  // const handleDeleteInvestment = () => {
-  //   const res = deleteCoin(code);
-  //   console.log(res);
-  //   refreshData();
-  // };
+  const handleDelete = () => {
+    const res = deleteInvestmentItem(id);
+    console.log(res);
+    refreshInvestmentData();
+  };
 
   const handleCancel = () => {
     Router.replace("/ledger");
@@ -100,38 +100,44 @@ const Investment = (props) => {
         {roundTo2DP(amount)}
       </div>
       <table className={styles.tableLayout}>
-        <tr className={styles.tableItem}>
-          <td className={styles.tableCellLeft}>type</td>
-          <td className={styles.tableCellRight}>{type}</td>
-        </tr>
-        <tr className={styles.tableItem}>
-          <td className={styles.tableCellLeft}>date</td>
-          <td className={styles.tableCellRight}>{date}</td>
-        </tr>
-        {roundTo2DP(euros) === roundTo2DP(amount) ? (
-          <React.Fragment />
-        ) : (
+        <thead>
           <tr className={styles.tableItem}>
-            <td className={styles.tableCellLeft}>euro value</td>
-            <td className={styles.tableCellRight}>€{roundTo2DP(euros)}</td>
+            <td className={styles.tableCellLeft}>type</td>
+            <td className={styles.tableCellRight}>{type}</td>
           </tr>
-        )}
-        {roundTo2DP(britishSterling) === roundTo2DP(amount) ? (
-          <React.Fragment />
-        ) : (
           <tr className={styles.tableItem}>
-            <td className={styles.tableCellLeft}>sterling value</td>
-            <td className={styles.tableCellRight}>£{roundTo2DP(britishSterling)}</td>
+            <td className={styles.tableCellLeft}>date</td>
+            <td className={styles.tableCellRight}>{date}</td>
           </tr>
-        )}
-        {roundTo2DP(americanDollars) === roundTo2DP(amount) ? (
-          <React.Fragment />
-        ) : (
-          <tr className={styles.tableItem}>
-            <td className={styles.tableCellLeft}>dollar value</td>
-            <td className={styles.tableCellRight}>${roundTo2DP(americanDollars)}</td>
-          </tr>
-        )}
+          {roundTo2DP(euros) === roundTo2DP(amount) ? (
+            <React.Fragment />
+          ) : (
+            <tr className={styles.tableItem}>
+              <td className={styles.tableCellLeft}>euro value</td>
+              <td className={styles.tableCellRight}>€{roundTo2DP(euros)}</td>
+            </tr>
+          )}
+          {roundTo2DP(britishSterling) === roundTo2DP(amount) ? (
+            <React.Fragment />
+          ) : (
+            <tr className={styles.tableItem}>
+              <td className={styles.tableCellLeft}>sterling value</td>
+              <td className={styles.tableCellRight}>
+                £{roundTo2DP(britishSterling)}
+              </td>
+            </tr>
+          )}
+          {roundTo2DP(americanDollars) === roundTo2DP(amount) ? (
+            <React.Fragment />
+          ) : (
+            <tr className={styles.tableItem}>
+              <td className={styles.tableCellLeft}>dollar value</td>
+              <td className={styles.tableCellRight}>
+                ${roundTo2DP(americanDollars)}
+              </td>
+            </tr>
+          )}
+        </thead>
       </table>
       <hr className={styles.solidDivider} />
       <div className={styles.buttons}>
@@ -144,7 +150,7 @@ const Investment = (props) => {
         </button>
         <button
           className={styles.deleteButton}
-          // onClick={() => handleDeleteInvestmemt()}
+          onClick={() => handleDelete()}
           role="button"
         >
           delete

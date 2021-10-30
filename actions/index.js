@@ -100,3 +100,9 @@ export const deleteFiat = (code) => {
     .delete(`${BASE_URL}/api/v1/fiat/${code}`)
     .then((res) => res.data);
 };
+
+export const deleteInvestmentItem = (id) => {
+  return axios
+    .delete(`${BASE_URL}/api/v1/fundingHistory/${id}`)
+    .then((res) => res.data);
+};
