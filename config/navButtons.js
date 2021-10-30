@@ -4,6 +4,7 @@ import {
   Home,
   BarChart2,
   Loader,
+  BookOpen,
   Pocket,
   Settings,
   TrendingUp,
@@ -21,7 +22,7 @@ const navButtons = [
   {
     label: "ledger",
     path: "/ledger",
-    icon: <TrendingUp />,
+    icon: <BookOpen />,
   },
   {
     label: "pocket",
