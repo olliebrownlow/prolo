@@ -7,16 +7,28 @@
   position: relative;
 }
 .tableLayout {
-  width: 90%;
+  width: 80%;
   margin-bottom: 20px;
 }
 .tableItem {
-  font-size: 24px;
+  font-size: 16px;
+}
+.tableCellLeft {
+  padding: 8px 8px 8px 8px;
   text-align: left;
+  // border-width: 3px;
+  // border-style: solid;
+  // border-image:
+  //   linear-gradient(
+  //     to right, 
+  //     lightgrey, 
+  //     rgba(0, 0, 0, 0)
+  //   ) 0 0 100%;
 }
-.tableCell {
-  padding: 24px 8px 8px 8px;
-}
+.tableCellRight {
+  padding: 8px 8px 8px 8px;
+  text-align: right;
+ }
 .currencyImg {
   display: block;
   margin-left: auto;
@@ -29,8 +41,6 @@
 }
 .name {
   font-size: 40px;
-  text-align: center;
-  margin-bottom: 10px;
   letter-spacing: 5px;
 }
 .code {
@@ -39,12 +49,15 @@
 }
 .code2 {
   font-size: 24px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 .amount {
-  font-size: 24px;
-  text-align: center;
+  font-size: 40px;
+  font-weight: 900;
   margin-bottom: 10px;
+  border-bottom: solid white 3px;
+  border-top: solid white 3px;
+
 }
 .total {
   font-size: 24px;
@@ -61,7 +74,6 @@
 }
 .deleteButton {
   margin: 0 15px;
-  display: flex;
   padding: 5px 0px 5px 0;
   border-radius: 3px;
   color: white;
@@ -73,7 +85,6 @@
 }
 .updateButton {
   margin: 0 15px;
-  display: flex;
   padding: 5px 0px 5px 0;
   border-radius: 3px;
   color: red;
@@ -86,7 +97,6 @@
 }
 .cancelButton {
   margin: 0 15px;
-  display: flex;
   padding: 5px 0px 5px 0;
   border-radius: 3px;
   color: red;

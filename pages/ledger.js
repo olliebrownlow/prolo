@@ -112,7 +112,12 @@ const Ledger = (props) => {
               {roundTo2DP(balance)}
             </div>
             <hr className={styles.solidDivider} />
-            <div className={styles.heading}>funding history</div>
+            <div className={styles.heading}>funding</div>
+            <div className={styles.balance}>
+              {appCurrencySign}
+              {roundTo2DP(balance - prolo())}
+            </div>
+            <div className={styles.subheading}>breakdown</div>
             <AddButton
               buttonText={"add item"}
               showModal={showModal}

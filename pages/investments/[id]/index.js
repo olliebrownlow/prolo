@@ -101,35 +101,35 @@ const Investment = (props) => {
       </div>
       <table className={styles.tableLayout}>
         <tr className={styles.tableItem}>
-          <td className={styles.tableCell}>type</td>
-          <td className={styles.tableCell}>{type}</td>
+          <td className={styles.tableCellLeft}>type</td>
+          <td className={styles.tableCellRight}>{type}</td>
         </tr>
         <tr className={styles.tableItem}>
-          <td className={styles.tableCell}>date</td>
-          <td className={styles.tableCell}>{date}</td>
+          <td className={styles.tableCellLeft}>date</td>
+          <td className={styles.tableCellRight}>{date}</td>
         </tr>
         {roundTo2DP(euros) === roundTo2DP(amount) ? (
           <React.Fragment />
         ) : (
           <tr className={styles.tableItem}>
-            <td className={styles.tableCell}>euro value</td>
-            <td className={styles.tableCell}>€{roundTo2DP(euros)}</td>
+            <td className={styles.tableCellLeft}>euro value</td>
+            <td className={styles.tableCellRight}>€{roundTo2DP(euros)}</td>
           </tr>
         )}
         {roundTo2DP(britishSterling) === roundTo2DP(amount) ? (
           <React.Fragment />
         ) : (
           <tr className={styles.tableItem}>
-            <td className={styles.tableCell}>sterling value</td>
-            <td className={styles.tableCell}>£{roundTo2DP(britishSterling)}</td>
+            <td className={styles.tableCellLeft}>sterling value</td>
+            <td className={styles.tableCellRight}>£{roundTo2DP(britishSterling)}</td>
           </tr>
         )}
         {roundTo2DP(americanDollars) === roundTo2DP(amount) ? (
           <React.Fragment />
         ) : (
           <tr className={styles.tableItem}>
-            <td className={styles.tableCell}>dollar value</td>
-            <td className={styles.tableCell}>${roundTo2DP(americanDollars)}</td>
+            <td className={styles.tableCellLeft}>dollar value</td>
+            <td className={styles.tableCellRight}>${roundTo2DP(americanDollars)}</td>
           </tr>
         )}
       </table>
