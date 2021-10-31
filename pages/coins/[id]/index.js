@@ -3,6 +3,7 @@ import { deleteCoin, updateCoin } from "../../../actions";
 import Router from "next/router";
 import UpdateModal from "../../../components/update-modal";
 import styles from "../../../pageStyles/dynamicPage.module.scss";
+import _ from "lodash";
 
 const Coin = (props) => {
   const {
@@ -71,6 +72,10 @@ const Coin = (props) => {
     Router.replace("/pocket");
   };
 
+  const formatDate = (date) => {
+    return _.words(date.substring(2, 10)).reverse().join("-");
+  };
+
   return (
     <div className={styles.pageLayout}>
       <img
@@ -96,29 +101,41 @@ const Coin = (props) => {
         <React.Fragment />
       )}
       <div className={styles.name}>{name}</div>
-      <div className={styles.code}>[{code}]</div>
-      <div className={styles.amount}>
-        {appCurrencySign}
-        {roundTo2DP(high)} all time high
-      </div>
-      <div className={styles.amount}>
-        {highDate} date of all time high
-      </div>
-
-      <div className={styles.amount}>
-        {appCurrencySign}
-        {roundTo2DP(price)} current price
-      </div>
-
-      <div className={styles.amount}>{currentAmount} coins</div>
+      <div className={styles.code2}>[{code}]</div>
       {currentAmount === amount ? (
-        <p className={styles.total}>
+        <div className={styles.amount}>
           {appCurrencySign}
           {roundTo2DP(total)}
-        </p>
+        </div>
       ) : (
-        <p className={styles.total}>recalculating..</p>
+        <div className={styles.amount}>recalculating..</div>
       )}
+      <table className={styles.tableLayout}>
+        <thead>
+          <tr className={styles.tableItem}>
+            <td className={styles.tableCellLeft}>coins</td>
+            <td className={styles.tableCellRight}>{currentAmount}</td>
+          </tr>
+          <tr className={styles.tableItem}>
+            <td className={styles.tableCellLeft}>current price</td>
+            <td className={styles.tableCellRight}>
+              {appCurrencySign}
+              {roundTo2DP(price)}
+            </td>
+          </tr>
+          <tr className={styles.tableItem}>
+            <td className={styles.tableCellLeft}>all-time high</td>
+            <td className={styles.tableCellRight}>
+              {appCurrencySign}
+              {roundTo2DP(high)}
+            </td>
+          </tr>
+          <tr className={styles.tableItem}>
+            <td className={styles.tableCellLeft}>high date</td>
+            <td className={styles.tableCellRight}>{formatDate(highDate)}</td>
+          </tr>
+        </thead>
+      </table>
       <hr className={styles.solidDivider} />
       <div className={styles.buttons}>
         <button

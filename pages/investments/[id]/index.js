@@ -47,7 +47,7 @@ const Investment = (props) => {
   };
 
   // const handleInvestmentUpdate = (newAmount) => {
-  //   const res = updateCoin(code, newAmount);
+  //   const res = updateInvestmentItem(code, newData);
   //   console.log(res);
   // };
 
@@ -81,14 +81,17 @@ const Investment = (props) => {
         alt={currencyName}
       />
       {/* {isShown ? (
-        <UpdateModal
+        <CorrectModal
           closeModal={closeModal}
           windowOnClick={windowOnClick}
           handleFormSubmit={handleUpdate}
-          name={name}
-          code={code}
+          id={id}
+          name={currencyName}
+          code={currencyCode}
           amount={amount}
-          label="coin"
+          type={type}
+          date={date}
+          label="funding item"
         />
       ) : (
         <React.Fragment />
