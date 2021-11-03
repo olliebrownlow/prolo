@@ -23,5 +23,10 @@
     "code": "LTC",
     "name": "litecoin",
     "amount": "0.6328"
+  },
+  {
+    "code": "DOT",
+    "name": "polkadot",
+    "amount": "0.00001"
   }
 ]

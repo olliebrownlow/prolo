@@ -8,13 +8,17 @@
   display: block;
   margin-left: auto;
   margin-top: 1rem;
-  max-width: 40px;
+  max-width: 44px;
   max-height: 32px;
-  border-radius: 16px;
   margin-right: 1rem;
+}
+.currencyImg img {
+  border-radius: 16px; //!important;
+  border: 1px solid white !important;
 }
 .heading {
   font-size: 24px;
+  font-weight: 700;
   margin-left: 1rem;
   letter-spacing: 8px;
 }

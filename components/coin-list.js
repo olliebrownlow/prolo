@@ -1,6 +1,7 @@
 import styles from "./listing.module.scss";
 import Link from "next/link";
-import { Edit2, Edit3 } from "react-feather";
+import Image from "next/image";
+import { Edit2 } from "react-feather";
 
 const CoinList = (props) => {
   const { roundTo2DP, coinData, appCurrencySign } = props;
@@ -36,17 +37,21 @@ const CoinList = (props) => {
               },
             }}
           >
-            <ul className={styles.listRow}>
+            <div className={styles.listRow}>
               <li className={styles.logoContainer}>
-                <img
-                  className={
-                    styles.logo +
-                    " " +
-                    `${coin.name === "polkadot" ? styles.withBackground : ""}`
-                  }
-                  src={coin.logo_url}
-                  alt={coin.name}
-                />
+                <div
+                  className={`${
+                    coin.name === "polkadot" ? styles.withBackground : ""
+                  }`}
+                >
+                  <Image
+                    src={coin.logo_url}
+                    alt={coin.name}
+                    layout="responsive"
+                    width={50}
+                    height={50}
+                  />
+                </div>
               </li>
               <li className={styles.name}>
                 {coin.name}
@@ -63,7 +68,7 @@ const CoinList = (props) => {
               <li className={styles.editIcon}>
                 <Edit2 />
               </li>
-            </ul>
+            </div>
           </Link>
         </div>
       ))}

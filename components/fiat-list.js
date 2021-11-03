@@ -1,12 +1,26 @@
 import styles from "./listing.module.scss";
 import Link from "next/link";
-import { Edit2, Edit3 } from "react-feather";
+import Image from "next/image";
+import eurFlag from "../public/eurFlag.jpg";
+import gbpFlag from "../public/gbpFlag.jpg";
+import usdFlag from "../public/usdFlag.jpg";
+import { Edit2 } from "react-feather";
 
 const FiatList = (props) => {
   const { roundTo2DP, fiatData, appCurrencySign } = props;
 
   const orderedArray = () => {
     return fiatData.sort((a, b) => b.value - a.value);
+  };
+
+  const getFlag = (sign) => {
+    if (sign === "£") {
+      return gbpFlag;
+    } else if (sign === "$") {
+      return usdFlag;
+    } else {
+      return eurFlag;
+    }
   };
 
   return (
@@ -26,13 +40,17 @@ const FiatList = (props) => {
               },
             }}
           >
-            <ul className={styles.listRow}>
+            <div className={styles.listRow}>
               <li className={styles.logoContainer}>
-                <img
-                  className={styles.logo}
-                  src={`./${fiatData.from.toLowerCase()}Flag.jpg`}
-                  alt={fiatData.from}
-                />
+                <div className={styles.flag}>
+                  <Image
+                    src={getFlag(fiatData.fiatSign)}
+                    alt={fiatData.from}
+                    layout="responsive"
+                    width={60}
+                    height={40}
+                  />
+                </div>
               </li>
               <li className={styles.name}>
                 {fiatData.fullFiatName}
@@ -49,7 +67,7 @@ const FiatList = (props) => {
               <li className={styles.editIcon}>
                 <Edit2 />
               </li>
-            </ul>
+            </div>
           </Link>
         </div>
       ))}

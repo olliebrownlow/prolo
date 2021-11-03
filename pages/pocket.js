@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { UserContext } from "../lib/UserContext";
 import CurrencySettingsContext from "../context/currencySettings";
 import Loading from "../components/loading";
@@ -7,6 +7,10 @@ import FiatList from "../components/fiat-list";
 import Modal from "../components/modal";
 import PocketBalance from "../components/pocket-balance";
 import Link from "next/link";
+import Image from "next/image";
+import eurFlag from "../public/eurFlag.jpg";
+import gbpFlag from "../public/gbpFlag.jpg";
+import usdFlag from "../public/usdFlag.jpg";
 import { getCoinData } from "../lib/core/coinData";
 import { getFiatData } from "../lib/core/fiatData";
 import styles from "../pageStyles/pocket.module.scss";
@@ -17,6 +21,15 @@ const Pocket = (props) => {
     CurrencySettingsContext
   );
   const { coinData, fiatData, roundTo2DP } = props;
+  const [currencyFlag, setCurrencyFlag] = useState(eurFlag);
+
+  useEffect(() => {
+    if (appCurrencyCode === "gbp") {
+      setCurrencyFlag(gbpFlag);
+    } else if (appCurrencyCode != "eur") {
+      setCurrencyFlag(usdFlag)
+    }
+  }, [appCurrencyCode]);
 
   return (
     <>
@@ -26,11 +39,15 @@ const Pocket = (props) => {
         user?.issuer && (
           <div className={styles.pocketLayout}>
             <Link href="/settings">
-              <img
-                className={styles.currencyImg}
-                src={`./${appCurrencyCode}Flag.jpg`}
-                alt={appCurrencyCode}
-              />
+              <div className={styles.currencyImg}>
+                <Image
+                  src={currencyFlag}
+                  alt={appCurrencyCode}
+                  layout="responsive"
+                  width={48}
+                  height={32}
+                />
+              </div>
             </Link>
             <div className={styles.heading}>balance</div>
             <PocketBalance

@@ -1,7 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Router from "next/router";
 import CurrencySettingsContext from "../context/currencySettings";
 import Link from "next/link";
+import Image from "next/image";
+import eurFlag from "../public/eurFlag.jpg";
+import gbpFlag from "../public/gbpFlag.jpg";
+import usdFlag from "../public/usdFlag.jpg";
 import { UserContext } from "../lib/UserContext";
 import Loading from "../components/loading";
 import AddButton from "../components/add-button";
@@ -27,6 +31,15 @@ const Ledger = (props) => {
     CurrencySettingsContext
   );
   const [isShown, setIsShown] = useState(false);
+  const [currencyFlag, setCurrencyFlag] = useState(eurFlag);
+
+  useEffect(() => {
+    if (appCurrencyCode === "gbp") {
+      setCurrencyFlag(gbpFlag);
+    } else if (appCurrencyCode != "eur") {
+      setCurrencyFlag(usdFlag);
+    }
+  }, [appCurrencyCode]);
 
   const showModal = () => {
     setIsShown(true);
@@ -92,11 +105,15 @@ const Ledger = (props) => {
         user?.issuer && (
           <div className={styles.ledgerLayout}>
             <Link href="/settings">
-              <img
-                className={styles.currencyImg}
-                src={`./${appCurrencyCode}Flag.jpg`}
-                alt={appCurrencyCode}
-              />
+              <div className={styles.currencyImg}>
+                <Image
+                  src={currencyFlag}
+                  alt={appCurrencyCode}
+                  layout="responsive"
+                  width={48}
+                  height={32}
+                />
+              </div>
             </Link>
             <div className={styles.heading}>profit/loss</div>
             <Link href="/ledger">
