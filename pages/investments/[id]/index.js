@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { deleteInvestmentItem } from "../../../actions";
 import Router from "next/router";
+import Image from "next/image";
+import eurFlag from "../../../public/eurFlag.jpg";
+import gbpFlag from "../../../public/gbpFlag.jpg";
+import usdFlag from "../../../public/usdFlag.jpg";
 // import UpdateModal from "../../../components/update-modal";
 import styles from "../../../pageStyles/dynamicPage.module.scss";
 
@@ -73,13 +77,32 @@ const Investment = (props) => {
     Router.replace("/ledger");
   };
 
+  const getFlag = (sign) => {
+    if (sign === "£") {
+      return gbpFlag;
+    } else if (sign === "$") {
+      return usdFlag;
+    } else {
+      return eurFlag;
+    }
+  };
+
   return (
     <div className={styles.pageLayout}>
-      <img
+       <div className={styles.flagLogo}>
+        <Image
+          src={getFlag(currencySign)}
+          alt={name}
+          layout="responsive"
+          width={60}
+          height={40}
+        />
+      </div>
+      {/* <img
         className={styles.logo}
         src={`../${currencyCode.toLowerCase()}Flag.jpg`}
         alt={currencyName}
-      />
+      /> */}
       {/* {isShown ? (
         <CorrectModal
           closeModal={closeModal}

@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { deleteFiat, updateFiat } from "../../../actions";
 import Router from "next/router";
+import Image from "next/image";
+import eurFlag from "../../../public/eurFlag.jpg";
+import gbpFlag from "../../../public/gbpFlag.jpg";
+import usdFlag from "../../../public/usdFlag.jpg";
 import UpdateModal from "../../../components/update-modal";
 import styles from "../../../pageStyles/dynamicPage.module.scss";
 
@@ -16,7 +20,6 @@ const Fiat = (props) => {
   } = props;
 
   const [isShown, setIsShown] = useState(false);
-  const [currentAmount, setCurrentAmount] = useState(amount);
 
   const showModal = () => {
     setIsShown(true);
@@ -52,9 +55,7 @@ const Fiat = (props) => {
         amount: amount,
       },
     ];
-    setCurrentAmount(amount);
     refreshFiatData();
-    // closeModal();
     handleFiatUpdate(newAmount);
   };
 
@@ -68,13 +69,37 @@ const Fiat = (props) => {
     Router.replace("/pocket");
   };
 
+  const getFlag = (sign) => {
+    if (sign === "£") {
+      return gbpFlag;
+    } else if (sign === "$") {
+      return usdFlag;
+    } else {
+      return eurFlag;
+    }
+  };
+
+  const getCurrency = (sign) => {
+    if (sign === "£") {
+      return "sterling";
+    } else if (sign === "$") {
+      return "dollar";
+    } else {
+      return "euro";
+    }
+  };
+
   return (
     <div className={styles.pageLayout}>
-      <img
-        className={styles.logo}
-        src={`../${code.toLowerCase()}Flag.jpg`}
-        alt={name}
-      />
+      <div className={styles.flagLogo}>
+        <Image
+          src={getFlag(fiatSign)}
+          alt={name}
+          layout="responsive"
+          width={60}
+          height={40}
+        />
+      </div>
       {isShown ? (
         <UpdateModal
           closeModal={closeModal}
@@ -89,13 +114,27 @@ const Fiat = (props) => {
         <React.Fragment />
       )}
       <div className={styles.name}>{name}</div>
-      <div className={styles.code}>[{code}]</div>
+      <div className={styles.code2}>[{code}]</div>
       <div className={styles.amount}>
         {fiatSign} {roundTo2DP(amount)}
       </div>
-      <p className={styles.total}>
-        {appCurrencySign} {roundTo2DP(total)}
-      </p>
+      {fiatSign != appCurrencySign ? (
+        <table className={styles.tableLayout}>
+          <thead>
+            <tr className={styles.tableItem}>
+              <td className={styles.tableCellLeft}>
+                {getCurrency(appCurrencySign)} value
+              </td>
+              <td className={styles.tableCellRight}>
+                {appCurrencySign}
+                {roundTo2DP(total)}
+              </td>
+            </tr>
+          </thead>
+        </table>
+      ) : (
+        <React.Fragment />
+      )}
       <hr className={styles.solidDivider} />
       <div className={styles.buttons}>
         <button

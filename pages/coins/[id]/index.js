@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { deleteCoin, updateCoin } from "../../../actions";
 import Router from "next/router";
+import Image from "next/image";
 import UpdateModal from "../../../components/update-modal";
 import styles from "../../../pageStyles/dynamicPage.module.scss";
 import _ from "lodash";
@@ -78,15 +79,21 @@ const Coin = (props) => {
 
   return (
     <div className={styles.pageLayout}>
-      <img
+      <div
         className={
           styles.logo +
           " " +
           `${name === "polkadot" ? styles.withBackground : ""}`
         }
-        src={logo_url}
-        alt={name}
-      />
+      >
+        <Image
+          src={logo_url}
+          alt={name}
+          layout="responsive"
+          width={50}
+          height={50}
+        />
+      </div>
       {isShown ? (
         <UpdateModal
           closeModal={closeModal}

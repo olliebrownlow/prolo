@@ -29,16 +29,6 @@
   padding: 8px 8px 8px 8px;
   text-align: right;
  }
-.currencyImg {
-  display: block;
-  margin-left: auto;
-  margin-top: 1rem;
-  max-width: 40px;
-  max-height: 32px;
-  border-radius: 16px;
-  margin-right: 1rem;
-  align-items: center;
-}
 .name {
   text-align: center;
   font-size: 40px;
@@ -108,16 +98,22 @@
   background-color: lightgrey;
   outline: none;
 }
-.logo {
-  display: block;
+.flagLogo {
   width: 25%;
-  border: none;
+  border: 1px solid white !important;
   margin: 24px 0 20px 0;
+  border-radius: 10px !important;
+}
+.flagLogo img {
   border-radius: 10px;
+}
+.logo {
+  width: 25%;
+  margin: 24px 0 20px 0;
 }
 .withBackground {
   background-color: white;
-  border-radius: 60px;
+  border-radius: 50%;
 }
 .solidDivider {
   margin-bottom: 60px;
