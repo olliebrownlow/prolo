@@ -4,7 +4,7 @@ import Image from "next/image";
 import eurFlag from "../public/eurFlag.jpg";
 import gbpFlag from "../public/gbpFlag.jpg";
 import usdFlag from "../public/usdFlag.jpg";
-import { Edit2 } from "react-feather";
+import { ArrowUpRight } from "react-feather";
 
 const FiatList = (props) => {
   const { roundTo2DP, fiatData, appCurrencySign } = props;
@@ -65,7 +65,7 @@ const FiatList = (props) => {
                 </div>
               </li>
               <li className={styles.editIcon}>
-                <Edit2 />
+                <ArrowUpRight size={32}/>
               </li>
             </div>
           </Link>

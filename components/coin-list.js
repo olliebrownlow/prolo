@@ -1,7 +1,7 @@
 import styles from "./listing.module.scss";
 import Link from "next/link";
 import Image from "next/image";
-import { Edit2 } from "react-feather";
+import { ArrowUpRight } from "react-feather";
 
 const CoinList = (props) => {
   const { roundTo2DP, coinData, appCurrencySign } = props;
@@ -66,7 +66,7 @@ const CoinList = (props) => {
                 </div>
               </li>
               <li className={styles.editIcon}>
-                <Edit2 />
+                <ArrowUpRight size={32} />
               </li>
             </div>
           </Link>

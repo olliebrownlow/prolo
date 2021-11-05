@@ -27,7 +27,7 @@ const Pocket = (props) => {
     if (appCurrencyCode === "gbp") {
       setCurrencyFlag(gbpFlag);
     } else if (appCurrencyCode != "eur") {
-      setCurrencyFlag(usdFlag)
+      setCurrencyFlag(usdFlag);
     }
   }, [appCurrencyCode]);
 
@@ -63,6 +63,7 @@ const Pocket = (props) => {
               coinData={coinData}
               appCurrencySign={appCurrencySign}
             />
+            <div className={styles.spacer}>placeholder</div>
             <div className={styles.heading}>fiat holdings</div>
             <Modal buttonText={"add fiat"} labelName={"fiat"} data={fiatData} />
             <FiatList
