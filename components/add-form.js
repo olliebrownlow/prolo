@@ -35,13 +35,19 @@ const AddForm = (props) => {
         [target.name]: target.value,
       });
     }
+    
+    // remove the square brackets around the code
+    const leftBracketRemoved = target.value.replace("[", "");
+    const bothBracketsRemoved = leftBracketRemoved.replace("]", "");
+
+    const wordsArray = _.split(bothBracketsRemoved, " ");
+    console.log(wordsArray[0] + " and " + wordsArray[1]);
     // set coin data
-    const wordsArray = _.words(target.value);
     if (target.name === "coin") {
       setForm({
         ...form,
-        name: wordsArray[0],
-        code: wordsArray[1],
+        code: wordsArray.pop(),
+        name: wordsArray.join(" "),
       });
     }
     // set fiat data

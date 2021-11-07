@@ -37,6 +37,18 @@ const coinSelectOptions = [
     name: "solana",
     code: "[SOL]",
   },
+  {
+    name: "tether",
+    code: "[USDT]",
+  },
+  {
+    name: "usd coin",
+    code: "[USDC]",
+  },
+  {
+    name: "the sandbox",
+    code: "[SAND2]",
+  },
 ];
 
 export default coinSelectOptions;
