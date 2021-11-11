@@ -41,10 +41,6 @@ export const getCoins = () => {
   return axios.get(`${BASE_URL}/api/v1/coins`).then((res) => res.data);
 };
 
-export const getCoinByCode = (code) => {
-  return axios.get(`${BASE_URL}/api/v1/coins/${code}`).then((res) => res.data);
-};
-
 export const getFiat = () => {
   return axios.get(`${BASE_URL}/api/v1/fiat`).then((res) => res.data);
 };
@@ -63,6 +59,12 @@ export const addCoin = (coin) => {
 
 export const addFiat = (fiat) => {
   return axios.post(`${BASE_URL}/api/v1/fiat`, fiat).then((res) => res.data);
+};
+
+export const updateInvestmentItem = (id, correctedItem) => {
+  return axios
+    .patch(`${BASE_URL}/api/v1/fundingHistory/${id}`, correctedItem)
+    .then((res) => console.log(res.data));
 };
 
 export const updateCoin = (code, amount) => {

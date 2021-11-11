@@ -1,12 +1,17 @@
 import React, { useState } from "react";
-import { deleteInvestmentItem } from "../../../actions";
+import {
+  deleteInvestmentItem,
+  getHistoricalData,
+  updateInvestmentItem,
+} from "../../../actions";
 import Router from "next/router";
 import Image from "next/image";
 import eurFlag from "../../../public/eurFlag.jpg";
 import gbpFlag from "../../../public/gbpFlag.jpg";
 import usdFlag from "../../../public/usdFlag.jpg";
-// import UpdateModal from "../../../components/update-modal";
+import CorrectModal from "../../../components/correct-modal";
 import styles from "../../../pageStyles/dynamicPage.module.scss";
+import _ from "lodash";
 
 const Investment = (props) => {
   const {
@@ -24,53 +29,60 @@ const Investment = (props) => {
     roundTo2DP,
   } = props;
 
-  // const [isShown, setIsShown] = useState(false);
-  // const [currentAmount, setCurrentAmount] = useState(amount);
+  const [isShown, setIsShown] = useState(false);
 
-  // const showModal = () => {
-  //   setIsShown(true);
-  // };
+  const showModal = () => {
+    setIsShown(true);
+  };
 
-  // const closeModal = () => {
-  //   setIsShown(false);
-  // };
+  const closeModal = () => {
+    setIsShown(false);
+  };
 
-  // // close modal from window surrounding the modal itself
-  // const windowOnClick = (event) => {
-  //   if (event.target === event.currentTarget) {
-  //     setIsShown(false);
-  //   }
-  // };
-
-  // const refreshData = () => {
-  //   window.location = "/ledger";
-  // };
+  // close modal from window surrounding the modal itself
+  const windowOnClick = (event) => {
+    if (event.target === event.currentTarget) {
+      setIsShown(false);
+    }
+  };
 
   const refreshInvestmentData = () => {
     Router.replace("/ledger");
   };
 
-  // const handleInvestmentUpdate = (newAmount) => {
-  //   const res = updateInvestmentItem(code, newData);
-  //   console.log(res);
-  // };
+  const handleUpdate = async (correctedItem) => {
+    refreshInvestmentData();
 
-  // const handleUpdate = (amount) => {
-  //   const newAmount = [
-  //     {
-  //       amount: amount,
-  //     },
-  //   ];
-  //   setCurrentAmount(amount);
-  //   refreshInvestmentData();
-  //   // closeModal();
-  //   handleInvestmentUpdate(newAmount);
-  // };
+    if (correctedItem.date.length === 8) {
+      const array = correctedItem.date.split("-");
+      array.reverse();
+      array[0] = "2021";
+      correctedItem.date = array.join("-");
+    }
+    const historicalData = await getHistoricalData(
+      correctedItem.currencyCode.toUpperCase(),
+      correctedItem.date
+    );
+
+    // add remaining properties and format others
+    correctedItem.euros =
+      historicalData.response.rates.EUR * correctedItem.amount;
+    correctedItem.britishSterling =
+      historicalData.response.rates.GBP * correctedItem.amount;
+    correctedItem.americanDollars =
+      historicalData.response.rates.USD * correctedItem.amount;
+    correctedItem.date = _.words(correctedItem.date.substring(2))
+      .reverse()
+      .join("-");
+
+    const res = await updateInvestmentItem(correctedItem.id, correctedItem);
+    console.log(res);
+  };
 
   const handleDelete = () => {
+    refreshInvestmentData();
     const res = deleteInvestmentItem(id);
     console.log(res);
-    refreshInvestmentData();
   };
 
   const handleCancel = () => {
@@ -89,28 +101,23 @@ const Investment = (props) => {
 
   return (
     <div className={styles.pageLayout}>
-       <div className={styles.flagLogo}>
+      <div className={styles.flagLogo}>
         <Image
           src={getFlag(currencySign)}
-          alt={name}
-          layout="responsive"
-          width={60}
-          height={40}
+          alt={currencyName}
+          layout="fill"
+          priority
         />
       </div>
-      {/* <img
-        className={styles.logo}
-        src={`../${currencyCode.toLowerCase()}Flag.jpg`}
-        alt={currencyName}
-      /> */}
-      {/* {isShown ? (
+      {isShown ? (
         <CorrectModal
           closeModal={closeModal}
           windowOnClick={windowOnClick}
           handleFormSubmit={handleUpdate}
           id={id}
-          name={currencyName}
-          code={currencyCode}
+          currencyName={currencyName}
+          currencyCode={currencyCode}
+          currencySign={currencySign}
           amount={amount}
           type={type}
           date={date}
@@ -118,7 +125,7 @@ const Investment = (props) => {
         />
       ) : (
         <React.Fragment />
-      )} */}
+      )}
       <div className={styles.name}>{currencyName}</div>
       <div className={styles.code2}>[{currencyCode}]</div>
       <div className={styles.amount}>
@@ -169,7 +176,7 @@ const Investment = (props) => {
       <div className={styles.buttons}>
         <button
           className={styles.updateButton}
-          // onClick={() => showModal()}
+          onClick={() => showModal()}
           role="button"
         >
           correct
@@ -193,7 +200,7 @@ const Investment = (props) => {
   );
 };
 
-Investment.getInitialProps = async ({ query }) => {
+export async function getServerSideProps({ query }) {
   const id = query.id;
   const currencyName = query.currencyName;
   const currencyCode = query.currencyCode;
@@ -207,18 +214,20 @@ Investment.getInitialProps = async ({ query }) => {
   const appCurrencySign = query.appCurrencySign;
 
   return {
-    id,
-    currencyName,
-    currencyCode,
-    currencySign,
-    type,
-    amount,
-    date,
-    euros,
-    britishSterling,
-    americanDollars,
-    appCurrencySign,
+    props: {
+      id,
+      currencyName,
+      currencyCode,
+      currencySign,
+      type,
+      amount,
+      date,
+      euros,
+      britishSterling,
+      americanDollars,
+      appCurrencySign,
+    },
   };
-};
+}
 
 export default Investment;

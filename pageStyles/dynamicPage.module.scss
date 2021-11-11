@@ -99,7 +99,10 @@
   outline: none;
 }
 .flagLogo {
-  width: 25%;
+  position: relative;
+  // display: block;
+  width: 90px;
+  height: 60px;
   border: 1px solid white !important;
   margin: 24px 0 20px 0;
   border-radius: 10px !important;

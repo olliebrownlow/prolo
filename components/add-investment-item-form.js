@@ -134,7 +134,9 @@ const AddInvestmentItemForm = (props) => {
           <input
             className={styles.formControl}
             onChange={handleChange}
+            // onFocus={type='date'}
             type="date"
+            placeholder="dd/mm/yyyy"
             id="date"
             name="date"
             required

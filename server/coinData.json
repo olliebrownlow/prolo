@@ -2,17 +2,12 @@
   {
     "code": "ETH",
     "name": "ethereum",
-    "amount": "3.71191763"
+    "amount": "2.00"
   },
   {
     "code": "DOGE",
     "name": "dogecoin",
     "amount": "972.14813889"
-  },
-  {
-    "code": "MANA",
-    "name": "decentraland",
-    "amount": "0.0001"
   },
   {
     "code": "ADA",
@@ -25,8 +20,18 @@
     "amount": "0.6328"
   },
   {
-    "code": "DOT",
-    "name": "polkadot",
+    "code": "SOL",
+    "name": "solana",
+    "amount": "0.0000001"
+  },
+  {
+    "code": "MANA",
+    "name": "decentraland",
+    "amount": "0.0001"
+  },
+  {
+    "code": "SAND2",
+    "name": "the sandbox",
     "amount": "0.000001"
   }
 ]

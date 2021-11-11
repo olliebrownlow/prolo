@@ -37,7 +37,7 @@ const UpdateForm = (props) => {
           <select
             name={name}
             defaultValue={select}
-            className={styles.formControl}
+            className={styles.disabledFormControl}
             id={name}
           >
             <option key={"option"} disabled hidden>
@@ -51,7 +51,7 @@ const UpdateForm = (props) => {
             disabled
             value={amount}
             name="currentAmount"
-            className={styles.formControl}
+            className={styles.disabledFormControl}
             id="currentAmount"
           />
         </div>

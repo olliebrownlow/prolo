@@ -5,6 +5,9 @@ module.exports = {
     PRIVATE_CURRENCYSCOOP_API_KEY: process.env.CURRENCYSCOOP_API_KEY,
   },
   images: {
-    domains: ['s3.us-east-2.amazonaws.com'],
+    domains: [
+      "s3.us-east-2.amazonaws.com",
+      "nomics-api.s3.us-east-2.amazonaws.com",
+    ],
   },
 };

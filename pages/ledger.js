@@ -61,6 +61,8 @@ const Ledger = (props) => {
   };
 
   const handleAddInvestmentItem = async (item) => {
+    refreshFundingHistoryData();
+
     const historicalData = await getHistoricalData(
       item.currencyCode,
       item.date
@@ -74,7 +76,6 @@ const Ledger = (props) => {
     item.date = _.words(item.date.substring(2)).reverse().join("-");
 
     const res = await addInvestmentItem(item);
-    refreshFundingHistoryData();
     console.log(res);
     closeModal();
   };
@@ -112,6 +113,7 @@ const Ledger = (props) => {
                   layout="responsive"
                   width={48}
                   height={32}
+                  priority
                 />
               </div>
             </Link>

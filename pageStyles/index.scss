@@ -64,7 +64,21 @@ p {
 img {
   border: 1px solid var(--border);
 }
-
+input[type="date"]::before {
+	color: grey;
+	content: attr(placeholder);
+}
+input[type="date"] {
+	color: black;
+}
+input[type="date"]:focus,
+input[type="date"]:valid {
+	color: black;
+}
+input[type="date"]:focus::before,
+input[type="date"]:valid::before {
+	content: "" !important;
+}
 code {
   font-family: $core-font, source-code-pro, Menlo, Monaco, Consolas,
     "Courier New", monospace;

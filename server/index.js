@@ -39,12 +39,6 @@ app.prepare().then(() => {
     return res.json(coinData);
   });
 
-  server.get("/api/v1/coins/:id", (req, res) => {
-    const { id } = req.params;
-    const coin = coinData.find((coin) => coin.code === id);
-    return res.json(coin);
-  });
-
   server.patch("/api/v1/coins/:id", (req, res) => {
     const { id } = req.params;
     const updatedAmount = req.body[0];
@@ -113,6 +107,25 @@ app.prepare().then(() => {
       }
 
       return res.json("Funding history item has been successfully added :)");
+    });
+  });
+
+  server.patch("/api/v1/fundingHistory/:id", (req, res) => {
+    const { id } = req.params;
+    const correctedItem = req.body;
+    const itemIndex = fundingData.findIndex((item) => item.id === id);
+
+    fundingData[itemIndex] = correctedItem;
+
+    const pathToFile = path.join(__dirname, fundingFilePath);
+    const stringifiedData = JSON.stringify(fundingData, null, 2);
+
+    fs.writeFile(pathToFile, stringifiedData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+
+      return res.json("Funding item has been successfully updated :)");
     });
   });
 
