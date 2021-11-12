@@ -49,6 +49,10 @@ const coinSelectOptions = [
     name: "the sandbox",
     code: "[SAND2]",
   },
+  {
+    name: "loopring",
+    code: "[LRC]",
+  },
 ];
 
 export default coinSelectOptions;
