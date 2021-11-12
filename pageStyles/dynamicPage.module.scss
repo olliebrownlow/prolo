@@ -100,7 +100,6 @@
 }
 .flagLogo {
   position: relative;
-  // display: block;
   width: 90px;
   height: 60px;
   border: 1px solid white !important;
@@ -111,7 +110,9 @@
   border-radius: 10px;
 }
 .logo {
-  width: 25%;
+  position: relative;
+  width: 105px;
+  height: 105px;
   margin: 24px 0 20px 0;
 }
 .withBackground {

@@ -2,7 +2,19 @@
   {
     "code": "EUR",
     "name": "euros",
-    "amount": "10139.20",
+    "amount": "9838.72",
     "sign": "€"
+  },
+  {
+    "code": "GBP",
+    "name": "british sterling",
+    "amount": "25",
+    "sign": "£"
+  },
+  {
+    "code": "USD",
+    "name": "american dollars",
+    "amount": "25",
+    "sign": "$"
   }
 ]

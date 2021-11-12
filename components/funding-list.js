@@ -65,9 +65,8 @@ const FundingList = (props) => {
                   <Image
                     src={getFlag(investment.currencySign)}
                     alt={investment.currencyName}
-                    layout="responsive"
-                    width={60}
-                    height={40}
+                    layout="fill"
+                    priority
                   />
                 </div>
               </li>

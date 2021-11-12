@@ -47,9 +47,8 @@ const CoinList = (props) => {
                   <Image
                     src={coin.logo_url}
                     alt={coin.name}
-                    layout="responsive"
-                    width={50}
-                    height={50}
+                    layout="fill"
+                    priority
                   />
                 </div>
               </li>

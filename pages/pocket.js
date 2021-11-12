@@ -43,9 +43,10 @@ const Pocket = (props) => {
                 <Image
                   src={currencyFlag}
                   alt={appCurrencyCode}
-                  layout="responsive"
-                  width={48}
-                  height={32}
+                  layout="fill"
+                  priority
+                  // width={48}
+                  // height={32}
                 />
               </div>
             </Link>

@@ -86,13 +86,7 @@ const Coin = (props) => {
           `${name === "polkadot" ? styles.withBackground : ""}`
         }
       >
-        <Image
-          src={logo_url}
-          alt={name}
-          layout="responsive"
-          width={50}
-          height={50}
-        />
+        <Image src={logo_url} alt={name} layout="fill" priority />
       </div>
       {isShown ? (
         <UpdateModal

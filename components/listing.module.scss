@@ -6,7 +6,9 @@
   padding-bottom: 1rem;
 }
 .logoContainer {
-  width: 8%;
+  position: relative;
+  width: 35px;
+  height: 35px;
   margin-left: 8px;
 }
 .withBackground {
@@ -14,17 +16,24 @@
   border-radius: 15px !important;
 }
 .flag {
+  position: relative;
+  // top: -100%;
+  transform: translateY(-50%);
+  // left: 25%;
+  // transform: translateX(-50%);
+  width: 30px;
+  height: 20px;
   border: 1px solid white !important;
   border-radius: 2px !important;
 }
 .name {
   margin-left: 20px;
   font-size: 18px;
-  width: 35%;
+  width: 40%;
   border-bottom: solid 1px dimgrey;
 }
 .totalValue {
-  width: 35%;
+  width: 30%;
   font-size: 18px;
   border-bottom: solid 1px dimgrey;
 }

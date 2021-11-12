@@ -5,15 +5,15 @@
   top: 0;
 }
 .currencyImg {
-  display: block;
+  position: relative;
   margin-left: auto;
   margin-top: 1.5rem;
-  max-width: 44px;
-  max-height: 32px;
+  width: 44px;
+  height: 32px;
   margin-right: 1rem;
 }
 .currencyImg img {
-  border-radius: 16px; //!important;
+  border-radius: 12px; //!important;
   border: 1px solid white !important;
 }
 .prolo {

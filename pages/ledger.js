@@ -110,9 +110,7 @@ const Ledger = (props) => {
                 <Image
                   src={currencyFlag}
                   alt={appCurrencyCode}
-                  layout="responsive"
-                  width={48}
-                  height={32}
+                  layout="fill"
                   priority
                 />
               </div>

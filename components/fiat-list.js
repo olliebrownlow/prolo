@@ -46,9 +46,8 @@ const FiatList = (props) => {
                   <Image
                     src={getFlag(fiatData.fiatSign)}
                     alt={fiatData.from}
-                    layout="responsive"
-                    width={60}
-                    height={40}
+                    layout="fill"
+                    priority
                   />
                 </div>
               </li>
@@ -65,7 +64,7 @@ const FiatList = (props) => {
                 </div>
               </li>
               <li className={styles.editIcon}>
-                <ArrowUpRight size={32}/>
+                <ArrowUpRight size={32} />
               </li>
             </div>
           </Link>

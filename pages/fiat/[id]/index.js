@@ -92,13 +92,7 @@ const Fiat = (props) => {
   return (
     <div className={styles.pageLayout}>
       <div className={styles.flagLogo}>
-        <Image
-          src={getFlag(fiatSign)}
-          alt={name}
-          layout="responsive"
-          width={60}
-          height={40}
-        />
+        <Image src={getFlag(fiatSign)} alt={name} layout="fill" priority />
       </div>
       {isShown ? (
         <UpdateModal
