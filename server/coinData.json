@@ -30,13 +30,13 @@
     "amount": "0.0001"
   },
   {
-    "code": "SAND2",
-    "name": "the sandbox",
-    "amount": "0.000001"
-  },
-  {
     "code": "LRC",
     "name": "loopring",
     "amount": "103.74161421"
+  },
+  {
+    "code": "SAND2",
+    "name": "the sandbox",
+    "amount": "0.00001"
   }
 ]

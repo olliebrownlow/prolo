@@ -52,21 +52,21 @@ const Coin = (props) => {
   };
 
   const handleUpdate = (amount) => {
+    refreshCoinData();
     const newAmount = [
       {
         amount: amount,
       },
     ];
     setCurrentAmount(amount);
-    refreshCoinData();
     // closeModal();
     handleCoinUpdate(newAmount);
   };
 
   const handleDeleteCoin = () => {
+    refreshData();
     const res = deleteCoin(code);
     console.log(res);
-    refreshData();
   };
 
   const handleCancel = () => {
@@ -165,7 +165,7 @@ const Coin = (props) => {
   );
 };
 
-Coin.getInitialProps = async ({ query }) => {
+export async function getServerSideProps({ query }) {
   const logo_url = query.logo_url;
   const total = query.total;
   const name = query.name;
@@ -177,16 +177,18 @@ Coin.getInitialProps = async ({ query }) => {
   const highDate = query.highDate;
 
   return {
-    logo_url,
-    total,
-    name,
-    amount,
-    code,
-    appCurrencySign,
-    price,
-    high,
-    highDate,
+    props: {
+      logo_url,
+      total,
+      name,
+      amount,
+      code,
+      appCurrencySign,
+      price,
+      high,
+      highDate,
+    },
   };
-};
+}
 
 export default Coin;

@@ -50,19 +50,19 @@ const Fiat = (props) => {
   };
 
   const handleUpdate = (amount) => {
+    refreshFiatData();
     const newAmount = [
       {
         amount: amount,
       },
     ];
-    refreshFiatData();
     handleFiatUpdate(newAmount);
   };
 
   const handleDeleteFiat = async () => {
+    refreshData();
     const res = await deleteFiat(code);
     console.log(res);
-    refreshData();
   };
 
   const handleCancel = () => {
@@ -157,7 +157,7 @@ const Fiat = (props) => {
   );
 };
 
-Fiat.getInitialProps = async ({ query }) => {
+export async function getServerSideProps({ query }) {
   const total = query.total;
   const name = query.name;
   const amount = query.amount;
@@ -166,13 +166,15 @@ Fiat.getInitialProps = async ({ query }) => {
   const appCurrencySign = query.appCurrencySign;
 
   return {
-    total,
-    name,
-    amount,
-    code,
-    fiatSign,
-    appCurrencySign,
+    props: {
+      total,
+      name,
+      amount,
+      code,
+      fiatSign,
+      appCurrencySign,
+    },
   };
-};
+}
 
 export default Fiat;

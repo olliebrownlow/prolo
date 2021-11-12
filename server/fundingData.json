@@ -13,12 +13,12 @@
   },
   {
     "id": "elzq0be",
-    "date": "23-02-21",
-    "type": "investment",
-    "amount": "6000.00",
     "currencyName": "euros",
     "currencyCode": "eur",
     "currencySign": "€",
+    "amount": "6000",
+    "type": "investment",
+    "date": "23-02-21",
     "euros": 6000,
     "britishSterling": 5170.68714,
     "americanDollars": 7287.553739999999
