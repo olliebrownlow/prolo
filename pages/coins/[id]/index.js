@@ -16,6 +16,8 @@ const Coin = (props) => {
     price,
     high,
     highDate,
+    supply,
+    maxSupply,
     appCurrencySign,
     roundTo2DP,
   } = props;
@@ -77,6 +79,22 @@ const Coin = (props) => {
     return _.words(date.substring(2, 10)).reverse().join("-");
   };
 
+  const formatMaxSupply = () => {
+    if (maxSupply == "no maximum") {
+      return maxSupply;
+    }
+
+    return parseFloat(maxSupply).toLocaleString("en");
+  };
+
+  const circulationPercentage = () => {
+    if (maxSupply == "no maximum") {
+      return "n/a";
+    }
+
+    return roundTo2DP((supply / maxSupply) * 100) + "%";
+  };
+
   return (
     <div className={styles.pageLayout}>
       <div
@@ -135,6 +153,20 @@ const Coin = (props) => {
             <td className={styles.tableCellLeft}>high date</td>
             <td className={styles.tableCellRight}>{formatDate(highDate)}</td>
           </tr>
+          <tr className={styles.tableItem}>
+            <td className={styles.tableCellLeft}>coins in circulation</td>
+            <td className={styles.tableCellRight}>
+              {parseFloat(supply).toLocaleString("en")}
+            </td>
+          </tr>
+          <tr className={styles.tableItem}>
+            <td className={styles.tableCellLeft}>minting limit</td>
+            <td className={styles.tableCellRight}>{formatMaxSupply()}</td>
+          </tr>
+          <tr className={styles.tableItem}>
+            <td className={styles.tableCellLeft}>current circulation</td>
+            <td className={styles.tableCellRight}>{circulationPercentage()}</td>
+          </tr>
         </thead>
       </table>
       <hr className={styles.solidDivider} />
@@ -175,6 +207,8 @@ export async function getServerSideProps({ query }) {
   const price = query.price;
   const high = query.high;
   const highDate = query.highDate;
+  const supply = query.supply;
+  const maxSupply = query.maxSupply;
 
   return {
     props: {
@@ -187,6 +221,8 @@ export async function getServerSideProps({ query }) {
       price,
       high,
       highDate,
+      supply,
+      maxSupply,
     },
   };
 }

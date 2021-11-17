@@ -45,8 +45,6 @@ const Pocket = (props) => {
                   alt={appCurrencyCode}
                   layout="fill"
                   priority
-                  // width={48}
-                  // height={32}
                 />
               </div>
             </Link>
