@@ -2,33 +2,34 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  position: relative;
 
   height: 100%;
   width: 100%;
 }
 .Header {
-  position: absolute;
+  position: fixed;
+  width: 100%;
   left: 0;
   top: 0;
   right: 0;
-  bottom: 0;
+  bottom: auto;
   overflow: hidden;
+  z-index: 1;
 }
 .Content {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   position: absolute;
-  overflow: auto;
+  width: 100%;
   left: 0;
   top: 50px;
   right: 0;
-  bottom: 60px;
 }
 .Footer {
-  position: absolute;
+  position: fixed;
   width: 100%;
+  top: auto;
+  left: 0;
+  right: 0;
   bottom: 0;
   overflow: hidden;
 }

@@ -24,7 +24,7 @@ const FiatList = (props) => {
   };
 
   return (
-    <>
+    <div className={styles.listContainer}>
       {orderedArray().map((fiatData) => (
         <div key={fiatData.id}>
           <Link
@@ -70,7 +70,7 @@ const FiatList = (props) => {
           </Link>
         </div>
       ))}
-    </>
+    </div>
   );
 };
 

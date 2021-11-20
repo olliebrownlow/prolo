@@ -37,7 +37,7 @@ const Pocket = (props) => {
         <Loading />
       ) : (
         user?.issuer && (
-          <div className={styles.pocketLayout}>
+          <>
             <Link href="/settings">
               <div className={styles.currencyImg}>
                 <Image
@@ -70,7 +70,7 @@ const Pocket = (props) => {
               fiatData={fiatData}
               appCurrencySign={appCurrencySign}
             />
-          </div>
+          </>
         )
       )}
     </>

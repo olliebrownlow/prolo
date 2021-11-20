@@ -16,6 +16,7 @@ const Coin = (props) => {
     price,
     high,
     highDate,
+    marketCap,
     supply,
     maxSupply,
     appCurrencySign,
@@ -79,12 +80,12 @@ const Coin = (props) => {
     return _.words(date.substring(2, 10)).reverse().join("-");
   };
 
-  const formatMaxSupply = () => {
-    if (maxSupply == "no maximum") {
-      return maxSupply;
+  const commaFormat = (longNumber) => {
+    if (longNumber == "no maximum") {
+      return longNumber;
     }
 
-    return parseFloat(maxSupply).toLocaleString("en");
+    return parseFloat(longNumber).toLocaleString("en");
   };
 
   const circulationPercentage = () => {
@@ -154,14 +155,20 @@ const Coin = (props) => {
             <td className={styles.tableCellRight}>{formatDate(highDate)}</td>
           </tr>
           <tr className={styles.tableItem}>
+            <td className={styles.tableCellLeft}>market capitalisation</td>
+            <td className={styles.tableCellRight}>
+              {commaFormat(marketCap)}
+            </td>
+          </tr>
+          <tr className={styles.tableItem}>
             <td className={styles.tableCellLeft}>coins in circulation</td>
             <td className={styles.tableCellRight}>
-              {parseFloat(supply).toLocaleString("en")}
+              {commaFormat(supply)}
             </td>
           </tr>
           <tr className={styles.tableItem}>
             <td className={styles.tableCellLeft}>minting limit</td>
-            <td className={styles.tableCellRight}>{formatMaxSupply()}</td>
+            <td className={styles.tableCellRight}>{commaFormat(maxSupply)}</td>
           </tr>
           <tr className={styles.tableItem}>
             <td className={styles.tableCellLeft}>current circulation</td>
@@ -207,6 +214,7 @@ export async function getServerSideProps({ query }) {
   const price = query.price;
   const high = query.high;
   const highDate = query.highDate;
+  const marketCap = query.marketCap;
   const supply = query.supply;
   const maxSupply = query.maxSupply;
 
@@ -221,6 +229,7 @@ export async function getServerSideProps({ query }) {
       price,
       high,
       highDate,
+      marketCap,
       supply,
       maxSupply,
     },

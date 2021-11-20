@@ -33,6 +33,7 @@ const CoinList = (props) => {
                 price: coin.price,
                 high: coin.high,
                 highDate: coin.highDate,
+                marketCap: coin.marketCap,
                 supply: coin.supply,
                 maxSupply: coin.maxSupply,
                 appCurrencySign: appCurrencySign,
