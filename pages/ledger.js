@@ -104,7 +104,7 @@ const Ledger = (props) => {
         <Loading />
       ) : (
         user?.issuer && (
-          <div className={styles.ledgerLayout}>
+          <>
             <Link href="/settings">
               <div className={styles.currencyImg}>
                 <Image
@@ -154,7 +154,7 @@ const Ledger = (props) => {
               fundingHistoryData={fundingHistoryData}
               appCurrencySign={appCurrencySign}
             />
-          </div>
+          </>
         )
       )}
     </>

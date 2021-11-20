@@ -2,13 +2,7 @@
   display: flex;
   flex-flow: column;
   align-items: center;
-  // height: 100%;
-  // width: 100%;
-  // position: relative;
-  // overflow-y: auto;
-  margin-top:100px;
-  margin-bottom: 40px;
-  // max-height: 90vh;
+  margin-top: 12px;
 }
 .tableLayout {
   width: 90%;
@@ -65,15 +59,10 @@
 .buttons {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
-  // background-color: black;
-  // padding-bottom: 100px;
-  // position: fixed;
-  // top: 85%;
+  justify-content: space-evenly; 
 }
 .deleteButton {
-  margin: 0 15px;
-  padding: 5px 0px 5px 0;
+  margin: 0px 15px 70px 15px;
   border-radius: 3px;
   color: white;
   font-size: 24px;
@@ -81,12 +70,9 @@
   padding-right: 8px;
   background-color: red;
   outline: none;
-  // position: fixed;
-  // top: 80%;
 }
 .updateButton {
-  margin: 0 15px;
-  padding: 5px 0px 5px 0;
+  margin: 0px 15px 70px 15px;
   border-radius: 3px;
   color: red;
   border-color: red;
@@ -95,12 +81,9 @@
   padding-right: 8px;
   background-color: white;
   outline: none;
-  // position: fixed;
-  // top: 80%;
 }
 .cancelButton {
-  margin: 0 15px;
-  padding: 5px 0px 5px 0;
+  margin: 0px 15px 70px 15px;
   border-radius: 3px;
   color: red;
   border-color: red;
@@ -109,8 +92,6 @@
   padding-right: 8px;
   background-color: lightgrey;
   outline: none;
-  // position: fixed;
-  // top: 80%;
 }
 .flagLogo {
   position: relative;
@@ -127,16 +108,12 @@
   position: relative;
   width: 105px;
   height: 105px;
-  // top: 50px;
-  // padding-top: 50px;
-  // margin: 24px 0 20px 0;
 }
 .withBackground {
   background-color: white;
   border-radius: 50%;
 }
 .solidDivider {
-  // margin-bottom: 60px;
   width: 80%;
   margin-bottom: 24px;
 }

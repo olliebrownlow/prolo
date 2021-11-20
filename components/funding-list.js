@@ -38,7 +38,7 @@ const FundingList = (props) => {
   };
 
   return (
-    <>
+    <div  className={styles.listContainer}>
       {fundingHistoryData.map((investment) => (
         <div key={investment.id}>
           <Link
@@ -91,7 +91,7 @@ const FundingList = (props) => {
           </Link>
         </div>
       ))}
-    </>
+    </div>
   );
 };
 
