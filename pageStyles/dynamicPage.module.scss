@@ -66,8 +66,7 @@
   border-radius: 3px;
   color: white;
   font-size: 24px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding: 8px;
   background-color: red;
   outline: none;
 }
@@ -77,8 +76,7 @@
   color: red;
   border-color: red;
   font-size: 24px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding: 8px;
   background-color: white;
   outline: none;
 }
@@ -88,8 +86,7 @@
   color: red;
   border-color: red;
   font-size: 24px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding: 8px;
   background-color: lightgrey;
   outline: none;
 }
@@ -100,6 +97,7 @@
   border: 1px solid white !important;
   margin: 24px 0 20px 0;
   border-radius: 10px !important;
+  object-fit: fill;
 }
 .flagLogo img {
   border-radius: 10px;

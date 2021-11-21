@@ -29,7 +29,7 @@ const CurrencySettings = (props) => {
             onClick={props.handleCurrency}
             style={
               props.currencyInUse[0].currencyCode === button.label
-                ? { backgroundImage: `url(${button.label}Flag.jpg)` }
+                ? { backgroundImage: `url(${button.label}FlagSmall.jpg)` }
                 : {}
             }
           />

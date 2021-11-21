@@ -1,9 +1,9 @@
 import styles from "./listing.module.scss";
 import Link from "next/link";
 import Image from "next/image";
-import eurFlag from "../public/eurFlag.jpg";
-import gbpFlag from "../public/gbpFlag.jpg";
-import usdFlag from "../public/usdFlag.jpg";
+import eurFlag from "../public/eurFlagSmall.jpg";
+import gbpFlag from "../public/gbpFlagSmall.png";
+import usdFlag from "../public/usdFlagSmall.jpg";
 import { ArrowUpRight } from "react-feather";
 
 const FiatList = (props) => {

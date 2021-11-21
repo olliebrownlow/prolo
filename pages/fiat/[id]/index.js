@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { deleteFiat, updateFiat } from "../../../actions";
 import Router from "next/router";
 import Image from "next/image";
-import eurFlag from "../../../public/eurFlag.jpg";
-import gbpFlag from "../../../public/gbpFlag.jpg";
-import usdFlag from "../../../public/usdFlag.jpg";
+import eurFlag from "../../../public/eurFlagSmall.jpg";
+import gbpFlag from "../../../public/gbpFlagSmall.png";
+import usdFlag from "../../../public/usdFlagSmall.jpg";
 import UpdateModal from "../../../components/update-modal";
 import styles from "../../../pageStyles/dynamicPage.module.scss";
 

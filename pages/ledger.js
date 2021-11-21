@@ -3,9 +3,9 @@ import Router from "next/router";
 import CurrencySettingsContext from "../context/currencySettings";
 import Link from "next/link";
 import Image from "next/image";
-import eurFlag from "../public/eurFlag.jpg";
-import gbpFlag from "../public/gbpFlag.jpg";
-import usdFlag from "../public/usdFlag.jpg";
+import eurFlag from "../public/eurFlagSmall.jpg";
+import gbpFlag from "../public/gbpFlagSmall.png";
+import usdFlag from "../public/usdFlagSmall.jpg";
 import { UserContext } from "../lib/UserContext";
 import Loading from "../components/loading";
 import AddButton from "../components/add-button";
@@ -110,7 +110,7 @@ const Ledger = (props) => {
                 <Image
                   src={currencyFlag}
                   alt={appCurrencyCode}
-                  layout="fill"
+                  layout="intrinsic"
                   priority
                 />
               </div>

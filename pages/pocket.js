@@ -8,9 +8,9 @@ import Modal from "../components/modal";
 import PocketBalance from "../components/pocket-balance";
 import Link from "next/link";
 import Image from "next/image";
-import eurFlag from "../public/eurFlag.jpg";
-import gbpFlag from "../public/gbpFlag.jpg";
-import usdFlag from "../public/usdFlag.jpg";
+import eurFlag from "../public/eurFlagSmall.jpg";
+import gbpFlag from "../public/gbpFlagSmall.png";
+import usdFlag from "../public/usdFlagSmall.jpg";
 import { getCoinData } from "../lib/core/coinData";
 import { getFiatData } from "../lib/core/fiatData";
 import styles from "../pageStyles/pocket.module.scss";
@@ -43,7 +43,7 @@ const Pocket = (props) => {
                 <Image
                   src={currencyFlag}
                   alt={appCurrencyCode}
-                  layout="fill"
+                  layout="intrinsic"
                   priority
                 />
               </div>
