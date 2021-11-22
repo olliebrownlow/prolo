@@ -38,5 +38,10 @@
     "code": "SAND2",
     "name": "the sandbox",
     "amount": "79.03055848"
+  },
+  {
+    "code": "CRO",
+    "name": "crypto.com chain",
+    "amount": "5682.15"
   }
 ]

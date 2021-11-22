@@ -22,5 +22,17 @@
     "euros": 6000,
     "britishSterling": 5170.68714,
     "americanDollars": 7287.553739999999
+  },
+  {
+    "id": "1kkj2zb",
+    "date": "22-11-21",
+    "type": "investment",
+    "amount": "3000.21",
+    "currencyName": "british sterling",
+    "currencyCode": "gbp",
+    "currencySign": "£",
+    "euros": 3576.2762118122996,
+    "britishSterling": 3000.21,
+    "americanDollars": 4017.9418062399
   }
 ]

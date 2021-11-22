@@ -53,6 +53,10 @@ const coinSelectOptions = [
     name: "loopring",
     code: "[LRC]",
   },
+  {
+    name: "crypto.com chain",
+    code: "[CRO]",
+  },
 ];
 
 export default coinSelectOptions;
