@@ -4,6 +4,7 @@ import Router from "next/router";
 import Image from "next/image";
 import UpdateModal from "../../../components/update-modal";
 import styles from "../../../pageStyles/dynamicPage.module.scss";
+import { ArrowUp, ArrowDown } from "react-feather";
 import _ from "lodash";
 
 const Coin = (props) => {
@@ -14,8 +15,12 @@ const Coin = (props) => {
     amount,
     code,
     price,
+    hPriceChange,
+    hPriceChangePct,
     high,
     highDate,
+    rank,
+    firstTrade,
     marketCap,
     supply,
     maxSupply,
@@ -96,6 +101,10 @@ const Coin = (props) => {
     return roundTo2DP((supply / maxSupply) * 100) + "%";
   };
 
+  const roundTo3DP = (unrounded) => {
+    return (Math.round(unrounded * 1000) / 1000).toFixed(3);
+  };
+
   return (
     <div className={styles.pageLayout}>
       <div
@@ -144,6 +153,33 @@ const Coin = (props) => {
             </td>
           </tr>
           <tr className={styles.tableItem}>
+            <td className={styles.tableCellLeft}>1 hour price change</td>
+            <td
+              className={
+                styles.tableCellRight +
+                " " +
+                `${hPriceChange < 0 ? styles.red : styles.green}`
+              }
+            >
+              {appCurrencySign}
+              {roundTo3DP(hPriceChange)}
+              {hPriceChange < 0 ? <ArrowDown /> : <ArrowUp />}
+            </td>
+          </tr>
+          <tr className={styles.tableItem}>
+            <td className={styles.tableCellLeft}>1 hour price change %</td>
+            <td
+              className={
+                styles.tableCellRight +
+                " " +
+                `${hPriceChangePct < 0 ? styles.red : styles.green}`
+              }
+            >
+              {roundTo2DP(hPriceChangePct)}%
+              {hPriceChangePct < 0 ? <ArrowDown /> : <ArrowUp />}
+            </td>
+          </tr>
+          <tr className={styles.tableItem}>
             <td className={styles.tableCellLeft}>all-time high</td>
             <td className={styles.tableCellRight}>
               {appCurrencySign}
@@ -157,22 +193,31 @@ const Coin = (props) => {
           <tr className={styles.tableItem}>
             <td className={styles.tableCellLeft}>market capitalisation</td>
             <td className={styles.tableCellRight}>
+              {appCurrencySign}
               {commaFormat(marketCap)}
             </td>
           </tr>
           <tr className={styles.tableItem}>
-            <td className={styles.tableCellLeft}>coins in circulation</td>
-            <td className={styles.tableCellRight}>
-              {commaFormat(supply)}
+            <td className={styles.tableCellLeft}>
+              rank by market capitalisation
             </td>
+            <td className={styles.tableCellRight}>{rank}</td>
+          </tr>
+          <tr className={styles.tableItem}>
+            <td className={styles.tableCellLeft}>coins in circulation</td>
+            <td className={styles.tableCellRight}>{commaFormat(supply)}</td>
           </tr>
           <tr className={styles.tableItem}>
             <td className={styles.tableCellLeft}>minting limit</td>
             <td className={styles.tableCellRight}>{commaFormat(maxSupply)}</td>
           </tr>
           <tr className={styles.tableItem}>
-            <td className={styles.tableCellLeft}>current circulation</td>
+            <td className={styles.tableCellLeft}>current circulation %</td>
             <td className={styles.tableCellRight}>{circulationPercentage()}</td>
+          </tr>
+          <tr className={styles.tableItem}>
+            <td className={styles.tableCellLeft}>first trade</td>
+            <td className={styles.tableCellRight}>{formatDate(firstTrade)}</td>
           </tr>
         </thead>
       </table>
@@ -212,7 +257,11 @@ export async function getServerSideProps({ query }) {
   const code = query.id;
   const appCurrencySign = query.appCurrencySign;
   const price = query.price;
+  const hPriceChange = query.hPriceChange;
+  const hPriceChangePct = query.hPriceChangePct;
   const high = query.high;
+  const rank = query.rank;
+  const firstTrade = query.firstTrade;
   const highDate = query.highDate;
   const marketCap = query.marketCap;
   const supply = query.supply;
@@ -227,8 +276,12 @@ export async function getServerSideProps({ query }) {
       code,
       appCurrencySign,
       price,
+      hPriceChange,
+      hPriceChangePct,
       high,
       highDate,
+      rank,
+      firstTrade,
       marketCap,
       supply,
       maxSupply,
