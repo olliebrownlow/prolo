@@ -26,38 +26,20 @@ const CoinList = (props) => {
               pathname: "/coins/[id]",
               query: {
                 id: coin.id,
-                name: coin.name,
-                logo_url: coin.logo_url,
-                amount: coin.amount,
-                total: coin.total,
-                price: coin.price,
-                hPriceChange: coin.hPriceChange,
-                hPriceChangePct: coin.hPriceChangePct,
-                high: coin.high,
-                rank: coin.rank,
-                firstTrade: coin.firstTrade,
-                highDate: coin.highDate,
-                marketCap: coin.marketCap,
-                supply: coin.supply,
-                maxSupply: coin.maxSupply,
-                appCurrencySign: appCurrencySign,
               },
             }}
           >
             <div className={styles.listRow}>
               <li className={styles.logoContainer}>
-                <div
+                <Image
                   className={`${
                     coin.name === "polkadot" ? styles.withBackground : ""
                   }`}
-                >
-                  <Image
-                    src={coin.logo_url}
-                    alt={coin.name}
-                    layout="fill"
-                    priority
-                  />
-                </div>
+                  src={coin.logo_url}
+                  alt={coin.name}
+                  layout="fill"
+                  priority
+                />
               </li>
               <li className={styles.name}>
                 {coin.name}
