@@ -192,6 +192,51 @@ const Coin = (props) => {
               {getCoinProp("hPriceChangePct") < 0 ? <ArrowDown /> : <ArrowUp />}
             </td>
           </tr>
+          {/* volume data */}
+          <tr className={styles.tableItem}>
+            <td className={styles.tableCellLeft}>1hr interval volume</td>
+            <td className={styles.tableCellRight}>
+              {appCurrencySign}
+              {commaFormat(getCoinProp("hVolume"))}
+            </td>
+          </tr>
+          <tr className={styles.tableItem}>
+            <td className={styles.tableCellLeft}>previous interval volume</td>
+            <td className={styles.tableCellRight}>
+              {appCurrencySign}
+              {commaFormat(getCoinProp("hVolume") * 1 - getCoinProp("hVolumeChange") * 1)}
+            </td>
+          </tr>
+          <tr className={styles.tableItem}>
+            <td className={styles.tableCellLeft}>volume change</td>
+            <td
+              className={
+                styles.tableCellRight +
+                " " +
+                `${getCoinProp("hVolumeChange") < 0 ? styles.red : styles.green}`
+              }
+            >
+              {appCurrencySign}
+              {commaFormat(getCoinProp("hVolumeChange"))}
+              {getCoinProp("hVolumeChange") < 0 ? <ArrowDown /> : <ArrowUp />}
+            </td>
+          </tr>
+          <tr className={styles.tableItem}>
+            <td className={styles.tableCellLeft}>volume change %</td>
+            <td
+              className={
+                styles.tableCellRight +
+                " " +
+                `${
+                  getCoinProp("hVolumeChangePct") < 0 ? styles.red : styles.green
+                }`
+              }
+            >
+              {roundTo2DP(getCoinProp("hVolumeChangePct"))}%
+              {getCoinProp("hVolumeChangePct") < 0 ? <ArrowDown /> : <ArrowUp />}
+            </td>
+          </tr>
+
           <tr className={styles.tableItem}>
             <td className={styles.tableCellLeft}>all-time high</td>
             <td className={styles.tableCellRight}>
