@@ -135,6 +135,7 @@ const Coin = (props) => {
             pathname: "/coins/[id]",
             query: { id: coin[0]["id"] },
           }}
+          scroll={false}
         >
           <div className={styles.amount}>
             {appCurrencySign}
@@ -271,7 +272,6 @@ const Coin = (props) => {
 
 export async function getServerSideProps({ query }) {
   const code = query.id;
-  const appCurrencySign = query.appCurrencySign;
   const coin = await getSingleCoinData(code);
 
   // console.log(coin);

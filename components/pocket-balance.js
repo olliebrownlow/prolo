@@ -16,7 +16,7 @@ const PocketBalance = (props) => {
 
   return (
     <>
-      <Link href="/pocket">
+      <Link href="/pocket" scroll={false}>
         <div className={styles.pocketBalance}>
           {appCurrencySign}
           {roundTo2DP(balance)} <RefreshCw />

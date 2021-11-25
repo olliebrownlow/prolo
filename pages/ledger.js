@@ -116,7 +116,7 @@ const Ledger = (props) => {
               </div>
             </Link>
             <div className={styles.heading}>profit/loss</div>
-            <Link href="/ledger">
+            <Link href="/ledger" scroll={false}>
               <div className={styles.prolo}>
                 {appCurrencySign}
                 {roundTo2DP(prolo())} <RefreshCw />
