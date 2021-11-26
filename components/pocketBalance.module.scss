@@ -1,7 +1,7 @@
 .pocketBalance {
   text-align: center;
-  font-weight: 700;
-  font-size: 30px;
+  font-weight: 900;
+  font-size: 45px;
   letter-spacing: 5px;
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -10,4 +10,20 @@
   // border-top: 3px solid white;
   margin-bottom: 20px;
   max-width: 80%;
+}
+.refresh[anim='1'] {
+  animation: anim 1s 1, scaleup 1s 1;
+}
+@keyframes anim {
+  50% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(720deg);    
+  }
+}
+@keyframes scaleup {
+  50% {
+    transform: scale(1.25);
+  }
 }

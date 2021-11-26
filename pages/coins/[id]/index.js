@@ -15,6 +15,8 @@ const Coin = (props) => {
   const { coin, roundTo2DP } = props;
 
   const [isShown, setIsShown] = useState(false);
+  const [anim, setAnim] = useState(0);
+
   const [currentAmount, setCurrentAmount] = useState(coin[0]["amount"]);
 
   const showModal = () => {
@@ -137,9 +139,18 @@ const Coin = (props) => {
           }}
           scroll={false}
         >
-          <div className={styles.amount}>
+          <div
+            className={styles.amount}
+            onClick={() => setAnim(1)}
+          >
             {appCurrencySign}
-            {roundTo2DP(getCoinProp("total"))} <RefreshCw />
+            {roundTo2DP(getCoinProp("total"))}{" "}
+            <RefreshCw
+              className={styles.refresh}
+              onClick={() => setAnim(1)}
+              onAnimationEnd={() => setAnim(0)}
+              anim={anim}
+            />
           </div>
         </Link>
       ) : (
@@ -147,6 +158,7 @@ const Coin = (props) => {
       )}
       <table className={styles.tableLayout}>
         <thead>
+          {/* price data */}
           <tr className={styles.tableItem}>
             <td className={styles.tableCellLeft}>current price</td>
             <td className={styles.tableCellRight}>
@@ -204,7 +216,9 @@ const Coin = (props) => {
             <td className={styles.tableCellLeft}>previous interval volume</td>
             <td className={styles.tableCellRight}>
               {appCurrencySign}
-              {commaFormat(getCoinProp("hVolume") * 1 - getCoinProp("hVolumeChange") * 1)}
+              {commaFormat(
+                getCoinProp("hVolume") * 1 - getCoinProp("hVolumeChange") * 1
+              )}
             </td>
           </tr>
           <tr className={styles.tableItem}>
@@ -213,7 +227,9 @@ const Coin = (props) => {
               className={
                 styles.tableCellRight +
                 " " +
-                `${getCoinProp("hVolumeChange") < 0 ? styles.red : styles.green}`
+                `${
+                  getCoinProp("hVolumeChange") < 0 ? styles.red : styles.green
+                }`
               }
             >
               {appCurrencySign}
@@ -228,12 +244,18 @@ const Coin = (props) => {
                 styles.tableCellRight +
                 " " +
                 `${
-                  getCoinProp("hVolumeChangePct") < 0 ? styles.red : styles.green
+                  getCoinProp("hVolumeChangePct") < 0
+                    ? styles.red
+                    : styles.green
                 }`
               }
             >
               {roundTo2DP(getCoinProp("hVolumeChangePct"))}%
-              {getCoinProp("hVolumeChangePct") < 0 ? <ArrowDown /> : <ArrowUp />}
+              {getCoinProp("hVolumeChangePct") < 0 ? (
+                <ArrowDown />
+              ) : (
+                <ArrowUp />
+              )}
             </td>
           </tr>
 

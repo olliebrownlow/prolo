@@ -7,6 +7,7 @@ import { calculateBalance } from "../lib/core/calculateBalance";
 const PocketBalance = (props) => {
   const { roundTo2DP, coinData, fiatData, appCurrencySign } = props;
   const [balance, setBalance] = useState(0.5);
+  const [anim, setAnim] = useState(0);
 
   useEffect(async () => {
     const balance = await calculateBalance(coinData, fiatData);
@@ -17,9 +18,15 @@ const PocketBalance = (props) => {
   return (
     <>
       <Link href="/pocket" scroll={false}>
-        <div className={styles.pocketBalance}>
+        <div className={styles.pocketBalance} onClick={() => setAnim(1)}>
           {appCurrencySign}
-          {roundTo2DP(balance)} <RefreshCw />
+          {roundTo2DP(balance)}{" "}
+          <RefreshCw
+            className={styles.refresh}
+            onClick={() => setAnim(1)}
+            onAnimationEnd={() => setAnim(0)}
+            anim={anim}
+          />
         </div>
       </Link>
       <hr className={styles.solidDivider} />

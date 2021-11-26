@@ -57,6 +57,10 @@ const coinSelectOptions = [
     name: "crypto.com chain",
     code: "[CRO]",
   },
+  {
+    name: "enjin coin",
+    code: "[ENJ]",
+  },
 ];
 
 export default coinSelectOptions;

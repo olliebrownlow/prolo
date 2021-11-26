@@ -42,6 +42,11 @@
   {
     "code": "CRO",
     "name": "crypto.com chain",
-    "amount": "5682.15"
+    "amount": "5684.64"
+  },
+  {
+    "code": "ENJ",
+    "name": "enjin coin",
+    "amount": "0.00001"
   }
 ]

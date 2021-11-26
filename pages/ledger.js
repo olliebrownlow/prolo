@@ -32,6 +32,7 @@ const Ledger = (props) => {
   );
   const [isShown, setIsShown] = useState(false);
   const [currencyFlag, setCurrencyFlag] = useState(eurFlag);
+  const [anim, setAnim] = useState(0);
 
   useEffect(() => {
     if (appCurrencyCode === "gbp") {
@@ -117,9 +118,15 @@ const Ledger = (props) => {
             </Link>
             <div className={styles.heading}>profit/loss</div>
             <Link href="/ledger" scroll={false}>
-              <div className={styles.prolo}>
+              <div className={styles.prolo} onClick={() => setAnim(1)}>
                 {appCurrencySign}
-                {roundTo2DP(prolo())} <RefreshCw />
+                {roundTo2DP(prolo())}{" "}
+                <RefreshCw
+                  className={styles.refresh}
+                  onClick={() => setAnim(1)}
+                  onAnimationEnd={() => setAnim(0)}
+                  anim={anim}
+                />
               </div>
             </Link>
             <hr className={styles.solidDivider} />
