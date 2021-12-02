@@ -7,7 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import UpdateModal from "../../../components/update-modal";
 import styles from "../../../pageStyles/dynamicPage.module.scss";
-import { ArrowUp, ArrowDown, RefreshCw } from "react-feather";
+import { ArrowUp, ArrowDown, RefreshCw, ChevronDown } from "react-feather";
 import _ from "lodash";
 
 const Coin = (props) => {
@@ -139,10 +139,7 @@ const Coin = (props) => {
           }}
           scroll={false}
         >
-          <div
-            className={styles.amount}
-            onClick={() => setAnim(1)}
-          >
+          <div className={styles.amount} onClick={() => setAnim(1)}>
             {appCurrencySign}
             {roundTo2DP(getCoinProp("total"))}{" "}
             <RefreshCw
@@ -156,11 +153,14 @@ const Coin = (props) => {
       ) : (
         <div className={styles.amount}>recalculating..</div>
       )}
+      <div className={styles.code2}>
+        market analysis <ChevronDown />
+      </div>
       <table className={styles.tableLayout}>
         <thead>
           {/* price data */}
           <tr className={styles.tableItem}>
-            <td className={styles.tableCellLeft}>current price</td>
+            <td className={styles.tableCellLeft}>price</td>
             <td className={styles.tableCellRight}>
               {appCurrencySign}
               {roundTo3DP(getCoinProp("price"))}
@@ -258,7 +258,13 @@ const Coin = (props) => {
               )}
             </td>
           </tr>
-
+        </thead>
+      </table>
+      <div className={styles.code2}>
+        market data <ChevronDown />
+      </div>
+      <table className={styles.tableLayout}>
+        <thead>
           <tr className={styles.tableItem}>
             <td className={styles.tableCellLeft}>all-time high</td>
             <td className={styles.tableCellRight}>
