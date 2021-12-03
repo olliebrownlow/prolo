@@ -60,7 +60,7 @@ const FundingList = (props) => {
             }}
           >
             <div className={styles.listRow}>
-              <li className={styles.logoContainer}>
+              <div className={styles.logoContainer}>
                 <div className={styles.flag}>
                   <Image
                     src={getFlag(investment.currencySign)}
@@ -69,24 +69,24 @@ const FundingList = (props) => {
                     priority
                   />
                 </div>
-              </li>
-              <li className={styles.fundingValue1}>
+              </div>
+              <div className={styles.fundingValue1}>
                 {investment.currencySign}
                 {roundTo2DP(investment.amount)}
                 <div className={styles.type}>{investment.type}</div>
-              </li>
-              <li className={styles.date}>
+              </div>
+              <div className={styles.date}>
                 {investment.date}
                 <div className={styles.hidden}>placeholder</div>
-              </li>
-              <li className={styles.fundingValue2}>
+              </div>
+              <div className={styles.fundingValue2}>
                 {appCurrencySign}
                 {roundTo2DP(getFiatValueBasedOnSetAppCurrency(investment))}
                 <div className={styles.hidden}>placeholder</div>
-              </li>
-              <li className={styles.editIcon}>
+              </div>
+              <div className={styles.editIcon}>
                 <ArrowUpRight size={32} />
-              </li>
+              </div>
             </div>
           </Link>
         </div>

@@ -41,7 +41,7 @@ const FiatList = (props) => {
             }}
           >
             <div className={styles.listRow}>
-              <li className={styles.logoContainer}>
+              <div className={styles.logoContainer}>
                 <div className={styles.flag}>
                   <Image
                     src={getFlag(fiatData.fiatSign)}
@@ -50,22 +50,22 @@ const FiatList = (props) => {
                     priority
                   />
                 </div>
-              </li>
-              <li className={styles.name}>
+              </div>
+              <div className={styles.name}>
                 {fiatData.fullFiatName}
                 <div className={styles.hidden}>placeholder</div>
-              </li>
-              <li className={styles.totalValue}>
+              </div>
+              <div className={styles.totalValue}>
                 {fiatData.fiatSign}
                 {roundTo2DP(fiatData.amount)}
                 <div className={styles.amount}>
                   {appCurrencySign}
                   {roundTo2DP(fiatData.value)}
                 </div>
-              </li>
-              <li className={styles.editIcon}>
+              </div>
+              <div className={styles.editIcon}>
                 <ArrowUpRight size={32} />
-              </li>
+              </div>
             </div>
           </Link>
         </div>

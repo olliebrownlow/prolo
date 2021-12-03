@@ -30,7 +30,7 @@ const CoinList = (props) => {
             }}
           >
             <div className={styles.listRow}>
-              <li className={styles.logoContainer}>
+              <div className={styles.logoContainer}>
                 <Image
                   className={`${
                     coin.name === "polkadot" ? styles.withBackground : ""
@@ -40,22 +40,22 @@ const CoinList = (props) => {
                   layout="fill"
                   priority
                 />
-              </li>
-              <li className={styles.name}>
+              </div>
+              <div className={styles.name}>
                 {coin.name}
                 <div className={styles.amount}>{coin.amount}</div>
-              </li>
-              <li className={styles.totalValue}>
+              </div>
+              <div className={styles.totalValue}>
                 {appCurrencySign}
                 {roundTo2DP(coin.total)}
                 <div className={styles.amount}>
                   {appCurrencySign}
                   {roundTo2DP(+coin.price)}
                 </div>
-              </li>
-              <li className={styles.editIcon}>
+              </div>
+              <div className={styles.editIcon}>
                 <ArrowUpRight size={32} />
-              </li>
+              </div>
             </div>
           </Link>
         </div>

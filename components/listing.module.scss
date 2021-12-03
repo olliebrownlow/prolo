@@ -1,18 +1,18 @@
 .listContainer {
   margin-bottom: 70px;
 }
-.listRow li {
-  display: inline-block;
-  vertical-align: middle;
-  padding-left: 0px;
+.listRow {
+  display: flex;
+  justify-content: center;
   padding-top: 1rem;
   padding-bottom: 1rem;
+  width: 98%;
 }
 .logoContainer {
   position: relative;
   width: 35px;
   height: 35px;
-  margin-left: 8px;
+  padding-bottom: 1rem;
 }
 .withBackground {
   background-color: white;
@@ -20,10 +20,7 @@
 }
 .flag {
   position: relative;
-  // top: -100%;
-  transform: translateY(-50%);
-  // left: 25%;
-  // transform: translateX(-50%);
+  top: 50%;
   width: 30px;
   height: 20px;
   border: 1px solid white !important;
@@ -34,6 +31,7 @@
   margin-left: 20px;
   font-size: 18px;
   width: 40%;
+  padding-bottom: 1rem;
   border-bottom: solid 1px dimgrey;
 }
 .totalValue {
@@ -46,7 +44,7 @@
 }
 .fundingValue1 {
   width: 25%;
-  margin-left: 20px;
+  margin-left: 16px;
   font-size: 18px;
   border-bottom: solid 1px dimgrey;
 }
@@ -58,7 +56,6 @@
 .date {
   width: 24%;
   font-size: 18px;
-  padding-left: 576px;
   border-bottom: solid 1px dimgrey;
 }
 .amount {
