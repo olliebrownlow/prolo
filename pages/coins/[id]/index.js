@@ -7,14 +7,24 @@ import Image from "next/image";
 import Link from "next/link";
 import UpdateModal from "../../../components/update-modal";
 import styles from "../../../pageStyles/dynamicPage.module.scss";
-import { ArrowUp, ArrowDown, RefreshCw, ChevronDown } from "react-feather";
+import {
+  ArrowUp,
+  ArrowDown,
+  RefreshCw,
+  ChevronDown,
+  ChevronUp,
+} from "react-feather";
 import _ from "lodash";
+import NumberSuffix from "number-suffix";
 
 const Coin = (props) => {
   const { appCurrencySign } = useContext(CurrencySettingsContext);
   const { coin, roundTo2DP } = props;
 
   const [isShown, setIsShown] = useState(false);
+  const [showMrktAnalysis, setShowMrktAnalysis] = useState(false);
+  const [showMrktData, setShowMrktData] = useState(false);
+
   const [anim, setAnim] = useState(0);
 
   const [currentAmount, setCurrentAmount] = useState(coin[0]["amount"]);
@@ -25,6 +35,14 @@ const Coin = (props) => {
 
   const closeModal = () => {
     setIsShown(false);
+  };
+
+  const toggleShowMarketAnalysis = () => {
+    setShowMrktAnalysis(!showMrktAnalysis);
+  };
+
+  const toggleShowMarketData = () => {
+    setShowMrktData(!showMrktData);
   };
 
   // close modal from window surrounding the modal itself
@@ -73,16 +91,18 @@ const Coin = (props) => {
     return _.words(date.substring(2, 10)).reverse().join("-");
   };
 
-  const commaFormat = (longNumber) => {
-    if (longNumber == "no maximum") {
-      return longNumber;
+  const numAbbreviation = (num) => {
+    if (num == "no max") {
+      return num;
     }
-
-    return parseFloat(longNumber).toLocaleString("en");
+    return NumberSuffix.format(Number(num), {
+      precision: 2,
+      style: "abbreviation",
+    });
   };
 
   const circulationPercentage = () => {
-    if (getCoinProp("maxSupply") == "no maximum") {
+    if (getCoinProp("maxSupply") == "no max") {
       return "n/a";
     }
 
@@ -153,31 +173,39 @@ const Coin = (props) => {
       ) : (
         <div className={styles.amount}>recalculating..</div>
       )}
-      <div className={styles.code2}>
-        market analysis <ChevronDown />
+      <div className={styles.marketHeading} onClick={toggleShowMarketAnalysis}>
+        {showMrktAnalysis ? <ChevronUp /> : <ChevronDown />} market analysis
       </div>
-      <table className={styles.tableLayout}>
-        <thead>
-          {/* price data */}
-          <tr className={styles.tableItem}>
-            <td className={styles.tableCellLeft}>price</td>
-            <td className={styles.tableCellRight}>
+      {showMrktAnalysis ? (
+        <>
+          <div className={styles.marketSubHeading}>price</div>
+          <div className={styles.analysisLayout}>
+            <div className={styles.tableCellLeft}>price</div>
+            <div className={styles.tableCellRight}>
               {appCurrencySign}
-              {roundTo3DP(getCoinProp("price"))}
-            </td>
-          </tr>
-          <tr className={styles.tableItem}>
-            <td className={styles.tableCellLeft}>price at 1hr</td>
-            <td className={styles.tableCellRight}>
+              {Number(getCoinProp("price")) >= 100
+                ? roundTo2DP(getCoinProp("price"))
+                : roundTo3DP(getCoinProp("price"))}
+            </div>
+            <div className={styles.tableCellLeft}>price at 1hr</div>
+            <div className={styles.tableCellRight}>
               {appCurrencySign}
-              {roundTo3DP(
-                getCoinProp("price") * 1 - getCoinProp("hPriceChange") * 1
-              )}
-            </td>
-          </tr>
-          <tr className={styles.tableItem}>
-            <td className={styles.tableCellLeft}>price change</td>
-            <td
+              {Number(getCoinProp("price")) -
+                Number(getCoinProp("hPriceChange")) >=
+              100
+                ? roundTo2DP(
+                    Number(getCoinProp("price")) -
+                      Number(getCoinProp("hPriceChange"))
+                  )
+                : roundTo3DP(
+                    Number(getCoinProp("price")) -
+                      Number(getCoinProp("hPriceChange"))
+                  )}
+            </div>
+          </div>
+          <div className={styles.analysisLayout}>
+            <div className={styles.tableCellLeft}>price chng</div>
+            <div
               className={
                 styles.tableCellRight +
                 " " +
@@ -185,13 +213,18 @@ const Coin = (props) => {
               }
             >
               {appCurrencySign}
-              {roundTo3DP(getCoinProp("hPriceChange"))}
-              {getCoinProp("hPriceChange") < 0 ? <ArrowDown /> : <ArrowUp />}
-            </td>
-          </tr>
-          <tr className={styles.tableItem}>
-            <td className={styles.tableCellLeft}>price change %</td>
-            <td
+              {Number(getCoinProp("hPriceChange")) >= 100 ||
+              Number(getCoinProp("hPriceChange")) <= -100
+                ? roundTo2DP(getCoinProp("hPriceChange"))
+                : roundTo3DP(getCoinProp("hPriceChange"))}
+              {getCoinProp("hPriceChange") < 0 ? (
+                <ArrowDown size={16} />
+              ) : (
+                <ArrowUp size={16} />
+              )}
+            </div>
+            <div className={styles.tableCellLeft}>price chng %</div>
+            <div
               className={
                 styles.tableCellRight +
                 " " +
@@ -201,29 +234,32 @@ const Coin = (props) => {
               }
             >
               {roundTo2DP(getCoinProp("hPriceChangePct"))}%
-              {getCoinProp("hPriceChangePct") < 0 ? <ArrowDown /> : <ArrowUp />}
-            </td>
-          </tr>
-          {/* volume data */}
-          <tr className={styles.tableItem}>
-            <td className={styles.tableCellLeft}>1hr interval volume</td>
-            <td className={styles.tableCellRight}>
-              {appCurrencySign}
-              {commaFormat(getCoinProp("hVolume"))}
-            </td>
-          </tr>
-          <tr className={styles.tableItem}>
-            <td className={styles.tableCellLeft}>previous interval volume</td>
-            <td className={styles.tableCellRight}>
-              {appCurrencySign}
-              {commaFormat(
-                getCoinProp("hVolume") * 1 - getCoinProp("hVolumeChange") * 1
+              {getCoinProp("hPriceChangePct") < 0 ? (
+                <ArrowDown size={16} />
+              ) : (
+                <ArrowUp size={16} />
               )}
-            </td>
-          </tr>
-          <tr className={styles.tableItem}>
-            <td className={styles.tableCellLeft}>volume change</td>
-            <td
+            </div>
+          </div>
+          <div className={styles.marketSubHeading}>volume</div>
+          <div className={styles.analysisLayout}>
+            <div className={styles.tableCellLeft}>1hr volume</div>
+            <div className={styles.tableCellRight}>
+              {appCurrencySign}
+              {numAbbreviation(getCoinProp("hVolume"))}
+            </div>
+            <div className={styles.tableCellLeft}>prev 1hr vol.</div>
+            <div className={styles.tableCellRight}>
+              {appCurrencySign}
+              {numAbbreviation(
+                Number(getCoinProp("hVolume")) -
+                  Number(getCoinProp("hVolumeChange"))
+              )}
+            </div>
+          </div>
+          <div className={styles.analysisLayout}>
+            <div className={styles.tableCellLeft}>vol. chng</div>
+            <div
               className={
                 styles.tableCellRight +
                 " " +
@@ -233,13 +269,15 @@ const Coin = (props) => {
               }
             >
               {appCurrencySign}
-              {commaFormat(getCoinProp("hVolumeChange"))}
-              {getCoinProp("hVolumeChange") < 0 ? <ArrowDown /> : <ArrowUp />}
-            </td>
-          </tr>
-          <tr className={styles.tableItem}>
-            <td className={styles.tableCellLeft}>volume change %</td>
-            <td
+              {numAbbreviation(getCoinProp("hVolumeChange"))}
+              {getCoinProp("hVolumeChange") < 0 ? (
+                <ArrowDown size={16} />
+              ) : (
+                <ArrowUp size={16} />
+              )}
+            </div>
+            <div className={styles.tableCellLeft}>vol. chng %</div>
+            <div
               className={
                 styles.tableCellRight +
                 " " +
@@ -252,69 +290,83 @@ const Coin = (props) => {
             >
               {roundTo2DP(getCoinProp("hVolumeChangePct"))}%
               {getCoinProp("hVolumeChangePct") < 0 ? (
-                <ArrowDown />
+                <ArrowDown size={16} />
               ) : (
-                <ArrowUp />
+                <ArrowUp size={16} />
               )}
-            </td>
-          </tr>
-        </thead>
-      </table>
-      <div className={styles.code2}>
-        market data <ChevronDown />
+            </div>
+          </div>
+        </>
+      ) : (
+        <React.Fragment />
+      )}
+
+      <div className={styles.marketHeading} onClick={toggleShowMarketData}>
+        {showMrktData ? <ChevronUp /> : <ChevronDown />} market data
       </div>
-      <table className={styles.tableLayout}>
-        <thead>
-          <tr className={styles.tableItem}>
-            <td className={styles.tableCellLeft}>all-time high</td>
-            <td className={styles.tableCellRight}>
+      {showMrktData ? (
+        <>
+          <div className={styles.marketSubHeading}>all-time high</div>
+          <div className={styles.analysisLayout}>
+            <div className={styles.tableCellLeft}>price</div>
+            <div className={styles.tableCellRight}>
+              {appCurrencySign}
+              {Number(getCoinProp("price")) >= 100
+                ? roundTo2DP(getCoinProp("price"))
+                : roundTo3DP(getCoinProp("price"))}
+            </div>
+            <div className={styles.tableCellLeft}>ath</div>
+            <div className={styles.tableCellRight}>
               {appCurrencySign}
               {roundTo3DP(getCoinProp("high"))}
-            </td>
-          </tr>
-          <tr className={styles.tableItem}>
-            <td className={styles.tableCellLeft}>high date</td>
-            <td className={styles.tableCellRight}>
+            </div>
+          </div>
+          <div className={styles.analysisLayout}>
+            <div className={styles.tableCellLeft}>ath date</div>
+            <div className={styles.tableCellRight}>
               {formatDate(getCoinProp("highDate"))}
-            </td>
-          </tr>
-          <tr className={styles.tableItem}>
-            <td className={styles.tableCellLeft}>market capitalisation</td>
-            <td className={styles.tableCellRight}>
+            </div>
+            <div className={styles.tableCellLeft}>% ath</div>
+            <div className={styles.tableCellRight}>
+              {roundTo2DP((getCoinProp("price") / getCoinProp("high")) * 100)}%
+            </div>
+          </div>
+          <div className={styles.marketSubHeading}>market capitalisation</div>
+          <div className={styles.analysisLayout}>
+            <div className={styles.tableCellLeft}>market cap</div>
+            <div className={styles.tableCellRight}>
               {appCurrencySign}
-              {commaFormat(getCoinProp("marketCap"))}
-            </td>
-          </tr>
-          <tr className={styles.tableItem}>
-            <td className={styles.tableCellLeft}>
-              rank by market capitalisation
-            </td>
-            <td className={styles.tableCellRight}>{getCoinProp("rank")}</td>
-          </tr>
-          <tr className={styles.tableItem}>
-            <td className={styles.tableCellLeft}>coins in circulation</td>
-            <td className={styles.tableCellRight}>
-              {commaFormat(getCoinProp("supply"))}
-            </td>
-          </tr>
-          <tr className={styles.tableItem}>
-            <td className={styles.tableCellLeft}>minting limit</td>
-            <td className={styles.tableCellRight}>
-              {commaFormat(getCoinProp("maxSupply"))}
-            </td>
-          </tr>
-          <tr className={styles.tableItem}>
-            <td className={styles.tableCellLeft}>current circulation %</td>
-            <td className={styles.tableCellRight}>{circulationPercentage()}</td>
-          </tr>
-          <tr className={styles.tableItem}>
-            <td className={styles.tableCellLeft}>first trade</td>
-            <td className={styles.tableCellRight}>
+              {numAbbreviation(getCoinProp("marketCap"))}
+            </div>
+            <div className={styles.tableCellLeft}>market cap rank</div>
+            <div className={styles.tableCellRight}>{getCoinProp("rank")}</div>
+          </div>
+          <div className={styles.marketSubHeading}>supply</div>
+
+          <div className={styles.analysisLayout}>
+            <div className={styles.tableCellLeft}>current supply</div>
+            <div className={styles.tableCellRight}>
+              {numAbbreviation(getCoinProp("supply"))}
+            </div>
+            <div className={styles.tableCellLeft}>max supply</div>
+            <div className={styles.tableCellRight}>
+              {numAbbreviation(getCoinProp("maxSupply"))}
+            </div>
+          </div>
+          <div className={styles.analysisLayout}>
+            <div className={styles.tableCellLeft}>supply %</div>
+            <div className={styles.tableCellRight}>
+              {circulationPercentage()}
+            </div>
+            <div className={styles.tableCellLeft}>first trade</div>
+            <div className={styles.tableCellRight}>
               {formatDate(getCoinProp("firstTrade"))}
-            </td>
-          </tr>
-        </thead>
-      </table>
+            </div>
+          </div>
+        </>
+      ) : (
+        <React.Fragment />
+      )}
       <hr className={styles.solidDivider} />
       <div className={styles.buttons}>
         <button
@@ -347,7 +399,7 @@ export async function getServerSideProps({ query }) {
   const code = query.id;
   const coin = await getSingleCoinData(code);
 
-  // console.log(coin);
+  // consle.log(coin);
 
   return {
     props: {

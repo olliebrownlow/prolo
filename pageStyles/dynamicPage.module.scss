@@ -4,28 +4,31 @@
   align-items: center;
   margin-top: 12px;
 }
+.analysisLayout {
+  display: grid;
+  grid-template: 28px 28px / 25% 25% 25% 25%;
+  width: 98%;
+  font-size: 16px;
+  justify-content: center;
+}
 .tableLayout {
-  width: 90%;
+  width: 98%;
   margin-bottom: 20px;
 }
 .tableItem {
   font-size: 16px;
 }
 .tableCellLeft {
-  padding: 8px 8px 8px 8px;
+  margin-left: 5px;
   text-align: left;
-  // border-width: 3px;
-  // border-style: solid;
-  // border-image:
-  //   linear-gradient(
-  //     to right, 
-  //     lightgrey, 
-  //     rgba(0, 0, 0, 0)
-  //   ) 0 0 100%;
+  border-bottom: 1px dashed white;
+  white-space: nowrap;
 }
 .tableCellRight {
-  padding: 8px 8px 8px 8px;
+  margin-right: 5px;
   text-align: right;
+  border-bottom: 1px dashed white;
+  white-space: nowrap;
  }
  .red{
    color: red;
@@ -39,14 +42,36 @@
   letter-spacing: 5px;
 }
 .code {
+  text-align: center;
   font-size: 24px;
   margin-bottom: 40px;
 }
 .code2 {
+  text-align: center;
   font-size: 24px;
   margin-bottom: 20px;
+  display: flex;
+}
+.marketHeading {
+  text-align: center;
+  font-size: 24px;
+  margin-top: 24px;
+  margin-bottom: 12px;
+  display: flex;
+  font-weight: 900;
+  // background-color: white;
+  // color: black;
+  // padding: 4px;
+  // border-radius: 2px;
+}
+.marketSubHeading {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+  display: flex;
 }
 .amount {
+  text-align: center;
   font-size: 40px;
   font-weight: 900;
   margin-bottom: 10px;
@@ -63,7 +88,6 @@
 }
 .buttons {
   display: flex;
-  flex-direction: row;
   justify-content: space-evenly; 
 }
 .deleteButton {
