@@ -3,6 +3,13 @@
   flex-flow: column;
   align-items: center;
   margin-top: 12px;
+  width: 100%;
+}
+.collapsibleLayout {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  width: 100%;
 }
 .analysisLayout {
   display: grid;
@@ -10,6 +17,7 @@
   width: 98%;
   font-size: 16px;
   justify-content: center;
+  height: inherit;
 }
 .tableLayout {
   width: 98%;
@@ -89,6 +97,7 @@
 .buttons {
   display: flex;
   justify-content: space-evenly; 
+  z-index: 0;
 }
 .deleteButton {
   margin: 0px 15px 80px 15px;

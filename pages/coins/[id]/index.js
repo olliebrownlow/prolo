@@ -16,6 +16,15 @@ import {
 } from "react-feather";
 import _ from "lodash";
 import NumberSuffix from "number-suffix";
+import { motion } from "framer-motion";
+
+const variants = {
+  open: {
+    opacity: 1,
+    height: "auto",
+  },
+  closed: { opacity: 0, height: 0 },
+};
 
 const Coin = (props) => {
   const { appCurrencySign } = useContext(CurrencySettingsContext);
@@ -176,220 +185,229 @@ const Coin = (props) => {
       <div className={styles.marketHeading} onClick={toggleShowMarketAnalysis}>
         {showMrktAnalysis ? <ChevronUp /> : <ChevronDown />} market analysis
       </div>
-      {showMrktAnalysis ? (
-        <>
-          <div className={styles.marketSubHeading}>price</div>
-          <div className={styles.analysisLayout}>
-            <div className={styles.tableCellLeft}>price</div>
-            <div className={styles.tableCellRight}>
-              {appCurrencySign}
-              {Number(getCoinProp("price")) >= 100
-                ? roundTo2DP(getCoinProp("price"))
-                : roundTo3DP(getCoinProp("price"))}
-            </div>
-            <div className={styles.tableCellLeft}>price at 1hr</div>
-            <div className={styles.tableCellRight}>
-              {appCurrencySign}
-              {Number(getCoinProp("price")) -
-                Number(getCoinProp("hPriceChange")) >=
-              100
-                ? roundTo2DP(
-                    Number(getCoinProp("price")) -
-                      Number(getCoinProp("hPriceChange"))
-                  )
-                : roundTo3DP(
-                    Number(getCoinProp("price")) -
-                      Number(getCoinProp("hPriceChange"))
-                  )}
-            </div>
+      {/* market analysis */}
+      <motion.div
+        className={styles.collapsibleLayout}
+        animate={showMrktAnalysis ? "open" : "closed"}
+        variants={variants}
+        transition={{ duration: 0.5 }}
+      >
+        {/* price */}
+        <div className={styles.marketSubHeading}>price</div>
+        <div className={styles.analysisLayout}>
+          <div className={styles.tableCellLeft}>price</div>
+          <div className={styles.tableCellRight}>
+            {appCurrencySign}
+            {Number(getCoinProp("price")) >= 100
+              ? roundTo2DP(getCoinProp("price"))
+              : roundTo3DP(getCoinProp("price"))}
           </div>
-          <div className={styles.analysisLayout}>
-            <div className={styles.tableCellLeft}>price chng</div>
-            <div
-              className={
-                styles.tableCellRight +
-                " " +
-                `${getCoinProp("hPriceChange") < 0 ? styles.red : styles.green}`
-              }
-            >
-              {appCurrencySign}
-              {Number(getCoinProp("hPriceChange")) >= 100 ||
-              Number(getCoinProp("hPriceChange")) <= -100
-                ? roundTo2DP(getCoinProp("hPriceChange"))
-                : roundTo3DP(getCoinProp("hPriceChange"))}
-              {getCoinProp("hPriceChange") < 0 ? (
-                <ArrowDown size={16} />
-              ) : (
-                <ArrowUp size={16} />
-              )}
-            </div>
-            <div className={styles.tableCellLeft}>price chng %</div>
-            <div
-              className={
-                styles.tableCellRight +
-                " " +
-                `${
-                  getCoinProp("hPriceChangePct") < 0 ? styles.red : styles.green
-                }`
-              }
-            >
-              {roundTo2DP(getCoinProp("hPriceChangePct"))}%
-              {getCoinProp("hPriceChangePct") < 0 ? (
-                <ArrowDown size={16} />
-              ) : (
-                <ArrowUp size={16} />
-              )}
-            </div>
+          <div className={styles.tableCellLeft}>price at 1hr</div>
+          <div className={styles.tableCellRight}>
+            {appCurrencySign}
+            {Number(getCoinProp("price")) -
+              Number(getCoinProp("hPriceChange")) >=
+            100
+              ? roundTo2DP(
+                  Number(getCoinProp("price")) -
+                    Number(getCoinProp("hPriceChange"))
+                )
+              : roundTo3DP(
+                  Number(getCoinProp("price")) -
+                    Number(getCoinProp("hPriceChange"))
+                )}
           </div>
-          <div className={styles.marketSubHeading}>volume</div>
-          <div className={styles.analysisLayout}>
-            <div className={styles.tableCellLeft}>1hr volume</div>
-            <div className={styles.tableCellRight}>
-              {appCurrencySign}
-              {numAbbreviation(getCoinProp("hVolume"))}
-            </div>
-            <div className={styles.tableCellLeft}>prev 1hr vol.</div>
-            <div className={styles.tableCellRight}>
-              {appCurrencySign}
-              {numAbbreviation(
-                Number(getCoinProp("hVolume")) -
-                  Number(getCoinProp("hVolumeChange"))
-              )}
-            </div>
+        </div>
+        <div className={styles.analysisLayout}>
+          <div className={styles.tableCellLeft}>price chng</div>
+          <div
+            className={
+              styles.tableCellRight +
+              " " +
+              `${getCoinProp("hPriceChange") < 0 ? styles.red : styles.green}`
+            }
+          >
+            {appCurrencySign}
+            {Number(getCoinProp("hPriceChange")) >= 100 ||
+            Number(getCoinProp("hPriceChange")) <= -100
+              ? roundTo2DP(getCoinProp("hPriceChange"))
+              : roundTo3DP(getCoinProp("hPriceChange"))}
+            {getCoinProp("hPriceChange") < 0 ? (
+              <ArrowDown size={16} />
+            ) : (
+              <ArrowUp size={16} />
+            )}
           </div>
-          <div className={styles.analysisLayout}>
-            <div className={styles.tableCellLeft}>vol. chng</div>
-            <div
-              className={
-                styles.tableCellRight +
-                " " +
-                `${
-                  getCoinProp("hVolumeChange") < 0 ? styles.red : styles.green
-                }`
-              }
-            >
-              {appCurrencySign}
-              {numAbbreviation(getCoinProp("hVolumeChange"))}
-              {getCoinProp("hVolumeChange") < 0 ? (
-                <ArrowDown size={16} />
-              ) : (
-                <ArrowUp size={16} />
-              )}
-            </div>
-            <div className={styles.tableCellLeft}>vol. chng %</div>
-            <div
-              className={
-                styles.tableCellRight +
-                " " +
-                `${
-                  getCoinProp("hVolumeChangePct") < 0
-                    ? styles.red
-                    : styles.green
-                }`
-              }
-            >
-              {roundTo2DP(getCoinProp("hVolumeChangePct"))}%
-              {getCoinProp("hVolumeChangePct") < 0 ? (
-                <ArrowDown size={16} />
-              ) : (
-                <ArrowUp size={16} />
-              )}
-            </div>
+          <div className={styles.tableCellLeft}>price chng %</div>
+          <div
+            className={
+              styles.tableCellRight +
+              " " +
+              `${
+                getCoinProp("hPriceChangePct") < 0 ? styles.red : styles.green
+              }`
+            }
+          >
+            {roundTo2DP(getCoinProp("hPriceChangePct"))}%
+            {getCoinProp("hPriceChangePct") < 0 ? (
+              <ArrowDown size={16} />
+            ) : (
+              <ArrowUp size={16} />
+            )}
           </div>
-        </>
-      ) : (
-        <React.Fragment />
-      )}
-
+        </div>
+        {/* volume */}
+        <div className={styles.marketSubHeading}>volume</div>
+        <div className={styles.analysisLayout}>
+          <div className={styles.tableCellLeft}>1hr volume</div>
+          <div className={styles.tableCellRight}>
+            {appCurrencySign}
+            {numAbbreviation(getCoinProp("hVolume"))}
+          </div>
+          <div className={styles.tableCellLeft}>prev 1hr vol.</div>
+          <div className={styles.tableCellRight}>
+            {appCurrencySign}
+            {numAbbreviation(
+              Number(getCoinProp("hVolume")) -
+                Number(getCoinProp("hVolumeChange"))
+            )}
+          </div>
+        </div>
+        <div className={styles.analysisLayout}>
+          <div className={styles.tableCellLeft}>vol. chng</div>
+          <div
+            className={
+              styles.tableCellRight +
+              " " +
+              `${getCoinProp("hVolumeChange") < 0 ? styles.red : styles.green}`
+            }
+          >
+            {appCurrencySign}
+            {numAbbreviation(getCoinProp("hVolumeChange"))}
+            {getCoinProp("hVolumeChange") < 0 ? (
+              <ArrowDown size={16} />
+            ) : (
+              <ArrowUp size={16} />
+            )}
+          </div>
+          <div className={styles.tableCellLeft}>vol. chng %</div>
+          <div
+            className={
+              styles.tableCellRight +
+              " " +
+              `${
+                getCoinProp("hVolumeChangePct") < 0 ? styles.red : styles.green
+              }`
+            }
+          >
+            {roundTo2DP(getCoinProp("hVolumeChangePct"))}%
+            {getCoinProp("hVolumeChangePct") < 0 ? (
+              <ArrowDown size={16} />
+            ) : (
+              <ArrowUp size={16} />
+            )}
+          </div>
+        </div>
+      </motion.div>
+      {/* market data */}
       <div className={styles.marketHeading} onClick={toggleShowMarketData}>
         {showMrktData ? <ChevronUp /> : <ChevronDown />} market data
       </div>
-      {showMrktData ? (
-        <>
-          <div className={styles.marketSubHeading}>all-time high</div>
-          <div className={styles.analysisLayout}>
-            <div className={styles.tableCellLeft}>price</div>
-            <div className={styles.tableCellRight}>
-              {appCurrencySign}
-              {Number(getCoinProp("price")) >= 100
-                ? roundTo2DP(getCoinProp("price"))
-                : roundTo3DP(getCoinProp("price"))}
-            </div>
-            <div className={styles.tableCellLeft}>ath</div>
-            <div className={styles.tableCellRight}>
-              {appCurrencySign}
-              {roundTo3DP(getCoinProp("high"))}
-            </div>
+      <motion.div
+        className={styles.collapsibleLayout}
+        animate={showMrktData ? "open" : "closed"}
+        variants={variants}
+        transition={{ duration: 0.5 }}
+      >
+        {/* all-time high */}
+        <div className={styles.marketSubHeading}>all-time high</div>
+        <div className={styles.analysisLayout}>
+          <div className={styles.tableCellLeft}>price</div>
+          <div className={styles.tableCellRight}>
+            {appCurrencySign}
+            {Number(getCoinProp("price")) >= 100
+              ? roundTo2DP(getCoinProp("price"))
+              : roundTo3DP(getCoinProp("price"))}
           </div>
-          <div className={styles.analysisLayout}>
-            <div className={styles.tableCellLeft}>ath date</div>
-            <div className={styles.tableCellRight}>
-              {formatDate(getCoinProp("highDate"))}
-            </div>
-            <div className={styles.tableCellLeft}>% ath</div>
-            <div className={styles.tableCellRight}>
-              {roundTo2DP((getCoinProp("price") / getCoinProp("high")) * 100)}%
-            </div>
+          <div className={styles.tableCellLeft}>ath</div>
+          <div className={styles.tableCellRight}>
+            {appCurrencySign}
+            {Number(getCoinProp("high")) >= 100
+              ? roundTo2DP(getCoinProp("high"))
+              : roundTo3DP(getCoinProp("high"))}
           </div>
-          <div className={styles.marketSubHeading}>market capitalisation</div>
-          <div className={styles.analysisLayout}>
-            <div className={styles.tableCellLeft}>market cap</div>
-            <div className={styles.tableCellRight}>
-              {appCurrencySign}
-              {numAbbreviation(getCoinProp("marketCap"))}
-            </div>
-            <div className={styles.tableCellLeft}>market cap rank</div>
-            <div className={styles.tableCellRight}>{getCoinProp("rank")}</div>
+        </div>
+        <div className={styles.analysisLayout}>
+          <div className={styles.tableCellLeft}>ath date</div>
+          <div className={styles.tableCellRight}>
+            {formatDate(getCoinProp("highDate"))}
           </div>
-          <div className={styles.marketSubHeading}>supply</div>
-
-          <div className={styles.analysisLayout}>
-            <div className={styles.tableCellLeft}>current supply</div>
-            <div className={styles.tableCellRight}>
-              {numAbbreviation(getCoinProp("supply"))}
-            </div>
-            <div className={styles.tableCellLeft}>max supply</div>
-            <div className={styles.tableCellRight}>
-              {numAbbreviation(getCoinProp("maxSupply"))}
-            </div>
+          <div className={styles.tableCellLeft}>% ath</div>
+          <div className={styles.tableCellRight}>
+            {roundTo2DP((getCoinProp("price") / getCoinProp("high")) * 100)}%
           </div>
-          <div className={styles.analysisLayout}>
-            <div className={styles.tableCellLeft}>supply %</div>
-            <div className={styles.tableCellRight}>
-              {circulationPercentage()}
-            </div>
-            <div className={styles.tableCellLeft}>first trade</div>
-            <div className={styles.tableCellRight}>
-              {formatDate(getCoinProp("firstTrade"))}
-            </div>
+        </div>
+        {/* market capitalisation */}
+        <div className={styles.marketSubHeading}>market capitalisation</div>
+        <div className={styles.analysisLayout}>
+          <div className={styles.tableCellLeft}>market cap</div>
+          <div className={styles.tableCellRight}>
+            {appCurrencySign}
+            {numAbbreviation(getCoinProp("marketCap"))}
           </div>
-        </>
-      ) : (
-        <React.Fragment />
-      )}
+          <div className={styles.tableCellLeft}>market cap rank</div>
+          <div className={styles.tableCellRight}>{getCoinProp("rank")}</div>
+        </div>
+        {/* supply */}
+        <div className={styles.marketSubHeading}>supply</div>
+        <div className={styles.analysisLayout}>
+          <div className={styles.tableCellLeft}>current supply</div>
+          <div className={styles.tableCellRight}>
+            {numAbbreviation(getCoinProp("supply"))}
+          </div>
+          <div className={styles.tableCellLeft}>max supply</div>
+          <div className={styles.tableCellRight}>
+            {numAbbreviation(getCoinProp("maxSupply"))}
+          </div>
+        </div>
+        <div className={styles.analysisLayout}>
+          <div className={styles.tableCellLeft}>supply %</div>
+          <div className={styles.tableCellRight}>{circulationPercentage()}</div>
+          <div className={styles.tableCellLeft}>first trade</div>
+          <div className={styles.tableCellRight}>
+            {formatDate(getCoinProp("firstTrade"))}
+          </div>
+        </div>
+      </motion.div>
       <hr className={styles.solidDivider} />
       <div className={styles.buttons}>
-        <button
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.5 }}
           className={styles.updateButton}
           onClick={() => showModal()}
           role="button"
         >
           update
-        </button>
-        <button
+        </motion.button>
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.5 }}
           className={styles.deleteButton}
           onClick={() => handleDeleteCoin()}
           role="button"
         >
           delete
-        </button>
-        <button
+        </motion.button>
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.5 }}
           className={styles.cancelButton}
           onClick={() => handleCancel()}
           role="button"
         >
           cancel
-        </button>
+        </motion.button>
       </div>
     </div>
   );
