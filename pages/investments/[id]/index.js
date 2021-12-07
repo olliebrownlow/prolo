@@ -12,6 +12,7 @@ import usdFlag from "../../../public/usdFlagSmall.jpg";
 import CorrectModal from "../../../components/correct-modal";
 import styles from "../../../pageStyles/dynamicPage.module.scss";
 import _ from "lodash";
+import { motion } from "framer-motion";
 
 const Investment = (props) => {
   const {
@@ -174,27 +175,33 @@ const Investment = (props) => {
       </table>
       <hr className={styles.solidDivider} />
       <div className={styles.buttons}>
-        <button
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.5 }}
           className={styles.updateButton}
           onClick={() => showModal()}
           role="button"
         >
           correct
-        </button>
-        <button
+        </motion.button>
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.5 }}
           className={styles.deleteButton}
           onClick={() => handleDelete()}
           role="button"
         >
           delete
-        </button>
-        <button
+        </motion.button>
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.5 }}
           className={styles.cancelButton}
           onClick={() => handleCancel()}
           role="button"
         >
           cancel
-        </button>
+        </motion.button>
       </div>
     </div>
   );

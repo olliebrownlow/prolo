@@ -7,6 +7,7 @@ import gbpFlag from "../../../public/gbpFlagSmall.png";
 import usdFlag from "../../../public/usdFlagSmall.jpg";
 import UpdateModal from "../../../components/update-modal";
 import styles from "../../../pageStyles/dynamicPage.module.scss";
+import { motion } from "framer-motion";
 
 const Fiat = (props) => {
   const {
@@ -131,27 +132,33 @@ const Fiat = (props) => {
       )}
       <hr className={styles.solidDivider} />
       <div className={styles.buttons}>
-        <button
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.5 }}
           className={styles.updateButton}
           onClick={() => showModal()}
           role="button"
         >
           update
-        </button>
-        <button
+        </motion.button>
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.5 }}
           className={styles.deleteButton}
           onClick={() => handleDeleteFiat()}
           role="button"
         >
           delete
-        </button>
-        <button
+        </motion.button>
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.5 }}
           className={styles.cancelButton}
           onClick={() => handleCancel()}
           role="button"
         >
           cancel
-        </button>
+        </motion.button>
       </div>
     </div>
   );
