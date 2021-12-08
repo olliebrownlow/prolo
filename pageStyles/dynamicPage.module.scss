@@ -20,11 +20,12 @@
   height: inherit;
 }
 .tableLayout {
-  width: 98%;
-  margin-bottom: 20px;
-}
-.tableItem {
+  display: grid;
+  grid-template: 28px / 50% 50%;
+  width: 75%;
   font-size: 16px;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 .tableCellLeft {
   margin-left: 5px;
@@ -63,7 +64,6 @@
 .marketHeading {
   text-align: center;
   font-size: 24px;
-  margin-top: 24px;
   margin-bottom: 12px;
   display: flex;
   font-weight: 900;
@@ -82,7 +82,7 @@
   text-align: center;
   font-size: 40px;
   font-weight: 900;
-  margin-bottom: 10px;
+  margin-bottom: 34px;
   border-bottom: solid white 3px;
   border-top: solid white 3px;
 }

@@ -114,19 +114,15 @@ const Fiat = (props) => {
         {fiatSign} {roundTo2DP(amount)}
       </div>
       {fiatSign != appCurrencySign ? (
-        <table className={styles.tableLayout}>
-          <thead>
-            <tr className={styles.tableItem}>
-              <td className={styles.tableCellLeft}>
-                {getCurrency(appCurrencySign)} value
-              </td>
-              <td className={styles.tableCellRight}>
-                {appCurrencySign}
-                {roundTo2DP(total)}
-              </td>
-            </tr>
-          </thead>
-        </table>
+        <div className={styles.tableLayout}>
+          <div className={styles.tableCellLeft}>
+            {getCurrency(appCurrencySign)} value
+          </div>
+          <div className={styles.tableCellRight}>
+            {appCurrencySign}
+            {roundTo2DP(total)}
+          </div>
+        </div>
       ) : (
         <React.Fragment />
       )}

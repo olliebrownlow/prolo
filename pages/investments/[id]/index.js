@@ -133,46 +133,44 @@ const Investment = (props) => {
         {currencySign}
         {roundTo2DP(amount)}
       </div>
-      <table className={styles.tableLayout}>
-        <thead>
-          <tr className={styles.tableItem}>
-            <td className={styles.tableCellLeft}>type</td>
-            <td className={styles.tableCellRight}>{type}</td>
-          </tr>
-          <tr className={styles.tableItem}>
-            <td className={styles.tableCellLeft}>date</td>
-            <td className={styles.tableCellRight}>{date}</td>
-          </tr>
-          {roundTo2DP(euros) === roundTo2DP(amount) ? (
-            <React.Fragment />
-          ) : (
-            <tr className={styles.tableItem}>
-              <td className={styles.tableCellLeft}>euro value</td>
-              <td className={styles.tableCellRight}>€{roundTo2DP(euros)}</td>
-            </tr>
-          )}
-          {roundTo2DP(britishSterling) === roundTo2DP(amount) ? (
-            <React.Fragment />
-          ) : (
-            <tr className={styles.tableItem}>
-              <td className={styles.tableCellLeft}>sterling value</td>
-              <td className={styles.tableCellRight}>
-                £{roundTo2DP(britishSterling)}
-              </td>
-            </tr>
-          )}
-          {roundTo2DP(americanDollars) === roundTo2DP(amount) ? (
-            <React.Fragment />
-          ) : (
-            <tr className={styles.tableItem}>
-              <td className={styles.tableCellLeft}>dollar value</td>
-              <td className={styles.tableCellRight}>
-                ${roundTo2DP(americanDollars)}
-              </td>
-            </tr>
-          )}
-        </thead>
-      </table>
+
+      <div className={styles.analysisLayout}>
+        <div className={styles.tableCellLeft}>type</div>
+        <div className={styles.tableCellRight}>{type}</div>
+        <div className={styles.tableCellLeft}>date</div>
+        <div className={styles.tableCellRight}>{date}</div>
+      </div>
+
+      <div className={styles.analysisLayout}>
+        {roundTo2DP(euros) === roundTo2DP(amount) ? (
+          <React.Fragment />
+        ) : (
+          <>
+            <div className={styles.tableCellLeft}>euro value</div>
+            <div className={styles.tableCellRight}>€{roundTo2DP(euros)}</div>
+          </>
+        )}
+        {roundTo2DP(britishSterling) === roundTo2DP(amount) ? (
+          <React.Fragment />
+        ) : (
+          <>
+            <div className={styles.tableCellLeft}>sterling value</div>
+            <div className={styles.tableCellRight}>
+              £{roundTo2DP(britishSterling)}
+            </div>
+          </>
+        )}
+        {roundTo2DP(americanDollars) === roundTo2DP(amount) ? (
+          <React.Fragment />
+        ) : (
+          <>
+            <div className={styles.tableCellLeft}>dollar value</div>
+            <div className={styles.tableCellRight}>
+              ${roundTo2DP(americanDollars)}
+            </div>
+          </>
+        )}
+      </div>
       <hr className={styles.solidDivider} />
       <div className={styles.buttons}>
         <motion.button
