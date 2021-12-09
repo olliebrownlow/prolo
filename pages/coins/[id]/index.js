@@ -33,12 +33,16 @@ const Coin = (props) => {
   const [isShown, setIsShown] = useState(false);
   const [showMrktAnalysis, setShowMrktAnalysis] = useState(false);
   const [showMrktData, setShowMrktData] = useState(false);
+  const [update, setUpdate] = useState(false);
+  const [deleted, setDeleted] = useState(false);
+  const [cancel, setCancel] = useState(false);
 
   const [anim, setAnim] = useState(0);
 
   const [currentAmount, setCurrentAmount] = useState(coin[0]["amount"]);
 
   const showModal = () => {
+    setUpdate(true);
     setIsShown(true);
   };
 
@@ -87,12 +91,14 @@ const Coin = (props) => {
   };
 
   const handleDeleteCoin = () => {
+    setDeleted(true);
     refreshData();
     const res = deleteCoin(getCoinProp("id"));
     console.log(res);
   };
 
   const handleCancel = () => {
+    setCancel(true);
     Router.replace("/pocket");
   };
 
@@ -191,6 +197,7 @@ const Coin = (props) => {
         animate={showMrktAnalysis ? "open" : "closed"}
         variants={variants}
         transition={{ duration: 0.5 }}
+        initial="closed"
       >
         {/* price */}
         <div className={styles.marketSubHeading}>price</div>
@@ -318,6 +325,7 @@ const Coin = (props) => {
         animate={showMrktData ? "open" : "closed"}
         variants={variants}
         transition={{ duration: 0.5 }}
+        initial="closed"
       >
         {/* all-time high */}
         <div className={styles.marketSubHeading}>all-time high</div>
@@ -383,7 +391,8 @@ const Coin = (props) => {
       <div className={styles.buttons}>
         <motion.button
           whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.5 }}
+          transition={{ duration: 0.25 }}
+          animate={update ? { scale: [1, 0.5, 1] } : {}}
           className={styles.updateButton}
           onClick={() => showModal()}
           role="button"
@@ -392,7 +401,8 @@ const Coin = (props) => {
         </motion.button>
         <motion.button
           whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.5 }}
+          transition={{ duration: 0.25 }}
+          animate={deleted ? { scale: [1, 0.5, 1] } : {}}
           className={styles.deleteButton}
           onClick={() => handleDeleteCoin()}
           role="button"
@@ -401,7 +411,11 @@ const Coin = (props) => {
         </motion.button>
         <motion.button
           whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.5 }}
+          // whileTap={{
+          //   transform: "rotateX(180deg)",
+          // }}
+          transition={{ duration: 0.25 }}
+          animate={cancel ? { scale: [1, 0.5, 1] } : {}}
           className={styles.cancelButton}
           onClick={() => handleCancel()}
           role="button"

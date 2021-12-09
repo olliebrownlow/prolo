@@ -1,6 +1,7 @@
 import styles from "./listing.module.scss";
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { ArrowUpRight } from "react-feather";
 
 const CoinList = (props) => {
@@ -29,7 +30,7 @@ const CoinList = (props) => {
               },
             }}
           >
-            <div className={styles.listRow}>
+            <motion.div className={styles.listRow} whileTap={{ scale: 0.8 }}>
               <div className={styles.logoContainer}>
                 <Image
                   className={`${
@@ -56,7 +57,7 @@ const CoinList = (props) => {
               <div className={styles.editIcon}>
                 <ArrowUpRight size={32} />
               </div>
-            </div>
+            </motion.div>
           </Link>
         </div>
       ))}

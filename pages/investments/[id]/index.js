@@ -31,8 +31,12 @@ const Investment = (props) => {
   } = props;
 
   const [isShown, setIsShown] = useState(false);
+  const [update, setUpdate] = useState(false);
+  const [deleted, setDeleted] = useState(false);
+  const [cancel, setCancel] = useState(false);
 
   const showModal = () => {
+    setUpdate(true);
     setIsShown(true);
   };
 
@@ -81,12 +85,14 @@ const Investment = (props) => {
   };
 
   const handleDelete = () => {
+    setDeleted(true);
     refreshInvestmentData();
     const res = deleteInvestmentItem(id);
     console.log(res);
   };
 
   const handleCancel = () => {
+    setCancel(true);
     Router.replace("/ledger");
   };
 
@@ -175,7 +181,8 @@ const Investment = (props) => {
       <div className={styles.buttons}>
         <motion.button
           whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.5 }}
+          transition={{ duration: 0.25 }}
+          animate={update ? { scale: [1, 0.5, 1] } : {}}
           className={styles.updateButton}
           onClick={() => showModal()}
           role="button"
@@ -184,7 +191,8 @@ const Investment = (props) => {
         </motion.button>
         <motion.button
           whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.5 }}
+          transition={{ duration: 0.25 }}
+          animate={deleted ? { scale: [1, 0.5, 1] } : {}}
           className={styles.deleteButton}
           onClick={() => handleDelete()}
           role="button"
@@ -193,7 +201,8 @@ const Investment = (props) => {
         </motion.button>
         <motion.button
           whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.5 }}
+          transition={{ duration: 0.25 }}
+          animate={cancel ? { scale: [1, 0.5, 1] } : {}}
           className={styles.cancelButton}
           onClick={() => handleCancel()}
           role="button"
