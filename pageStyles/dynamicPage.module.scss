@@ -64,12 +64,13 @@
 .marketHeading {
   text-align: center;
   font-size: 24px;
-  margin-bottom: 12px;
+  margin-bottom: 24px;
   display: flex;
   font-weight: 900;
   // background-color: white;
   // color: black;
   // padding: 4px;
+  // border-bottom: 1px solid white;
   // border-radius: 2px;
 }
 .marketSubHeading {
@@ -77,6 +78,7 @@
   font-size: 24px;
   margin-bottom: 20px;
   display: flex;
+  border-bottom: 1px solid white;
 }
 .amount {
   text-align: center;

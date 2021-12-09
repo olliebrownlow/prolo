@@ -4,6 +4,7 @@ import Image from "next/image";
 import eurFlag from "../public/eurFlagSmall.jpg";
 import gbpFlag from "../public/gbpFlagSmall.png";
 import usdFlag from "../public/usdFlagSmall.jpg";
+import { motion } from "framer-motion";
 import { ArrowUpRight } from "react-feather";
 
 const FundingList = (props) => {
@@ -38,7 +39,7 @@ const FundingList = (props) => {
   };
 
   return (
-    <div  className={styles.listContainer}>
+    <div className={styles.listContainer}>
       {fundingHistoryData.map((investment) => (
         <div key={investment.id}>
           <Link
@@ -59,7 +60,7 @@ const FundingList = (props) => {
               },
             }}
           >
-            <div className={styles.listRow}>
+            <motion.div className={styles.listRow} whileTap={{ scale: 0.8 }}>
               <div className={styles.logoContainer}>
                 <div className={styles.flag}>
                   <Image
@@ -87,7 +88,7 @@ const FundingList = (props) => {
               <div className={styles.editIcon}>
                 <ArrowUpRight size={32} />
               </div>
-            </div>
+            </motion.div>
           </Link>
         </div>
       ))}

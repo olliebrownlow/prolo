@@ -61,6 +61,10 @@ const coinSelectOptions = [
     name: "enjin coin",
     code: "[ENJ]",
   },
+  {
+    name: "shiba inu",
+    code: "[SHIB]",
+  },
 ];
 
 export default coinSelectOptions;

@@ -48,5 +48,10 @@
     "code": "ENJ",
     "name": "enjin coin",
     "amount": "5.00"
+  },
+  {
+    "code": "SHIB",
+    "name": "shiba inu",
+    "amount": "0.01"
   }
 ]
