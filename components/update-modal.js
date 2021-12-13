@@ -2,6 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 import styles from "./modal.module.scss";
 import UpdateForm from "./update-form";
+import { motion } from "framer-motion";
+
+const variants = {
+  visible: { opacity: 1 },
+  hidden: { opacity: 0 },
+};
 
 const UpdateModal = (props) => {
   const {
@@ -11,11 +17,19 @@ const UpdateModal = (props) => {
     name,
     code,
     amount,
-    label
+    label,
+    isShown,
   } = props;
 
   return ReactDOM.createPortal(
-    <aside className={styles.modalCover} onClick={windowOnClick}>
+    <motion.aside
+      className={styles.modalCover}
+      onClick={windowOnClick}
+      animate={isShown ? "visible" : "hidden"}
+      variants={variants}
+      transition={{ delay: 0.2 }}
+      initial="hidden"
+    >
       <div className={styles.modalArea}>
         <button className={styles._modalClose} onClick={closeModal}>
           <span className={styles._hideVisual}>Close</span>
@@ -32,11 +46,15 @@ const UpdateModal = (props) => {
           label={label}
         />
         <hr className={styles.solidDivider} />
-        <button className={styles.cancelButton} onClick={closeModal}>
+        <motion.button
+          className={styles.cancelButton}
+          onClick={closeModal}
+          whileTap={{ scale: 0.5 }}
+        >
           cancel
-        </button>
+        </motion.button>
       </div>
-    </aside>,
+    </motion.aside>,
     document.body
   );
 };

@@ -4,6 +4,7 @@ import AuthButton from "./auth-button";
 import Router from "next/router";
 import { magic } from "../lib/magic";
 import { UserContext } from "../lib/UserContext";
+import { motion } from "framer-motion";
 import { CallToAction, TextButton } from "@magiclabs/ui";
 
 import styles from "./header.module.scss";
@@ -27,7 +28,13 @@ const Header = (props) => {
   return (
     <div className={styles.Header}>
       <Link href="/">
-        <div className={styles.Header}>{props.appTitle}</div>
+        <motion.div
+          className={styles.AppTitle}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.8 }}
+        >
+          {props.appTitle}
+        </motion.div>
       </Link>
       {user?.issuer && !user?.loading ? (
         <AuthButton
@@ -45,7 +52,6 @@ const Header = (props) => {
           label={loginButton.label}
         />
       ) : null}
-
       {/* {user?.loading ? (
         // If loading, don't display any buttons specific to the loggedIn state
         <div style={{ height: "38px" }}></div>

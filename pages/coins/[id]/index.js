@@ -23,7 +23,7 @@ const variants = {
     opacity: 1,
     height: "auto",
   },
-  closed: { opacity: 0, height: 0 },
+  closed: { opacity: 0, height: 0, overflow: "hidden" },
 };
 
 const Coin = (props) => {
@@ -33,7 +33,6 @@ const Coin = (props) => {
   const [isShown, setIsShown] = useState(false);
   const [showMrktAnalysis, setShowMrktAnalysis] = useState(false);
   const [showMrktData, setShowMrktData] = useState(false);
-  const [update, setUpdate] = useState(false);
   const [deleted, setDeleted] = useState(false);
   const [cancel, setCancel] = useState(false);
 
@@ -42,7 +41,6 @@ const Coin = (props) => {
   const [currentAmount, setCurrentAmount] = useState(coin[0]["amount"]);
 
   const showModal = () => {
-    setUpdate(true);
     setIsShown(true);
   };
 
@@ -130,6 +128,10 @@ const Coin = (props) => {
     return (Math.round(unrounded * 1000) / 1000).toFixed(3);
   };
 
+  const roundTo7DP = (unrounded) => {
+    return (Math.round(unrounded * 10000000) / 10000000).toFixed(7);
+  };
+
   const getCoinProp = (propName) => {
     return coin[0][propName];
   };
@@ -159,6 +161,7 @@ const Coin = (props) => {
           code={getCoinProp("id")}
           amount={getCoinProp("amount")}
           label="coin"
+          isShown={isShown}
         />
       ) : (
         <React.Fragment />
@@ -207,6 +210,8 @@ const Coin = (props) => {
             {appCurrencySign}
             {Number(getCoinProp("price")) >= 100
               ? roundTo2DP(getCoinProp("price"))
+              : Number(getCoinProp("price")) <= 0.0001
+              ? roundTo7DP(getCoinProp("price"))
               : roundTo3DP(getCoinProp("price"))}
           </div>
           <div className={styles.tableCellLeft}>price at 1hr</div>
@@ -216,6 +221,13 @@ const Coin = (props) => {
               Number(getCoinProp("hPriceChange")) >=
             100
               ? roundTo2DP(
+                  Number(getCoinProp("price")) -
+                    Number(getCoinProp("hPriceChange"))
+                )
+              : Number(getCoinProp("price")) -
+                  Number(getCoinProp("hPriceChange")) <=
+                0.0001
+              ? roundTo7DP(
                   Number(getCoinProp("price")) -
                     Number(getCoinProp("hPriceChange"))
                 )
@@ -238,6 +250,9 @@ const Coin = (props) => {
             {Number(getCoinProp("hPriceChange")) >= 100 ||
             Number(getCoinProp("hPriceChange")) <= -100
               ? roundTo2DP(getCoinProp("hPriceChange"))
+              : Number(getCoinProp("hPriceChange")) <= 0.0001 &&
+                Number(getCoinProp("hPriceChange")) >= -0.0001
+              ? Number(getCoinProp("hPriceChange")).toExponential(2)
               : roundTo3DP(getCoinProp("hPriceChange"))}
             {getCoinProp("hPriceChange") < 0 ? (
               <ArrowDown size={16} />
@@ -335,6 +350,8 @@ const Coin = (props) => {
             {appCurrencySign}
             {Number(getCoinProp("price")) >= 100
               ? roundTo2DP(getCoinProp("price"))
+              : Number(getCoinProp("price")) <= 0.0001
+              ? roundTo7DP(getCoinProp("price"))
               : roundTo3DP(getCoinProp("price"))}
           </div>
           <div className={styles.tableCellLeft}>ath</div>
@@ -342,7 +359,12 @@ const Coin = (props) => {
             {appCurrencySign}
             {Number(getCoinProp("high")) >= 100
               ? roundTo2DP(getCoinProp("high"))
+              : Number(getCoinProp("high")) <= 0.0001
+              ? roundTo7DP(getCoinProp("high"))
               : roundTo3DP(getCoinProp("high"))}
+            {/* {Number(getCoinProp("high")) >= 100
+              ? roundTo2DP(getCoinProp("high"))
+              : roundTo3DP(getCoinProp("high"))} */}
           </div>
         </div>
         <div className={styles.analysisLayout}>
@@ -392,7 +414,7 @@ const Coin = (props) => {
         <motion.button
           whileHover={{ scale: 1.1 }}
           transition={{ duration: 0.25 }}
-          animate={update ? { scale: [1, 0.5, 1] } : {}}
+          animate={isShown ? { scale: [1, 0.5, 1] } : {}}
           className={styles.updateButton}
           onClick={() => showModal()}
           role="button"
@@ -431,7 +453,7 @@ export async function getServerSideProps({ query }) {
   const code = query.id;
   const coin = await getSingleCoinData(code);
 
-  // consle.log(coin);
+  // console.log(coin);
 
   return {
     props: {
