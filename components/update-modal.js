@@ -31,12 +31,16 @@ const UpdateModal = (props) => {
       initial="hidden"
     >
       <div className={styles.modalArea}>
-        <button className={styles._modalClose} onClick={closeModal}>
+        <motion.button
+          className={styles._modalClose}
+          onClick={closeModal}
+          whileTap={{ scale: 0.5 }}
+        >
           <span className={styles._hideVisual}>Close</span>
           <svg className={styles._modalCloseIcon} viewBox="0 0 40 40">
             <path d="M 10,10 L 30,30 M 30,10 L 10,30" />
           </svg>
-        </button>
+        </motion.button>
         <UpdateForm
           handleFormSubmit={handleFormSubmit}
           name={name}

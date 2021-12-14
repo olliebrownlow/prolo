@@ -64,11 +64,14 @@ const Coin = (props) => {
   };
 
   const refreshData = () => {
+    // Router.replace("/pocket");
     window.location = "/pocket";
   };
 
   const refreshCoinData = () => {
-    Router.replace("/pocket");
+    setIsShown(false);
+    const id = getCoinProp("id");
+    Router.replace("/coins/" + id, undefined, { scroll: false });
   };
 
   const handleCoinUpdate = (newAmount) => {
