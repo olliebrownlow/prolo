@@ -78,7 +78,7 @@ const Ledger = (props) => {
 
     const res = await addInvestmentItem(item);
     console.log(res);
-    closeModal();
+    setTimeout(closeModal(), 1000)
   };
 
   const prolo = () => {
@@ -146,12 +146,14 @@ const Ledger = (props) => {
               buttonText={"add item"}
               showModal={showModal}
               showLogo={true}
+              isShown={isShown}
             />
             {isShown ? (
               <InvestmentModal
                 closeModal={closeModal}
                 windowOnClick={windowOnClick}
                 handleFormSubmit={handleAddInvestmentItem}
+                isShown={isShown}
               />
             ) : (
               <React.Fragment />

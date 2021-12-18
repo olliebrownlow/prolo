@@ -93,7 +93,7 @@ const Investment = (props) => {
 
   const handleCancel = () => {
     setCancel(true);
-    Router.replace("/ledger");
+    Router.back();
   };
 
   const getFlag = (sign) => {
@@ -129,6 +129,7 @@ const Investment = (props) => {
           type={type}
           date={date}
           label="funding item"
+          isShown={isShown}
         />
       ) : (
         <React.Fragment />

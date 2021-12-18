@@ -4,7 +4,7 @@ import AddButton from "./add-button";
 import _ from "lodash";
 
 const AddInvestmentItemForm = (props) => {
-  const { closeModal, handleFormSubmit } = props;
+  const { closeModal, handleFormSubmit, isShown } = props;
 
   const defaultData = {
     id: "",
@@ -20,6 +20,7 @@ const AddInvestmentItemForm = (props) => {
   };
 
   const [form, setForm] = useState(defaultData);
+  const [isShown2, setIsShown2] = useState(!isShown);
 
   const handleChange = (event) => {
     const target = event.target;
@@ -72,6 +73,7 @@ const AddInvestmentItemForm = (props) => {
       closeModal;
     } else {
       handleFormSubmit({ ...form });
+      setIsShown2(true)
     }
   };
 
@@ -143,7 +145,12 @@ const AddInvestmentItemForm = (props) => {
           ></input>
         </div>
       </form>
-      <AddButton buttonText={"add"} showLogo={false} submitForm={submitForm} />
+      <AddButton
+        buttonText={"add"}
+        showLogo={false}
+        submitForm={submitForm}
+        isShown={isShown2}
+      />
     </>
   );
 };

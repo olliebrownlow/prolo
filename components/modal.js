@@ -25,6 +25,7 @@ const Modal = (props) => {
 
   const refreshCoinData = () => {
     Router.replace("/pocket");
+    setTimeout(closeModal, 1000)
   };
 
   const refreshFiatData = () => {
@@ -41,16 +42,15 @@ const Modal = (props) => {
       refreshCoinData();
     }
     console.log(res);
-    closeModal();
   };
 
   return (
-    
     <>
       <AddButton
         buttonText={buttonText}
         showModal={showModal}
         showLogo={true}
+        isShown={isShown}
       />
       {isShown ? (
         <ModalContainer
@@ -60,6 +60,7 @@ const Modal = (props) => {
           title={buttonText}
           labelName={labelName}
           data={data}
+          isShown={isShown}
         />
       ) : (
         <React.Fragment />

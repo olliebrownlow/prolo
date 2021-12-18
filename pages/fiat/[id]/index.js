@@ -73,7 +73,7 @@ const Fiat = (props) => {
 
   const handleCancel = () => {
     setCancel(true);
-    Router.replace("/pocket");
+    Router.back();
   };
 
   const getFlag = (sign) => {
@@ -110,6 +110,7 @@ const Fiat = (props) => {
           code={code}
           amount={amount}
           label="fiat"
+          isShown={isShown}
         />
       ) : (
         <React.Fragment />

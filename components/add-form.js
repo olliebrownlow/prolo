@@ -6,7 +6,14 @@ import fiatSelectOptions from "../config/fiatSelectOptions";
 import _ from "lodash";
 
 const AddForm = (props) => {
-  const { title, labelName, closeModal, handleFormSubmit, data } = props;
+  const {
+    title,
+    labelName,
+    closeModal,
+    handleFormSubmit,
+    data,
+    isShown,
+  } = props;
 
   const defaultData = {
     code: "",
@@ -15,6 +22,7 @@ const AddForm = (props) => {
   };
 
   const [form, setForm] = useState(defaultData);
+  const [isShown2, setIsShown2] = useState(!isShown);
 
   const filteredCoinSelectOptions = () => {
     _.pullAllBy(coinSelectOptions, data, "name");
@@ -35,7 +43,7 @@ const AddForm = (props) => {
         [target.name]: target.value,
       });
     }
-    
+
     // remove the square brackets around the code
     const leftBracketRemoved = target.value.replace("[", "");
     const bothBracketsRemoved = leftBracketRemoved.replace("]", "");
@@ -76,6 +84,7 @@ const AddForm = (props) => {
       alert("fields must not be left empty");
       closeModal;
     } else {
+      setIsShown2(true)
       handleFormSubmit({ ...form });
     }
   };
@@ -126,7 +135,12 @@ const AddForm = (props) => {
           />
         </div>
       </form>
-      <AddButton buttonText={"add"} showLogo={false} submitForm={submitForm} />
+      <AddButton
+        buttonText={"add"}
+        showLogo={false}
+        submitForm={submitForm}
+        isShown={isShown2}
+      />
     </>
   );
 };

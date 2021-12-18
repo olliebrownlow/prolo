@@ -14,6 +14,7 @@ const CorrectForm = (props) => {
     type,
     date,
     label,
+    isShown,
   } = props;
 
   const defaultData = {
@@ -27,6 +28,7 @@ const CorrectForm = (props) => {
   };
   const [form, setForm] = useState(defaultData);
   const [select, setSelect] = useState(`${currencyName} [${currencyCode}]`);
+  const [isShown2, setIsShown2] = useState(!isShown);
 
   const formatDate = () => {
     const array = date.split("-");
@@ -76,6 +78,7 @@ const CorrectForm = (props) => {
       closeModal;
     } else {
       handleFormSubmit(form);
+      setIsShown2(true);
     }
   };
 
@@ -156,6 +159,7 @@ const CorrectForm = (props) => {
         buttonText={"correct"}
         showLogo={false}
         submitForm={submitForm}
+        isShown={isShown2}
       />
     </>
   );

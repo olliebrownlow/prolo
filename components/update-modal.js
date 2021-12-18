@@ -34,6 +34,7 @@ const UpdateModal = (props) => {
         <motion.button
           className={styles._modalClose}
           onClick={closeModal}
+          whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.5 }}
         >
           <span className={styles._hideVisual}>Close</span>
@@ -48,11 +49,13 @@ const UpdateModal = (props) => {
           closeModal={closeModal}
           amount={amount}
           label={label}
+          isShown={isShown}
         />
         <hr className={styles.solidDivider} />
         <motion.button
           className={styles.cancelButton}
           onClick={closeModal}
+          whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.5 }}
         >
           cancel

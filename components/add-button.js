@@ -4,7 +4,8 @@ import styles from "./button.module.scss";
 import { motion } from "framer-motion";
 
 const AddButton = (props) => {
-  const { buttonText, showModal, showLogo, submitForm } = props;
+  const { buttonText, showModal, showLogo, submitForm, isShown } = props;
+
   return (
     <>
       <div className={styles.buttons}>
@@ -15,7 +16,9 @@ const AddButton = (props) => {
             `${showLogo ? styles.listingAddButton : styles.modalAddButton}`
           }
           onClick={showLogo ? showModal : submitForm}
-          whileTap={{ scale: 0.5 }}
+          whileHover={{ scale: 1.1 }}
+          transition={{ duration: 0.25 }}
+          animate={isShown ? { scale: [1, 0.5, 1] } : {}}
         >
           {buttonText}
           {showLogo && (

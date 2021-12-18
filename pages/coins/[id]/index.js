@@ -69,7 +69,6 @@ const Coin = (props) => {
   };
 
   const refreshCoinData = () => {
-    setIsShown(false);
     const id = getCoinProp("id");
     Router.replace("/coins/" + id, undefined, { scroll: false });
   };
@@ -77,18 +76,18 @@ const Coin = (props) => {
   const handleCoinUpdate = (newAmount) => {
     const res = updateCoin(getCoinProp("id"), newAmount);
     console.log(res);
+    setTimeout(closeModal, 500);
   };
 
   const handleUpdate = (amount) => {
-    refreshCoinData();
     const newAmount = [
       {
         amount: amount,
       },
     ];
     setCurrentAmount(amount);
-    // closeModal();
     handleCoinUpdate(newAmount);
+    refreshCoinData();
   };
 
   const handleDeleteCoin = () => {
@@ -100,7 +99,7 @@ const Coin = (props) => {
 
   const handleCancel = () => {
     setCancel(true);
-    Router.replace("/pocket");
+    Router.back();
   };
 
   const formatDate = (date) => {

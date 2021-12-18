@@ -3,9 +3,18 @@ import { useState } from "react";
 import AddButton from "./add-button";
 
 const UpdateForm = (props) => {
-  const { code, name, closeModal, handleFormSubmit, amount, label } = props;
+  const {
+    code,
+    name,
+    closeModal,
+    handleFormSubmit,
+    amount,
+    label,
+    isShown,
+  } = props;
   const [form, setForm] = useState(amount);
   const [select, setSelect] = useState(`${name} [${code}]`);
+  const [isShown2, setIsShown2] = useState(!isShown);
 
   const handleChange = (event) => {
     const target = event.target;
@@ -23,6 +32,7 @@ const UpdateForm = (props) => {
       alert("did you want to delete this currency?");
       closeModal;
     } else {
+      setIsShown2(true);
       handleFormSubmit(form);
     }
   };
@@ -73,6 +83,7 @@ const UpdateForm = (props) => {
         buttonText={"update"}
         showLogo={false}
         submitForm={submitForm}
+        isShown={isShown2}
       />
     </>
   );
