@@ -35,9 +35,7 @@ const Coin = (props) => {
   const [showMrktData, setShowMrktData] = useState(false);
   const [deleted, setDeleted] = useState(false);
   const [cancel, setCancel] = useState(false);
-
   const [anim, setAnim] = useState(0);
-
   const [currentAmount, setCurrentAmount] = useState(coin[0]["amount"]);
 
   const showModal = () => {
@@ -193,9 +191,20 @@ const Coin = (props) => {
       ) : (
         <div className={styles.amount}>recalculating..</div>
       )}
-      <div className={styles.marketHeading} onClick={toggleShowMarketAnalysis}>
-        {showMrktAnalysis ? <ChevronUp /> : <ChevronDown />} market analysis
-      </div>
+      <motion.div
+        className={styles.marketHeading}
+        onClick={toggleShowMarketAnalysis}
+        whileTap={{ scale: 0.9 }}
+        whileHover={{ scale: 1.1 }}
+      >
+        <motion.span
+          animate={showMrktAnalysis ? { transform: "rotateX(180deg)" } : {}}
+          transition={{ duration: 0.5 }}
+        >
+          <ChevronDown />
+        </motion.span>
+        market analysis
+      </motion.div>
       {/* market analysis */}
       <motion.div
         className={styles.collapsibleLayout}
@@ -334,9 +343,20 @@ const Coin = (props) => {
         </div>
       </motion.div>
       {/* market data */}
-      <div className={styles.marketHeading} onClick={toggleShowMarketData}>
-        {showMrktData ? <ChevronUp /> : <ChevronDown />} market data
-      </div>
+      <motion.div
+        className={styles.marketHeading}
+        onClick={toggleShowMarketData}
+        whileTap={{ scale: 0.9 }}
+        whileHover={{ scale: 1.1 }}
+      >
+        <motion.span
+          animate={showMrktData ? { transform: "rotateX(180deg)" } : {}}
+          transition={{ duration: 0.5 }}
+        >
+          <ChevronDown />
+        </motion.span>
+        market data
+      </motion.div>
       <motion.div
         className={styles.collapsibleLayout}
         animate={showMrktData ? "open" : "closed"}
@@ -435,9 +455,6 @@ const Coin = (props) => {
         </motion.button>
         <motion.button
           whileHover={{ scale: 1.1 }}
-          // whileTap={{
-          //   transform: "rotateX(180deg)",
-          // }}
           transition={{ duration: 0.25 }}
           animate={cancel ? { scale: [1, 0.5, 1] } : {}}
           className={styles.cancelButton}
