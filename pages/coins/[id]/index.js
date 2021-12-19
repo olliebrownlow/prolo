@@ -1,19 +1,18 @@
 import React, { useState, useContext } from "react";
 import CurrencySettingsContext from "../../../context/currencySettings";
-import { deleteCoin, updateCoin } from "../../../actions";
+import {
+  deleteCoin,
+  updateCoin,
+  getMrktInfoSettings,
+  updateMrktInfoSettings,
+} from "../../../actions";
 import { getSingleCoinData } from "../../../lib/core/singleCoinData";
 import Router from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 import UpdateModal from "../../../components/update-modal";
 import styles from "../../../pageStyles/dynamicPage.module.scss";
-import {
-  ArrowUp,
-  ArrowDown,
-  RefreshCw,
-  ChevronDown,
-  ChevronUp,
-} from "react-feather";
+import { ArrowUp, ArrowDown, RefreshCw, ChevronDown } from "react-feather";
 import _ from "lodash";
 import NumberSuffix from "number-suffix";
 import { motion } from "framer-motion";
@@ -28,11 +27,15 @@ const variants = {
 
 const Coin = (props) => {
   const { appCurrencySign } = useContext(CurrencySettingsContext);
-  const { coin, roundTo2DP } = props;
+  const { coin, mrktInfoSettings, roundTo2DP } = props;
 
   const [isShown, setIsShown] = useState(false);
-  const [showMrktAnalysis, setShowMrktAnalysis] = useState(false);
-  const [showMrktData, setShowMrktData] = useState(false);
+  const [showMrktAnalysis, setShowMrktAnalysis] = useState(
+    mrktInfoSettings[0].showMrktAnalysis
+  );
+  const [showMrktData, setShowMrktData] = useState(
+    mrktInfoSettings[0].showMrktData
+  );
   const [deleted, setDeleted] = useState(false);
   const [cancel, setCancel] = useState(false);
   const [anim, setAnim] = useState(0);
@@ -46,12 +49,29 @@ const Coin = (props) => {
     setIsShown(false);
   };
 
+  const handleMrktInfoUpdate = (newSetting) => {
+    const res = updateMrktInfoSettings(newSetting);
+    console.log(res);
+  };
+
   const toggleShowMarketAnalysis = () => {
+    const newSetting = [
+      {
+        showMrktAnalysis: !showMrktAnalysis,
+      },
+    ];
     setShowMrktAnalysis(!showMrktAnalysis);
+    handleMrktInfoUpdate(newSetting);
   };
 
   const toggleShowMarketData = () => {
+    const newSetting = [
+      {
+        showMrktData: !showMrktData,
+      },
+    ];
     setShowMrktData(!showMrktData);
+    handleMrktInfoUpdate(newSetting);
   };
 
   // close modal from window surrounding the modal itself
@@ -200,6 +220,7 @@ const Coin = (props) => {
         <motion.span
           animate={showMrktAnalysis ? { transform: "rotateX(180deg)" } : {}}
           transition={{ duration: 0.5 }}
+          initial={false}
         >
           <ChevronDown />
         </motion.span>
@@ -211,7 +232,7 @@ const Coin = (props) => {
         animate={showMrktAnalysis ? "open" : "closed"}
         variants={variants}
         transition={{ duration: 0.5 }}
-        initial="closed"
+        initial={false}
       >
         {/* price */}
         <div className={styles.marketSubHeading}>price</div>
@@ -352,6 +373,7 @@ const Coin = (props) => {
         <motion.span
           animate={showMrktData ? { transform: "rotateX(180deg)" } : {}}
           transition={{ duration: 0.5 }}
+          initial={false}
         >
           <ChevronDown />
         </motion.span>
@@ -362,7 +384,7 @@ const Coin = (props) => {
         animate={showMrktData ? "open" : "closed"}
         variants={variants}
         transition={{ duration: 0.5 }}
-        initial="closed"
+        initial={false}
       >
         {/* all-time high */}
         <div className={styles.marketSubHeading}>all-time high</div>
@@ -384,9 +406,6 @@ const Coin = (props) => {
               : Number(getCoinProp("high")) <= 0.0001
               ? roundTo7DP(getCoinProp("high"))
               : roundTo3DP(getCoinProp("high"))}
-            {/* {Number(getCoinProp("high")) >= 100
-              ? roundTo2DP(getCoinProp("high"))
-              : roundTo3DP(getCoinProp("high"))} */}
           </div>
         </div>
         <div className={styles.analysisLayout}>
@@ -471,12 +490,15 @@ const Coin = (props) => {
 export async function getServerSideProps({ query }) {
   const code = query.id;
   const coin = await getSingleCoinData(code);
+  const mrktInfoSettings = await getMrktInfoSettings();
 
   // console.log(coin);
+  // console.log(mrktInfoSettings);
 
   return {
     props: {
       coin,
+      mrktInfoSettings,
     },
   };
 }

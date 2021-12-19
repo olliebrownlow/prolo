@@ -11,6 +11,7 @@ const themeFilePath = "./themeSettingsData.json";
 const coinFilePath = "./coinData.json";
 const fiatFilePath = "./fiatData.json";
 const fundingFilePath = "./fundingData.json";
+const mrktInfoFilePath = "./marketInfoSettings.json";
 fs = require("fs");
 path = require("path");
 const currencySettingsData = require(currencyFilePath);
@@ -18,6 +19,7 @@ const themeSettingsData = require(themeFilePath);
 const coinData = require(coinFilePath);
 const fiatData = require(fiatFilePath);
 const fundingData = require(fundingFilePath);
+const mrktInfoSettingsData = require(mrktInfoFilePath);
 
 app.prepare().then(() => {
   const server = express();
@@ -29,6 +31,10 @@ app.prepare().then(() => {
 
   server.get("/api/v1/themeSettings", (req, res) => {
     return res.json(themeSettingsData);
+  });
+
+  server.get("/api/v1/mrktInfoSettings", (req, res) => {
+    return res.json(mrktInfoSettingsData);
   });
 
   server.get("/api/v1/fundingHistory", (req, res) => {
@@ -242,6 +248,25 @@ app.prepare().then(() => {
       }
 
       return res.json("Theme has been successfully updated :)");
+    });
+  });
+
+  server.patch("/api/v1/mrktInfoSettings", (req, res) => {
+    const newSetting = req.body[0];
+
+    const key = Object.keys(newSetting)[0];
+    const value = Object.values(newSetting)[0];
+
+    mrktInfoSettingsData[0][key] = value;
+
+    const pathToFile = path.join(__dirname, mrktInfoFilePath);
+    const stringifiedData = JSON.stringify(mrktInfoSettingsData, null, 2);
+    fs.writeFile(pathToFile, stringifiedData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+
+      return res.json("Settng has been successfully updated :)");
     });
   });
 
