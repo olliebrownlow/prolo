@@ -10,4 +10,8 @@ module.exports = {
       "nomics-api.s3.us-east-2.amazonaws.com",
     ],
   },
+  experimental: {
+    scrollRestoration: true,
+  },
+  swcMinify: true,
 };

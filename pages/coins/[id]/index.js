@@ -218,7 +218,11 @@ const Coin = (props) => {
         whileHover={{ scale: 1.1 }}
       >
         <motion.span
-          animate={showMrktAnalysis ? { transform: "rotateX(180deg)" } : {}}
+          animate={
+            showMrktAnalysis
+              ? { transform: "rotateX(180deg)" }
+              : { transform: "rotateX(0deg)" }
+          }
           transition={{ duration: 0.5 }}
           initial={false}
         >
@@ -371,7 +375,11 @@ const Coin = (props) => {
         whileHover={{ scale: 1.1 }}
       >
         <motion.span
-          animate={showMrktData ? { transform: "rotateX(180deg)" } : {}}
+          animate={
+            showMrktData
+              ? { transform: "rotateX(180deg)" }
+              : { transform: "rotateX(0deg)" }
+          }
           transition={{ duration: 0.5 }}
           initial={false}
         >

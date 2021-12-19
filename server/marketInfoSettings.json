@@ -1,6 +1,6 @@
 [
   {
-    "showMrktAnalysis": false,
-    "showMrktData": false
+    "showMrktAnalysis": true,
+    "showMrktData": true
   }
 ]
