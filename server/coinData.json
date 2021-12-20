@@ -52,6 +52,11 @@
   {
     "code": "CRO",
     "name": "crypto.com chain",
-    "amount": "5765.05"
+    "amount": "5777.1"
+  },
+  {
+    "code": "AVAX",
+    "name": "avalanche",
+    "amount": "0.00001"
   }
 ]

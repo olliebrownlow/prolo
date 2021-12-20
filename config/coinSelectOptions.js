@@ -65,6 +65,10 @@ const coinSelectOptions = [
     name: "shiba inu",
     code: "[SHIB]",
   },
+  {
+    name: "avalanche",
+    code: "[AVAX]",
+  },
 ];
 
 export default coinSelectOptions;
