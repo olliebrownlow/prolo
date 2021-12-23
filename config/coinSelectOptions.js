@@ -69,6 +69,10 @@ const coinSelectOptions = [
     name: "avalanche",
     code: "[AVAX]",
   },
+  {
+    name: "polygon",
+    code: "[MATIC]",
+  },
 ];
 
 export default coinSelectOptions;
