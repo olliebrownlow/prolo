@@ -275,9 +275,6 @@ const Coin = (props) => {
         transition={{ duration: 0.5 }}
         initial={false}
       >
-        <div className={styles.intervalSelectionHeading}>
-          interval selection
-        </div>
         <Interval currentIndex={currentIndex} onChange={handleIndexChange} />
         {/* price */}
         <div className={styles.marketSubHeading}>price</div>
