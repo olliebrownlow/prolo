@@ -11,6 +11,7 @@ import Router from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 import UpdateModal from "../../../components/update-modal";
+import Interval from "../../../components/interval";
 import styles from "../../../pageStyles/dynamicPage.module.scss";
 import { ArrowUp, ArrowDown, RefreshCw, ChevronDown } from "react-feather";
 import _ from "lodash";
@@ -40,6 +41,42 @@ const Coin = (props) => {
   const [cancel, setCancel] = useState(false);
   const [anim, setAnim] = useState(0);
   const [currentAmount, setCurrentAmount] = useState(coin[0]["amount"]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [interval, setInterval] = useState("h");
+  const [intervalLabel, setIntervalLabel] = useState("1hr");
+
+  const handleIndexChange = (index) => {
+    setCurrentIndex(index);
+    switch (index) {
+      case 0:
+        setInterval("h");
+        setIntervalLabel("1hr");
+        break;
+      case 1:
+        setInterval("d");
+        setIntervalLabel("1d");
+        break;
+      case 2:
+        setInterval("w");
+        setIntervalLabel("1w");
+        break;
+      case 3:
+        setInterval("m");
+        setIntervalLabel("1m");
+        break;
+      case 4:
+        setInterval("y");
+        setIntervalLabel("1yr");
+        break;
+      case 5:
+        setInterval("ytd");
+        setIntervalLabel("ytd");
+        break;
+      default:
+        setInterval("h");
+        setIntervalLabel("1hr");
+    }
+  };
 
   const showModal = () => {
     setIsShown(true);
@@ -124,12 +161,12 @@ const Coin = (props) => {
     return _.words(date.substring(2, 10)).reverse().join("-");
   };
 
-  const numAbbreviation = (num) => {
+  const numAbbreviation = (num, precision) => {
     if (num == "no max") {
       return num;
     }
     return NumberSuffix.format(Number(num), {
-      precision: 2,
+      precision: precision,
       style: "abbreviation",
     });
   };
@@ -238,6 +275,10 @@ const Coin = (props) => {
         transition={{ duration: 0.5 }}
         initial={false}
       >
+        <div className={styles.intervalSelectionHeading}>
+          interval selection
+        </div>
+        <Interval currentIndex={currentIndex} onChange={handleIndexChange} />
         {/* price */}
         <div className={styles.marketSubHeading}>price</div>
         <div className={styles.analysisLayout}>
@@ -250,26 +291,28 @@ const Coin = (props) => {
               ? roundTo7DP(getCoinProp("price"))
               : roundTo3DP(getCoinProp("price"))}
           </div>
-          <div className={styles.tableCellLeft}>price at 1hr</div>
+          <div className={styles.tableCellLeft}>
+            price at {`${intervalLabel}`}
+          </div>
           <div className={styles.tableCellRight}>
             {appCurrencySign}
             {Number(getCoinProp("price")) -
-              Number(getCoinProp("hPriceChange")) >=
+              Number(getCoinProp(`${interval}PriceChange`)) >=
             100
               ? roundTo2DP(
                   Number(getCoinProp("price")) -
-                    Number(getCoinProp("hPriceChange"))
+                    Number(getCoinProp(`${interval}PriceChange`))
                 )
               : Number(getCoinProp("price")) -
-                  Number(getCoinProp("hPriceChange")) <=
+                  Number(getCoinProp(`${interval}PriceChange`)) <=
                 0.0001
               ? roundTo7DP(
                   Number(getCoinProp("price")) -
-                    Number(getCoinProp("hPriceChange"))
+                    Number(getCoinProp(`${interval}PriceChange`))
                 )
               : roundTo3DP(
                   Number(getCoinProp("price")) -
-                    Number(getCoinProp("hPriceChange"))
+                    Number(getCoinProp(`${interval}PriceChange`))
                 )}
           </div>
         </div>
@@ -279,18 +322,22 @@ const Coin = (props) => {
             className={
               styles.tableCellRight +
               " " +
-              `${getCoinProp("hPriceChange") < 0 ? styles.red : styles.green}`
+              `${
+                getCoinProp(`${interval}PriceChange`) < 0
+                  ? styles.red
+                  : styles.green
+              }`
             }
           >
             {appCurrencySign}
-            {Number(getCoinProp("hPriceChange")) >= 100 ||
-            Number(getCoinProp("hPriceChange")) <= -100
-              ? roundTo2DP(getCoinProp("hPriceChange"))
-              : Number(getCoinProp("hPriceChange")) <= 0.0001 &&
-                Number(getCoinProp("hPriceChange")) >= -0.0001
-              ? Number(getCoinProp("hPriceChange")).toExponential(2)
-              : roundTo3DP(getCoinProp("hPriceChange"))}
-            {getCoinProp("hPriceChange") < 0 ? (
+            {Number(getCoinProp(`${interval}PriceChange`)) >= 100 ||
+            Number(getCoinProp(`${interval}PriceChange`)) <= -100
+              ? roundTo2DP(getCoinProp(`${interval}PriceChange`))
+              : Number(getCoinProp(`${interval}PriceChange`)) <= 0.0001 &&
+                Number(getCoinProp(`${interval}PriceChange`)) >= -0.0001
+              ? Number(getCoinProp(`${interval}PriceChange`)).toExponential(2)
+              : roundTo3DP(getCoinProp(`${interval}PriceChange`))}
+            {getCoinProp(`${interval}PriceChange`) < 0 ? (
               <ArrowDown size={16} />
             ) : (
               <ArrowUp size={16} />
@@ -302,12 +349,17 @@ const Coin = (props) => {
               styles.tableCellRight +
               " " +
               `${
-                getCoinProp("hPriceChangePct") < 0 ? styles.red : styles.green
+                getCoinProp(`${interval}PriceChangePct`) < 0
+                  ? styles.red
+                  : styles.green
               }`
             }
           >
-            {roundTo2DP(getCoinProp("hPriceChangePct"))}%
-            {getCoinProp("hPriceChangePct") < 0 ? (
+            {getCoinProp(`${interval}PriceChangePct`) >= 1000
+              ? numAbbreviation(getCoinProp(`${interval}PriceChangePct`), 0)
+              : roundTo2DP(getCoinProp(`${interval}PriceChangePct`))}
+            %
+            {getCoinProp(`${interval}PriceChangePct`) < 0 ? (
               <ArrowDown size={16} />
             ) : (
               <ArrowUp size={16} />
@@ -317,17 +369,22 @@ const Coin = (props) => {
         {/* volume */}
         <div className={styles.marketSubHeading}>volume</div>
         <div className={styles.analysisLayout}>
-          <div className={styles.tableCellLeft}>1hr volume</div>
+          <div className={styles.tableCellLeft}>
+            {`${intervalLabel}`} volume
+          </div>
           <div className={styles.tableCellRight}>
             {appCurrencySign}
-            {numAbbreviation(getCoinProp("hVolume"))}
+            {numAbbreviation(getCoinProp(`${interval}Volume`), 2)}
           </div>
-          <div className={styles.tableCellLeft}>prev 1hr vol.</div>
+          <div className={styles.tableCellLeft}>
+            prev {`${intervalLabel}`} vol.
+          </div>
           <div className={styles.tableCellRight}>
             {appCurrencySign}
             {numAbbreviation(
-              Number(getCoinProp("hVolume")) -
-                Number(getCoinProp("hVolumeChange"))
+              Number(getCoinProp(`${interval}Volume`)) -
+                Number(getCoinProp(`${interval}VolumeChange`)),
+              2
             )}
           </div>
         </div>
@@ -337,12 +394,16 @@ const Coin = (props) => {
             className={
               styles.tableCellRight +
               " " +
-              `${getCoinProp("hVolumeChange") < 0 ? styles.red : styles.green}`
+              `${
+                getCoinProp(`${interval}VolumeChange`) < 0
+                  ? styles.red
+                  : styles.green
+              }`
             }
           >
             {appCurrencySign}
-            {numAbbreviation(getCoinProp("hVolumeChange"))}
-            {getCoinProp("hVolumeChange") < 0 ? (
+            {numAbbreviation(getCoinProp(`${interval}VolumeChange`), 2)}
+            {getCoinProp(`${interval}VolumeChange`) < 0 ? (
               <ArrowDown size={16} />
             ) : (
               <ArrowUp size={16} />
@@ -354,12 +415,17 @@ const Coin = (props) => {
               styles.tableCellRight +
               " " +
               `${
-                getCoinProp("hVolumeChangePct") < 0 ? styles.red : styles.green
+                getCoinProp(`${interval}VolumeChangePct`) < 0
+                  ? styles.red
+                  : styles.green
               }`
             }
           >
-            {roundTo2DP(getCoinProp("hVolumeChangePct"))}%
-            {getCoinProp("hVolumeChangePct") < 0 ? (
+            {getCoinProp(`${interval}VolumeChangePct`) >= 1000
+              ? numAbbreviation(getCoinProp(`${interval}VolumeChangePct`), 0)
+              : roundTo2DP(getCoinProp(`${interval}VolumeChangePct`))}
+            %
+            {getCoinProp(`${interval}VolumeChangePct`) < 0 ? (
               <ArrowDown size={16} />
             ) : (
               <ArrowUp size={16} />
@@ -432,7 +498,7 @@ const Coin = (props) => {
           <div className={styles.tableCellLeft}>market cap</div>
           <div className={styles.tableCellRight}>
             {appCurrencySign}
-            {numAbbreviation(getCoinProp("marketCap"))}
+            {numAbbreviation(getCoinProp("marketCap"), 2)}
           </div>
           <div className={styles.tableCellLeft}>market cap rank</div>
           <div className={styles.tableCellRight}>{getCoinProp("rank")}</div>
@@ -442,11 +508,11 @@ const Coin = (props) => {
         <div className={styles.analysisLayout}>
           <div className={styles.tableCellLeft}>current supply</div>
           <div className={styles.tableCellRight}>
-            {numAbbreviation(getCoinProp("supply"))}
+            {numAbbreviation(getCoinProp("supply"), 2)}
           </div>
           <div className={styles.tableCellLeft}>max supply</div>
           <div className={styles.tableCellRight}>
-            {numAbbreviation(getCoinProp("maxSupply"))}
+            {numAbbreviation(getCoinProp("maxSupply"), 2)}
           </div>
         </div>
         <div className={styles.analysisLayout}>
