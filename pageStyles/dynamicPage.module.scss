@@ -110,6 +110,7 @@
   padding: 8px;
   background-color: red;
   outline: none;
+  min-width: 85px;
 }
 .updateButton {
   margin: 0px 15px 80px 15px;
@@ -120,6 +121,7 @@
   padding: 8px;
   background-color: white;
   outline: none;
+  min-width: 85px;
 }
 .cancelButton {
   margin: 0px 15px 80px 15px;
@@ -130,6 +132,7 @@
   padding: 8px;
   background-color: lightgrey;
   outline: none;
+  min-width: 85px;
 }
 .flagLogo {
   position: relative;

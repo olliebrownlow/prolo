@@ -163,7 +163,7 @@ const Fiat = (props) => {
           onClick={() => handleCancel()}
           role="button"
         >
-          cancel
+          exit
         </motion.button>
       </div>
     </div>

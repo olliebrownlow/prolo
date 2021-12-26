@@ -41,41 +41,65 @@ const Coin = (props) => {
   const [cancel, setCancel] = useState(false);
   const [anim, setAnim] = useState(0);
   const [currentAmount, setCurrentAmount] = useState(coin[0]["amount"]);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [interval, setInterval] = useState("h");
-  const [intervalLabel, setIntervalLabel] = useState("1hr");
+  const [currentIndex, setCurrentIndex] = useState(
+    mrktInfoSettings[0].currentIndex
+  );
+  const [interval, setInterval] = useState(mrktInfoSettings[0].interval);
+  const [intervalLabel, setIntervalLabel] = useState(
+    mrktInfoSettings[0].intervalLabel
+  );
 
-  const handleIndexChange = (index) => {
-    setCurrentIndex(index);
-    switch (index) {
-      case 0:
-        setInterval("h");
-        setIntervalLabel("1hr");
-        break;
-      case 1:
-        setInterval("d");
-        setIntervalLabel("1d");
-        break;
-      case 2:
-        setInterval("w");
-        setIntervalLabel("1w");
-        break;
-      case 3:
-        setInterval("m");
-        setIntervalLabel("1m");
-        break;
-      case 4:
-        setInterval("y");
-        setIntervalLabel("1yr");
-        break;
-      case 5:
-        setInterval("ytd");
-        setIntervalLabel("ytd");
-        break;
-      default:
-        setInterval("h");
-        setIntervalLabel("1hr");
-    }
+  // alternative to using a switch statement
+  const matched = (x) => ({
+    on: () => matched(x),
+    otherwise: () => x,
+  });
+  const match = (x) => ({
+    on: (pred, fn) => (pred(x) ? matched(fn(x)) : match(x)),
+    otherwise: (fn) => fn(x),
+  });
+
+  const setAndStore = (index, propPrefix, intervalDescription) => {
+    setInterval(propPrefix);
+    setIntervalLabel(intervalDescription);
+    const newInfoSettings = [
+      {
+        currentIndex: index,
+        interval: propPrefix,
+        intervalLabel: intervalDescription,
+      },
+    ];
+    const res = updateMrktInfoSettings(newInfoSettings);
+    console.log(res);
+  };
+
+  const handleIndexChange = (x) => {
+    setCurrentIndex(x);
+    match(x)
+      .on(
+        (x) => x === 0,
+        () => setAndStore(x, "h", "1hr")
+      )
+      .on(
+        (x) => x === 1,
+        () => setAndStore(x, "d", "1d")
+      )
+      .on(
+        (x) => x === 2,
+        () => setAndStore(x, "w", "1w")
+      )
+      .on(
+        (x) => x === 3,
+        () => setAndStore(x, "m", "1m")
+      )
+      .on(
+        (x) => x === 4,
+        () => setAndStore(x, "y", "1yr")
+      )
+      .on(
+        (x) => x === 5,
+        () => setAndStore(x, "ytd", "ytd")
+      );
   };
 
   const showModal = () => {
@@ -551,7 +575,7 @@ const Coin = (props) => {
           onClick={() => handleCancel()}
           role="button"
         >
-          cancel
+          exit
         </motion.button>
       </div>
     </div>

@@ -252,12 +252,14 @@ app.prepare().then(() => {
   });
 
   server.patch("/api/v1/mrktInfoSettings", (req, res) => {
-    const newSetting = req.body[0];
+    const newSettings = req.body[0];
+    const newSettingsArray = Object.entries(newSettings);
 
-    const key = Object.keys(newSetting)[0];
-    const value = Object.values(newSetting)[0];
-
-    mrktInfoSettingsData[0][key] = value;
+    newSettingsArray.forEach((entry) => {
+      let key = entry[0];
+      let value = entry[1];
+      mrktInfoSettingsData[0][key] = value;
+    });
 
     const pathToFile = path.join(__dirname, mrktInfoFilePath);
     const stringifiedData = JSON.stringify(mrktInfoSettingsData, null, 2);

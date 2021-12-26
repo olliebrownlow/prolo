@@ -208,7 +208,7 @@ const Investment = (props) => {
           onClick={() => handleCancel()}
           role="button"
         >
-          cancel
+          exit
         </motion.button>
       </div>
     </div>

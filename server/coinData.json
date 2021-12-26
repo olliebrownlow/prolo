@@ -27,7 +27,7 @@
   {
     "code": "MANA",
     "name": "decentraland",
-    "amount": "0.0001"
+    "amount": "101.69491"
   },
   {
     "code": "LRC",
@@ -47,16 +47,21 @@
   {
     "code": "SHIB",
     "name": "shiba inu",
-    "amount": "2"
+    "amount": "1"
   },
   {
     "code": "CRO",
     "name": "crypto.com chain",
-    "amount": "5782.8"
+    "amount": "5846.59"
   },
   {
     "code": "AVAX",
     "name": "avalanche",
+    "amount": "2.6872"
+  },
+  {
+    "code": "MATIC",
+    "name": "polygon",
     "amount": "0.00001"
   }
 ]
