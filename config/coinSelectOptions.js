@@ -73,6 +73,10 @@ const coinSelectOptions = [
     name: "polygon",
     code: "[MATIC]",
   },
+  {
+    name: "terra",
+    code: "[LUNA]",
+  },
 ];
 
 export default coinSelectOptions;

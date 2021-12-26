@@ -1,9 +1,9 @@
 [
   {
     "showMrktAnalysis": true,
-    "showMrktData": false,
-    "currentIndex": 3,
-    "interval": "m",
-    "intervalLabel": "1m"
+    "showMrktData": true,
+    "currentIndex": 2,
+    "interval": "w",
+    "intervalLabel": "1w"
   }
 ]

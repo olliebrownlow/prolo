@@ -1,0 +1,37 @@
+.buttons {
+  display: flex;
+  justify-content: space-evenly; 
+  z-index: 0;
+}
+.deleteButton {
+  margin: 0px 15px 80px 15px;
+  border-radius: 3px;
+  color: white;
+  font-size: 24px;
+  padding: 8px;
+  background-color: red;
+  outline: none;
+  min-width: 85px;
+}
+.updateButton {
+  margin: 0px 15px 80px 15px;
+  border-radius: 3px;
+  color: red;
+  border-color: red;
+  font-size: 24px;
+  padding: 8px;
+  background-color: white;
+  outline: none;
+  min-width: 85px;
+}
+.cancelButton {
+  margin: 0px 15px 80px 15px;
+  border-radius: 3px;
+  color: red;
+  border-color: red;
+  font-size: 24px;
+  padding: 8px;
+  background-color: lightgrey;
+  outline: none;
+  min-width: 85px;
+}

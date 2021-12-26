@@ -45,14 +45,9 @@
     "amount": "5.00"
   },
   {
-    "code": "SHIB",
-    "name": "shiba inu",
-    "amount": "1"
-  },
-  {
     "code": "CRO",
     "name": "crypto.com chain",
-    "amount": "5846.59"
+    "amount": "5848.04"
   },
   {
     "code": "AVAX",
@@ -63,5 +58,15 @@
     "code": "MATIC",
     "name": "polygon",
     "amount": "0.00001"
+  },
+  {
+    "code": "LUNA",
+    "name": "terra",
+    "amount": "0.000001"
+  },
+  {
+    "code": "SHIB",
+    "name": "shiba inu",
+    "amount": "1"
   }
 ]

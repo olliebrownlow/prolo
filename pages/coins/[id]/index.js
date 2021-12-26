@@ -12,6 +12,7 @@ import Image from "next/image";
 import Link from "next/link";
 import UpdateModal from "../../../components/update-modal";
 import Interval from "../../../components/interval";
+import DetailPageButtons from "../../../components/detail-page-buttons";
 import styles from "../../../pageStyles/dynamicPage.module.scss";
 import { ArrowUp, ArrowDown, RefreshCw, ChevronDown } from "react-feather";
 import _ from "lodash";
@@ -546,38 +547,14 @@ const Coin = (props) => {
         </div>
       </motion.div>
       <hr className={styles.solidDivider} />
-      <div className={styles.buttons}>
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          transition={{ duration: 0.25 }}
-          animate={isShown ? { scale: [1, 0.5, 1] } : {}}
-          className={styles.updateButton}
-          onClick={() => showModal()}
-          role="button"
-        >
-          update
-        </motion.button>
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          transition={{ duration: 0.25 }}
-          animate={deleted ? { scale: [1, 0.5, 1] } : {}}
-          className={styles.deleteButton}
-          onClick={() => handleDeleteCoin()}
-          role="button"
-        >
-          delete
-        </motion.button>
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          transition={{ duration: 0.25 }}
-          animate={cancel ? { scale: [1, 0.5, 1] } : {}}
-          className={styles.cancelButton}
-          onClick={() => handleCancel()}
-          role="button"
-        >
-          exit
-        </motion.button>
-      </div>
+      <DetailPageButtons
+        showModal={showModal}
+        handleDeleteCoin={handleDeleteCoin}
+        handleCancel={handleCancel}
+        isShown={isShown}
+        deleted={deleted}
+        cancel={cancel}
+      />
     </div>
   );
 };
