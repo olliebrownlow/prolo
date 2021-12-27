@@ -10,6 +10,7 @@ import eurFlag from "../../../public/eurFlagSmall.jpg";
 import gbpFlag from "../../../public/gbpFlagSmall.png";
 import usdFlag from "../../../public/usdFlagSmall.jpg";
 import CorrectModal from "../../../components/correct-modal";
+import DetailPageButtons from "../../../components/detail-page-buttons";
 import styles from "../../../pageStyles/dynamicPage.module.scss";
 import _ from "lodash";
 import { motion } from "framer-motion";
@@ -179,38 +180,15 @@ const Investment = (props) => {
         )}
       </div>
       <hr className={styles.solidDivider} />
-      <div className={styles.buttons}>
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          transition={{ duration: 0.25 }}
-          animate={update ? { scale: [1, 0.5, 1] } : {}}
-          className={styles.updateButton}
-          onClick={() => showModal()}
-          role="button"
-        >
-          correct
-        </motion.button>
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          transition={{ duration: 0.25 }}
-          animate={deleted ? { scale: [1, 0.5, 1] } : {}}
-          className={styles.deleteButton}
-          onClick={() => handleDelete()}
-          role="button"
-        >
-          delete
-        </motion.button>
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          transition={{ duration: 0.25 }}
-          animate={cancel ? { scale: [1, 0.5, 1] } : {}}
-          className={styles.cancelButton}
-          onClick={() => handleCancel()}
-          role="button"
-        >
-          exit
-        </motion.button>
-      </div>
+      <DetailPageButtons
+        showModal={showModal}
+        handleDelete={handleDelete}
+        handleCancel={handleCancel}
+        isShown={isShown}
+        deleted={deleted}
+        cancel={cancel}
+        buttonText={"correct"}
+      />
     </div>
   );
 };

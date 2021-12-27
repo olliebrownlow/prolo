@@ -24,15 +24,15 @@
     "americanDollars": 7287.553739999999
   },
   {
-    "id": "1kkj2zb",
-    "date": "22-11-21",
-    "type": "investment",
-    "amount": "3000.21",
+    "id": "tjdvwti",
     "currencyName": "british sterling",
     "currencyCode": "gbp",
     "currencySign": "£",
-    "euros": 3576.2762118122996,
+    "amount": "3000.21",
+    "type": "investment",
+    "date": "22-11-21",
+    "euros": 3576.2857524800997,
     "britishSterling": 3000.21,
-    "americanDollars": 4017.9418062399
+    "americanDollars": 4018.0401231216
   }
 ]

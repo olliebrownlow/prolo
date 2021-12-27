@@ -3,9 +3,16 @@ import styles from "./detailPageButtons.module.scss";
 import { motion } from "framer-motion";
 
 const DetailPageButtons = (props) => {
-  const { showModal, handleDeleteCoin, handleCancel, isShown, deleted, cancel } = props;
+  const {
+    showModal,
+    handleDelete,
+    handleCancel,
+    isShown,
+    deleted,
+    cancel,
+    buttonText,
+  } = props;
   return (
-    // <div className={styles.pageLayout}>
     <div className={styles.buttons}>
       <motion.button
         whileHover={{ scale: 1.1 }}
@@ -15,14 +22,14 @@ const DetailPageButtons = (props) => {
         onClick={() => showModal()}
         role="button"
       >
-        update
+        {buttonText}
       </motion.button>
       <motion.button
         whileHover={{ scale: 1.1 }}
         transition={{ duration: 0.25 }}
         animate={deleted ? { scale: [1, 0.5, 1] } : {}}
         className={styles.deleteButton}
-        onClick={() => handleDeleteCoin()}
+        onClick={() => handleDelete()}
         role="button"
       >
         delete
@@ -38,7 +45,6 @@ const DetailPageButtons = (props) => {
         exit
       </motion.button>
     </div>
-    // </div>
   );
 };
 

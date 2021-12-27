@@ -549,11 +549,12 @@ const Coin = (props) => {
       <hr className={styles.solidDivider} />
       <DetailPageButtons
         showModal={showModal}
-        handleDeleteCoin={handleDeleteCoin}
+        handleDelete={handleDeleteCoin}
         handleCancel={handleCancel}
         isShown={isShown}
         deleted={deleted}
         cancel={cancel}
+        buttonText={"update"}
       />
     </div>
   );

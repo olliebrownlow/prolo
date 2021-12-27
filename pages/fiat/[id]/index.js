@@ -6,8 +6,8 @@ import eurFlag from "../../../public/eurFlagSmall.jpg";
 import gbpFlag from "../../../public/gbpFlagSmall.png";
 import usdFlag from "../../../public/usdFlagSmall.jpg";
 import UpdateModal from "../../../components/update-modal";
+import DetailPageButtons from "../../../components/detail-page-buttons";
 import styles from "../../../pageStyles/dynamicPage.module.scss";
-import { motion } from "framer-motion";
 
 const Fiat = (props) => {
   const {
@@ -21,12 +21,10 @@ const Fiat = (props) => {
   } = props;
 
   const [isShown, setIsShown] = useState(false);
-  const [update, setUpdate] = useState(false);
   const [deleted, setDeleted] = useState(false);
   const [cancel, setCancel] = useState(false);
 
   const showModal = () => {
-    setUpdate(true);
     setIsShown(true);
   };
 
@@ -134,38 +132,15 @@ const Fiat = (props) => {
         <React.Fragment />
       )}
       <hr className={styles.solidDivider} />
-      <div className={styles.buttons}>
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          transition={{ duration: 0.25 }}
-          animate={update ? { scale: [1, 0.5, 1] } : {}}
-          className={styles.updateButton}
-          onClick={() => showModal()}
-          role="button"
-        >
-          update
-        </motion.button>
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          transition={{ duration: 0.25 }}
-          animate={deleted ? { scale: [1, 0.5, 1] } : {}}
-          className={styles.deleteButton}
-          onClick={() => handleDeleteFiat()}
-          role="button"
-        >
-          delete
-        </motion.button>
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          transition={{ duration: 0.25 }}
-          animate={cancel ? { scale: [1, 0.5, 1] } : {}}
-          className={styles.cancelButton}
-          onClick={() => handleCancel()}
-          role="button"
-        >
-          exit
-        </motion.button>
-      </div>
+      <DetailPageButtons
+        showModal={showModal}
+        handleDelete={handleDeleteFiat}
+        handleCancel={handleCancel}
+        isShown={isShown}
+        deleted={deleted}
+        cancel={cancel}
+        buttonText={"update"}
+      />
     </div>
   );
 };
