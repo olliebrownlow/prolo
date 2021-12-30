@@ -77,6 +77,26 @@ const coinSelectOptions = [
     name: "terra",
     code: "[LUNA]",
   },
+  {
+    name: "vechain thor",
+    code: "[VET]",
+  },
+  {
+    name: "harmony",
+    code: "[HARMONY]",
+  },
+  {
+    name: "cosmos",
+    code: "[ATOM]",
+  },
+  {
+    name: "fantom",
+    code: "[FTM]",
+  },
+  {
+    name: "binance coin",
+    code: "[BNB]",
+  },
 ];
 
 export default coinSelectOptions;
