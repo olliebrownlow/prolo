@@ -13,8 +13,9 @@ import Link from "next/link";
 import UpdateModal from "../../../components/update-modal";
 import Interval from "../../../components/interval";
 import DetailPageButtons from "../../../components/detail-page-buttons";
+import MrktInfoRow from "../../../components/mrkt-info-row";
 import styles from "../../../pageStyles/dynamicPage.module.scss";
-import { ArrowUp, ArrowDown, RefreshCw, ChevronDown } from "react-feather";
+import { RefreshCw, ChevronDown } from "react-feather";
 import _ from "lodash";
 import NumberSuffix from "number-suffix";
 import { motion } from "framer-motion";
@@ -224,7 +225,12 @@ const Coin = (props) => {
         className={
           styles.logo +
           " " +
-          `${getCoinProp("name") === "polkadot" ? styles.withBackground : ""}`
+          `${
+            getCoinProp("name") === "polkadot" ||
+            getCoinProp("name") === "fantom"
+              ? styles.withBackground
+              : ""
+          }`
         }
       >
         <Image
@@ -303,22 +309,18 @@ const Coin = (props) => {
         <Interval currentIndex={currentIndex} onChange={handleIndexChange} />
         {/* price */}
         <div className={styles.marketSubHeading}>price</div>
-        <div className={styles.analysisLayout}>
-          <div className={styles.tableCellLeft}>price</div>
-          <div className={styles.tableCellRight}>
-            {appCurrencySign}
-            {Number(getCoinProp("price")) >= 100
+        <MrktInfoRow
+          key1={"price"}
+          value1={`${appCurrencySign}${
+            Number(getCoinProp("price")) >= 100
               ? roundTo2DP(getCoinProp("price"))
               : Number(getCoinProp("price")) <= 0.0001
               ? roundTo7DP(getCoinProp("price"))
-              : roundTo3DP(getCoinProp("price"))}
-          </div>
-          <div className={styles.tableCellLeft}>
-            price at {`${intervalLabel}`}
-          </div>
-          <div className={styles.tableCellRight}>
-            {appCurrencySign}
-            {Number(getCoinProp("price")) -
+              : roundTo3DP(getCoinProp("price"))
+          }`}
+          key2={`price at ${intervalLabel}`}
+          value2={`${appCurrencySign}${
+            Number(getCoinProp("price")) -
               Number(getCoinProp(`${interval}PriceChange`)) >=
             100
               ? roundTo2DP(
@@ -335,125 +337,58 @@ const Coin = (props) => {
               : roundTo3DP(
                   Number(getCoinProp("price")) -
                     Number(getCoinProp(`${interval}PriceChange`))
-                )}
-          </div>
-        </div>
-        <div className={styles.analysisLayout}>
-          <div className={styles.tableCellLeft}>price chng</div>
-          <div
-            className={
-              styles.tableCellRight +
-              " " +
-              `${
-                getCoinProp(`${interval}PriceChange`) < 0
-                  ? styles.red
-                  : styles.green
-              }`
-            }
-          >
-            {appCurrencySign}
-            {Number(getCoinProp(`${interval}PriceChange`)) >= 100 ||
+                )
+          }`}
+        />
+        <MrktInfoRow
+          key1={"price chng"}
+          value1={`${
+            Number(getCoinProp(`${interval}PriceChange`)) >= 100 ||
             Number(getCoinProp(`${interval}PriceChange`)) <= -100
               ? roundTo2DP(getCoinProp(`${interval}PriceChange`))
               : Number(getCoinProp(`${interval}PriceChange`)) <= 0.0001 &&
                 Number(getCoinProp(`${interval}PriceChange`)) >= -0.0001
               ? Number(getCoinProp(`${interval}PriceChange`)).toExponential(2)
-              : roundTo3DP(getCoinProp(`${interval}PriceChange`))}
-            {getCoinProp(`${interval}PriceChange`) < 0 ? (
-              <ArrowDown size={16} />
-            ) : (
-              <ArrowUp size={16} />
-            )}
-          </div>
-          <div className={styles.tableCellLeft}>price chng %</div>
-          <div
-            className={
-              styles.tableCellRight +
-              " " +
-              `${
-                getCoinProp(`${interval}PriceChangePct`) < 0
-                  ? styles.red
-                  : styles.green
-              }`
-            }
-          >
-            {getCoinProp(`${interval}PriceChangePct`) >= 1000
+              : roundTo3DP(getCoinProp(`${interval}PriceChange`))
+          }`}
+          key2={"price chng %"}
+          value2={`${
+            getCoinProp(`${interval}PriceChangePct`) >= 1000
               ? numAbbreviation(getCoinProp(`${interval}PriceChangePct`), 0)
-              : roundTo2DP(getCoinProp(`${interval}PriceChangePct`))}
-            %
-            {getCoinProp(`${interval}PriceChangePct`) < 0 ? (
-              <ArrowDown size={16} />
-            ) : (
-              <ArrowUp size={16} />
-            )}
-          </div>
-        </div>
+              : roundTo2DP(getCoinProp(`${interval}PriceChangePct`))
+          }`}
+          percentage={true}
+          withArrow={true}
+          withAppCurrencySign={true}
+        />
         {/* volume */}
         <div className={styles.marketSubHeading}>volume</div>
-        <div className={styles.analysisLayout}>
-          <div className={styles.tableCellLeft}>
-            {`${intervalLabel}`} volume
-          </div>
-          <div className={styles.tableCellRight}>
-            {appCurrencySign}
-            {numAbbreviation(getCoinProp(`${interval}Volume`), 2)}
-          </div>
-          <div className={styles.tableCellLeft}>
-            prev {`${intervalLabel}`} vol.
-          </div>
-          <div className={styles.tableCellRight}>
-            {appCurrencySign}
-            {numAbbreviation(
-              Number(getCoinProp(`${interval}Volume`)) -
-                Number(getCoinProp(`${interval}VolumeChange`)),
-              2
-            )}
-          </div>
-        </div>
-        <div className={styles.analysisLayout}>
-          <div className={styles.tableCellLeft}>vol. chng</div>
-          <div
-            className={
-              styles.tableCellRight +
-              " " +
-              `${
-                getCoinProp(`${interval}VolumeChange`) < 0
-                  ? styles.red
-                  : styles.green
-              }`
-            }
-          >
-            {appCurrencySign}
-            {numAbbreviation(getCoinProp(`${interval}VolumeChange`), 2)}
-            {getCoinProp(`${interval}VolumeChange`) < 0 ? (
-              <ArrowDown size={16} />
-            ) : (
-              <ArrowUp size={16} />
-            )}
-          </div>
-          <div className={styles.tableCellLeft}>vol. chng %</div>
-          <div
-            className={
-              styles.tableCellRight +
-              " " +
-              `${
-                getCoinProp(`${interval}VolumeChangePct`) < 0
-                  ? styles.red
-                  : styles.green
-              }`
-            }
-          >
-            {getCoinProp(`${interval}VolumeChangePct`) >= 1000
+        <MrktInfoRow
+          key1={`${intervalLabel} volume`}
+          value1={`${appCurrencySign}${numAbbreviation(
+            getCoinProp(`${interval}Volume`),
+            2
+          )}`}
+          key2={`prev ${intervalLabel} vol.`}
+          value2={`${appCurrencySign}${numAbbreviation(
+            Number(getCoinProp(`${interval}Volume`)) -
+              Number(getCoinProp(`${interval}VolumeChange`)),
+            2
+          )}`}
+        />
+        <MrktInfoRow
+          key1={"vol. chng"}
+          value1={numAbbreviation(getCoinProp(`${interval}VolumeChange`), 2)}
+          key2={"vol. chng %"}
+          value2={`${
+            getCoinProp(`${interval}VolumeChangePct`) >= 1000
               ? numAbbreviation(getCoinProp(`${interval}VolumeChangePct`), 0)
-              : roundTo2DP(getCoinProp(`${interval}VolumeChangePct`))}
-            %
-            {getCoinProp(`${interval}VolumeChangePct`) < 0 ? (
-              <ArrowDown size={16} />
-            ) : (
-              <ArrowUp size={16} />
-            )}
-          </div>
-        </div>
+              : roundTo2DP(getCoinProp(`${interval}VolumeChangePct`))
+          }`}
+          percentage={true}
+          withArrow={true}
+          withAppCurrencySign={true}
+        />
       </motion.div>
       {/* market data */}
       <motion.div
@@ -484,67 +419,59 @@ const Coin = (props) => {
       >
         {/* all-time high */}
         <div className={styles.marketSubHeading}>all-time high</div>
-        <div className={styles.analysisLayout}>
-          <div className={styles.tableCellLeft}>price</div>
-          <div className={styles.tableCellRight}>
-            {appCurrencySign}
-            {Number(getCoinProp("price")) >= 100
+        <MrktInfoRow
+          key1={"price"}
+          value1={`${appCurrencySign}${
+            Number(getCoinProp("price")) >= 100
               ? roundTo2DP(getCoinProp("price"))
               : Number(getCoinProp("price")) <= 0.0001
               ? roundTo7DP(getCoinProp("price"))
-              : roundTo3DP(getCoinProp("price"))}
-          </div>
-          <div className={styles.tableCellLeft}>ath</div>
-          <div className={styles.tableCellRight}>
-            {appCurrencySign}
-            {Number(getCoinProp("high")) >= 100
+              : roundTo3DP(getCoinProp("price"))
+          }`}
+          key2={"ath"}
+          value2={`${appCurrencySign}${
+            Number(getCoinProp("high")) >= 100
               ? roundTo2DP(getCoinProp("high"))
               : Number(getCoinProp("high")) <= 0.0001
               ? roundTo7DP(getCoinProp("high"))
-              : roundTo3DP(getCoinProp("high"))}
-          </div>
-        </div>
-        <div className={styles.analysisLayout}>
-          <div className={styles.tableCellLeft}>ath date</div>
-          <div className={styles.tableCellRight}>
-            {formatDate(getCoinProp("highDate"))}
-          </div>
-          <div className={styles.tableCellLeft}>% ath</div>
-          <div className={styles.tableCellRight}>
-            {roundTo2DP((getCoinProp("price") / getCoinProp("high")) * 100)}%
-          </div>
-        </div>
+              : roundTo3DP(getCoinProp("high"))
+          }`}
+        />
+        <MrktInfoRow
+          key1={"ath date"}
+          value1={formatDate(getCoinProp("highDate"))}
+          key2={"% ath"}
+          value2={
+            `${roundTo2DP(
+              (getCoinProp("price") / getCoinProp("high")) * 100
+            )}` + "%"
+          }
+        />
         {/* market capitalisation */}
         <div className={styles.marketSubHeading}>market capitalisation</div>
-        <div className={styles.analysisLayout}>
-          <div className={styles.tableCellLeft}>market cap</div>
-          <div className={styles.tableCellRight}>
-            {appCurrencySign}
-            {numAbbreviation(getCoinProp("marketCap"), 2)}
-          </div>
-          <div className={styles.tableCellLeft}>market cap rank</div>
-          <div className={styles.tableCellRight}>{getCoinProp("rank")}</div>
-        </div>
+        <MrktInfoRow
+          key1={"market cap"}
+          value1={`${appCurrencySign}${numAbbreviation(
+            getCoinProp("marketCap"),
+            2
+          )}`}
+          key2={"market cap rank"}
+          value2={getCoinProp("rank")}
+        />
         {/* supply */}
         <div className={styles.marketSubHeading}>supply</div>
-        <div className={styles.analysisLayout}>
-          <div className={styles.tableCellLeft}>current supply</div>
-          <div className={styles.tableCellRight}>
-            {numAbbreviation(getCoinProp("supply"), 2)}
-          </div>
-          <div className={styles.tableCellLeft}>max supply</div>
-          <div className={styles.tableCellRight}>
-            {numAbbreviation(getCoinProp("maxSupply"), 2)}
-          </div>
-        </div>
-        <div className={styles.analysisLayout}>
-          <div className={styles.tableCellLeft}>supply %</div>
-          <div className={styles.tableCellRight}>{circulationPercentage()}</div>
-          <div className={styles.tableCellLeft}>first trade</div>
-          <div className={styles.tableCellRight}>
-            {formatDate(getCoinProp("firstTrade"))}
-          </div>
-        </div>
+        <MrktInfoRow
+          key1={"current supply"}
+          value1={numAbbreviation(getCoinProp("supply"), 2)}
+          key2={"max supply"}
+          value2={numAbbreviation(getCoinProp("maxSupply"), 2)}
+        />
+        <MrktInfoRow
+          key1={"supply %"}
+          value1={circulationPercentage()}
+          key2={"first trade"}
+          value2={formatDate(getCoinProp("firstTrade"))}
+        />
       </motion.div>
       <hr className={styles.solidDivider} />
       <DetailPageButtons

@@ -56,7 +56,6 @@ const FundingList = (props) => {
                 euros: investment.euros,
                 britishSterling: investment.britishSterling,
                 americanDollars: investment.americanDollars,
-                appCurrencySign: appCurrencySign,
               },
             }}
           >

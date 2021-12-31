@@ -1,0 +1,26 @@
+.mrktInfoLayout {
+  display: grid;
+  grid-template: 28px 28px / 25% 25% 25% 25%;
+  width: 98%;
+  font-size: 16px;
+  justify-content: center;
+  height: inherit;
+}
+.infoCellLeft {
+  margin-left: 5px;
+  text-align: left;
+  border-bottom: 1px dashed white;
+  white-space: nowrap;
+}
+.infoCellRight {
+  margin-right: 5px;
+  text-align: right;
+  border-bottom: 1px dashed white;
+  white-space: nowrap;
+ }
+ .red{
+  color: red;
+}
+.green {
+  color: green;
+}

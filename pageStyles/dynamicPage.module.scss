@@ -11,14 +11,6 @@
   align-items: center;
   width: 100%;
 }
-.analysisLayout {
-  display: grid;
-  grid-template: 28px 28px / 25% 25% 25% 25%;
-  width: 98%;
-  font-size: 16px;
-  justify-content: center;
-  height: inherit;
-}
 .tableLayout {
   display: grid;
   grid-template: 28px / 50% 50%;
@@ -38,12 +30,6 @@
   text-align: right;
   border-bottom: 1px dashed white;
   white-space: nowrap;
- }
- .red{
-   color: red;
- }
- .green {
-   color: green;
  }
 .name {
   text-align: center;

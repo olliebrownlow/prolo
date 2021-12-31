@@ -34,7 +34,9 @@ const CoinList = (props) => {
               <div className={styles.logoContainer}>
                 <Image
                   className={`${
-                    coin.name === "polkadot" ? styles.withBackground : ""
+                    coin.name === "polkadot" || coin.name === "fantom"
+                      ? styles.withBackground
+                      : ""
                   }`}
                   src={coin.logo_url}
                   alt={coin.name}

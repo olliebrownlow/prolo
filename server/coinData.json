@@ -67,6 +67,36 @@
   {
     "code": "CRO",
     "name": "crypto.com chain",
-    "amount": "5869.03"
+    "amount": "5893.77"
+  },
+  {
+    "code": "VET",
+    "name": "vechain thor",
+    "amount": "00.00000001"
+  },
+  {
+    "code": "HARMONY",
+    "name": "harmony",
+    "amount": "0.00001"
+  },
+  {
+    "code": "ATOM",
+    "name": "cosmos",
+    "amount": "0.000001"
+  },
+  {
+    "code": "DOT",
+    "name": "polkadot",
+    "amount": "0.0000001"
+  },
+  {
+    "code": "BNB",
+    "name": "binance coin",
+    "amount": "0.00001"
+  },
+  {
+    "code": "FTM",
+    "name": "fantom",
+    "amount": "0.000001"
   }
 ]

@@ -10,10 +10,10 @@ import eurFlag from "../../../public/eurFlagSmall.jpg";
 import gbpFlag from "../../../public/gbpFlagSmall.png";
 import usdFlag from "../../../public/usdFlagSmall.jpg";
 import CorrectModal from "../../../components/correct-modal";
+import MrktInfoRow from "../../../components/mrkt-info-row";
 import DetailPageButtons from "../../../components/detail-page-buttons";
 import styles from "../../../pageStyles/dynamicPage.module.scss";
 import _ from "lodash";
-import { motion } from "framer-motion";
 
 const Investment = (props) => {
   const {
@@ -27,17 +27,14 @@ const Investment = (props) => {
     euros,
     britishSterling,
     americanDollars,
-    appCurrencySign,
     roundTo2DP,
   } = props;
 
   const [isShown, setIsShown] = useState(false);
-  const [update, setUpdate] = useState(false);
   const [deleted, setDeleted] = useState(false);
   const [cancel, setCancel] = useState(false);
 
   const showModal = () => {
-    setUpdate(true);
     setIsShown(true);
   };
 
@@ -141,44 +138,37 @@ const Investment = (props) => {
         {currencySign}
         {roundTo2DP(amount)}
       </div>
-
-      <div className={styles.analysisLayout}>
-        <div className={styles.tableCellLeft}>type</div>
-        <div className={styles.tableCellRight}>{type}</div>
-        <div className={styles.tableCellLeft}>date</div>
-        <div className={styles.tableCellRight}>{date}</div>
-      </div>
-
-      <div className={styles.analysisLayout}>
-        {roundTo2DP(euros) === roundTo2DP(amount) ? (
-          <React.Fragment />
-        ) : (
-          <>
-            <div className={styles.tableCellLeft}>euro value</div>
-            <div className={styles.tableCellRight}>€{roundTo2DP(euros)}</div>
-          </>
-        )}
-        {roundTo2DP(britishSterling) === roundTo2DP(amount) ? (
-          <React.Fragment />
-        ) : (
-          <>
-            <div className={styles.tableCellLeft}>sterling value</div>
-            <div className={styles.tableCellRight}>
-              £{roundTo2DP(britishSterling)}
-            </div>
-          </>
-        )}
-        {roundTo2DP(americanDollars) === roundTo2DP(amount) ? (
-          <React.Fragment />
-        ) : (
-          <>
-            <div className={styles.tableCellLeft}>dollar value</div>
-            <div className={styles.tableCellRight}>
-              ${roundTo2DP(americanDollars)}
-            </div>
-          </>
-        )}
-      </div>
+      <MrktInfoRow key1={"type"} value1={type} key2={"date"} value2={date} />
+      {roundTo2DP(euros) === roundTo2DP(amount) ? (
+        <MrktInfoRow
+          key1={"sterling value"}
+          value1={"£" + `${roundTo2DP(britishSterling)}`}
+          key2={"dollar value"}
+          value2={"$" + `${roundTo2DP(americanDollars)}`}
+        />
+      ) : (
+        <React.Fragment />
+      )}
+      {roundTo2DP(britishSterling) === roundTo2DP(amount) ? (
+        <MrktInfoRow
+          key1={"euro value"}
+          value1={"€" + `${roundTo2DP(euros)}`}
+          key2={"dollar value"}
+          value2={"$" + `${roundTo2DP(americanDollars)}`}
+        />
+      ) : (
+        <React.Fragment />
+      )}
+      {roundTo2DP(americanDollars) === roundTo2DP(amount) ? (
+        <MrktInfoRow
+          key1={"euro value"}
+          value1={"€" + `${roundTo2DP(euros)}`}
+          key2={"sterling value"}
+          value2={"£" + `${roundTo2DP(britishSterling)}`}
+        />
+      ) : (
+        <React.Fragment />
+      )}
       <hr className={styles.solidDivider} />
       <DetailPageButtons
         showModal={showModal}
@@ -204,7 +194,6 @@ export async function getServerSideProps({ query }) {
   const euros = query.euros;
   const britishSterling = query.britishSterling;
   const americanDollars = query.americanDollars;
-  const appCurrencySign = query.appCurrencySign;
 
   return {
     props: {
@@ -218,7 +207,6 @@ export async function getServerSideProps({ query }) {
       euros,
       britishSterling,
       americanDollars,
-      appCurrencySign,
     },
   };
 }
