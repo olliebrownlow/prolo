@@ -97,6 +97,14 @@ const coinSelectOptions = [
     name: "binance coin",
     code: "[BNB]",
   },
+  {
+    name: "kusama",
+    code: "[KSM]",
+  },
+  {
+    name: "kava",
+    code: "[KAVA]",
+  },
 ];
 
 export default coinSelectOptions;

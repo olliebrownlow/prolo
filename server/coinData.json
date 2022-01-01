@@ -67,7 +67,7 @@
   {
     "code": "CRO",
     "name": "crypto.com chain",
-    "amount": "5893.77"
+    "amount": "5896.93"
   },
   {
     "code": "VET",
@@ -98,5 +98,15 @@
     "code": "FTM",
     "name": "fantom",
     "amount": "0.000001"
+  },
+  {
+    "code": "KSM",
+    "name": "kusama",
+    "amount": "0.00001"
+  },
+  {
+    "code": "KAVA",
+    "name": "kava",
+    "amount": "527.704485"
   }
 ]
