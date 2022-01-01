@@ -22,13 +22,13 @@
 .tableCellLeft {
   margin-left: 5px;
   text-align: left;
-  border-bottom: 1px dashed white;
+  border-bottom: 1px dashed lightgrey;
   white-space: nowrap;
 }
 .tableCellRight {
   margin-right: 5px;
   text-align: right;
-  border-bottom: 1px dashed white;
+  border-bottom: 1px dashed lightgrey;
   white-space: nowrap;
  }
 .name {
@@ -65,15 +65,15 @@
   font-size: 24px;
   margin-bottom: 20px;
   display: flex;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid lightgrey;
 }
 .amount {
   text-align: center;
   font-size: 40px;
   font-weight: 900;
   margin-bottom: 34px;
-  border-bottom: solid white 3px;
-  border-top: solid white 3px;
+  border-bottom: solid lightgrey 3px;
+  border-top: solid lightgrey 3px;
 }
 .total {
   font-size: 24px;
