@@ -2,12 +2,9 @@ import React, { useContext, useState, useEffect } from "react";
 import Router from "next/router";
 import CurrencySettingsContext from "../context/currencySettings";
 import Link from "next/link";
-import Image from "next/image";
-import eurFlag from "../public/eurFlagSmall.jpg";
-import gbpFlag from "../public/gbpFlagSmall.png";
-import usdFlag from "../public/usdFlagSmall.jpg";
 import { UserContext } from "../lib/UserContext";
 import Loading from "../components/loading";
+import SettingsLink from "../components/settings-link";
 import AddButton from "../components/add-button";
 import FundingList from "../components/funding-list";
 import styles from "../pageStyles/ledger.module.scss";
@@ -27,20 +24,11 @@ const Ledger = (props) => {
   const { roundTo2DP, balance, fundingHistoryData } = props;
 
   const [user] = useContext(UserContext);
-  const { appCurrencySign, appCurrencyCode, appCurrencyName } = useContext(
+  const { appCurrencySign, appCurrencyName } = useContext(
     CurrencySettingsContext
   );
   const [isShown, setIsShown] = useState(false);
-  const [currencyFlag, setCurrencyFlag] = useState(eurFlag);
   const [anim, setAnim] = useState(0);
-
-  useEffect(() => {
-    if (appCurrencyCode === "gbp") {
-      setCurrencyFlag(gbpFlag);
-    } else if (appCurrencyCode != "eur") {
-      setCurrencyFlag(usdFlag);
-    }
-  }, [appCurrencyCode]);
 
   const showModal = () => {
     setIsShown(true);
@@ -78,7 +66,7 @@ const Ledger = (props) => {
 
     const res = await addInvestmentItem(item);
     console.log(res);
-    setTimeout(closeModal(), 1000)
+    setTimeout(closeModal(), 1000);
   };
 
   const prolo = () => {
@@ -106,16 +94,7 @@ const Ledger = (props) => {
       ) : (
         user?.issuer && (
           <>
-            <Link href="/settings">
-              <div className={styles.currencyImg}>
-                <Image
-                  src={currencyFlag}
-                  alt={appCurrencyCode}
-                  layout="intrinsic"
-                  priority
-                />
-              </div>
-            </Link>
+            <SettingsLink />
             <div className={styles.heading}>profit/loss</div>
             <Link href="/ledger" scroll={false}>
               <div className={styles.prolo} onClick={() => setAnim(1)}>

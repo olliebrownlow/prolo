@@ -1,35 +1,20 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext } from "react";
 import { UserContext } from "../lib/UserContext";
 import CurrencySettingsContext from "../context/currencySettings";
 import Loading from "../components/loading";
+import SettingsLink from "../components/settings-link";
 import CoinList from "../components/coin-list";
 import FiatList from "../components/fiat-list";
 import Modal from "../components/modal";
 import PocketBalance from "../components/pocket-balance";
-import Link from "next/link";
-import Image from "next/image";
-import eurFlag from "../public/eurFlagSmall.jpg";
-import gbpFlag from "../public/gbpFlagSmall.png";
-import usdFlag from "../public/usdFlagSmall.jpg";
 import { getCoinData } from "../lib/core/coinData";
 import { getFiatData } from "../lib/core/fiatData";
 import styles from "../pageStyles/pocket.module.scss";
 
 const Pocket = (props) => {
   const [user] = useContext(UserContext);
-  const { appCurrencySign, appCurrencyCode } = useContext(
-    CurrencySettingsContext
-  );
+  const { appCurrencySign } = useContext(CurrencySettingsContext);
   const { coinData, fiatData, roundTo2DP } = props;
-  const [currencyFlag, setCurrencyFlag] = useState(eurFlag);
-
-  useEffect(() => {
-    if (appCurrencyCode === "gbp") {
-      setCurrencyFlag(gbpFlag);
-    } else if (appCurrencyCode != "eur") {
-      setCurrencyFlag(usdFlag);
-    }
-  }, [appCurrencyCode]);
 
   return (
     <>
@@ -38,16 +23,7 @@ const Pocket = (props) => {
       ) : (
         user?.issuer && (
           <>
-            <Link href="/settings">
-              <div className={styles.currencyImg}>
-                <Image
-                  src={currencyFlag}
-                  alt={appCurrencyCode}
-                  layout="intrinsic"
-                  priority
-                />
-              </div>
-            </Link>
+            <SettingsLink />
             <div className={styles.heading}>balance</div>
             <PocketBalance
               roundTo2DP={roundTo2DP}
