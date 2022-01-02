@@ -29,76 +29,71 @@ app.prepare().then(() => {
     return res.json(currencySettingsData);
   });
 
+  server.patch("/api/v1/currencySettings", (req, res) => {
+    const currency = req.body[0];
+
+    currencySettingsData[0] = currency;
+
+    const pathToFile = path.join(__dirname, currencyFilePath);
+    const stringifiedData = JSON.stringify(currencySettingsData, null, 2);
+
+    fs.writeFile(pathToFile, stringifiedData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+
+      return res.json("Currency has been successfully updated :)");
+    });
+  });
+
   server.get("/api/v1/themeSettings", (req, res) => {
     return res.json(themeSettingsData);
+  });
+
+  server.patch("/api/v1/themeSettings", (req, res) => {
+    const theme = req.body[0];
+
+    themeSettingsData[0] = theme;
+
+    const pathToFile = path.join(__dirname, themeFilePath);
+    const stringifiedData = JSON.stringify(themeSettingsData, null, 2);
+
+    fs.writeFile(pathToFile, stringifiedData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+
+      return res.json("Theme has been successfully updated :)");
+    });
   });
 
   server.get("/api/v1/mrktInfoSettings", (req, res) => {
     return res.json(mrktInfoSettingsData);
   });
 
+  server.patch("/api/v1/mrktInfoSettings", (req, res) => {
+    const newSettings = req.body[0];
+    const newSettingsArray = Object.entries(newSettings);
+
+    newSettingsArray.forEach((entry) => {
+      let key = entry[0];
+      let value = entry[1];
+      mrktInfoSettingsData[0][key] = value;
+    });
+
+    const pathToFile = path.join(__dirname, mrktInfoFilePath);
+    const stringifiedData = JSON.stringify(mrktInfoSettingsData, null, 2);
+    fs.writeFile(pathToFile, stringifiedData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+
+      return res.json("Settng has been successfully updated :)");
+    });
+  });
+
   server.get("/api/v1/fundingHistory", (req, res) => {
     return res.json(fundingData);
-  });
-
-  server.get("/api/v1/coins", (req, res) => {
-    return res.json(coinData);
-  });
-
-  server.patch("/api/v1/coins/:id", (req, res) => {
-    const { id } = req.params;
-    const updatedAmount = req.body[0];
-    const coinIndex = coinData.findIndex((coin) => coin.code === id);
-
-    coinData[coinIndex].amount = updatedAmount.amount;
-
-    const pathToFile = path.join(__dirname, coinFilePath);
-    const stringifiedData = JSON.stringify(coinData, null, 2);
-
-    fs.writeFile(pathToFile, stringifiedData, (err) => {
-      if (err) {
-        return res.status(422).send(err);
-      }
-
-      return res.json("Coin has been successfully updated :)");
-    });
-  });
-
-  server.delete("/api/v1/coins/:id", (req, res) => {
-    const { id } = req.params;
-    const coinIndex = coinData.findIndex((coin) => coin.code === id);
-
-    if (coinIndex < 0) {
-      return res.json("Coin already deleted :)");
-    }
-
-    coinData.splice(coinIndex, 1);
-
-    const pathToFile = path.join(__dirname, coinFilePath);
-    const stringifiedData = JSON.stringify(coinData, null, 2);
-
-    fs.writeFile(pathToFile, stringifiedData, (err) => {
-      if (err) {
-        return res.status(422).send(err);
-      }
-
-      return res.json("Coin has been successfully deleted :)");
-    });
-  });
-
-  server.post("/api/v1/coins", (req, res) => {
-    const coin = req.body;
-    coinData.push(coin);
-    const pathToFile = path.join(__dirname, coinFilePath);
-    const stringifiedData = JSON.stringify(coinData, null, 2);
-
-    fs.writeFile(pathToFile, stringifiedData, (err) => {
-      if (err) {
-        return res.status(422).send(err);
-      }
-
-      return res.json("Coin has been successfully added :)");
-    });
   });
 
   server.post("/api/v1/fundingHistory", (req, res) => {
@@ -157,8 +152,83 @@ app.prepare().then(() => {
     });
   });
 
+  server.get("/api/v1/coins", (req, res) => {
+    return res.json(coinData);
+  });
+
+  server.post("/api/v1/coins", (req, res) => {
+    const coin = req.body;
+    coinData.push(coin);
+    const pathToFile = path.join(__dirname, coinFilePath);
+    const stringifiedData = JSON.stringify(coinData, null, 2);
+
+    fs.writeFile(pathToFile, stringifiedData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+
+      return res.json("Coin has been successfully added :)");
+    });
+  });
+
+  server.patch("/api/v1/coins/:id", (req, res) => {
+    const { id } = req.params;
+    const updatedAmount = req.body[0];
+    const coinIndex = coinData.findIndex((coin) => coin.code === id);
+
+    coinData[coinIndex].amount = updatedAmount.amount;
+
+    const pathToFile = path.join(__dirname, coinFilePath);
+    const stringifiedData = JSON.stringify(coinData, null, 2);
+
+    fs.writeFile(pathToFile, stringifiedData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+
+      return res.json("Coin has been successfully updated :)");
+    });
+  });
+
+  server.delete("/api/v1/coins/:id", (req, res) => {
+    const { id } = req.params;
+    const coinIndex = coinData.findIndex((coin) => coin.code === id);
+
+    if (coinIndex < 0) {
+      return res.json("Coin already deleted :)");
+    }
+
+    coinData.splice(coinIndex, 1);
+
+    const pathToFile = path.join(__dirname, coinFilePath);
+    const stringifiedData = JSON.stringify(coinData, null, 2);
+
+    fs.writeFile(pathToFile, stringifiedData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+
+      return res.json("Coin has been successfully deleted :)");
+    });
+  });
+
   server.get("/api/v1/fiat", (req, res) => {
     return res.json(fiatData);
+  });
+
+  server.post("/api/v1/fiat", (req, res) => {
+    const fiat = req.body;
+    fiatData.push(fiat);
+    const pathToFile = path.join(__dirname, fiatFilePath);
+    const stringifiedData = JSON.stringify(fiatData, null, 2);
+
+    fs.writeFile(pathToFile, stringifiedData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+
+      return res.json("Fiat has been successfully added :)");
+    });
   });
 
   server.patch("/api/v1/fiat/:id", (req, res) => {
@@ -199,76 +269,6 @@ app.prepare().then(() => {
       }
 
       return res.json("Fiat has been successfully deleted :)");
-    });
-  });
-
-  server.post("/api/v1/fiat", (req, res) => {
-    const fiat = req.body;
-    fiatData.push(fiat);
-    const pathToFile = path.join(__dirname, fiatFilePath);
-    const stringifiedData = JSON.stringify(fiatData, null, 2);
-
-    fs.writeFile(pathToFile, stringifiedData, (err) => {
-      if (err) {
-        return res.status(422).send(err);
-      }
-
-      return res.json("Fiat has been successfully added :)");
-    });
-  });
-
-  server.patch("/api/v1/currencySettings", (req, res) => {
-    const currency = req.body[0];
-
-    currencySettingsData[0] = currency;
-
-    const pathToFile = path.join(__dirname, currencyFilePath);
-    const stringifiedData = JSON.stringify(currencySettingsData, null, 2);
-
-    fs.writeFile(pathToFile, stringifiedData, (err) => {
-      if (err) {
-        return res.status(422).send(err);
-      }
-
-      return res.json("Currency has been successfully updated :)");
-    });
-  });
-
-  server.patch("/api/v1/themeSettings", (req, res) => {
-    const theme = req.body[0];
-
-    themeSettingsData[0] = theme;
-
-    const pathToFile = path.join(__dirname, themeFilePath);
-    const stringifiedData = JSON.stringify(themeSettingsData, null, 2);
-
-    fs.writeFile(pathToFile, stringifiedData, (err) => {
-      if (err) {
-        return res.status(422).send(err);
-      }
-
-      return res.json("Theme has been successfully updated :)");
-    });
-  });
-
-  server.patch("/api/v1/mrktInfoSettings", (req, res) => {
-    const newSettings = req.body[0];
-    const newSettingsArray = Object.entries(newSettings);
-
-    newSettingsArray.forEach((entry) => {
-      let key = entry[0];
-      let value = entry[1];
-      mrktInfoSettingsData[0][key] = value;
-    });
-
-    const pathToFile = path.join(__dirname, mrktInfoFilePath);
-    const stringifiedData = JSON.stringify(mrktInfoSettingsData, null, 2);
-    fs.writeFile(pathToFile, stringifiedData, (err) => {
-      if (err) {
-        return res.status(422).send(err);
-      }
-
-      return res.json("Settng has been successfully updated :)");
     });
   });
 

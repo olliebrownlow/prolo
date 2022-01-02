@@ -29,8 +29,20 @@ export const getCurrencySettings = () => {
     .then((res) => res.data);
 };
 
+export const updateCurrencySettings = (currency) => {
+  return axios
+    .patch(`${BASE_URL}/api/v1/currencySettings`, currency)
+    .then((res) => console.log(res.data));
+};
+
 export const getThemeSettings = () => {
   return axios.get(`${BASE_URL}/api/v1/themeSettings`).then((res) => res.data);
+};
+
+export const updateThemeSettings = (theme) => {
+  return axios
+    .patch(`${BASE_URL}/api/v1/themeSettings`, theme)
+    .then((res) => console.log(res.data));
 };
 
 export const getMrktInfoSettings = () => {
@@ -39,16 +51,14 @@ export const getMrktInfoSettings = () => {
     .then((res) => res.data);
 };
 
+export const updateMrktInfoSettings = (bool) => {
+  return axios
+    .patch(`${BASE_URL}/api/v1/mrktInfoSettings`, bool)
+    .then((res) => console.log(res.data));
+};
+
 export const getFundingData = () => {
   return axios.get(`${BASE_URL}/api/v1/fundingHistory`).then((res) => res.data);
-};
-
-export const getCoins = () => {
-  return axios.get(`${BASE_URL}/api/v1/coins`).then((res) => res.data);
-};
-
-export const getFiat = () => {
-  return axios.get(`${BASE_URL}/api/v1/fiat`).then((res) => res.data);
 };
 
 export const addInvestmentItem = (item) => {
@@ -59,47 +69,29 @@ export const addInvestmentItem = (item) => {
     .then((res) => res.data);
 };
 
-export const addCoin = (coin) => {
-  return axios.post(`${BASE_URL}/api/v1/coins`, coin).then((res) => res.data);
-};
-
-export const addFiat = (fiat) => {
-  return axios.post(`${BASE_URL}/api/v1/fiat`, fiat).then((res) => res.data);
-};
-
 export const updateInvestmentItem = (id, correctedItem) => {
   return axios
     .patch(`${BASE_URL}/api/v1/fundingHistory/${id}`, correctedItem)
     .then((res) => console.log(res.data));
 };
 
+export const deleteInvestmentItem = (id) => {
+  return axios
+    .delete(`${BASE_URL}/api/v1/fundingHistory/${id}`)
+    .then((res) => res.data);
+};
+
+export const getCoins = () => {
+  return axios.get(`${BASE_URL}/api/v1/coins`).then((res) => res.data);
+};
+
+export const addCoin = (coin) => {
+  return axios.post(`${BASE_URL}/api/v1/coins`, coin).then((res) => res.data);
+};
+
 export const updateCoin = (code, amount) => {
   return axios
     .patch(`${BASE_URL}/api/v1/coins/${code}`, amount)
-    .then((res) => console.log(res.data));
-};
-
-export const updateFiat = (code, amount) => {
-  return axios
-    .patch(`${BASE_URL}/api/v1/fiat/${code}`, amount)
-    .then((res) => console.log(res.data));
-};
-
-export const updateCurrencySettings = (currency) => {
-  return axios
-    .patch(`${BASE_URL}/api/v1/currencySettings`, currency)
-    .then((res) => console.log(res.data));
-};
-
-export const updateThemeSettings = (theme) => {
-  return axios
-    .patch(`${BASE_URL}/api/v1/themeSettings`, theme)
-    .then((res) => console.log(res.data));
-};
-
-export const updateMrktInfoSettings = (bool) => {
-  return axios
-    .patch(`${BASE_URL}/api/v1/mrktInfoSettings`, bool)
     .then((res) => console.log(res.data));
 };
 
@@ -109,14 +101,22 @@ export const deleteCoin = (code) => {
     .then((res) => res.data);
 };
 
+export const getFiat = () => {
+  return axios.get(`${BASE_URL}/api/v1/fiat`).then((res) => res.data);
+};
+
+export const addFiat = (fiat) => {
+  return axios.post(`${BASE_URL}/api/v1/fiat`, fiat).then((res) => res.data);
+};
+
+export const updateFiat = (code, amount) => {
+  return axios
+    .patch(`${BASE_URL}/api/v1/fiat/${code}`, amount)
+    .then((res) => console.log(res.data));
+};
+
 export const deleteFiat = (code) => {
   return axios
     .delete(`${BASE_URL}/api/v1/fiat/${code}`)
-    .then((res) => res.data);
-};
-
-export const deleteInvestmentItem = (id) => {
-  return axios
-    .delete(`${BASE_URL}/api/v1/fundingHistory/${id}`)
     .then((res) => res.data);
 };
