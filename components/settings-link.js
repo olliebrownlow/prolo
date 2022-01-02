@@ -6,6 +6,7 @@ import eurFlag from "../public/eurFlagSmall.jpg";
 import gbpFlag from "../public/gbpFlagSmall.png";
 import usdFlag from "../public/usdFlagSmall.jpg";
 import styles from "./settingsLink.module.scss";
+import { motion } from "framer-motion";
 
 const SettingsLink = () => {
   const { appCurrencyCode } = useContext(CurrencySettingsContext);
@@ -21,14 +22,18 @@ const SettingsLink = () => {
 
   return (
     <Link href="/settings">
-      <div className={styles.currencyImg}>
+      <motion.div
+        className={styles.currencyImg}
+        whileTap={{ scale: 0.5 }}
+        whileHover={{ scale: 1.1 }}
+      >
         <Image
           src={currencyFlag}
           alt={appCurrencyCode}
           layout="intrinsic"
           priority
         />
-      </div>
+      </motion.div>
     </Link>
   );
 };
