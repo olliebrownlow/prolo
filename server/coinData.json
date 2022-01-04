@@ -12,7 +12,7 @@
   {
     "code": "ADA",
     "name": "cardano",
-    "amount": "300.81068679"
+    "amount": "300.912319"
   },
   {
     "code": "LTC",
@@ -67,7 +67,7 @@
   {
     "code": "CRO",
     "name": "crypto.com chain",
-    "amount": "5928.85"
+    "amount": "5944.44"
   },
   {
     "code": "VET",
@@ -107,6 +107,6 @@
   {
     "code": "KAVA",
     "name": "kava",
-    "amount": "527.704485"
+    "amount": "527.952992"
   }
 ]

@@ -11,7 +11,7 @@ const CoinList = (props) => {
   // empty array must be returned for
   // reliable mapping.
   const emptyOrOrderedArray = () => {
-    if (coinData[0].total) {
+    if (coinData.length) {
       return coinData.sort((a, b) => b.total - a.total);
     } else {
       return [];

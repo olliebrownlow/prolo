@@ -62,6 +62,7 @@ const Ledger = (props) => {
     item.britishSterling = historicalData.response.rates.GBP * item.amount;
     item.americanDollars = historicalData.response.rates.USD * item.amount;
     item.currencyCode = item.currencyCode.toLowerCase();
+    item.sortingNumber = Number(_.words(item.date).join(""));
     item.date = _.words(item.date.substring(2)).reverse().join("-");
 
     const res = await addInvestmentItem(item);
@@ -81,10 +82,15 @@ const Ledger = (props) => {
         valuesArray.push(positiveValue);
       }
     });
-    const unroundedInvestmentValue = valuesArray.reduce(
-      (accumulator, current) => accumulator + current
-    );
-    return balance - unroundedInvestmentValue;
+    // reduce causes error when array is empty
+    if (valuesArray.length) {
+      const unroundedInvestmentValue = valuesArray.reduce(
+        (accumulator, current) => accumulator + current
+      );
+      return balance - unroundedInvestmentValue;
+    } else {
+      return balance;
+    }
   };
 
   return (
@@ -156,7 +162,8 @@ export async function getServerSideProps() {
   const fundingHistoryData = await getFundingData();
   // console.log(fiatData);
   // console.log(coinData);
-  // console.log(balance)
+  // console.log(balance);
+  // console.log(fundingHistoryData);
 
   return {
     props: {

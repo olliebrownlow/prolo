@@ -10,6 +10,19 @@ import { ArrowUpRight } from "react-feather";
 const FundingList = (props) => {
   const { roundTo2DP, fundingHistoryData, appCurrencySign } = props;
 
+  // when user has not entered funding items, an
+  // empty array must be returned for
+  // reliable mapping.
+  const emptyOrOrderedArray = () => {
+    if (fundingHistoryData.length) {
+      return fundingHistoryData.sort(
+        (a, b) => b.sortingNumber - a.sortingNumber
+      );
+    } else {
+      return [];
+    }
+  };
+
   const getFlag = (sign) => {
     if (sign === "£") {
       return gbpFlag;
@@ -40,7 +53,7 @@ const FundingList = (props) => {
 
   return (
     <div className={styles.listContainer}>
-      {fundingHistoryData.map((investment) => (
+      {emptyOrOrderedArray().map((investment) => (
         <div key={investment.id}>
           <Link
             href={{
