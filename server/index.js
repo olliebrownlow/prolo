@@ -158,6 +158,9 @@ app.prepare().then(() => {
 
   server.post("/api/v1/coins", (req, res) => {
     const coin = req.body;
+    if (coinData.find((savedCoin) => savedCoin.code === coin.code)) {
+      return res.json("Cannot add coin. It has been added already :)");
+    }
     coinData.push(coin);
     const pathToFile = path.join(__dirname, coinFilePath);
     const stringifiedData = JSON.stringify(coinData, null, 2);
@@ -176,6 +179,9 @@ app.prepare().then(() => {
     const updatedAmount = req.body[0];
     const coinIndex = coinData.findIndex((coin) => coin.code === id);
 
+    if (coinData[coinIndex].amount === updatedAmount.amount) {
+      return res.json("Cannot update coin. It has been updated already :)");
+    }
     coinData[coinIndex].amount = updatedAmount.amount;
 
     const pathToFile = path.join(__dirname, coinFilePath);
@@ -218,6 +224,9 @@ app.prepare().then(() => {
 
   server.post("/api/v1/fiat", (req, res) => {
     const fiat = req.body;
+    if (fiatData.find((savedFiat) => savedFiat.code === fiat.code)) {
+      return res.json("Cannot add fiat currency. It has been added already :)");
+    }
     fiatData.push(fiat);
     const pathToFile = path.join(__dirname, fiatFilePath);
     const stringifiedData = JSON.stringify(fiatData, null, 2);
@@ -236,6 +245,11 @@ app.prepare().then(() => {
     const updatedAmount = req.body[0];
     const fiatIndex = fiatData.findIndex((fiat) => fiat.code === id);
 
+    if (fiatData[fiatIndex].amount === updatedAmount.amount) {
+      return res.json(
+        "Cannot update fiat currency. It has been updated already :)"
+      );
+    }
     fiatData[fiatIndex].amount = updatedAmount.amount;
 
     const pathToFile = path.join(__dirname, fiatFilePath);
@@ -255,7 +269,7 @@ app.prepare().then(() => {
     const fiatIndex = fiatData.findIndex((fiat) => fiat.code === id);
 
     if (fiatIndex < 0) {
-      return res.json("Fiat already deleted :)");
+      return res.json("Fiat currency already deleted :)");
     }
 
     fiatData.splice(fiatIndex, 1);
