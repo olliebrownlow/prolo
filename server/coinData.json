@@ -52,7 +52,7 @@
   {
     "code": "MATIC",
     "name": "polygon",
-    "amount": "0.00001"
+    "amount": "0.0001"
   },
   {
     "code": "LUNA",
@@ -62,7 +62,7 @@
   {
     "code": "CRO",
     "name": "crypto.com chain",
-    "amount": "5948.13"
+    "amount": "5957.43"
   },
   {
     "code": "VET",
@@ -102,11 +102,16 @@
   {
     "code": "KAVA",
     "name": "kava",
-    "amount": "527.952992"
+    "amount": "528.95032"
   },
   {
     "code": "SHIB",
     "name": "shiba inu",
     "amount": "1"
+  },
+  {
+    "code": "ELF",
+    "name": "aelf",
+    "amount": "0.00001"
   }
 ]

@@ -105,6 +105,10 @@ const coinSelectOptions = [
     name: "kava",
     code: "[KAVA]",
   },
+  {
+    name: "aelf",
+    code: "[ELF]",
+  },
 ];
 
 export default coinSelectOptions;
