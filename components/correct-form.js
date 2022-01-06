@@ -78,7 +78,11 @@ const CorrectForm = (props) => {
     if (form.amount == 0) {
       alert("did you want to delete this item?");
       closeModal;
-    } else if (form === defaultData) {
+    } else if (
+      form.amount === defaultData.amount &&
+      form.date === defaultData.date &&
+      form.type === defaultData.type
+    ) {
       alert("at least one field must be non-empty to effect an update");
       closeModal;
     } else {
