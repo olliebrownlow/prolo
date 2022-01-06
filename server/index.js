@@ -98,6 +98,18 @@ app.prepare().then(() => {
 
   server.post("/api/v1/fundingHistory", (req, res) => {
     const item = req.body;
+    if (
+      fundingData.find(
+        (savedItem) =>
+          savedItem.date === item.date &&
+          savedItem.type === item.type &&
+          savedItem.currencyCode === item.currencyCode
+      )
+    ) {
+      return res.json(
+        "Cannot add funding item. It has either been added already or you should add it to the existing item of the same date, type and currency :)"
+      );
+    }
     fundingData.push(item);
 
     const pathToFile = path.join(__dirname, fundingFilePath);
@@ -116,6 +128,16 @@ app.prepare().then(() => {
     const correctedItem = req.body;
     const itemIndex = fundingData.findIndex((item) => item.id === id);
 
+    if (
+      fundingData[itemIndex].id === correctedItem.id &&
+      fundingData[itemIndex].amount === correctedItem.amount &&
+      fundingData[itemIndex].type === correctedItem.type &&
+      fundingData[itemIndex].date === correctedItem.date
+    ) {
+      return res.json(
+        "Cannot update funding item. It has been updated already :)"
+      );
+    }
     fundingData[itemIndex] = correctedItem;
 
     const pathToFile = path.join(__dirname, fundingFilePath);

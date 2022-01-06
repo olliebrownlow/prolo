@@ -27,6 +27,7 @@ const Investment = (props) => {
     euros,
     britishSterling,
     americanDollars,
+    sortingNumber,
     roundTo2DP,
   } = props;
 
@@ -56,10 +57,17 @@ const Investment = (props) => {
   const handleUpdate = async (correctedItem) => {
     refreshInvestmentData();
 
+    
+    if (correctedItem.date.length === 10) {
+      correctedItem.sortingNumber = Number(
+        _.words(correctedItem.date).join("")
+      );
+    }
+
     if (correctedItem.date.length === 8) {
       const array = correctedItem.date.split("-");
       array.reverse();
-      array[0] = "2021";
+      array[0] = `20${array[0]}`;
       correctedItem.date = array.join("-");
     }
     const historicalData = await getHistoricalData(
@@ -126,6 +134,7 @@ const Investment = (props) => {
           amount={amount}
           type={type}
           date={date}
+          sortingNumber={sortingNumber}
           label="funding item"
           isShown={isShown}
         />
@@ -194,6 +203,7 @@ export async function getServerSideProps({ query }) {
   const euros = query.euros;
   const britishSterling = query.britishSterling;
   const americanDollars = query.americanDollars;
+  const sortingNumber = query.sortingNumber;
 
   return {
     props: {
@@ -207,6 +217,7 @@ export async function getServerSideProps({ query }) {
       euros,
       britishSterling,
       americanDollars,
+      sortingNumber,
     },
   };
 }

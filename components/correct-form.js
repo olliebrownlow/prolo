@@ -13,6 +13,7 @@ const CorrectForm = (props) => {
     amount,
     type,
     date,
+    sortingNumber,
     label,
     isShown,
   } = props;
@@ -25,6 +26,7 @@ const CorrectForm = (props) => {
     amount: amount,
     type: type,
     date: date,
+    sortingNumber: sortingNumber,
   };
   const [form, setForm] = useState(defaultData);
   const [select, setSelect] = useState(`${currencyName} [${currencyCode}]`);
@@ -32,7 +34,7 @@ const CorrectForm = (props) => {
 
   const formatDate = () => {
     const array = date.split("-");
-    array[2] = "2021";
+    array[2] = `20${array[2]}`;
     return array.join("/");
   };
 
@@ -75,6 +77,9 @@ const CorrectForm = (props) => {
   const submitForm = () => {
     if (form.amount == 0) {
       alert("did you want to delete this item?");
+      closeModal;
+    } else if (form === defaultData) {
+      alert("at least one field must be non-empty to effect an update");
       closeModal;
     } else {
       handleFormSubmit(form);

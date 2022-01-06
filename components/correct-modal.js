@@ -21,6 +21,7 @@ const CorrectModal = (props) => {
     amount,
     type,
     date,
+    sortingNumber,
     label,
     isShown,
   } = props;
@@ -56,6 +57,7 @@ const CorrectModal = (props) => {
           amount={amount}
           type={type}
           date={date}
+          sortingNumber={sortingNumber}
           label={label}
           isShown={isShown}
         />
