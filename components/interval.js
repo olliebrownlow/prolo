@@ -11,15 +11,16 @@ const Interval = ({ currentIndex, onChange }) => {
       <div className={styles.intervalContainer}>
         {intervalOptions.map((interval, index) => {
           let color = currentIndex === index ? "" : "grey";
-          let fontSize = currentIndex === index ? "16px" : "14px";
+          let fontSize = currentIndex === index ? "18px" : "14px";
           let fontWeight = currentIndex === index ? "900" : "100";
           return (
             <motion.div
+              key={index}
               onClick={() => onChange(index)}
               whileHover={{ scale: 1.1 }}
               // transition={{ duration: 0.25 }}
               // animate={{ scale: [1, 0.5, 1] }}
-              whileTap={{scale: 0.5}}
+              whileTap={{ scale: 0.5 }}
               style={{
                 color: color,
                 fontSize: fontSize,
