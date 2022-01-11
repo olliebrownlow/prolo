@@ -15,6 +15,7 @@ const UpdateForm = (props) => {
   const [form, setForm] = useState(amount);
   const [select, setSelect] = useState(`${name} [${code}]`);
   const [isShown2, setIsShown2] = useState(!isShown);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const handleChange = (event) => {
     const target = event.target;
@@ -32,6 +33,7 @@ const UpdateForm = (props) => {
       alert("did you want to delete this currency?");
       closeModal;
     } else {
+      setIsButtonDisabled(true);
       setIsShown2(true);
       handleFormSubmit(form);
     }
@@ -84,6 +86,7 @@ const UpdateForm = (props) => {
         showLogo={false}
         submitForm={submitForm}
         isShown={isShown2}
+        isButtonDisabled={isButtonDisabled}
       />
     </>
   );

@@ -1,7 +1,7 @@
 [
   {
-    "showMrktAnalysis": true,
-    "showMrktData": true,
+    "showMrktAnalysis": false,
+    "showMrktData": false,
     "currentIndex": 1,
     "interval": "d",
     "intervalLabel": "1d"

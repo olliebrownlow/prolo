@@ -23,6 +23,7 @@ const AddForm = (props) => {
 
   const [form, setForm] = useState(defaultData);
   const [isShown2, setIsShown2] = useState(!isShown);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const filteredCoinSelectOptions = () => {
     _.pullAllBy(coinSelectOptions, data, "name");
@@ -84,7 +85,8 @@ const AddForm = (props) => {
       alert("fields must not be left empty");
       closeModal;
     } else {
-      setIsShown2(true)
+      setIsButtonDisabled(true);
+      setIsShown2(true);
       handleFormSubmit({ ...form });
     }
   };
@@ -140,6 +142,7 @@ const AddForm = (props) => {
         showLogo={false}
         submitForm={submitForm}
         isShown={isShown2}
+        isButtonDisabled={isButtonDisabled}
       />
     </>
   );

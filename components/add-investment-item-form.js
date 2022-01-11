@@ -21,6 +21,7 @@ const AddInvestmentItemForm = (props) => {
 
   const [form, setForm] = useState(defaultData);
   const [isShown2, setIsShown2] = useState(!isShown);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const handleChange = (event) => {
     const target = event.target;
@@ -72,8 +73,9 @@ const AddInvestmentItemForm = (props) => {
       alert("fields must not be left empty");
       closeModal;
     } else {
+      setIsButtonDisabled(true);
       handleFormSubmit({ ...form });
-      setIsShown2(true)
+      setIsShown2(true);
     }
   };
 
@@ -150,6 +152,7 @@ const AddInvestmentItemForm = (props) => {
         showLogo={false}
         submitForm={submitForm}
         isShown={isShown2}
+        isButtonDisabled={isButtonDisabled}
       />
     </>
   );

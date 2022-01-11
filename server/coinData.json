@@ -1,10 +1,5 @@
 [
   {
-    "code": "ETH",
-    "name": "ethereum",
-    "amount": "3.5"
-  },
-  {
     "code": "DOGE",
     "name": "dogecoin",
     "amount": "972.14813889"
@@ -12,7 +7,7 @@
   {
     "code": "ADA",
     "name": "cardano",
-    "amount": "300.912319"
+    "amount": "301.171826"
   },
   {
     "code": "LTC",
@@ -22,7 +17,7 @@
   {
     "code": "SOL",
     "name": "solana",
-    "amount": "0.0000001"
+    "amount": "2.23255"
   },
   {
     "code": "MANA",
@@ -62,7 +57,7 @@
   {
     "code": "CRO",
     "name": "crypto.com chain",
-    "amount": "5957.43"
+    "amount": "6028.23"
   },
   {
     "code": "VET",
@@ -77,12 +72,12 @@
   {
     "code": "ATOM",
     "name": "cosmos",
-    "amount": "0.000001"
+    "amount": "8.260662"
   },
   {
     "code": "DOT",
     "name": "polkadot",
-    "amount": "0.0000001"
+    "amount": "12.67506806"
   },
   {
     "code": "BNB",
@@ -97,12 +92,12 @@
   {
     "code": "KSM",
     "name": "kusama",
-    "amount": "0.00001"
+    "amount": "1.25065965"
   },
   {
     "code": "KAVA",
     "name": "kava",
-    "amount": "528.95032"
+    "amount": "530.282508"
   },
   {
     "code": "SHIB",
@@ -113,5 +108,10 @@
     "code": "ELF",
     "name": "aelf",
     "amount": "0.00001"
+  },
+  {
+    "code": "ETH",
+    "name": "ethereum",
+    "amount": "3.50"
   }
 ]

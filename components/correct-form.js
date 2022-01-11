@@ -31,6 +31,7 @@ const CorrectForm = (props) => {
   const [form, setForm] = useState(defaultData);
   const [select, setSelect] = useState(`${currencyName} [${currencyCode}]`);
   const [isShown2, setIsShown2] = useState(!isShown);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const formatDate = () => {
     const array = date.split("-");
@@ -86,6 +87,7 @@ const CorrectForm = (props) => {
       alert("at least one field must be non-empty to effect an update");
       closeModal;
     } else {
+      setIsButtonDisabled(true);
       handleFormSubmit(form);
       setIsShown2(true);
     }
@@ -169,6 +171,7 @@ const CorrectForm = (props) => {
         showLogo={false}
         submitForm={submitForm}
         isShown={isShown2}
+        isButtonDisabled={isButtonDisabled}
       />
     </>
   );
