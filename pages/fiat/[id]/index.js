@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { UserContext } from "../../../lib/UserContext";
 import { deleteFiat, updateFiat } from "../../../actions";
 import Router from "next/router";
 import Image from "next/image";
@@ -6,10 +7,12 @@ import eurFlag from "../../../public/eurFlagSmall.jpg";
 import gbpFlag from "../../../public/gbpFlagSmall.png";
 import usdFlag from "../../../public/usdFlagSmall.jpg";
 import UpdateModal from "../../../components/update-modal";
+import NoteCollapsible from "../../../components/note-collapsible";
 import DetailPageButtons from "../../../components/detail-page-buttons";
 import styles from "../../../pageStyles/dynamicPage.module.scss";
 
 const Fiat = (props) => {
+  const [user] = useContext(UserContext);
   const {
     total,
     name,
@@ -131,6 +134,7 @@ const Fiat = (props) => {
       ) : (
         <React.Fragment />
       )}
+      <NoteCollapsible user={user} data={code} />
       <hr className={styles.solidDivider} />
       <DetailPageButtons
         showModal={showModal}

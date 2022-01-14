@@ -4,5 +4,11 @@
     "name": "euros",
     "amount": "7.57",
     "sign": "€"
+  },
+  {
+    "code": "USD",
+    "name": "american dollars",
+    "amount": "1",
+    "sign": "$"
   }
 ]

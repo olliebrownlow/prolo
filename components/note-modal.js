@@ -1,10 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import styles from "./modal.module.scss";
-import AddForm from "./add-form";
-import NoSupport from "./no-support";
-import coinSelectOptions from "../config/coinSelectOptions";
-import fiatSelectOptions from "../config/fiatSelectOptions";
+import AddNoteForm from "./add-note-form";
+// import NoSupport from "./no-support";
 import { motion } from "framer-motion";
 
 const variants = {
@@ -12,13 +10,12 @@ const variants = {
   hidden: { opacity: 0 },
 };
 
-const ModalContainer = (props) => {
+const NoteModal = (props) => {
   const {
     closeModal,
     windowOnClick,
     handleFormSubmit,
     title,
-    labelName,
     data,
     isShown,
   } = props;
@@ -44,19 +41,13 @@ const ModalContainer = (props) => {
             <path d="M 10,10 L 30,30 M 30,10 L 10,30" />
           </svg>
         </motion.button>
-        {(coinSelectOptions.length === data.length && labelName === "coin") ||
-        (fiatSelectOptions.length === data.length && labelName === "fiat") ? (
-          <NoSupport labelName={labelName} title={title} />
-        ) : (
-          <AddForm
-            handleFormSubmit={handleFormSubmit}
-            title={title}
-            labelName={labelName}
-            closeModal={closeModal}
-            data={data}
-            isShown={isShown}
-          />
-        )}
+        <AddNoteForm
+          handleFormSubmit={handleFormSubmit}
+          title={title}
+          closeModal={closeModal}
+          data={data}
+          isShown={isShown}
+        />
         <hr className={styles.solidDivider} />
         <motion.button
           className={styles.cancelButton}
@@ -72,4 +63,4 @@ const ModalContainer = (props) => {
   );
 };
 
-export default ModalContainer;
+export default NoteModal;

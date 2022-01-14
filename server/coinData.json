@@ -57,7 +57,7 @@
   {
     "code": "CRO",
     "name": "crypto.com chain",
-    "amount": "6028.23"
+    "amount": "6046.72"
   },
   {
     "code": "VET",
@@ -72,7 +72,7 @@
   {
     "code": "ATOM",
     "name": "cosmos",
-    "amount": "8.260662"
+    "amount": "8.26575"
   },
   {
     "code": "DOT",
@@ -92,12 +92,12 @@
   {
     "code": "KSM",
     "name": "kusama",
-    "amount": "1.25065965"
+    "amount": "1.25312496"
   },
   {
     "code": "KAVA",
     "name": "kava",
-    "amount": "530.282508"
+    "amount": "531.284089"
   },
   {
     "code": "SHIB",

@@ -1,0 +1,86 @@
+[
+  {
+    "id": "EUR",
+    "noteTitle": "Location",
+    "noteContent": "Held on Kraken",
+    "dateTime": "2022-01-13T06:21:43.297Z",
+    "user": "olliebrownlow@gmail.com"
+  },
+  {
+    "id": "EUR",
+    "noteTitle": "Amount",
+    "noteContent": "24",
+    "dateTime": "2022-01-13T07:40:46.742Z",
+    "user": "olliebrownlow@gmail.com"
+  },
+  {
+    "id": "USD",
+    "noteTitle": "Test",
+    "noteContent": "Test amount",
+    "dateTime": "2022-01-13T13:22:41.693Z",
+    "user": "olliebrownlow@gmail.com"
+  },
+  {
+    "id": "EUR",
+    "noteTitle": "Long note",
+    "noteContent": "In addition to the linked email address for collection and analysis of the above subject I would like to know if I didn't try again later 😂. Yes I think it is not available on the day I mean I don't know if you have availability for a lesson in the",
+    "dateTime": "2022-01-13T20:32:40.397Z",
+    "user": "olliebrownlow@gmail.com"
+  },
+  {
+    "id": "EUR",
+    "noteTitle": "Hello",
+    "noteContent": "Important information about the rate ",
+    "dateTime": "2022-01-13T21:03:22.076Z",
+    "user": "olliebrownlow@gmail.com"
+  },
+  {
+    "id": "EUR",
+    "noteTitle": "",
+    "noteContent": "Held on Kraken",
+    "dateTime": "2022-01-13T21:07:30.737Z",
+    "user": "olliebrownlow@gmail.com"
+  },
+  {
+    "id": "USD",
+    "noteTitle": "",
+    "noteContent": "Note that we have to say",
+    "dateTime": "03:21:46",
+    "user": "olliebrownlow@gmail.com"
+  },
+  {
+    "id": "USD",
+    "noteTitle": "",
+    "noteContent": "Another thing to remember",
+    "dateTime": "14/01/2022, 03:22:35",
+    "user": "olliebrownlow@gmail.com"
+  },
+  {
+    "id": "USD",
+    "noteTitle": "",
+    "noteContent": "Let's see if this is better",
+    "dateTime": "14/01/2022, 03:25:27",
+    "user": "olliebrownlow@gmail.com"
+  },
+  {
+    "id": "USD",
+    "noteTitle": "",
+    "noteContent": "Busy day to day",
+    "dateTime": "Fri, Jan 14, 2022",
+    "user": "olliebrownlow@gmail.com"
+  },
+  {
+    "id": "USD",
+    "noteTitle": "",
+    "noteContent": "Again a note",
+    "dateTime": "Fri, Jan 14, 2022, 3:35:11 AM",
+    "user": "olliebrownlow@gmail.com"
+  },
+  {
+    "id": "USD",
+    "noteTitle": "",
+    "noteContent": "Date formatting is a dynamic link",
+    "dateTime": "2022-01-14T03:44:18.451Z",
+    "user": "olliebrownlow@gmail.com"
+  }
+]

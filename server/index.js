@@ -12,6 +12,7 @@ const coinFilePath = "./coinData.json";
 const fiatFilePath = "./fiatData.json";
 const fundingFilePath = "./fundingData.json";
 const mrktInfoFilePath = "./marketInfoSettings.json";
+const noteFilePath = "./noteData.json";
 fs = require("fs");
 path = require("path");
 const currencySettingsData = require(currencyFilePath);
@@ -20,6 +21,7 @@ const coinData = require(coinFilePath);
 const fiatData = require(fiatFilePath);
 const fundingData = require(fundingFilePath);
 const mrktInfoSettingsData = require(mrktInfoFilePath);
+const noteData = require(noteFilePath);
 
 app.prepare().then(() => {
   const server = express();
@@ -305,6 +307,32 @@ app.prepare().then(() => {
       }
 
       return res.json("Fiat has been successfully deleted :)");
+    });
+  });
+
+  // gets notes for a specific user, for a specific entity id
+  server.post("/api/v1/notes", (req, res) => {
+    const id = req.body.id;
+    const email = req.body.email;
+
+    const filteredNoteData = noteData.filter(
+      (note) => note.user === email && note.id === id
+    );
+    return res.json(filteredNoteData);
+  });
+
+  server.post("/api/v1/allNotes", (req, res) => {
+    const note = req.body;
+    noteData.push(note);
+    const pathToFile = path.join(__dirname, noteFilePath);
+    const stringifiedData = JSON.stringify(noteData, null, 2);
+
+    fs.writeFile(pathToFile, stringifiedData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+
+      return res.json("Note has been successfully added :)");
     });
   });
 

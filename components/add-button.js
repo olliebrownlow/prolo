@@ -4,7 +4,15 @@ import styles from "./button.module.scss";
 import { motion } from "framer-motion";
 
 const AddButton = (props) => {
-  const { buttonText, showModal, showLogo, submitForm, isShown, isButtonDisabled } = props;
+  const {
+    buttonText,
+    showModal,
+    showLogo,
+    submitForm,
+    isShown,
+    isButtonDisabled,
+    centralisedStyling,
+  } = props;
 
   return (
     <>
@@ -13,7 +21,13 @@ const AddButton = (props) => {
           className={
             styles.button +
             " " +
-            `${showLogo ? styles.listingAddButton : styles.modalAddButton}`
+            `${
+              showLogo
+                ? centralisedStyling
+                  ? ""
+                  : styles.listingAddButton
+                : styles.modalAddButton
+            }`
           }
           onClick={showLogo ? showModal : submitForm}
           disabled={isButtonDisabled}

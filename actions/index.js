@@ -120,3 +120,13 @@ export const deleteFiat = (code) => {
     .delete(`${BASE_URL}/api/v1/fiat/${code}`)
     .then((res) => res.data);
 };
+
+export const getNotes = (filter) => {
+  return axios.post(`${BASE_URL}/api/v1/notes`, filter).then((res) => res.data);
+};
+
+export const addNote = (note) => {
+  return axios
+    .post(`${BASE_URL}/api/v1/allNotes`, note)
+    .then((res) => res.data);
+};
