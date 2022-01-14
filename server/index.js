@@ -312,11 +312,11 @@ app.prepare().then(() => {
 
   // gets notes for a specific user, for a specific entity id
   server.post("/api/v1/notes", (req, res) => {
-    const id = req.body.id;
+    const code = req.body.code;
     const email = req.body.email;
 
     const filteredNoteData = noteData.filter(
-      (note) => note.user === email && note.id === id
+      (note) => note.user === email && note.code === code
     );
     return res.json(filteredNoteData);
   });
@@ -333,6 +333,28 @@ app.prepare().then(() => {
       }
 
       return res.json("Note has been successfully added :)");
+    });
+  });
+
+  server.delete("/api/v1/notes/:id", (req, res) => {
+    const { id } = req.params;
+    const itemIndex = noteData.findIndex((note) => note.id === id);
+
+    if (itemIndex < 0) {
+      return res.json("Note already deleted :)");
+    }
+
+    noteData.splice(itemIndex, 1);
+
+    const pathToFile = path.join(__dirname, noteFilePath);
+    const stringifiedData = JSON.stringify(noteData, null, 2);
+
+    fs.writeFile(pathToFile, stringifiedData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+
+      return res.json("Note has been successfully deleted :)");
     });
   });
 

@@ -7,7 +7,7 @@ const AddNoteForm = (props) => {
   const { title, closeModal, handleFormSubmit, data, isShown } = props;
 
   const defaultData = {
-    id: data,
+    code: data,
     noteTitle: "",
     noteContent: "",
   };
@@ -26,7 +26,7 @@ const AddNoteForm = (props) => {
   };
 
   const submitForm = () => {
-    if ( form.noteContent == "") {
+    if (form.noteContent == "") {
       alert("content field must not be left empty");
       closeModal;
     } else {
@@ -56,7 +56,7 @@ const AddNoteForm = (props) => {
           ></input>
         </div>
         <div className={styles.formGroup}>
-          <label htmlFor="noteContent">content (max 250 characters)</label>
+          <label htmlFor="noteContent">content (required)</label>
           <textarea
             onChange={handleChange}
             // value={form.noteContent}
@@ -65,11 +65,11 @@ const AddNoteForm = (props) => {
             required
             className={styles.formControl}
             id="noteContent"
-            placeholder="important info: held on coin exchange x..."
+            placeholder="max 250 characters..."
             maxLength="250"
             wrap="hard"
-            rows="5"
-            cols="50"
+            rows="7"
+            cols="20"
           />
         </div>
       </form>

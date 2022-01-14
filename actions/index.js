@@ -126,7 +126,15 @@ export const getNotes = (filter) => {
 };
 
 export const addNote = (note) => {
+  note.id = Math.random().toString(36).substr(2, 7);
+
   return axios
     .post(`${BASE_URL}/api/v1/allNotes`, note)
+    .then((res) => res.data);
+};
+
+export const deleteNote = (id) => {
+  return axios
+    .delete(`${BASE_URL}/api/v1/notes/${id}`)
     .then((res) => res.data);
 };

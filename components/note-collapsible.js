@@ -2,8 +2,9 @@ import AddButton from "./add-button";
 import React, { useState, useEffect } from "react";
 import styles from "./noteCollapsible.module.scss";
 import NoteModal from "./note-modal";
-import { getNotes, addNote } from "../actions";
+import { getNotes, addNote, deleteNote } from "../actions";
 import Router from "next/router";
+import { Trash2 } from "react-feather";
 
 const NoteCollapsible = (props) => {
   const [isShown, setIsShown] = useState(false);
@@ -13,7 +14,7 @@ const NoteCollapsible = (props) => {
   useEffect(async () => {
     const noteFilter = {
       email: user.email,
-      id: data,
+      code: data,
     };
     const notes = await getNotes(noteFilter);
     setNoteList(notes);
@@ -52,6 +53,12 @@ const NoteCollapsible = (props) => {
     note.user = user.email;
     // console.log(JSON.stringify(note))
     const res = await addNote(note);
+    refreshPageData();
+    console.log(res);
+  };
+
+  const handleDeleteNote = async (id) => {
+    const res = await deleteNote(id);
     refreshPageData();
     console.log(res);
   };
@@ -102,6 +109,11 @@ const NoteCollapsible = (props) => {
               )}
               <div className={styles.date}>{formatDate(note.dateTime)}</div>
               <div className={styles.text}>{note.noteContent}</div>
+              <Trash2
+                size={24}
+                className={styles.trash}
+                onClick={() => handleDeleteNote(note.id)}
+              />
             </div>
           </div>
         </>

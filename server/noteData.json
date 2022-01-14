@@ -1,86 +1,34 @@
 [
   {
-    "id": "EUR",
-    "noteTitle": "Location",
-    "noteContent": "Held on Kraken",
-    "dateTime": "2022-01-13T06:21:43.297Z",
-    "user": "olliebrownlow@gmail.com"
-  },
-  {
-    "id": "EUR",
-    "noteTitle": "Amount",
-    "noteContent": "24",
-    "dateTime": "2022-01-13T07:40:46.742Z",
-    "user": "olliebrownlow@gmail.com"
-  },
-  {
-    "id": "USD",
-    "noteTitle": "Test",
-    "noteContent": "Test amount",
-    "dateTime": "2022-01-13T13:22:41.693Z",
-    "user": "olliebrownlow@gmail.com"
-  },
-  {
-    "id": "EUR",
-    "noteTitle": "Long note",
-    "noteContent": "In addition to the linked email address for collection and analysis of the above subject I would like to know if I didn't try again later 😂. Yes I think it is not available on the day I mean I don't know if you have availability for a lesson in the",
-    "dateTime": "2022-01-13T20:32:40.397Z",
-    "user": "olliebrownlow@gmail.com"
-  },
-  {
-    "id": "EUR",
-    "noteTitle": "Hello",
-    "noteContent": "Important information about the rate ",
-    "dateTime": "2022-01-13T21:03:22.076Z",
-    "user": "olliebrownlow@gmail.com"
-  },
-  {
-    "id": "EUR",
+    "code": "USD",
     "noteTitle": "",
-    "noteContent": "Held on Kraken",
-    "dateTime": "2022-01-13T21:07:30.737Z",
-    "user": "olliebrownlow@gmail.com"
+    "noteContent": "Testing for note additional",
+    "dateTime": "2022-01-14T12:13:00.041Z",
+    "user": "olliebrownlow@gmail.com",
+    "id": "x861tl6"
   },
   {
-    "id": "USD",
+    "code": "EUR",
     "noteTitle": "",
-    "noteContent": "Note that we have to say",
-    "dateTime": "03:21:46",
-    "user": "olliebrownlow@gmail.com"
+    "noteContent": "New testing note. The venue for the day of your new home. How much for feeding us to watch the video formats available to you and your family and friends is a dynamic link library to the email below from a session with you and your family and friends",
+    "dateTime": "2022-01-14T13:21:33.223Z",
+    "user": "olliebrownlow@gmail.com",
+    "id": "axhv86y"
   },
   {
-    "id": "USD",
+    "code": "USD",
     "noteTitle": "",
-    "noteContent": "Another thing to remember",
-    "dateTime": "14/01/2022, 03:22:35",
-    "user": "olliebrownlow@gmail.com"
+    "noteContent": "Hehehe 😉😉😉🙂😉🙂☺️😉🙂",
+    "dateTime": "2022-01-14T15:41:53.874Z",
+    "user": "olliebrownlow@gmail.com",
+    "id": "h157amq"
   },
   {
-    "id": "USD",
+    "code": "EUR",
     "noteTitle": "",
-    "noteContent": "Let's see if this is better",
-    "dateTime": "14/01/2022, 03:25:27",
-    "user": "olliebrownlow@gmail.com"
-  },
-  {
-    "id": "USD",
-    "noteTitle": "",
-    "noteContent": "Busy day to day",
-    "dateTime": "Fri, Jan 14, 2022",
-    "user": "olliebrownlow@gmail.com"
-  },
-  {
-    "id": "USD",
-    "noteTitle": "",
-    "noteContent": "Again a note",
-    "dateTime": "Fri, Jan 14, 2022, 3:35:11 AM",
-    "user": "olliebrownlow@gmail.com"
-  },
-  {
-    "id": "USD",
-    "noteTitle": "",
-    "noteContent": "Date formatting is a dynamic link",
-    "dateTime": "2022-01-14T03:44:18.451Z",
-    "user": "olliebrownlow@gmail.com"
+    "noteContent": "Founded in advance, could you please send me your address.",
+    "dateTime": "2022-01-14T20:01:56.222Z",
+    "user": "olliebrownlow@gmail.com",
+    "id": "ic0euct"
   }
 ]
