@@ -313,10 +313,10 @@ app.prepare().then(() => {
   // gets notes for a specific user, for a specific entity id
   server.post("/api/v1/notes", (req, res) => {
     const code = req.body.code;
-    const email = req.body.email;
+    const user = req.body.user;
 
     const filteredNoteData = noteData.filter(
-      (note) => note.user === email && note.code === code
+      (note) => note.user === user && note.code === code
     );
     return res.json(filteredNoteData);
   });
@@ -336,15 +336,42 @@ app.prepare().then(() => {
     });
   });
 
+  server.patch("/api/v1/notes/:id", (req, res) => {
+    const { id } = req.params;
+    const updatedNote = req.body;
+    const noteIndex = noteData.findIndex((note) => note.id === id);
+    const currentNote = noteData[noteIndex];
+
+    if (
+      currentNote.noteTitle === updatedNote.noteTitle &&
+      currentNote.noteContent === updatedNote.noteContent
+    ) {
+      return res.json("Cannot update note. It has been updated already :)");
+    }
+
+    noteData[noteIndex] = updatedNote;
+
+    const pathToFile = path.join(__dirname, noteFilePath);
+    const stringifiedData = JSON.stringify(noteData, null, 2);
+
+    fs.writeFile(pathToFile, stringifiedData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+
+      return res.json("Note has been successfully updated :)");
+    });
+  });
+
   server.delete("/api/v1/notes/:id", (req, res) => {
     const { id } = req.params;
-    const itemIndex = noteData.findIndex((note) => note.id === id);
+    const noteIndex = noteData.findIndex((note) => note.id === id);
 
-    if (itemIndex < 0) {
+    if (noteIndex < 0) {
       return res.json("Note already deleted :)");
     }
 
-    noteData.splice(itemIndex, 1);
+    noteData.splice(noteIndex, 1);
 
     const pathToFile = path.join(__dirname, noteFilePath);
     const stringifiedData = JSON.stringify(noteData, null, 2);

@@ -38,7 +38,7 @@
   margin: 0 auto;
   font-size: 14px;
   text-align: left;
-  margin-bottom: 8px;
+  margin-bottom: 32px;
   letter-spacing: 2px;
   text-transform: lowercase;
 }
@@ -51,12 +51,22 @@
   text-transform: lowercase;
 }
 .trash {
-  right: 12px;
+  right: 10px;
   bottom: 8px;
   left: auto;
   top: auto;
   position: absolute;
   background-color: red;
-  border-radius: 50%;
+  border-radius: 30%;
+  padding: 4px;
+}
+.edit {
+  right: 44px;
+  bottom: 8px;
+  left: auto;
+  top: auto;
+  position: absolute;
+  background-color: white;
+  border-radius: 30%;
   padding: 4px;
 }

@@ -1,19 +1,23 @@
 import AddButton from "./add-button";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { UserContext } from "../lib/UserContext";
 import styles from "./noteCollapsible.module.scss";
 import NoteModal from "./note-modal";
-import { getNotes, addNote, deleteNote } from "../actions";
+import { getNotes, addNote, updateNote, deleteNote } from "../actions";
 import Router from "next/router";
-import { Trash2 } from "react-feather";
+import { Trash2, Edit } from "react-feather";
 
 const NoteCollapsible = (props) => {
+  const [user] = useContext(UserContext);
   const [isShown, setIsShown] = useState(false);
+  const [isShownForUpdating, setIsShownForUpdating] = useState(false);
   const [noteList, setNoteList] = useState([]);
-  const { data, user } = props;
+  const [note, setNote] = useState({});
+  const { data } = props;
 
   useEffect(async () => {
     const noteFilter = {
-      email: user.email,
+      user: user.email,
       code: data,
     };
     const notes = await getNotes(noteFilter);
@@ -24,15 +28,29 @@ const NoteCollapsible = (props) => {
     setIsShown(true);
   };
 
+  const showUpdateModal = (note) => {
+    setIsShownForUpdating(true);
+    setNote(note);
+  };
+
   const closeModal = () => {
     setIsShown(false);
+    setIsShownForUpdating(false);
   };
 
   // close modal from window surrounding the modal itself
   const windowOnClick = (event) => {
     if (event.target === event.currentTarget) {
       setIsShown(false);
+      setIsShownForUpdating(false);
     }
+  };
+
+  const emptyNote = {
+    id: "",
+    code: data,
+    noteTitle: "",
+    noteContent: "",
   };
 
   const refreshPageData = () => {
@@ -53,6 +71,14 @@ const NoteCollapsible = (props) => {
     note.user = user.email;
     // console.log(JSON.stringify(note))
     const res = await addNote(note);
+    refreshPageData();
+    console.log(res);
+  };
+
+  const handleUpdateNote = async (note) => {
+    let now = new Date();
+    note.dateTime = now;
+    const res = await updateNote(note.id, note);
     refreshPageData();
     console.log(res);
   };
@@ -79,56 +105,86 @@ const NoteCollapsible = (props) => {
 
   return (
     <>
-      <AddButton
-        buttonText={"add note"}
-        showModal={showModal}
-        showLogo={true}
-        isShown={isShown}
-        centralisedStyling={true}
-      />
-      {isShown ? (
-        <NoteModal
-          closeModal={closeModal}
-          windowOnClick={windowOnClick}
-          handleFormSubmit={handleAddNote}
-          title={"new note"}
-          data={data}
-          isShown={isShown}
-        />
+      {user?.loading ? (
+        <div>loading notes...</div>
       ) : (
-        <React.Fragment />
-      )}
-      {noteList.map((note) => (
-        <>
-          {/* <div className={styles.text}>{JSON.stringify(note)}</div> */}
-
-          <div className={styles.content}>
-            <div className={styles.card}>
-              {note.noteTitle && (
-                <div className={styles.title}>{note.noteTitle}</div>
-              )}
-              <div className={styles.date}>{formatDate(note.dateTime)}</div>
-              <div className={styles.text}>{note.noteContent}</div>
-              <Trash2
-                size={24}
-                className={styles.trash}
-                onClick={() => handleDeleteNote(note.id)}
+        user?.issuer && (
+          <>
+            <AddButton
+              buttonText={"add note"}
+              showModal={showModal}
+              showLogo={true}
+              isShown={isShown}
+              centralisedStyling={true}
+            />
+            {isShown ? (
+              <NoteModal
+                closeModal={closeModal}
+                windowOnClick={windowOnClick}
+                handleFormSubmit={handleAddNote}
+                title={"new note"}
+                data={emptyNote}
+                isShown={isShown}
+                addButtonText={"add"}
               />
-            </div>
-          </div>
-        </>
-      ))}
-      <br />
-      {noteList.length > 3 ? (
-        <AddButton
-          buttonText={"add note"}
-          showModal={showModal}
-          showLogo={true}
-          isShown={isShown}
-          centralisedStyling={true}
-        />
-      ) : (
-        <React.Fragment />
+            ) : (
+              <React.Fragment />
+            )}
+            {isShownForUpdating ? (
+              <NoteModal
+                closeModal={closeModal}
+                windowOnClick={windowOnClick}
+                handleFormSubmit={handleUpdateNote}
+                title={"update note"}
+                data={note}
+                isShown={isShownForUpdating}
+                addButtonText={"update"}
+              />
+            ) : (
+              <React.Fragment />
+            )}
+            {noteList.map((note) => (
+              <>
+                {/* <div className={styles.text}>{JSON.stringify(note)}</div> */}
+
+                <div className={styles.content}>
+                  <div className={styles.card}>
+                    {note.noteTitle && (
+                      <div className={styles.title}>{note.noteTitle}</div>
+                    )}
+                    <div className={styles.date}>
+                      {formatDate(note.dateTime)}
+                    </div>
+                    <div className={styles.text}>{note.noteContent}</div>
+                    <Edit
+                      size={24}
+                      color={"red"}
+                      className={styles.edit}
+                      onClick={() => showUpdateModal(note)}
+                    />
+                    <Trash2
+                      size={24}
+                      className={styles.trash}
+                      onClick={() => handleDeleteNote(note.id)}
+                    />
+                  </div>
+                </div>
+              </>
+            ))}
+            <br />
+            {noteList.length > 2 ? (
+              <AddButton
+                buttonText={"add note"}
+                showModal={showModal}
+                showLogo={true}
+                isShown={isShown}
+                centralisedStyling={true}
+              />
+            ) : (
+              <React.Fragment />
+            )}
+          </>
+        )
       )}
     </>
   );

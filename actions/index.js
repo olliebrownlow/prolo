@@ -133,6 +133,12 @@ export const addNote = (note) => {
     .then((res) => res.data);
 };
 
+export const updateNote = (id, note) => {
+  return axios
+    .patch(`${BASE_URL}/api/v1/notes/${id}`, note)
+    .then((res) => res.data);
+};
+
 export const deleteNote = (id) => {
   return axios
     .delete(`${BASE_URL}/api/v1/notes/${id}`)

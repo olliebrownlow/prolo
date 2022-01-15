@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import styles from "./modal.module.scss";
-import AddNoteForm from "./add-note-form";
+import AddOrUpdateNoteForm from "./add-or-update-note-form";
 // import NoSupport from "./no-support";
 import { motion } from "framer-motion";
 
@@ -18,6 +18,7 @@ const NoteModal = (props) => {
     title,
     data,
     isShown,
+    addButtonText,
   } = props;
 
   return ReactDOM.createPortal(
@@ -41,12 +42,13 @@ const NoteModal = (props) => {
             <path d="M 10,10 L 30,30 M 30,10 L 10,30" />
           </svg>
         </motion.button>
-        <AddNoteForm
+        <AddOrUpdateNoteForm
           handleFormSubmit={handleFormSubmit}
           title={title}
           closeModal={closeModal}
           data={data}
           isShown={isShown}
+          addButtonText={addButtonText}
         />
         <hr className={styles.solidDivider} />
         <motion.button
