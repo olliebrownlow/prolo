@@ -1,12 +1,11 @@
+import puff from "../public/puff.svg";
 import styles from "./loading.module.scss";
+import Image from "next/image";
 
 const Loading = () => (
-  <img
-    className={styles.loading}
-    src="./puff.svg"
-    height="80px"
-    alt="Loading"
-  />
+  <div className={styles.loading}>
+    <Image layout="intrinsic" priority src={puff} height={80} width={80} alt="Loading" />
+  </div>
 );
 
 export default Loading;
