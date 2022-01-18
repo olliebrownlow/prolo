@@ -7,7 +7,7 @@
   {
     "code": "ADA",
     "name": "cardano",
-    "amount": "301.171826"
+    "amount": "301.431548"
   },
   {
     "code": "LTC",
@@ -17,7 +17,7 @@
   {
     "code": "SOL",
     "name": "solana",
-    "amount": "2.23255"
+    "amount": "2.23533"
   },
   {
     "code": "MANA",
@@ -57,7 +57,7 @@
   {
     "code": "CRO",
     "name": "crypto.com chain",
-    "amount": "6063.15"
+    "amount": "6116.8"
   },
   {
     "code": "VET",
@@ -72,12 +72,12 @@
   {
     "code": "ATOM",
     "name": "cosmos",
-    "amount": "8.26575"
+    "amount": "8.272538"
   },
   {
     "code": "DOT",
     "name": "polkadot",
-    "amount": "12.68755626"
+    "amount": "12.70422634"
   },
   {
     "code": "BNB",
@@ -92,12 +92,12 @@
   {
     "code": "KSM",
     "name": "kusama",
-    "amount": "1.25312496"
+    "amount": "1.25497744"
   },
   {
     "code": "KAVA",
     "name": "kava",
-    "amount": "531.284089"
+    "amount": "532.622151"
   },
   {
     "code": "SHIB",

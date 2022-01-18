@@ -140,7 +140,13 @@ export const updateNote = (id, note) => {
 };
 
 export const deleteNote = (id) => {
+  return axios.delete(`${BASE_URL}/api/v1/notes/${id}`).then((res) => res.data);
+};
+
+export const deleteAssociatedNotes = (noteListArray) => {
   return axios
-    .delete(`${BASE_URL}/api/v1/notes/${id}`)
+    .delete(`${BASE_URL}/api/v1/allNotes`, {
+      data: { noteListArray: noteListArray },
+    })
     .then((res) => res.data);
 };

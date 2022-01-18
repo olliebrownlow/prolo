@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import styles from "./modal.module.scss";
 import AddOrUpdateNoteForm from "./add-or-update-note-form";
-// import NoSupport from "./no-support";
 import { motion } from "framer-motion";
 
 const variants = {

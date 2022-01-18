@@ -1,6 +1,11 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { UserContext } from "../../../lib/UserContext";
-import { deleteFiat, updateFiat } from "../../../actions";
+import {
+  deleteFiat,
+  updateFiat,
+  getNotes,
+  deleteAssociatedNotes,
+} from "../../../actions";
 import Router from "next/router";
 import Image from "next/image";
 import eurFlag from "../../../public/eurFlagSmall.jpg";
@@ -26,6 +31,16 @@ const Fiat = (props) => {
   const [isShown, setIsShown] = useState(false);
   const [deleted, setDeleted] = useState(false);
   const [cancel, setCancel] = useState(false);
+  const [noteList, setNoteList] = useState([]);
+
+  useEffect(async () => {
+    const noteFilter = {
+      user: user.email,
+      code: code,
+    };
+    const notes = await getNotes(noteFilter);
+    setNoteList(notes);
+  }, [code, user]);
 
   const showModal = () => {
     setIsShown(true);
@@ -69,7 +84,9 @@ const Fiat = (props) => {
     setDeleted(true);
     refreshData();
     const res = await deleteFiat(code);
+    const res2 = await deleteAssociatedNotes(noteList);
     console.log(res);
+    console.log(res2);
   };
 
   const handleCancel = () => {
@@ -134,7 +151,7 @@ const Fiat = (props) => {
       ) : (
         <React.Fragment />
       )}
-      <NoteCollapsible user={user} data={code} />
+      <NoteCollapsible data={code} />
       <hr className={styles.solidDivider} />
       <DetailPageButtons
         showModal={showModal}

@@ -1,6 +1,7 @@
 const next = require("next");
 const express = require("express");
 const bodyParser = require("body-parser");
+const _ = require("lodash");
 
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
@@ -382,6 +383,31 @@ app.prepare().then(() => {
       }
 
       return res.json("Note has been successfully deleted :)");
+    });
+  });
+
+  server.delete("/api/v1/allNotes", (req, res) => {
+    const noteListArray = req.body.noteListArray;
+
+    const noteIdArray = noteListArray.map((note) => {
+      return note.id;
+    });
+
+    var removedNotes = _.remove(noteData, function (note) {
+      return noteIdArray.includes(note.id);
+    });
+
+    console.log(noteData);
+
+    const pathToFile = path.join(__dirname, noteFilePath);
+    const stringifiedData = JSON.stringify(noteData, null, 2);
+
+    fs.writeFile(pathToFile, stringifiedData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+
+      return res.json("Associated notes have been successfully deleted :)");
     });
   });
 

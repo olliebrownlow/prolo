@@ -8,27 +8,11 @@
     "id": "axhv86y"
   },
   {
+    "id": "wu9vuqn",
     "code": "EUR",
-    "noteTitle": "",
-    "noteContent": "Founded in advance, could you please send me your address.",
-    "dateTime": "2022-01-14T20:01:56.222Z",
-    "user": "olliebrownlow@gmail.com",
-    "id": "ic0euct"
-  },
-  {
-    "id": "6qe3l8f",
-    "code": "USD",
-    "noteTitle": "Title4",
-    "noteContent": "Content copyright and may be okay if I can go",
-    "dateTime": "2022-01-15T08:23:53.598Z",
-    "user": "olliebrownlow@gmail.com"
-  },
-  {
-    "id": "sjpcrl0",
-    "code": "USD",
-    "noteTitle": "",
-    "noteContent": "Hehehe 🐱😜😌😜🐱😜😌🐱😜🐱🐱",
-    "dateTime": "2022-01-15T07:19:21.268Z",
+    "noteTitle": "Tester",
+    "noteContent": "Testing",
+    "dateTime": "2022-01-17T22:30:42.574Z",
     "user": "olliebrownlow@gmail.com"
   }
 ]
