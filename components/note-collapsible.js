@@ -5,7 +5,16 @@ import styles from "./noteCollapsible.module.scss";
 import NoteModal from "./note-modal";
 import { addNote, updateNote, deleteNote } from "../actions";
 import Router from "next/router";
-import { Trash2, Edit } from "react-feather";
+import { Trash2, Edit, ChevronDown } from "react-feather";
+import { motion } from "framer-motion";
+
+const variants = {
+  open: {
+    opacity: 1,
+    height: "auto",
+  },
+  closed: { opacity: 0, height: 0, overflow: "hidden" },
+};
 
 const NoteCollapsible = (props) => {
   const [user] = useContext(UserContext);
@@ -13,11 +22,16 @@ const NoteCollapsible = (props) => {
   const [isShownForUpdating, setIsShownForUpdating] = useState(false);
   const [noteList, setNoteList] = useState([]);
   const [note, setNote] = useState({});
+  const [showNotepad, setShowNotepad] = useState(false);
   const { data, notes } = props;
 
   useEffect(async () => {
     setNoteList(notes);
   }, [notes]);
+
+  const toggleShowNotepad = () => {
+    setShowNotepad(!showNotepad);
+  };
 
   const showModal = () => {
     setIsShown(true);
@@ -60,7 +74,6 @@ const NoteCollapsible = (props) => {
     let now = new Date();
     note.dateTime = now;
     note.user = user.email;
-    // console.log(JSON.stringify(note))
     const res = await addNote(note);
     refreshPageData();
     console.log(res);
@@ -96,74 +109,37 @@ const NoteCollapsible = (props) => {
 
   return (
     <>
-      {user?.loading ? (
-        <div>loading notes...</div>
-      ) : (
-        user?.issuer && (
-          <>
-            <AddButton
-              buttonText={"add note"}
-              showModal={showModal}
-              showLogo={true}
-              isShown={isShown}
-              centralisedStyling={true}
-            />
-            {isShown ? (
-              <NoteModal
-                closeModal={closeModal}
-                windowOnClick={windowOnClick}
-                handleFormSubmit={handleAddNote}
-                title={"new note"}
-                data={emptyNote}
-                isShown={isShown}
-                addButtonText={"add"}
-              />
-            ) : (
-              <React.Fragment />
-            )}
-            {isShownForUpdating ? (
-              <NoteModal
-                closeModal={closeModal}
-                windowOnClick={windowOnClick}
-                handleFormSubmit={handleUpdateNote}
-                title={"update note"}
-                data={note}
-                isShown={isShownForUpdating}
-                addButtonText={"update"}
-              />
-            ) : (
-              <React.Fragment />
-            )}
-            {noteList.map((note) => (
-              <>
-                {/* <div className={styles.text}>{JSON.stringify(note)}</div> */}
-
-                <div className={styles.content}>
-                  <div className={styles.card}>
-                    {note.noteTitle && (
-                      <div className={styles.title}>{note.noteTitle}</div>
-                    )}
-                    <div className={styles.date}>
-                      {formatDate(note.dateTime)}
-                    </div>
-                    <div className={styles.text}>{note.noteContent}</div>
-                    <Edit
-                      size={24}
-                      color={"red"}
-                      className={styles.edit}
-                      onClick={() => showUpdateModal(note)}
-                    />
-                    <Trash2
-                      size={24}
-                      className={styles.trash}
-                      onClick={() => handleDeleteNote(note.id)}
-                    />
-                  </div>
-                </div>
-              </>
-            ))}
-            <br />
-            {noteList.length > 2 ? (
+      <motion.div
+        className={styles.marketHeading}
+        onClick={toggleShowNotepad}
+        whileTap={{ scale: 0.9 }}
+        whileHover={{ scale: 1.1 }}
+      >
+        <motion.span
+          animate={
+            showNotepad
+              ? { transform: "rotateX(180deg)" }
+              : { transform: "rotateX(0deg)" }
+          }
+          transition={{ duration: 0.5 }}
+          initial={false}
+        >
+          <ChevronDown />
+        </motion.span>
+        notepad
+      </motion.div>
+      <motion.div
+        className={styles.collapsibleLayout}
+        animate={showNotepad ? "open" : "closed"}
+        variants={variants}
+        transition={{ duration: 0.5 }}
+        initial={false}
+      >
+        {user?.loading ? (
+          <div>loading notes...</div>
+        ) : (
+          user?.issuer && (
+            <>
               <AddButton
                 buttonText={"add note"}
                 showModal={showModal}
@@ -171,12 +147,74 @@ const NoteCollapsible = (props) => {
                 isShown={isShown}
                 centralisedStyling={true}
               />
-            ) : (
-              <React.Fragment />
-            )}
-          </>
-        )
-      )}
+              {isShown ? (
+                <NoteModal
+                  closeModal={closeModal}
+                  windowOnClick={windowOnClick}
+                  handleFormSubmit={handleAddNote}
+                  title={"new note"}
+                  data={emptyNote}
+                  isShown={isShown}
+                  addButtonText={"add"}
+                />
+              ) : (
+                <React.Fragment />
+              )}
+              {isShownForUpdating ? (
+                <NoteModal
+                  closeModal={closeModal}
+                  windowOnClick={windowOnClick}
+                  handleFormSubmit={handleUpdateNote}
+                  title={"update note"}
+                  data={note}
+                  isShown={isShownForUpdating}
+                  addButtonText={"update"}
+                />
+              ) : (
+                <React.Fragment />
+              )}
+              {noteList.map((note) => (
+                <>
+                  <div className={styles.content}>
+                    <div className={styles.card}>
+                      {note.noteTitle && (
+                        <div className={styles.title}>{note.noteTitle}</div>
+                      )}
+                      <div className={styles.date}>
+                        {formatDate(note.dateTime)}
+                      </div>
+                      <div className={styles.text}>{note.noteContent}</div>
+                      <Edit
+                        size={24}
+                        color={"red"}
+                        className={styles.edit}
+                        onClick={() => showUpdateModal(note)}
+                      />
+                      <Trash2
+                        size={24}
+                        className={styles.trash}
+                        onClick={() => handleDeleteNote(note.id)}
+                      />
+                    </div>
+                  </div>
+                </>
+              ))}
+              <br />
+              {noteList.length > 2 ? (
+                <AddButton
+                  buttonText={"add note"}
+                  showModal={showModal}
+                  showLogo={true}
+                  isShown={isShown}
+                  centralisedStyling={true}
+                />
+              ) : (
+                <React.Fragment />
+              )}
+            </>
+          )
+        )}
+      </motion.div>
     </>
   );
 };

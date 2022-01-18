@@ -70,3 +70,16 @@
   border-radius: 30%;
   padding: 4px;
 }
+.collapsibleLayout {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  width: 100%;
+}
+.marketHeading {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 24px;
+  display: flex;
+  font-weight: 900;
+}
