@@ -151,7 +151,7 @@ const Fiat = (props) => {
       ) : (
         <React.Fragment />
       )}
-      <NoteCollapsible data={code} />
+      <NoteCollapsible data={code} notes={noteList} />
       <hr className={styles.solidDivider} />
       <DetailPageButtons
         showModal={showModal}

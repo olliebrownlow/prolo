@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "../lib/UserContext";
 import styles from "./noteCollapsible.module.scss";
 import NoteModal from "./note-modal";
-import { getNotes, addNote, updateNote, deleteNote } from "../actions";
+import { addNote, updateNote, deleteNote } from "../actions";
 import Router from "next/router";
 import { Trash2, Edit } from "react-feather";
 
@@ -13,16 +13,11 @@ const NoteCollapsible = (props) => {
   const [isShownForUpdating, setIsShownForUpdating] = useState(false);
   const [noteList, setNoteList] = useState([]);
   const [note, setNote] = useState({});
-  const { data } = props;
+  const { data, notes } = props;
 
   useEffect(async () => {
-    const noteFilter = {
-      user: user.email,
-      code: data,
-    };
-    const notes = await getNotes(noteFilter);
     setNoteList(notes);
-  }, [user, data]);
+  }, [notes]);
 
   const showModal = () => {
     setIsShown(true);
@@ -60,10 +55,6 @@ const NoteCollapsible = (props) => {
     Router.reload();
     // setTimeout(closeModal, 1000);
   };
-
-  // const refreshData = () => {
-  //   window.location = "/pocket";
-  // };
 
   const handleAddNote = async (note) => {
     let now = new Date();
