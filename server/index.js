@@ -393,11 +393,13 @@ app.prepare().then(() => {
       return note.id;
     });
 
-    var removedNotes = _.remove(noteData, function (note) {
+    if (noteIdArray.length === 0) {
+      return res.json("No associated notes to delete :)");
+    }
+
+    _.remove(noteData, function (note) {
       return noteIdArray.includes(note.id);
     });
-
-    console.log(noteData);
 
     const pathToFile = path.join(__dirname, noteFilePath);
     const stringifiedData = JSON.stringify(noteData, null, 2);
@@ -407,7 +409,7 @@ app.prepare().then(() => {
         return res.status(422).send(err);
       }
 
-      return res.json("Associated notes have been successfully deleted :)");
+      return res.json(`${noteIdArray.length} associated notes have been successfully deleted :)`);
     });
   });
 
