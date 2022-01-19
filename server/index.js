@@ -14,6 +14,7 @@ const fiatFilePath = "./fiatData.json";
 const fundingFilePath = "./fundingData.json";
 const mrktInfoFilePath = "./marketInfoSettings.json";
 const noteFilePath = "./noteData.json";
+const notePadFilePath = "./showNotepadSettings.json";
 fs = require("fs");
 path = require("path");
 const currencySettingsData = require(currencyFilePath);
@@ -23,6 +24,7 @@ const fiatData = require(fiatFilePath);
 const fundingData = require(fundingFilePath);
 const mrktInfoSettingsData = require(mrktInfoFilePath);
 const noteData = require(noteFilePath);
+const showNotepadSettingsData = require(notePadFilePath);
 
 app.prepare().then(() => {
   const server = express();
@@ -92,6 +94,28 @@ app.prepare().then(() => {
       }
 
       return res.json("Settng has been successfully updated :)");
+    });
+  });
+
+  server.get("/api/v1/showNotepadSettings", (req, res) => {
+    return res.json(showNotepadSettingsData);
+  });
+
+  server.patch("/api/v1/showNotepadSettings", (req, res) => {
+    const newSetting = req.body;
+
+    let key = Object.keys(newSetting)[0];
+    let value = Object.values(newSetting)[0];
+    showNotepadSettingsData[0][key] = value;
+
+    const pathToFile = path.join(__dirname, notePadFilePath);
+    const stringifiedData = JSON.stringify(showNotepadSettingsData, null, 2);
+    fs.writeFile(pathToFile, stringifiedData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+
+      return res.json("Notepad settng has been successfully updated :)");
     });
   });
 
@@ -409,7 +433,9 @@ app.prepare().then(() => {
         return res.status(422).send(err);
       }
 
-      return res.json(`${noteIdArray.length} associated notes have been successfully deleted :)`);
+      return res.json(
+        `${noteIdArray.length} associated notes have been successfully deleted :)`
+      );
     });
   });
 

@@ -3,7 +3,13 @@ import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "../lib/UserContext";
 import styles from "./noteCollapsible.module.scss";
 import NoteModal from "./note-modal";
-import { addNote, updateNote, deleteNote } from "../actions";
+import {
+  addNote,
+  updateNote,
+  deleteNote,
+  getNotepadSettings,
+  updateNotepadSettings,
+} from "../actions";
 import Router from "next/router";
 import { Trash2, Edit, ChevronDown } from "react-feather";
 import { motion } from "framer-motion";
@@ -23,14 +29,25 @@ const NoteCollapsible = (props) => {
   const [noteList, setNoteList] = useState([]);
   const [note, setNote] = useState({});
   const [showNotepad, setShowNotepad] = useState(false);
-  const { data, notes } = props;
+  const { data, notes, notepadSettingType } = props;
 
   useEffect(async () => {
     setNoteList(notes);
-  }, [notes]);
+    const notepadSettings = await getNotepadSettings();
+    setShowNotepad(notepadSettings[0][notepadSettingType]);
+  }, [notes, notepadSettingType]);
+
+  const handleNotepadSettingUpdate = (newSetting) => {
+    const res = updateNotepadSettings(newSetting);
+    console.log(res);
+  };
 
   const toggleShowNotepad = () => {
+    const newSetting = {
+      [notepadSettingType]: !showNotepad,
+    };
     setShowNotepad(!showNotepad);
+    handleNotepadSettingUpdate(newSetting);
   };
 
   const showModal = () => {

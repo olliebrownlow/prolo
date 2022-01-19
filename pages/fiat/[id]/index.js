@@ -151,7 +151,11 @@ const Fiat = (props) => {
       ) : (
         <React.Fragment />
       )}
-      <NoteCollapsible data={code} notes={noteList} />
+      <NoteCollapsible
+        data={code}
+        notes={noteList}
+        notepadSettingType={"showFiatNotepad"}
+      />
       <hr className={styles.solidDivider} />
       <DetailPageButtons
         showModal={showModal}

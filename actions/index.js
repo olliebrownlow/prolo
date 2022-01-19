@@ -51,9 +51,21 @@ export const getMrktInfoSettings = () => {
     .then((res) => res.data);
 };
 
-export const updateMrktInfoSettings = (bool) => {
+export const updateMrktInfoSettings = (newSetting) => {
   return axios
-    .patch(`${BASE_URL}/api/v1/mrktInfoSettings`, bool)
+    .patch(`${BASE_URL}/api/v1/mrktInfoSettings`, newSetting)
+    .then((res) => console.log(res.data));
+};
+
+export const getNotepadSettings = () => {
+  return axios
+    .get(`${BASE_URL}/api/v1/showNotepadSettings`)
+    .then((res) => res.data);
+};
+
+export const updateNotepadSettings = (newSetting) => {
+  return axios
+    .patch(`${BASE_URL}/api/v1/showNotepadSettings`, newSetting)
     .then((res) => console.log(res.data));
 };
 
