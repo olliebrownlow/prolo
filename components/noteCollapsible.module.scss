@@ -50,23 +50,27 @@
   color: grey;
   text-transform: lowercase;
 }
-.trash {
-  right: 10px;
-  bottom: 8px;
-  left: auto;
-  top: auto;
-  position: absolute;
-  background-color: red;
-  border-radius: 30%;
-  padding: 4px;
-}
-.edit {
+.editContainer {
   right: 44px;
   bottom: 8px;
   left: auto;
   top: auto;
   position: absolute;
+}
+.edit {
   background-color: white;
+  border-radius: 30%;
+  padding: 4px;
+}
+.trashContainer {
+  right: 10px;
+  bottom: 8px;
+  left: auto;
+  top: auto;
+  position: absolute;
+}
+.trash {
+  background-color: red;
   border-radius: 30%;
   padding: 4px;
 }

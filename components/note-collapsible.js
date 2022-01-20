@@ -190,9 +190,14 @@ const NoteCollapsible = (props) => {
               ) : (
                 <React.Fragment />
               )}
-              {noteList.map((note) => (
+              {noteList.map((note, index) => (
                 <>
-                  <div className={styles.content}>
+                  <motion.div
+                    className={styles.content}
+                    key={index}
+                    whileInView={{ opacity: 1 }}
+                    initial={{ opacity: 0 }}
+                  >
                     <div className={styles.card}>
                       {note.noteTitle && (
                         <div className={styles.title}>{note.noteTitle}</div>
@@ -201,19 +206,31 @@ const NoteCollapsible = (props) => {
                         {formatDate(note.dateTime)}
                       </div>
                       <div className={styles.text}>{note.noteContent}</div>
-                      <Edit
-                        size={24}
-                        color={"red"}
-                        className={styles.edit}
-                        onClick={() => showUpdateModal(note)}
-                      />
-                      <Trash2
-                        size={24}
-                        className={styles.trash}
-                        onClick={() => handleDeleteNote(note.id)}
-                      />
+                      <motion.div
+                        whileTap={{ scale: 0.5 }}
+                        className={styles.editContainer}
+                        whileHover={{ scale: 1.1 }}
+                      >
+                        <Edit
+                          size={24}
+                          color={"red"}
+                          className={styles.edit}
+                          onClick={() => showUpdateModal(note)}
+                        />
+                      </motion.div>
+                      <motion.div
+                        whileTap={{ scale: 0.5 }}
+                        whileHover={{ scale: 1.1 }}
+                        className={styles.trashContainer}
+                      >
+                        <Trash2
+                          size={24}
+                          className={styles.trash}
+                          onClick={() => handleDeleteNote(note.id)}
+                        />
+                      </motion.div>
                     </div>
-                  </div>
+                  </motion.div>
                 </>
               ))}
               <br />
