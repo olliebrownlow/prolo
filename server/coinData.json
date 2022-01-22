@@ -17,7 +17,7 @@
   {
     "code": "SOL",
     "name": "solana",
-    "amount": "2.23533"
+    "amount": "2.23812"
   },
   {
     "code": "MANA",
@@ -77,7 +77,7 @@
   {
     "code": "DOT",
     "name": "polkadot",
-    "amount": "12.70422634"
+    "amount": "12.71674318"
   },
   {
     "code": "BNB",
@@ -92,17 +92,12 @@
   {
     "code": "KSM",
     "name": "kusama",
-    "amount": "1.2574512"
+    "amount": "1.25931007"
   },
   {
     "code": "KAVA",
     "name": "kava",
     "amount": "533.628146"
-  },
-  {
-    "code": "SHIB",
-    "name": "shiba inu",
-    "amount": "1"
   },
   {
     "code": "ELF",
@@ -113,5 +108,10 @@
     "code": "ETH",
     "name": "ethereum",
     "amount": "3.50"
+  },
+  {
+    "code": "SHIB",
+    "name": "shiba inu",
+    "amount": "1"
   }
 ]

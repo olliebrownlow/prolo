@@ -73,7 +73,13 @@ const FundingList = (props) => {
               },
             }}
           >
-            <motion.div className={styles.listRow} whileTap={{ scale: 0.8 }}>
+            <motion.div
+              className={styles.listRow}
+              whileInView={{ opacity: 1 }}
+              initial={{ opacity: 0 }}
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.8 }}
+            >
               <div className={styles.logoContainer}>
                 <div className={styles.flag}>
                   <Image

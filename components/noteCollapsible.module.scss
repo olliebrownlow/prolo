@@ -30,17 +30,16 @@
   margin-bottom: 4px;
   text-align: left;
   font-weight: 600;
-  text-transform: lowercase;
   letter-spacing: 4px;
 }
 .card .text {
-  width: 90%;
+  width: 94%;
   margin: 0 auto;
   font-size: 14px;
   text-align: left;
+  white-space: pre-wrap;
   margin-bottom: 32px;
   letter-spacing: 2px;
-  text-transform: lowercase;
 }
 .card .date {
   width: 100%;

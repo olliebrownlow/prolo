@@ -1,6 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { UserContext } from "../../../lib/UserContext";
 import CurrencySettingsContext from "../../../context/currencySettings";
 import {
+  getNotes,
   deleteCoin,
   updateCoin,
   getMrktInfoSettings,
@@ -12,6 +14,7 @@ import Image from "next/image";
 import Link from "next/link";
 import UpdateModal from "../../../components/update-modal";
 import Interval from "../../../components/interval";
+import NoteCollapsible from "../../../components/note-collapsible";
 import DetailPageButtons from "../../../components/detail-page-buttons";
 import MrktInfoRow from "../../../components/mrkt-info-row";
 import styles from "../../../pageStyles/dynamicPage.module.scss";
@@ -29,9 +32,11 @@ const variants = {
 };
 
 const Coin = (props) => {
+  const [user] = useContext(UserContext);
   const { appCurrencySign } = useContext(CurrencySettingsContext);
   const { coin, mrktInfoSettings, roundTo2DP } = props;
 
+  const [noteList, setNoteList] = useState([]);
   const [isShown, setIsShown] = useState(false);
   const [showMrktAnalysis, setShowMrktAnalysis] = useState(
     mrktInfoSettings[0].showMrktAnalysis
@@ -50,6 +55,15 @@ const Coin = (props) => {
   const [intervalLabel, setIntervalLabel] = useState(
     mrktInfoSettings[0].intervalLabel
   );
+
+  useEffect(async () => {
+    const noteFilter = {
+      user: user.email,
+      code: coin[0].id,
+    };
+    const notes = await getNotes(noteFilter);
+    setNoteList(notes);
+  }, [coin, user]);
 
   // alternative to using a switch statement
   const matched = (x) => ({
@@ -256,7 +270,8 @@ const Coin = (props) => {
       )}
       <div className={styles.name}>{getCoinProp("name")}</div>
       <div className={styles.code2}>[{getCoinProp("id")}]</div>
-      <div className={styles.code2}>{currentAmount} coins</div>
+      <div className={styles.currentAmount}>{currentAmount} coins</div>
+      <div className={styles.currentAmount}>{appCurrencySign}{roundTo2DP(getCoinProp("price"))}/coin</div>
       {currentAmount === getCoinProp("amount") ? (
         <Link
           href={{
@@ -279,6 +294,11 @@ const Coin = (props) => {
       ) : (
         <div className={styles.amount}>recalculating..</div>
       )}
+      <NoteCollapsible
+        data={getCoinProp("id")}
+        notes={noteList}
+        notepadSettingType={"showCoinFiatNotepad"}
+      />
       <motion.div
         className={styles.marketHeading}
         onClick={toggleShowMarketAnalysis}

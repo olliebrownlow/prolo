@@ -2,6 +2,7 @@
   {
     "showFiatNotepad": true,
     "showCoinNotepad": false,
-    "showFundingItemNotepad": false
+    "showFundingItemNotepad": false,
+    "showCoinFiatNotepad": true
   }
 ]
