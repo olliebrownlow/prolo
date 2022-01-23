@@ -144,6 +144,9 @@ const NoteCollapsible = (props) => {
           <ChevronDown />
         </motion.span>
         notepad
+        <motion.span className={styles.hidden}>
+          <ChevronDown />
+        </motion.span>
       </motion.div>
       <motion.div
         className={styles.collapsibleLayout}

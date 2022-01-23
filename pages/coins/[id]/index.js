@@ -271,7 +271,10 @@ const Coin = (props) => {
       <div className={styles.name}>{getCoinProp("name")}</div>
       <div className={styles.code2}>[{getCoinProp("id")}]</div>
       <div className={styles.currentAmount}>{currentAmount} coins</div>
-      <div className={styles.currentAmount}>{appCurrencySign}{roundTo2DP(getCoinProp("price"))}/coin</div>
+      <div className={styles.currentAmount}>
+        {appCurrencySign}
+        {roundTo2DP(getCoinProp("price"))}/coin
+      </div>
       {currentAmount === getCoinProp("amount") ? (
         <Link
           href={{
@@ -317,6 +320,9 @@ const Coin = (props) => {
           <ChevronDown />
         </motion.span>
         market analysis
+        <motion.span className={styles.hidden}>
+          <ChevronDown />
+        </motion.span>
       </motion.div>
       {/* market analysis */}
       <motion.div
@@ -429,6 +435,9 @@ const Coin = (props) => {
           <ChevronDown />
         </motion.span>
         market data
+        <motion.span className={styles.hidden}>
+          <ChevronDown />
+        </motion.span>
       </motion.div>
       <motion.div
         className={styles.collapsibleLayout}
