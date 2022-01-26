@@ -44,7 +44,6 @@ const NoteModal = (props) => {
         <AddOrUpdateNoteForm
           handleFormSubmit={handleFormSubmit}
           title={title}
-          closeModal={closeModal}
           data={data}
           isShown={isShown}
           addButtonText={addButtonText}

@@ -52,7 +52,7 @@ const ModalContainer = (props) => {
             handleFormSubmit={handleFormSubmit}
             title={title}
             labelName={labelName}
-            closeModal={closeModal}
+            // closeModal={closeModal}
             data={data}
             isShown={isShown}
           />

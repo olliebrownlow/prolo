@@ -1,4 +1,5 @@
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const BASE_URL = "http://localhost:3000";
 const NOMICS_URL = "https://api.nomics.com/v1/currencies/ticker?key=";
@@ -76,9 +77,17 @@ export const getFundingData = () => {
 export const addInvestmentItem = (item) => {
   item.id = Math.random().toString(36).substr(2, 7);
 
-  return axios
+  const res = axios
     .post(`${BASE_URL}/api/v1/fundingHistory`, item)
     .then((res) => res.data);
+
+  toast.promise(res, {
+    loading: "loading",
+    success: (data) => data,
+    error: (err) => err.toString(),
+  });
+
+  return res;
 };
 
 export const updateInvestmentItem = (id, correctedItem) => {
@@ -98,7 +107,17 @@ export const getCoins = () => {
 };
 
 export const addCoin = (coin) => {
-  return axios.post(`${BASE_URL}/api/v1/coins`, coin).then((res) => res.data);
+  const res = axios
+    .post(`${BASE_URL}/api/v1/coins`, coin)
+    .then((res) => res.data);
+
+  toast.promise(res, {
+    loading: "loading",
+    success: (data) => data,
+    error: (err) => err.toString(),
+  });
+
+  return res;
 };
 
 export const updateCoin = (code, amount) => {
@@ -118,7 +137,17 @@ export const getFiat = () => {
 };
 
 export const addFiat = (fiat) => {
-  return axios.post(`${BASE_URL}/api/v1/fiat`, fiat).then((res) => res.data);
+  const res = axios
+    .post(`${BASE_URL}/api/v1/fiat`, fiat)
+    .then((res) => res.data);
+
+  toast.promise(res, {
+    loading: "loading",
+    success: (data) => data,
+    error: (err) => err.toString(),
+  });
+
+  return res;
 };
 
 export const updateFiat = (code, amount) => {
@@ -140,9 +169,17 @@ export const getNotes = (filter) => {
 export const addNote = (note) => {
   note.id = Math.random().toString(36).substr(2, 7);
 
-  return axios
+  const res = axios
     .post(`${BASE_URL}/api/v1/allNotes`, note)
     .then((res) => res.data);
+
+  toast.promise(res, {
+    loading: "loading",
+    success: (data) => data,
+    error: (err) => err.toString(),
+  });
+
+  return res;
 };
 
 export const updateNote = (id, note) => {

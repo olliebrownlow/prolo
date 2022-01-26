@@ -1,10 +1,12 @@
 import styles from "./addForm.module.scss";
 import { useState } from "react";
+import toast from "react-hot-toast";
+import { AlertTriangle } from "react-feather";
 import AddButton from "./add-button";
 import _ from "lodash";
 
 const AddInvestmentItemForm = (props) => {
-  const { closeModal, handleFormSubmit, isShown } = props;
+  const { handleFormSubmit, isShown } = props;
 
   const defaultData = {
     id: "",
@@ -70,8 +72,10 @@ const AddInvestmentItemForm = (props) => {
       form.currencyName == "" ||
       form.type == ""
     ) {
-      alert("fields must not be left empty");
-      closeModal;
+      toast.error("make sure all fields have a value", {
+        id: "blankItemField",
+        icon: <AlertTriangle color="red" />,
+      });
     } else {
       setIsButtonDisabled(true);
       handleFormSubmit({ ...form });
@@ -85,7 +89,7 @@ const AddInvestmentItemForm = (props) => {
       <hr className={styles.solidDivider} />
       <form>
         <div className={styles.formGroup}>
-          <label htmlFor="type">type</label>
+          <label htmlFor="type">type*</label>
           <select
             onChange={handleChange}
             // value={form.type}
@@ -95,14 +99,14 @@ const AddInvestmentItemForm = (props) => {
             id="type"
           >
             <option key={"no option"} disabled selected hidden>
-              -- select an option --
+              -- select a type --
             </option>
             <option key="1">investment</option>
             <option key="2">withdrawal</option>
           </select>
         </div>
         <div className={styles.formGroup}>
-          <label htmlFor="currency">currency</label>
+          <label htmlFor="currency">currency*</label>
           <select
             onChange={handleChange}
             // value={form.currency}
@@ -112,7 +116,7 @@ const AddInvestmentItemForm = (props) => {
             id="currency"
           >
             <option key={"no option"} disabled selected hidden>
-              -- select an option --
+              -- select a currency --
             </option>
             <option key="1">euros [EUR]</option>
             <option key="2">british sterling [GBP]</option>
@@ -120,7 +124,7 @@ const AddInvestmentItemForm = (props) => {
           </select>
         </div>
         <div className={styles.formGroup}>
-          <label htmlFor="amount">amount</label>
+          <label htmlFor="amount">amount*</label>
           <input
             onChange={handleChange}
             value={form.amount}
@@ -134,7 +138,7 @@ const AddInvestmentItemForm = (props) => {
           />
         </div>
         <div className={styles.formGroup}>
-          <label htmlFor="date">date</label>
+          <label htmlFor="date">date*</label>
           <input
             className={styles.formControl}
             onChange={handleChange}

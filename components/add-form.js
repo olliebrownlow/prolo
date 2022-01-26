@@ -1,19 +1,14 @@
 import styles from "./addForm.module.scss";
 import { useState } from "react";
+import toast from "react-hot-toast";
+import { AlertTriangle } from "react-feather";
 import AddButton from "./add-button";
 import coinSelectOptions from "../config/coinSelectOptions";
 import fiatSelectOptions from "../config/fiatSelectOptions";
 import _ from "lodash";
 
 const AddForm = (props) => {
-  const {
-    title,
-    labelName,
-    closeModal,
-    handleFormSubmit,
-    data,
-    isShown,
-  } = props;
+  const { title, labelName, handleFormSubmit, data, isShown } = props;
 
   const defaultData = {
     code: "",
@@ -82,8 +77,18 @@ const AddForm = (props) => {
 
   const submitForm = () => {
     if (form.amount == 0 || form.code == "" || form.name == "") {
-      alert("fields must not be left empty");
-      closeModal;
+      if (form.amount == 0) {
+        toast.error("please add a positive amount", {
+          id: "blankAmount",
+          icon: <AlertTriangle color="red" />,
+        });
+      }
+      if (form.name == "") {
+        toast.error("please select a currency", {
+          id: "blankCurrency",
+          icon: <AlertTriangle color="red" />,
+        });
+      }
     } else {
       setIsButtonDisabled(true);
       setIsShown2(true);
@@ -93,11 +98,12 @@ const AddForm = (props) => {
 
   return (
     <>
+      {/* <Toaster /> */}
       <h1 className={styles.heading}>{title}</h1>
       <hr className={styles.solidDivider} />
       <form>
         <div className={styles.formGroup}>
-          <label htmlFor="name">{labelName}</label>
+          <label htmlFor="name">{labelName}*</label>
           <select
             onChange={handleChange}
             // value={form.name}
@@ -107,7 +113,7 @@ const AddForm = (props) => {
             id={labelName}
           >
             <option key={"no option"} disabled selected value hidden>
-              -- select an option --
+              -- select a currency --
             </option>
             {labelName === "coin"
               ? filteredCoinSelectOptions().map((option) => (
@@ -123,7 +129,7 @@ const AddForm = (props) => {
           </select>
         </div>
         <div className={styles.formGroup}>
-          <label htmlFor="amount">amount</label>
+          <label htmlFor="amount">amount*</label>
           <input
             onChange={handleChange}
             value={form.amount}

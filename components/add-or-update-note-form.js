@@ -1,17 +1,12 @@
 import styles from "./addForm.module.scss";
 import { useState } from "react";
+import toast from "react-hot-toast";
+import { AlertTriangle } from "react-feather";
 import AddButton from "./add-button";
 import _ from "lodash";
 
 const AddOrUpdateNoteForm = (props) => {
-  const {
-    title,
-    closeModal,
-    handleFormSubmit,
-    data,
-    isShown,
-    addButtonText,
-  } = props;
+  const { title, handleFormSubmit, data, isShown, addButtonText } = props;
 
   const [form, setForm] = useState(data);
   const [isShown2, setIsShown2] = useState(!isShown);
@@ -28,14 +23,18 @@ const AddOrUpdateNoteForm = (props) => {
 
   const submitForm = () => {
     if (form.noteContent == "") {
-      alert("content field must not be left empty");
-      closeModal;
+      toast.error("content is a required field", {
+        id: "blankNoteContent",
+        icon: <AlertTriangle color="red" />,
+      });
     } else if (
       form.noteContent === data.noteContent &&
       form.noteTitle === data.noteTitle
     ) {
-      alert("make changes to update, or cancel your update");
-      closeModal;
+      toast.error("make changes to update, or cancel your update", {
+        id: "blankNoteContent",
+        icon: <AlertTriangle color="red" />,
+      });
     } else {
       setIsButtonDisabled(true);
       setIsShown2(true);
@@ -63,7 +62,7 @@ const AddOrUpdateNoteForm = (props) => {
           ></input>
         </div>
         <div className={styles.formGroup}>
-          <label htmlFor="noteContent">content (required)</label>
+          <label htmlFor="noteContent">content*</label>
           <textarea
             onChange={handleChange}
             value={form.noteContent}

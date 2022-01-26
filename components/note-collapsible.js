@@ -1,5 +1,6 @@
 import AddButton from "./add-button";
 import React, { useState, useEffect, useContext } from "react";
+import toast from "react-hot-toast";
 import { UserContext } from "../lib/UserContext";
 import styles from "./noteCollapsible.module.scss";
 import NoteModal from "./note-modal";

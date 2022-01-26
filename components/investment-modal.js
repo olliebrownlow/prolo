@@ -35,7 +35,6 @@ const InvestmentModal = (props) => {
         </motion.button>
         <AddInvestmentItemForm
           handleFormSubmit={handleFormSubmit}
-          closeModal={closeModal}
           isShown={isShown}
         />
         <hr className={styles.solidDivider} />

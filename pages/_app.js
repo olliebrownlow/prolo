@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { UserContext } from "../lib/UserContext";
+import { Toaster } from "react-hot-toast";
 import CurrencySettingsContext from "../context/currencySettings";
 import Router from "next/router";
 import Head from "next/head";
@@ -116,6 +117,7 @@ function Prolo({ Component, pageProps }) {
               roundTo2DP={roundTo2DP}
             />
           </div>
+          <Toaster />
           <div className="Footer">
             <NavBar navButtons={navButtons} />
           </div>

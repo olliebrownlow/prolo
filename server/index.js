@@ -146,7 +146,9 @@ app.prepare().then(() => {
         return res.status(422).send(err);
       }
 
-      return res.json("Funding history item has been successfully added :)");
+      return res.json(
+        `${item.amount} ${item.currencyCode} ${item.type} successfully added :)`
+      );
     });
   });
 
@@ -219,7 +221,7 @@ app.prepare().then(() => {
         return res.status(422).send(err);
       }
 
-      return res.json("Coin has been successfully added :)");
+      return res.json(`${coin.amount} ${coin.name} successfully added :)`);
     });
   });
 
@@ -285,7 +287,9 @@ app.prepare().then(() => {
         return res.status(422).send(err);
       }
 
-      return res.json("Fiat has been successfully added :)");
+      return res.json(
+        `${fiat.amount} ${fiat.code} has been successfully added :)`
+      );
     });
   });
 
