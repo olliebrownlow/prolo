@@ -91,15 +91,31 @@ export const addInvestmentItem = (item) => {
 };
 
 export const updateInvestmentItem = (id, correctedItem) => {
-  return axios
+  const res = axios
     .patch(`${BASE_URL}/api/v1/fundingHistory/${id}`, correctedItem)
-    .then((res) => console.log(res.data));
+    .then((res) => res.data);
+
+  toast.promise(res, {
+    loading: "loading",
+    success: (data) => data,
+    error: (err) => err.toString(),
+  });
+
+  return res;
 };
 
 export const deleteInvestmentItem = (id) => {
-  return axios
+  const res = axios
     .delete(`${BASE_URL}/api/v1/fundingHistory/${id}`)
     .then((res) => res.data);
+
+  toast.promise(res, {
+    loading: "loading",
+    success: (data) => data,
+    error: (err) => err.toString(),
+  });
+
+  return res;
 };
 
 export const getCoins = () => {
@@ -121,15 +137,31 @@ export const addCoin = (coin) => {
 };
 
 export const updateCoin = (code, amount) => {
-  return axios
+  const res = axios
     .patch(`${BASE_URL}/api/v1/coins/${code}`, amount)
-    .then((res) => console.log(res.data));
+    .then((res) => res.data);
+
+  toast.promise(res, {
+    loading: "loading",
+    success: (data) => data,
+    error: (err) => err.toString(),
+  });
+
+  return res;
 };
 
 export const deleteCoin = (code) => {
-  return axios
+  const res = axios
     .delete(`${BASE_URL}/api/v1/coins/${code}`)
     .then((res) => res.data);
+
+  toast.promise(res, {
+    loading: "loading",
+    success: (data) => data,
+    error: (err) => err.toString(),
+  });
+
+  return res;
 };
 
 export const getFiat = () => {
@@ -151,15 +183,31 @@ export const addFiat = (fiat) => {
 };
 
 export const updateFiat = (code, amount) => {
-  return axios
+  const res = axios
     .patch(`${BASE_URL}/api/v1/fiat/${code}`, amount)
-    .then((res) => console.log(res.data));
+    .then((res) => res.data);
+
+  toast.promise(res, {
+    loading: "loading",
+    success: (data) => data,
+    error: (err) => err.toString(),
+  });
+
+  return res;
 };
 
 export const deleteFiat = (code) => {
-  return axios
+  const res = axios
     .delete(`${BASE_URL}/api/v1/fiat/${code}`)
     .then((res) => res.data);
+
+  toast.promise(res, {
+    loading: "loading",
+    success: (data) => data,
+    error: (err) => err.toString(),
+  });
+
+  return res;
 };
 
 export const getNotes = (filter) => {
@@ -183,19 +231,45 @@ export const addNote = (note) => {
 };
 
 export const updateNote = (id, note) => {
-  return axios
+  const res = axios
     .patch(`${BASE_URL}/api/v1/notes/${id}`, note)
     .then((res) => res.data);
+
+  toast.promise(res, {
+    loading: "loading",
+    success: (data) => data,
+    error: (err) => err.toString(),
+  });
+
+  return res;
 };
 
 export const deleteNote = (id) => {
-  return axios.delete(`${BASE_URL}/api/v1/notes/${id}`).then((res) => res.data);
+  const res = axios
+    .delete(`${BASE_URL}/api/v1/notes/${id}`)
+    .then((res) => res.data);
+
+  toast.promise(res, {
+    loading: "loading",
+    success: (data) => data,
+    error: (err) => err.toString(),
+  });
+
+  return res;
 };
 
 export const deleteAssociatedNotes = (noteListArray) => {
-  return axios
+  const res = axios
     .delete(`${BASE_URL}/api/v1/allNotes`, {
       data: { noteListArray: noteListArray },
     })
     .then((res) => res.data);
+
+  toast.promise(res, {
+    loading: "loading",
+    success: (data) => data,
+    error: (err) => err.toString(),
+  });
+
+  return res;
 };

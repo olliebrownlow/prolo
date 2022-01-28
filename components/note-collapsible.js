@@ -195,10 +195,9 @@ const NoteCollapsible = (props) => {
                 <React.Fragment />
               )}
               {noteList.map((note, index) => (
-                <>
+                <div className={styles.contentContainer} key={index}>
                   <motion.div
                     className={styles.content}
-                    key={index}
                     whileInView={{ opacity: 1 }}
                     initial={{ opacity: 0 }}
                   >
@@ -235,7 +234,7 @@ const NoteCollapsible = (props) => {
                       </motion.div>
                     </div>
                   </motion.div>
-                </>
+                </div>
               ))}
               <br />
               {noteList.length > 2 ? (

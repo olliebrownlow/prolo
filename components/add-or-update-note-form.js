@@ -31,7 +31,7 @@ const AddOrUpdateNoteForm = (props) => {
       form.noteContent === data.noteContent &&
       form.noteTitle === data.noteTitle
     ) {
-      toast.error("make changes to update, or cancel your update", {
+      toast.error("make changes to trigger an update", {
         id: "blankNoteContent",
         icon: <AlertTriangle color="red" />,
       });

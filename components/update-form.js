@@ -1,18 +1,12 @@
 import styles from "./addForm.module.scss";
 import { useState } from "react";
+import toast from "react-hot-toast";
+import { AlertTriangle } from "react-feather";
 import AddButton from "./add-button";
 
 const UpdateForm = (props) => {
-  const {
-    code,
-    name,
-    closeModal,
-    handleFormSubmit,
-    amount,
-    label,
-    isShown,
-  } = props;
-  const [form, setForm] = useState(amount);
+  const { code, name, handleFormSubmit, amount, label, isShown } = props;
+  const [form, setForm] = useState("");
   const [select, setSelect] = useState(`${name} [${code}]`);
   const [isShown2, setIsShown2] = useState(!isShown);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -26,12 +20,21 @@ const UpdateForm = (props) => {
   };
 
   const submitForm = () => {
-    if (form === amount) {
-      alert("new amount must differ from current amount");
-      closeModal;
+    if (form === "") {
+      toast.error("please add an amount to trigger an update", {
+        id: "zeroAmountAdded",
+        icon: <AlertTriangle color="red" />,
+      });
     } else if (form === "0") {
-      alert("did you want to delete this currency?");
-      closeModal;
+      toast.error("did you want to delete this currency?", {
+        id: "noNewAmount",
+        icon: <AlertTriangle color="red" />,
+      });
+    } else if (form === amount) {
+      toast.error("new amount must differ from current amount", {
+        id: "noNewAmount",
+        icon: <AlertTriangle color="red" />,
+      });
     } else {
       setIsButtonDisabled(true);
       setIsShown2(true);

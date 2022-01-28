@@ -300,7 +300,7 @@ const Coin = (props) => {
       <NoteCollapsible
         data={getCoinProp("id")}
         notes={noteList}
-        notepadSettingType={"showCoinFiatNotepad"}
+        notepadSettingType={"showCoinNotepad"}
       />
       <motion.div
         className={styles.marketHeading}

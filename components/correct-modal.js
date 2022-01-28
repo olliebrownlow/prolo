@@ -48,7 +48,6 @@ const CorrectModal = (props) => {
           </svg>
         </motion.button>
         <CorrectForm
-          closeModal={closeModal}
           handleFormSubmit={handleFormSubmit}
           id={id}
           currencyName={currencyName}

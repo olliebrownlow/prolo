@@ -57,12 +57,7 @@
   {
     "code": "CRO",
     "name": "crypto.com chain",
-    "amount": "6279.05"
-  },
-  {
-    "code": "VET",
-    "name": "vechain thor",
-    "amount": "00.00000001"
+    "amount": "6281.8"
   },
   {
     "code": "HARMONY",
@@ -113,5 +108,15 @@
     "code": "SHIB",
     "name": "shiba inu",
     "amount": "1"
+  },
+  {
+    "code": "BTC",
+    "name": "bitcoin",
+    "amount": "0.0000000001"
+  },
+  {
+    "code": "VET",
+    "name": "vechain thor",
+    "amount": "0.00000001"
   }
 ]

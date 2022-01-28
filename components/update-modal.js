@@ -46,7 +46,6 @@ const UpdateModal = (props) => {
           handleFormSubmit={handleFormSubmit}
           name={name}
           code={code}
-          closeModal={closeModal}
           amount={amount}
           label={label}
           isShown={isShown}

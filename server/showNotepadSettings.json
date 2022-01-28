@@ -1,8 +1,7 @@
 [
   {
     "showFiatNotepad": true,
-    "showCoinNotepad": false,
-    "showFundingItemNotepad": false,
-    "showCoinFiatNotepad": true
+    "showCoinNotepad": true,
+    "showFundingItemNotepad": false
   }
 ]
