@@ -6,7 +6,7 @@ import Router from "next/router";
 
 const Modal = (props) => {
   const [isShown, setIsShown] = useState(false);
-  const { buttonText, labelName, data } = props;
+  const { buttonText, labelName, data, dataOptionsExhausted } = props;
 
   const showModal = () => {
     setIsShown(true);
@@ -25,7 +25,7 @@ const Modal = (props) => {
 
   const refreshCoinData = () => {
     Router.replace("/pocket");
-    setTimeout(closeModal, 1000)
+    setTimeout(closeModal, 1000);
   };
 
   const refreshFiatData = () => {
@@ -61,6 +61,7 @@ const Modal = (props) => {
           labelName={labelName}
           data={data}
           isShown={isShown}
+          dataOptionsExhausted={dataOptionsExhausted}
         />
       ) : (
         <React.Fragment />

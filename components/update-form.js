@@ -1,7 +1,6 @@
 import styles from "./addForm.module.scss";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { AlertTriangle } from "react-feather";
 import AddButton from "./add-button";
 
 const UpdateForm = (props) => {
@@ -23,17 +22,14 @@ const UpdateForm = (props) => {
     if (form === "") {
       toast.error("please add an amount to trigger an update", {
         id: "zeroAmountAdded",
-        icon: <AlertTriangle color="red" />,
       });
     } else if (form === "0") {
       toast.error("did you want to delete this currency?", {
         id: "noNewAmount",
-        icon: <AlertTriangle color="red" />,
       });
     } else if (form === amount) {
       toast.error("new amount must differ from current amount", {
         id: "noNewAmount",
-        icon: <AlertTriangle color="red" />,
       });
     } else {
       setIsButtonDisabled(true);

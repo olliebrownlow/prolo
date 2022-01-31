@@ -1,7 +1,6 @@
 import styles from "./addForm.module.scss";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { AlertTriangle } from "react-feather";
 import AddButton from "./add-button";
 
 const CorrectForm = (props) => {
@@ -80,7 +79,6 @@ const CorrectForm = (props) => {
     if (form.amount == 0) {
       toast.error("did you want to delete this item?", {
         id: "zeroCorrection",
-        icon: <AlertTriangle color="red" />,
       });
     } else if (
       form.amount === defaultData.amount &&
@@ -89,7 +87,6 @@ const CorrectForm = (props) => {
     ) {
       toast.error("at least one field must be non-empty to trigger an update", {
         id: "blankCorrection",
-        icon: <AlertTriangle color="red" />,
       });
     } else {
       setIsButtonDisabled(true);

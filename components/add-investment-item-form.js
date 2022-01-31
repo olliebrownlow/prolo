@@ -1,7 +1,6 @@
 import styles from "./addForm.module.scss";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { AlertTriangle } from "react-feather";
 import AddButton from "./add-button";
 import _ from "lodash";
 
@@ -74,7 +73,6 @@ const AddInvestmentItemForm = (props) => {
     ) {
       toast.error("make sure all fields have a value", {
         id: "blankItemField",
-        icon: <AlertTriangle color="red" />,
       });
     } else {
       setIsButtonDisabled(true);

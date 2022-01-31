@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import Router from "next/router";
 import CurrencySettingsContext from "../context/currencySettings";
 import Link from "next/link";

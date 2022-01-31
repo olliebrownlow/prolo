@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { UserContext } from "../lib/UserContext";
 import { Toaster } from "react-hot-toast";
+import { AlertTriangle } from "react-feather";
 import CurrencySettingsContext from "../context/currencySettings";
 import Router from "next/router";
 import Head from "next/head";
@@ -117,7 +118,17 @@ function Prolo({ Component, pageProps }) {
               roundTo2DP={roundTo2DP}
             />
           </div>
-          <Toaster />
+          <Toaster
+            toastOptions={{
+              style: {
+                textAlign: "center",
+                fontSize: "20px",
+              },
+              error: {
+                icon: <AlertTriangle color="red" size="30px" />,
+              },
+            }}
+          />
           <div className="Footer">
             <NavBar navButtons={navButtons} />
           </div>

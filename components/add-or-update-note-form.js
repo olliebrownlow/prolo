@@ -1,7 +1,6 @@
 import styles from "./addForm.module.scss";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { AlertTriangle } from "react-feather";
 import AddButton from "./add-button";
 import _ from "lodash";
 
@@ -25,7 +24,6 @@ const AddOrUpdateNoteForm = (props) => {
     if (form.noteContent == "") {
       toast.error("content is a required field", {
         id: "blankNoteContent",
-        icon: <AlertTriangle color="red" />,
       });
     } else if (
       form.noteContent === data.noteContent &&
@@ -33,7 +31,6 @@ const AddOrUpdateNoteForm = (props) => {
     ) {
       toast.error("make changes to trigger an update", {
         id: "blankNoteContent",
-        icon: <AlertTriangle color="red" />,
       });
     } else {
       setIsButtonDisabled(true);

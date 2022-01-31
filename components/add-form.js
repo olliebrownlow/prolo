@@ -1,7 +1,6 @@
 import styles from "./addForm.module.scss";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { AlertTriangle } from "react-feather";
 import AddButton from "./add-button";
 import coinSelectOptions from "../config/coinSelectOptions";
 import fiatSelectOptions from "../config/fiatSelectOptions";
@@ -80,13 +79,11 @@ const AddForm = (props) => {
       if (form.amount == 0) {
         toast.error("please add a positive amount", {
           id: "blankAmount",
-          icon: <AlertTriangle color="red" />,
         });
       }
       if (form.name == "") {
         toast.error("please select a currency", {
           id: "blankCurrency",
-          icon: <AlertTriangle color="red" />,
         });
       }
     } else {
