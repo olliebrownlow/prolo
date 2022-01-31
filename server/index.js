@@ -47,7 +47,7 @@ app.prepare().then(() => {
         return res.status(422).send(err);
       }
 
-      return res.json(`App currency successfully updated to ${currency} :)`);
+      return res.json(`App currency successfully updated to ${currency}`);
     });
   });
 
@@ -68,7 +68,7 @@ app.prepare().then(() => {
         return res.status(422).send(err);
       }
 
-      return res.json(`Theme mode successfully updated to ${theme} :)`);
+      return res.json(`Theme mode successfully updated to ${theme}`);
     });
   });
 
@@ -93,7 +93,7 @@ app.prepare().then(() => {
         return res.status(422).send(err);
       }
 
-      return res.json("Market info settng(s) successfully updated :)");
+      return res.json("Market info settng(s) successfully updated");
     });
   });
 
@@ -117,25 +117,25 @@ app.prepare().then(() => {
 
       if (value) {
         if (key === "showFiatNotepad") {
-          return res.json("Fiat notepad set to visible :)");
+          return res.json("Fiat notepad set to visible");
         }
         if (key === "showCoinNotepad") {
-          return res.json("Coin notepad set to visible :)");
+          return res.json("Coin notepad set to visible");
         }
 
         if (key === "showFundingItemNotepad") {
-          return res.json("Funding item notepad set to visible :)");
+          return res.json("Funding item notepad set to visible");
         }
       } else {
         if (key === "showFiatNotepad") {
-          return res.json("Fiat notepad set to hidden :)");
+          return res.json("Fiat notepad set to hidden");
         }
         if (key === "showCoinNotepad") {
-          return res.json("Coin notepad set to hidden :)");
+          return res.json("Coin notepad set to hidden");
         }
 
         if (key === "showFundingItemNotepad") {
-          return res.json("Funding item notepad set to hidden :)");
+          return res.json("Funding item notepad set to hidden");
         }
       }
     });
@@ -156,7 +156,7 @@ app.prepare().then(() => {
       )
     ) {
       return res.json(
-        "Cannot add funding item. It has either been added already or you should add it to the existing item of the same date, type and currency :)"
+        "Cannot add funding item. It has either been added already or you should add it to the existing item of the same date, type and currency"
       );
     }
     fundingData.push(item);
@@ -169,7 +169,7 @@ app.prepare().then(() => {
       }
 
       return res.json(
-        `${item.amount} ${item.currencyCode} ${item.type} successfully added :)`
+        `${item.amount} ${item.currencyCode} ${item.type} successfully added`
       );
     });
   });
@@ -186,7 +186,7 @@ app.prepare().then(() => {
       fundingData[itemIndex].date === correctedItem.date
     ) {
       return res.json(
-        "Cannot update funding item. It has been updated already :)"
+        "Cannot update funding item. It has been updated already"
       );
     }
     fundingData[itemIndex] = correctedItem;
@@ -210,7 +210,7 @@ app.prepare().then(() => {
     const itemIndex = fundingData.findIndex((item) => item.id === id);
 
     if (itemIndex < 0) {
-      return res.json("Funding item already deleted :)");
+      return res.json("Funding item already deleted");
     }
 
     const amount = fundingData[itemIndex].amount;
@@ -227,7 +227,7 @@ app.prepare().then(() => {
         return res.status(422).send(err);
       }
 
-      return res.json(`${amount} ${code} ${type} deleted :)`);
+      return res.json(`${amount} ${code} ${type} deleted`);
     });
   });
 
@@ -238,7 +238,7 @@ app.prepare().then(() => {
   server.post("/api/v1/coins", (req, res) => {
     const coin = req.body;
     if (coinData.find((savedCoin) => savedCoin.code === coin.code)) {
-      return res.json("Cannot add coin: already added :)");
+      return res.json("Cannot add coin: already added");
     }
     coinData.push(coin);
     const pathToFile = path.join(__dirname, coinFilePath);
@@ -249,7 +249,7 @@ app.prepare().then(() => {
         return res.status(422).send(err);
       }
 
-      return res.json(`${coin.amount} ${coin.name} successfully added :)`);
+      return res.json(`${coin.amount} ${coin.name} successfully added`);
     });
   });
 
@@ -259,7 +259,7 @@ app.prepare().then(() => {
     const coinIndex = coinData.findIndex((coin) => coin.code === id);
 
     if (coinData[coinIndex].amount === updatedAmount.amount) {
-      return res.json("Cannot update coin: aleady updated :)");
+      return res.json("Cannot update coin: aleady updated");
     }
     coinData[coinIndex].amount = updatedAmount.amount;
 
@@ -272,7 +272,7 @@ app.prepare().then(() => {
       }
 
       return res.json(
-        `${coinData[coinIndex].name} amount updated to ${updatedAmount.amount} :)`
+        `${coinData[coinIndex].name} amount updated to ${updatedAmount.amount}`
       );
     });
   });
@@ -282,7 +282,7 @@ app.prepare().then(() => {
     const coinIndex = coinData.findIndex((coin) => coin.code === id);
 
     if (coinIndex < 0) {
-      return res.json("Coin already deleted :)");
+      return res.json("Coin already deleted");
     }
 
     const coinName = coinData[coinIndex].name;
@@ -297,7 +297,7 @@ app.prepare().then(() => {
         return res.status(422).send(err);
       }
 
-      return res.json(`${coinName} holdings successfully deleted :)`);
+      return res.json(`${coinName} holdings successfully deleted`);
     });
   });
 
@@ -308,7 +308,7 @@ app.prepare().then(() => {
   server.post("/api/v1/fiat", (req, res) => {
     const fiat = req.body;
     if (fiatData.find((savedFiat) => savedFiat.code === fiat.code)) {
-      return res.json("Cannot add fiat currency: already added :)");
+      return res.json("Cannot add fiat currency: already added");
     }
     fiatData.push(fiat);
     const pathToFile = path.join(__dirname, fiatFilePath);
@@ -319,7 +319,7 @@ app.prepare().then(() => {
         return res.status(422).send(err);
       }
 
-      return res.json(`${fiat.amount} ${fiat.code} successfully added :)`);
+      return res.json(`${fiat.amount} ${fiat.code} successfully added`);
     });
   });
 
@@ -329,7 +329,7 @@ app.prepare().then(() => {
     const fiatIndex = fiatData.findIndex((fiat) => fiat.code === id);
 
     if (fiatData[fiatIndex].amount === updatedAmount.amount) {
-      return res.json("Cannot update fiat currency: already updated :)");
+      return res.json("Cannot update fiat currency: already updated");
     }
     fiatData[fiatIndex].amount = updatedAmount.amount;
 
@@ -342,7 +342,7 @@ app.prepare().then(() => {
       }
 
       return res.json(
-        `${fiatData[fiatIndex].code} amount updated to ${updatedAmount.amount} :)`
+        `${fiatData[fiatIndex].code} amount updated to ${updatedAmount.amount}`
       );
     });
   });
@@ -352,7 +352,7 @@ app.prepare().then(() => {
     const fiatIndex = fiatData.findIndex((fiat) => fiat.code === id);
 
     if (fiatIndex < 0) {
-      return res.json(`cannot remove ${id} holdings: already deleted :)`);
+      return res.json(`cannot remove ${id} holdings: already deleted`);
     }
 
     fiatData.splice(fiatIndex, 1);
@@ -365,7 +365,7 @@ app.prepare().then(() => {
         return res.status(422).send(err);
       }
 
-      return res.json(`${id} holding successfully deleted :)`);
+      return res.json(`${id} holding successfully deleted`);
     });
   });
 
@@ -391,7 +391,7 @@ app.prepare().then(() => {
         return res.status(422).send(err);
       }
 
-      return res.json("Note has been successfully added :)");
+      return res.json("Note has been successfully added");
     });
   });
 
@@ -406,7 +406,7 @@ app.prepare().then(() => {
       currentNote.noteContent === updatedNote.noteContent
     ) {
       return res.send(404, {
-        error: "Cannot update note: already updated :)",
+        error: "Cannot update note: already updated",
       });
     }
 
@@ -420,7 +420,7 @@ app.prepare().then(() => {
         return res.status(422).send(err);
       }
 
-      return res.json("Note successfully updated :)");
+      return res.json("Note successfully updated");
     });
   });
 
@@ -429,7 +429,7 @@ app.prepare().then(() => {
     const noteIndex = noteData.findIndex((note) => note.id === id);
 
     if (noteIndex < 0) {
-      return res.json("Note already deleted :)");
+      return res.json("Note already deleted");
     }
 
     noteData.splice(noteIndex, 1);
@@ -442,7 +442,7 @@ app.prepare().then(() => {
         return res.status(422).send(err);
       }
 
-      return res.json("Note successfully deleted :)");
+      return res.json("Note successfully deleted");
     });
   });
 
@@ -455,7 +455,7 @@ app.prepare().then(() => {
     });
 
     if (noteIdArray.length === 0) {
-      return res.json("No notes to delete :)");
+      return res.json("No notes to delete");
     }
 
     _.remove(noteData, function (note) {
@@ -470,7 +470,7 @@ app.prepare().then(() => {
         return res.status(422).send(err);
       }
 
-      return res.json(`${noteIdArray.length} associated notes deleted :)`);
+      return res.json(`${noteIdArray.length} associated notes deleted`);
     });
   });
 
