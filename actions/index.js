@@ -95,11 +95,19 @@ export const updateInvestmentItem = (id, correctedItem) => {
     .patch(`${BASE_URL}/api/v1/fundingHistory/${id}`, correctedItem)
     .then((res) => res.data);
 
-  toast.promise(res, {
-    loading: "loading",
-    success: (data) => data,
-    error: (err) => err.toString(),
-  });
+  toast.promise(
+    res,
+    {
+      loading: "loading",
+      success: (data) => data,
+      error: (err) => err.toString(),
+    },
+    {
+      success: {
+        duration: 6000,
+      },
+    }
+  );
 
   return res;
 };

@@ -3,6 +3,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "../lib/UserContext";
 import styles from "./noteCollapsible.module.scss";
 import NoteModal from "./note-modal";
+import ConfirmDelete from "./confirm-delete";
 import {
   addNote,
   updateNote,
@@ -28,7 +29,9 @@ const NoteCollapsible = (props) => {
   const [isShownForUpdating, setIsShownForUpdating] = useState(false);
   const [noteList, setNoteList] = useState([]);
   const [note, setNote] = useState({});
+  const [noteIdForDeletion, setNoteIdForDeletion] = useState("");
   const [showNotepad, setShowNotepad] = useState(false);
+  const [confirmDeletion, setConfirmDeletion] = useState(false);
   const { data, notes, notepadSettingType } = props;
 
   useEffect(async () => {
@@ -59,9 +62,15 @@ const NoteCollapsible = (props) => {
     setNote(note);
   };
 
+  const showConfirmDelete = (id) => {
+    setConfirmDeletion(true);
+    setNoteIdForDeletion(id);
+  };
+
   const closeModal = () => {
     setIsShown(false);
     setIsShownForUpdating(false);
+    setConfirmDeletion(false);
   };
 
   // close modal from window surrounding the modal itself
@@ -69,6 +78,7 @@ const NoteCollapsible = (props) => {
     if (event.target === event.currentTarget) {
       setIsShown(false);
       setIsShownForUpdating(false);
+      setConfirmDeletion(false);
     }
   };
 
@@ -228,7 +238,7 @@ const NoteCollapsible = (props) => {
                         <Trash2
                           size={24}
                           className={styles.trash}
-                          onClick={() => handleDeleteNote(note.id)}
+                          onClick={() => showConfirmDelete(note.id)}
                         />
                       </motion.div>
                     </div>
@@ -243,6 +253,18 @@ const NoteCollapsible = (props) => {
                   showLogo={true}
                   isShown={isShown}
                   centralisedStyling={true}
+                />
+              ) : (
+                <React.Fragment />
+              )}
+              {confirmDeletion ? (
+                <ConfirmDelete
+                  closeModal={closeModal}
+                  windowOnClick={windowOnClick}
+                  handleDelete={handleDeleteNote}
+                  data={noteIdForDeletion}
+                  isShown={confirmDeletion}
+                  titleText={"note"}
                 />
               ) : (
                 <React.Fragment />

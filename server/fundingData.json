@@ -50,18 +50,5 @@
     "britishSterling": 3000.21,
     "americanDollars": 4018.0401231216,
     "sortingNumber": 20211122
-  },
-  {
-    "id": "njxqj8m",
-    "currencyName": "british sterling",
-    "currencyCode": "gbp",
-    "currencySign": "£",
-    "amount": "2",
-    "type": "withdrawal",
-    "date": "14-01-22",
-    "sortingNumber": 20220114,
-    "euros": 2.39665478,
-    "britishSterling": 2,
-    "americanDollars": 2.73590004
   }
 ]

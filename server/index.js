@@ -200,7 +200,7 @@ app.prepare().then(() => {
       }
 
       return res.json(
-        `Funding item updated: amount = ${correctedItem.amount}, type = ${correctedItem.type}, date = ${correctedItem.date}`
+        `Funding item updated:\namount = ${correctedItem.amount}\ntype = ${correctedItem.type}\ndate = ${correctedItem.date}`
       );
     });
   });
@@ -391,7 +391,7 @@ app.prepare().then(() => {
         return res.status(422).send(err);
       }
 
-      return res.json("Note has been successfully added");
+      return res.json("Note successfully added");
     });
   });
 
