@@ -120,6 +120,17 @@ const NoteCollapsible = (props) => {
     console.log(res);
   };
 
+  // when user has no notes, an
+  // empty array must be returned for
+  // reliable mapping.
+  const emptyOrOrderedArray = () => {
+    if (noteList.length) {
+      return noteList.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
+    } else {
+      return [];
+    }
+  };
+
   const formatDate = (date) => {
     const options = {
       year: "numeric",
@@ -203,7 +214,7 @@ const NoteCollapsible = (props) => {
               ) : (
                 <React.Fragment />
               )}
-              {noteList.map((note, index) => (
+              {emptyOrOrderedArray().map((note, index) => (
                 <div className={styles.contentContainer} key={index}>
                   <motion.div
                     className={styles.content}
