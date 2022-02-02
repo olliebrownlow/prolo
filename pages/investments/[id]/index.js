@@ -57,7 +57,6 @@ const Investment = (props) => {
   const handleUpdate = async (correctedItem) => {
     refreshInvestmentData();
 
-    
     if (correctedItem.date.length === 10) {
       correctedItem.sortingNumber = Number(
         _.words(correctedItem.date).join("")
@@ -187,6 +186,7 @@ const Investment = (props) => {
         deleted={deleted}
         cancel={cancel}
         buttonText={"correct"}
+        deletionText={`${type} item`}
       />
     </div>
   );

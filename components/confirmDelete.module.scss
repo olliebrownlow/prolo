@@ -19,6 +19,7 @@
   left: 50%;
   top: 50%;
   width: 95%;
+  max-width: 450px;
   padding: 1em;
   transform: translate(-50%, -50%);
   background-color: white;
@@ -27,6 +28,11 @@
 }
 .text {
   margin: 8px 0 16px 0;
+}
+.subText {
+  font-size: 16px;
+  color: dimgrey;
+  margin-top: 6px;
 }
 .buttons {
   display: flex;
@@ -40,6 +46,7 @@
   border: 1px solid red;
   padding: 5px 20px;
   margin: 0px 8px;
+  width: 120px;
 }
 .deleteButton {
   background-color: red;
@@ -49,4 +56,5 @@
   border: 1px solid lightgrey;
   padding: 5px 20px;
   margin: 0px 8px;
+  width: 120px;
 }

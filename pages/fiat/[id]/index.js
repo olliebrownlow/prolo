@@ -165,6 +165,8 @@ const Fiat = (props) => {
         deleted={deleted}
         cancel={cancel}
         buttonText={"update"}
+        deletionText={"currency"}
+        deletionSubText={" your notes will also be deleted"}
       />
     </div>
   );

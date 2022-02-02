@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { AlertTriangle } from "react-feather";
+import { HelpCircle, Info } from "react-feather";
 import styles from "./confirmDelete.module.scss";
 import { motion } from "framer-motion";
 
@@ -17,6 +17,7 @@ const ConfirmDelete = (props) => {
     isShown,
     data,
     titleText,
+    subText,
   } = props;
 
   const delayAndClose = () => {
@@ -33,7 +34,7 @@ const ConfirmDelete = (props) => {
       initial="hidden"
     >
       <div className={styles.modalArea}>
-        <AlertTriangle color={"red"} size={50} />
+        <HelpCircle color={"red"} size={50} stroke-width={1.5} />
         <div className={styles.text}>
           are you sure you want to delete this {titleText}?{" "}
         </div>
@@ -57,6 +58,12 @@ const ConfirmDelete = (props) => {
             confirm
           </motion.button>
         </div>
+        {subText && (
+          <div className={styles.subText}>
+            <Info size={14} />
+            {subText}
+          </div>
+        )}
       </div>
     </motion.aside>,
     document.body

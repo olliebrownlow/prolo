@@ -511,6 +511,8 @@ const Coin = (props) => {
         deleted={deleted}
         cancel={cancel}
         buttonText={"update"}
+        deletionText={"coin"}
+        deletionSubText={" your notes will not be deleted"}
       />
     </div>
   );

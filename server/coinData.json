@@ -57,7 +57,7 @@
   {
     "code": "CRO",
     "name": "crypto.com chain",
-    "amount": "6332.96"
+    "amount": "6339.94"
   },
   {
     "code": "HARMONY",
@@ -67,7 +67,7 @@
   {
     "code": "ATOM",
     "name": "cosmos",
-    "amount": "8.296342"
+    "amount": "8.301452"
   },
   {
     "code": "DOT",
@@ -87,12 +87,12 @@
   {
     "code": "KSM",
     "name": "kusama",
-    "amount": "1.26365765"
+    "amount": "1.26614850"
   },
   {
     "code": "KAVA",
     "name": "kava",
-    "amount": "537.332426"
+    "amount": "538.347310"
   },
   {
     "code": "ELF",
@@ -105,11 +105,6 @@
     "amount": "3.50"
   },
   {
-    "code": "SHIB",
-    "name": "shiba inu",
-    "amount": "1"
-  },
-  {
     "code": "BTC",
     "name": "bitcoin",
     "amount": "0.0000000001"
@@ -118,5 +113,10 @@
     "code": "VET",
     "name": "vechain thor",
     "amount": "0.00000001"
+  },
+  {
+    "code": "SHIB",
+    "name": "shiba inu",
+    "amount": "1"
   }
 ]
