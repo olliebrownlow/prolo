@@ -1,13 +1,5 @@
 [
   {
-    "id": "0xzs3l9",
-    "code": "EUR",
-    "noteTitle": "",
-    "noteContent": "On Kraken",
-    "dateTime": "2022-01-18T21:13:21.288Z",
-    "user": "olliebrownlow@gmail.com"
-  },
-  {
     "id": "rohl5p6",
     "code": "FTM",
     "noteTitle": "",
@@ -157,6 +149,14 @@
     "noteTitle": "May 9th 2021",
     "noteContent": "Kraken\n-9325 @ €0.5393/coin\n€5029.12",
     "dateTime": "2022-01-22T03:27:40.697Z",
+    "user": "olliebrownlow@gmail.com"
+  },
+  {
+    "id": "3h3vhsw",
+    "code": "EUR",
+    "noteTitle": "",
+    "noteContent": "On Kraken",
+    "dateTime": "2022-02-02T07:24:09.234Z",
     "user": "olliebrownlow@gmail.com"
   }
 ]

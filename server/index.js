@@ -449,7 +449,6 @@ app.prepare().then(() => {
   server.delete("/api/v1/allNotes", (req, res) => {
     const noteListArray = req.body.noteListArray;
 
-    console.log(noteListArray);
     const noteIdArray = noteListArray.map((note) => {
       return note.id;
     });

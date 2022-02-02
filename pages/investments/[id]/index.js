@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { UserContext } from "../../../lib/UserContext";
 import {
+  getNotes,
   deleteInvestmentItem,
   getHistoricalData,
   updateInvestmentItem,
+  deleteAssociatedNotes,
 } from "../../../actions";
 import Router from "next/router";
 import Image from "next/image";
@@ -11,11 +14,13 @@ import gbpFlag from "../../../public/gbpFlagSmall.png";
 import usdFlag from "../../../public/usdFlagSmall.jpg";
 import CorrectModal from "../../../components/correct-modal";
 import MrktInfoRow from "../../../components/mrkt-info-row";
+import NoteCollapsible from "../../../components/note-collapsible";
 import DetailPageButtons from "../../../components/detail-page-buttons";
 import styles from "../../../pageStyles/dynamicPage.module.scss";
 import _ from "lodash";
 
 const Investment = (props) => {
+  const [user] = useContext(UserContext);
   const {
     id,
     currencyName,
@@ -34,6 +39,16 @@ const Investment = (props) => {
   const [isShown, setIsShown] = useState(false);
   const [deleted, setDeleted] = useState(false);
   const [cancel, setCancel] = useState(false);
+  const [noteList, setNoteList] = useState([]);
+
+  useEffect(async () => {
+    const noteFilter = {
+      user: user.email,
+      code: id,
+    };
+    const notes = await getNotes(noteFilter);
+    setNoteList(notes);
+  }, [id, user]);
 
   const showModal = () => {
     setIsShown(true);
@@ -93,7 +108,9 @@ const Investment = (props) => {
     setDeleted(true);
     refreshInvestmentData();
     const res = deleteInvestmentItem(id);
+    const res2 = deleteAssociatedNotes(noteList);
     console.log(res);
+    console.log(res2);
   };
 
   const handleCancel = () => {
@@ -177,6 +194,11 @@ const Investment = (props) => {
       ) : (
         <React.Fragment />
       )}
+      <NoteCollapsible
+        data={id}
+        notes={noteList}
+        notepadSettingType={"showFundingItemNotepad"}
+      />
       <hr className={styles.solidDivider} />
       <DetailPageButtons
         showModal={showModal}

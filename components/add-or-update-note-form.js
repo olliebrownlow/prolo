@@ -6,7 +6,6 @@ import _ from "lodash";
 
 const AddOrUpdateNoteForm = (props) => {
   const { title, handleFormSubmit, data, isShown, addButtonText } = props;
-
   const [form, setForm] = useState(data);
   const [isShown2, setIsShown2] = useState(!isShown);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
