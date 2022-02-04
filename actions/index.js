@@ -130,6 +130,13 @@ export const getCoins = () => {
   return axios.get(`${BASE_URL}/api/v1/coins`).then((res) => res.data);
 };
 
+// axios does not allow get calls to pass through an argument hence the use of post
+export const getCoin = (coinCode) => {
+  return axios
+    .post(`${BASE_URL}/api/v1/coin`, coinCode)
+    .then((res) => res.data);
+};
+
 export const addCoin = (coin) => {
   const res = axios
     .post(`${BASE_URL}/api/v1/coins`, coin)
@@ -218,6 +225,7 @@ export const deleteFiat = (code) => {
   return res;
 };
 
+// axios does not allow get calls to pass through an argument hence the use of post
 export const getNotes = (filter) => {
   return axios.post(`${BASE_URL}/api/v1/notes`, filter).then((res) => res.data);
 };

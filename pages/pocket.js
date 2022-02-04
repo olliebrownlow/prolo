@@ -50,6 +50,7 @@ const Pocket = (props) => {
               labelName={"coin"}
               data={coinData}
               dataOptionsExhausted={isCoinOptionsExhausted}
+              userEmail={user.email}
             />
             <CoinList
               roundTo2DP={roundTo2DP}
@@ -63,6 +64,7 @@ const Pocket = (props) => {
               labelName={"fiat"}
               data={fiatData}
               dataOptionsExhausted={isFiatOptionsExhausted}
+              userEmail={user.email}
             />
             <FiatList
               roundTo2DP={roundTo2DP}

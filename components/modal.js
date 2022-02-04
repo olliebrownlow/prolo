@@ -6,7 +6,13 @@ import Router from "next/router";
 
 const Modal = (props) => {
   const [isShown, setIsShown] = useState(false);
-  const { buttonText, labelName, data, dataOptionsExhausted } = props;
+  const {
+    buttonText,
+    labelName,
+    data,
+    dataOptionsExhausted,
+    userEmail,
+  } = props;
 
   const showModal = () => {
     setIsShown(true);
@@ -33,6 +39,7 @@ const Modal = (props) => {
   };
 
   const handleAddCoinOrFiat = async (currency) => {
+    currency.user = userEmail;
     let res = "";
     if (currency.sign) {
       res = await addFiat(currency);

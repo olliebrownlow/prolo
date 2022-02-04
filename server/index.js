@@ -235,6 +235,14 @@ app.prepare().then(() => {
     return res.json(coinData);
   });
 
+  // post method to fetch a specific coin
+  server.post("/api/v1/coin", (req, res) => {
+    const coinCode = req.body.code;
+    const coin = coinData.find((savedCoin) => savedCoin.code === coinCode);
+
+    return res.json(coin);
+  });
+
   server.post("/api/v1/coins", (req, res) => {
     const coin = req.body;
     if (coinData.find((savedCoin) => savedCoin.code === coin.code)) {
