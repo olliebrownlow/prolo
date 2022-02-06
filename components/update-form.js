@@ -23,7 +23,7 @@ const UpdateForm = (props) => {
       toast.error("please add an amount to trigger an update", {
         id: "zeroAmountAdded",
       });
-    } else if (form === "0") {
+    } else if (form == 0) {
       toast.error("did you want to delete this currency?", {
         id: "noNewAmount",
       });

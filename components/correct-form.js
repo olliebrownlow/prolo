@@ -39,6 +39,12 @@ const CorrectForm = (props) => {
     return array.join("/");
   };
 
+  const formatDateForComparison = () => {
+    const array = date.split("-");
+    array[2] = `20${array[2]}`;
+    return array.reverse().join("-");
+  };
+
   const handleChange = (event) => {
     const target = event.target;
     // set the amount and type
@@ -82,10 +88,11 @@ const CorrectForm = (props) => {
       });
     } else if (
       form.amount === defaultData.amount &&
-      form.date === defaultData.date &&
+      (form.date === formatDateForComparison() ||
+        form.date === defaultData.date) &&
       form.type === defaultData.type
     ) {
-      toast.error("at least one field must be non-empty to trigger an update", {
+      toast.error("change at least one field to trigger an update", {
         id: "blankCorrection",
       });
     } else {
@@ -114,7 +121,7 @@ const CorrectForm = (props) => {
           </select>
         </div>
         <div className={styles.formGroup}>
-          <label htmlFor="currentAmount">current settings</label>
+          <label htmlFor="currentAmount">current values</label>
           <input
             disabled
             value={amount}
