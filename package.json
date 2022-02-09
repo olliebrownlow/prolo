@@ -15,6 +15,7 @@
     "axios": "^0.25.0",
     "babel-eslint": "^10.1.0",
     "body-parser": "^1.19.1",
+    "cookies-next": "^2.0.4",
     "eslint-plugin-react": "^7.28.0",
     "express": "^4.17.2",
     "feather-icons": "^4.28.0",
