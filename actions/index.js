@@ -131,9 +131,9 @@ export const getCoins = () => {
 };
 
 // axios does not allow get calls to pass through an argument hence the use of post
-export const getCoin = (coinCode) => {
+export const getCoin = (coinCodeAndUser) => {
   return axios
-    .post(`${BASE_URL}/api/v1/coin`, coinCode)
+    .post(`${BASE_URL}/api/v1/coin`, coinCodeAndUser)
     .then((res) => res.data);
 };
 

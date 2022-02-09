@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { UserContext } from "../lib/UserContext";
+import { setCookies, removeCookies, checkCookies } from "cookies-next";
 import { Toaster } from "react-hot-toast";
 import { AlertTriangle } from "react-feather";
 import CurrencySettingsContext from "../context/currencySettings";
@@ -46,10 +47,16 @@ function Prolo({ Component, pageProps }) {
     setUser({ loading: true });
     magic.user.isLoggedIn().then((isLoggedIn) => {
       if (isLoggedIn) {
-        magic.user.getMetadata().then((userData) => setUser(userData));
+        magic.user.getMetadata().then((userData) => {
+          setUser(userData);
+          setCookies("ue", userData.email);
+        });
       } else {
         Router.push("/login");
         setUser({ user: null });
+        if (checkCookies("ue")) {
+          removeCookies("ue");
+        }
       }
     });
   }, []);

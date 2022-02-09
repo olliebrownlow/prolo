@@ -8,7 +8,7 @@
   {
     "code": "ADA",
     "name": "cardano",
-    "amount": "301.951664",
+    "amount": "302.212058",
     "user": "olliebrownlow@gmail.com"
   },
   {
@@ -20,7 +20,7 @@
   {
     "code": "SOL",
     "name": "solana",
-    "amount": "2.24091",
+    "amount": "2.2437",
     "user": "olliebrownlow@gmail.com"
   },
   {
@@ -62,13 +62,13 @@
   {
     "code": "LUNA",
     "name": "terra",
-    "amount": "0.000001",
+    "amount": "0.0000001",
     "user": "olliebrownlow@gmail.com"
   },
   {
     "code": "CRO",
     "name": "crypto.com chain",
-    "amount": "6379.68",
+    "amount": "6427.06",
     "user": "olliebrownlow@gmail.com"
   },
   {
@@ -80,13 +80,13 @@
   {
     "code": "ATOM",
     "name": "cosmos",
-    "amount": "8.301452",
+    "amount": "8.313387",
     "user": "olliebrownlow@gmail.com"
   },
   {
     "code": "DOT",
     "name": "polkadot",
-    "amount": "12.76274376",
+    "amount": "12.79210328",
     "user": "olliebrownlow@gmail.com"
   },
   {
@@ -104,19 +104,13 @@
   {
     "code": "KSM",
     "name": "kusama",
-    "amount": "1.26614850",
+    "amount": "1.27051967",
     "user": "olliebrownlow@gmail.com"
   },
   {
     "code": "KAVA",
     "name": "kava",
-    "amount": "538.347310",
-    "user": "olliebrownlow@gmail.com"
-  },
-  {
-    "code": "ELF",
-    "name": "aelf",
-    "amount": "0.00001",
+    "amount": "540.722511",
     "user": "olliebrownlow@gmail.com"
   },
   {
@@ -141,6 +135,12 @@
     "code": "SHIB",
     "name": "shiba inu",
     "amount": "1",
+    "user": "olliebrownlow@gmail.com"
+  },
+  {
+    "code": "ELF",
+    "name": "aelf",
+    "amount": "0.00000001",
     "user": "olliebrownlow@gmail.com"
   }
 ]

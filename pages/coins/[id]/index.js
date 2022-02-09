@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { UserContext } from "../../../lib/UserContext";
+import { getCookie } from "cookies-next";
 import CurrencySettingsContext from "../../../context/currencySettings";
 import {
   getNotes,
@@ -32,7 +32,6 @@ const variants = {
 };
 
 const Coin = (props) => {
-  const [user] = useContext(UserContext);
   const { appCurrencySign } = useContext(CurrencySettingsContext);
   const { coin, mrktInfoSettings, roundTo2DP } = props;
 
@@ -58,12 +57,12 @@ const Coin = (props) => {
 
   useEffect(async () => {
     const noteFilter = {
-      user: user.email,
-      code: coin[0].id,
+      user: getCookie("ue"),
+      code: coin[0]["id"],
     };
     const notes = await getNotes(noteFilter);
     setNoteList(notes);
-  }, [coin, user]);
+  }, [coin]);
 
   // alternative to using a switch statement
   const matched = (x) => ({
@@ -282,6 +281,7 @@ const Coin = (props) => {
             query: { id: coin[0]["id"] },
           }}
           scroll={false}
+          replace
         >
           <div className={styles.amount} onClick={() => setAnim(1)}>
             {appCurrencySign}
@@ -518,12 +518,14 @@ const Coin = (props) => {
   );
 };
 
-export async function getServerSideProps({ query }) {
+export async function getServerSideProps({ query, req, res }) {
   const code = query.id;
-  const coin = await getSingleCoinData(code);
+  const user = getCookie("ue", { req, res });
+  const coin = await getSingleCoinData(code, user);
   const mrktInfoSettings = await getMrktInfoSettings();
 
-  // console.log(coin);
+  // console.log(JSON.stringify(query));
+  // console.log(context.req);
   // console.log(mrktInfoSettings);
 
   return {
