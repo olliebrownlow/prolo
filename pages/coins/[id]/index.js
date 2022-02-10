@@ -186,7 +186,7 @@ const Coin = (props) => {
   const handleDeleteCoin = () => {
     setDeleted(true);
     refreshData();
-    const res = deleteCoin(getCoinProp("id"));
+    const res = deleteCoin(getCoinProp("id"), getCookie("ue"));
     console.log(res);
   };
 

@@ -253,7 +253,12 @@ app.prepare().then(() => {
 
   server.post("/api/v1/coins", (req, res) => {
     const coin = req.body;
-    if (coinData.find((savedCoin) => savedCoin.code === coin.code)) {
+    if (
+      coinData.find(
+        (savedCoin) =>
+          savedCoin.code === coin.code && savedCoin.user === coin.user
+      )
+    ) {
       return res.json("Cannot add coin: already added");
     }
     coinData.push(coin);
@@ -298,7 +303,10 @@ app.prepare().then(() => {
 
   server.delete("/api/v1/coins/:id", (req, res) => {
     const { id } = req.params;
-    const coinIndex = coinData.findIndex((coin) => coin.code === id);
+    const user = req.body.user;
+    const coinIndex = coinData.findIndex(
+      (coin) => coin.code === id && coin.user === user
+    );
 
     if (coinIndex < 0) {
       return res.json("Coin already deleted");

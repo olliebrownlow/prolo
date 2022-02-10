@@ -167,9 +167,11 @@ export const updateCoin = (code, userAndNewAmount) => {
   return res;
 };
 
-export const deleteCoin = (code) => {
+export const deleteCoin = (code, user) => {
   const res = axios
-    .delete(`${BASE_URL}/api/v1/coins/${code}`)
+    .delete(`${BASE_URL}/api/v1/coins/${code}`, {
+      data: { user: user },
+    })
     .then((res) => res.data);
 
   toast.promise(res, {

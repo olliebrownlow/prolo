@@ -116,14 +116,8 @@
   {
     "code": "ETH",
     "name": "ethereum",
-    "amount": "3.51",
+    "amount": "2.80",
     "user": "o.s.brownlow@gmail.com"
-  },
-  {
-    "code": "ETH",
-    "name": "ethereum",
-    "amount": "3.50",
-    "user": "olliebrownlow@gmail.com"
   },
   {
     "code": "BTC",
@@ -146,7 +140,13 @@
   {
     "code": "ELF",
     "name": "aelf",
-    "amount": "0.00000001",
+    "amount": "0.000001",
+    "user": "olliebrownlow@gmail.com"
+  },
+  {
+    "code": "ETH",
+    "name": "ethereum",
+    "amount": "3.50",
     "user": "olliebrownlow@gmail.com"
   }
 ]
