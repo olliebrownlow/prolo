@@ -29,13 +29,9 @@ const Modal = (props) => {
     }
   };
 
-  const refreshCoinData = () => {
-    Router.replace("/pocket");
+  const refreshData = () => {
+    Router.replace("/pocket", undefined, { scroll: false });
     setTimeout(closeModal, 1000);
-  };
-
-  const refreshFiatData = () => {
-    window.location = "/pocket";
   };
 
   const handleAddCoinOrFiat = async (currency) => {
@@ -43,11 +39,10 @@ const Modal = (props) => {
     let res = "";
     if (currency.sign) {
       res = await addFiat(currency);
-      refreshFiatData();
     } else {
       res = await addCoin(currency);
-      refreshCoinData();
     }
+    refreshData();
     console.log(res);
   };
 

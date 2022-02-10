@@ -20,13 +20,13 @@ const AddForm = (props) => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const filteredCoinSelectOptions = () => {
-    _.pullAllBy(coinSelectOptions, data, "name");
-    return coinSelectOptions;
+    const options = _.differenceBy(coinSelectOptions, data, "name");
+    return options;
   };
 
   const filteredFiatSelectOptions = () => {
-    _.pullAllBy(fiatSelectOptions, data, "id");
-    return fiatSelectOptions;
+    const options = _.differenceBy(fiatSelectOptions, data, "id");
+    return options;
   };
 
   const handleChange = (event) => {

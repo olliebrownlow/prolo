@@ -57,12 +57,8 @@ const Fiat = (props) => {
     }
   };
 
-  const refreshData = () => {
-    window.location = "/pocket";
-  };
-
   const refreshFiatData = () => {
-    Router.replace("/pocket");
+    Router.replace("/pocket", undefined, {scroll: false});
   };
 
   const handleFiatUpdate = (newAmount) => {
@@ -82,7 +78,7 @@ const Fiat = (props) => {
 
   const handleDeleteFiat = async () => {
     setDeleted(true);
-    refreshData();
+    refreshFiatData();
     const res = await deleteFiat(code);
     const res2 = await deleteAssociatedNotes(noteList);
     console.log(res);

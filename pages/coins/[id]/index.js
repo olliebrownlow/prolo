@@ -158,8 +158,7 @@ const Coin = (props) => {
   };
 
   const refreshData = () => {
-    // Router.replace("/pocket");
-    window.location = "/pocket";
+    Router.replace("/pocket", undefined, {scroll: false});
   };
 
   const refreshCoinData = () => {
