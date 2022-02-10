@@ -126,8 +126,10 @@ export const deleteInvestmentItem = (id) => {
   return res;
 };
 
-export const getCoins = () => {
-  return axios.get(`${BASE_URL}/api/v1/coins`).then((res) => res.data);
+export const getCoins = (user) => {
+  return axios
+    .post(`${BASE_URL}/api/v1/allCoins`, user)
+    .then((res) => res.data);
 };
 
 // axios does not allow get calls to pass through an argument hence the use of post

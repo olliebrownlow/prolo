@@ -231,11 +231,16 @@ app.prepare().then(() => {
     });
   });
 
-  server.get("/api/v1/coins", (req, res) => {
-    return res.json(coinData);
+  // post method to fetch all coins for a specific user
+  server.post("/api/v1/allCoins", (req, res) => {
+    const user = req.body.user;
+    const coins = _.filter(coinData, function (el) {
+      return el.user === user;
+    });
+    return res.json(coins);
   });
 
-  // post method to fetch a specific coin
+  // post method to fetch a specific coin for a specific user
   server.post("/api/v1/coin", (req, res) => {
     const coinCode = req.body.code;
     const user = req.body.user;

@@ -68,7 +68,7 @@
   {
     "code": "CRO",
     "name": "crypto.com chain",
-    "amount": "6427.06",
+    "amount": "6428.47",
     "user": "olliebrownlow@gmail.com"
   },
   {
@@ -118,6 +118,12 @@
     "name": "ethereum",
     "amount": "3.50",
     "user": "olliebrownlow@gmail.com"
+  },
+  {
+    "code": "ETH",
+    "name": "ethereum",
+    "amount": "3.40",
+    "user": "o.s.brownlow@gmail.com"
   },
   {
     "code": "BTC",
