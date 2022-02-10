@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import Router from "next/router";
+import { getCookie } from "cookies-next";
 import CurrencySettingsContext from "../context/currencySettings";
 import Link from "next/link";
 import { UserContext } from "../lib/UserContext";
@@ -155,8 +156,9 @@ const Ledger = (props) => {
   );
 };
 
-export async function getServerSideProps() {
-  const coinData = await getCoinData();
+export async function getServerSideProps({ req, res }) {
+  const user = getCookie("ue", { req, res });
+  const coinData = await getCoinData(user);
   const fiatData = await getFiatData();
   const balance = await calculateBalance(coinData, fiatData);
   const fundingHistoryData = await getFundingData();
