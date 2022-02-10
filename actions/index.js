@@ -153,9 +153,9 @@ export const addCoin = (coin) => {
   return res;
 };
 
-export const updateCoin = (code, amount) => {
+export const updateCoin = (code, userAndNewAmount) => {
   const res = axios
-    .patch(`${BASE_URL}/api/v1/coins/${code}`, amount)
+    .patch(`${BASE_URL}/api/v1/coins/${code}`, userAndNewAmount)
     .then((res) => res.data);
 
   toast.promise(res, {

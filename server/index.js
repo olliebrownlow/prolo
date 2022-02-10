@@ -271,13 +271,16 @@ app.prepare().then(() => {
 
   server.patch("/api/v1/coins/:id", (req, res) => {
     const { id } = req.params;
-    const updatedAmount = req.body[0];
-    const coinIndex = coinData.findIndex((coin) => coin.code === id);
+    const updatedAmount = req.body.amount;
+    const user = req.body.user;
+    const coinIndex = coinData.findIndex(
+      (coin) => coin.code === id && coin.user === user
+    );
 
-    if (coinData[coinIndex].amount === updatedAmount.amount) {
+    if (coinData[coinIndex].amount === updatedAmount) {
       return res.json("Cannot update coin: aleady updated");
     }
-    coinData[coinIndex].amount = updatedAmount.amount;
+    coinData[coinIndex].amount = updatedAmount;
 
     const pathToFile = path.join(__dirname, coinFilePath);
     const stringifiedData = JSON.stringify(coinData, null, 2);
@@ -288,7 +291,7 @@ app.prepare().then(() => {
       }
 
       return res.json(
-        `${coinData[coinIndex].name} amount updated to ${updatedAmount.amount}`
+        `${coinData[coinIndex].name} amount updated to ${updatedAmount}`
       );
     });
   });

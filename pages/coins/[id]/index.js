@@ -167,20 +167,19 @@ const Coin = (props) => {
     Router.replace("/coins/" + id, undefined, { scroll: false });
   };
 
-  const handleCoinUpdate = (newAmount) => {
-    const res = updateCoin(getCoinProp("id"), newAmount);
+  const handleCoinUpdate = (userAndNewAmount) => {
+    const res = updateCoin(getCoinProp("id"), userAndNewAmount);
     console.log(res);
     setTimeout(closeModal, 500);
   };
 
   const handleUpdate = (amount) => {
-    const newAmount = [
-      {
-        amount: amount,
-      },
-    ];
+    const userAndNewAmount = {
+      amount: amount,
+      user: getCookie("ue"),
+    };
     setCurrentAmount(amount);
-    handleCoinUpdate(newAmount);
+    handleCoinUpdate(userAndNewAmount);
     refreshCoinData();
   };
 
