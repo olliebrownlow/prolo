@@ -15,18 +15,11 @@ import UpdateModal from "../../../components/update-modal";
 import NoteCollapsible from "../../../components/note-collapsible";
 import DetailPageButtons from "../../../components/detail-page-buttons";
 import styles from "../../../pageStyles/dynamicPage.module.scss";
+import { getSingleFiatData } from "../../../lib/core/singleFiatData";
 
 const Fiat = (props) => {
   const [user] = useContext(UserContext);
-  const {
-    total,
-    name,
-    amount,
-    code,
-    fiatSign,
-    appCurrencySign,
-    roundTo2DP,
-  } = props;
+  const { fiat, appCurrencySign, roundTo2DP } = props;
 
   const [isShown, setIsShown] = useState(false);
   const [deleted, setDeleted] = useState(false);
@@ -36,11 +29,11 @@ const Fiat = (props) => {
   useEffect(async () => {
     const noteFilter = {
       user: user.email,
-      code: code,
+      code: fiat.id,
     };
     const notes = await getNotes(noteFilter);
     setNoteList(notes);
-  }, [code, user]);
+  }, [fiat, user]);
 
   const showModal = () => {
     setIsShown(true);
@@ -58,11 +51,11 @@ const Fiat = (props) => {
   };
 
   const refreshFiatData = () => {
-    Router.replace("/pocket", undefined, {scroll: false});
+    Router.replace("/pocket", undefined, { scroll: false });
   };
 
   const handleFiatUpdate = (newAmount) => {
-    const res = updateFiat(code, newAmount);
+    const res = updateFiat(fiat.id, newAmount);
     console.log(res);
   };
 
@@ -79,7 +72,7 @@ const Fiat = (props) => {
   const handleDeleteFiat = async () => {
     setDeleted(true);
     refreshFiatData();
-    const res = await deleteFiat(code);
+    const res = await deleteFiat(fiat.id);
     const res2 = await deleteAssociatedNotes(noteList);
     console.log(res);
     console.log(res2);
@@ -113,42 +106,47 @@ const Fiat = (props) => {
   return (
     <div className={styles.pageLayout}>
       <div className={styles.flagLogo}>
-        <Image src={getFlag(fiatSign)} alt={name} layout="fill" priority />
+        <Image
+          src={getFlag(fiat.fiatSign)}
+          alt={fiat.fullFiatName}
+          layout="fill"
+          priority
+        />
       </div>
       {isShown ? (
         <UpdateModal
           closeModal={closeModal}
           windowOnClick={windowOnClick}
           handleFormSubmit={handleUpdate}
-          name={name}
-          code={code}
-          amount={amount}
+          name={fiat.fullFiatName}
+          code={fiat.id}
+          amount={fiat.amount}
           label="fiat"
           isShown={isShown}
         />
       ) : (
         <React.Fragment />
       )}
-      <div className={styles.name}>{name}</div>
-      <div className={styles.code2}>[{code}]</div>
+      <div className={styles.name}>{fiat.fullFiatName}</div>
+      <div className={styles.code2}>[{fiat.id}]</div>
       <div className={styles.amount}>
-        {fiatSign} {roundTo2DP(amount)}
+        {fiat.fiatSign} {roundTo2DP(fiat.amount)}
       </div>
-      {fiatSign != appCurrencySign ? (
+      {fiat.fiatSign != appCurrencySign ? (
         <div className={styles.tableLayout}>
           <div className={styles.tableCellLeft}>
             {getCurrency(appCurrencySign)} value
           </div>
           <div className={styles.tableCellRight}>
             {appCurrencySign}
-            {roundTo2DP(total)}
+            {roundTo2DP(fiat.value)}
           </div>
         </div>
       ) : (
         <React.Fragment />
       )}
       <NoteCollapsible
-        data={code}
+        data={fiat.id}
         notes={noteList}
         notepadSettingType={"showFiatNotepad"}
       />
@@ -169,20 +167,15 @@ const Fiat = (props) => {
 };
 
 export async function getServerSideProps({ query }) {
-  const total = query.total;
-  const name = query.name;
-  const amount = query.amount;
   const code = query.id;
-  const fiatSign = query.fiatSign;
   const appCurrencySign = query.appCurrencySign;
+  const fiat = await getSingleFiatData(code);
+
+  // console.log(fiat);
 
   return {
     props: {
-      total,
-      name,
-      amount,
-      code,
-      fiatSign,
+      fiat,
       appCurrencySign,
     },
   };

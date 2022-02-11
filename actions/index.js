@@ -183,8 +183,15 @@ export const deleteCoin = (code, user) => {
   return res;
 };
 
-export const getFiat = () => {
-  return axios.get(`${BASE_URL}/api/v1/fiat`).then((res) => res.data);
+export const getFiats = () => {
+  return axios.get(`${BASE_URL}/api/v1/allFiats`).then((res) => res.data);
+};
+
+// axios does not allow get calls to pass through an argument hence the use of post
+export const getFiat = (fiatCode) => {
+  return axios
+    .post(`${BASE_URL}/api/v1/singleFiat`, fiatCode)
+    .then((res) => res.data);
 };
 
 export const addFiat = (fiat) => {

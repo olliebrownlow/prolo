@@ -33,10 +33,6 @@ const FiatList = (props) => {
               pathname: "/fiat/[id]",
               query: {
                 id: fiatData.id,
-                name: fiatData.fullFiatName,
-                amount: fiatData.amount,
-                total: fiatData.value,
-                fiatSign: fiatData.fiatSign,
                 appCurrencySign: appCurrencySign,
               },
             }}

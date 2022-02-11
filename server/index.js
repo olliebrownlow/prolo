@@ -328,8 +328,19 @@ app.prepare().then(() => {
     });
   });
 
-  server.get("/api/v1/fiat", (req, res) => {
+  server.get("/api/v1/allFiats", (req, res) => {
     return res.json(fiatData);
+  });
+
+  // post method to fetch a specific fiat
+  server.post("/api/v1/singleFiat", (req, res) => {
+    const fiatCode = req.body.code;
+    // const user = req.body.user;
+    const fiat = fiatData.find(
+      (savedFiat) => savedFiat.code === fiatCode // && savedCoin.user === user
+    );
+
+    return res.json(fiat);
   });
 
   server.post("/api/v1/fiat", (req, res) => {

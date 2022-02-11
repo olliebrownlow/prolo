@@ -47,7 +47,7 @@ const Ledger = (props) => {
   };
 
   const refreshFundingHistoryData = () => {
-    Router.replace("/ledger");
+    Router.replace("/ledger", undefined, { scroll: false });
   };
 
   const handleAddInvestmentItem = async (item) => {
