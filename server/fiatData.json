@@ -2,6 +2,13 @@
   {
     "code": "EUR",
     "name": "euros",
+    "amount": "8.98",
+    "sign": "€",
+    "user": "o.s.brownlow@gmail.com"
+  },
+  {
+    "code": "EUR",
+    "name": "euros",
     "amount": "7.57",
     "sign": "€",
     "user": "olliebrownlow@gmail.com"

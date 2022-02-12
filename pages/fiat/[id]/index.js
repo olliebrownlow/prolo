@@ -55,23 +55,24 @@ const Fiat = (props) => {
     Router.replace("/pocket", undefined, { scroll: false });
   };
 
-  const handleFiatUpdate = (newAmount) => {
-    const res = updateFiat(fiat.id, newAmount);
+  const handleFiatUpdate = (userAndNewAmount) => {
+    const res = updateFiat(fiat.id, userAndNewAmount);
     console.log(res);
   };
 
   const handleUpdate = (amount) => {
     refreshFiatData();
-    const newAmount = {
+    const userAndNewAmount = {
       amount: amount,
+      user: getCookie("ue"),
     };
-    handleFiatUpdate(newAmount);
+    handleFiatUpdate(userAndNewAmount);
   };
 
   const handleDeleteFiat = async () => {
     setDeleted(true);
     refreshFiatData();
-    const res = await deleteFiat(fiat.id);
+    const res = await deleteFiat(fiat.id, getCookie("ue"));
     const res2 = await deleteAssociatedNotes(noteList);
     console.log(res);
     console.log(res2);
@@ -166,9 +167,10 @@ const Fiat = (props) => {
   );
 };
 
-export async function getServerSideProps({ query }) {
+export async function getServerSideProps({ req, res, query }) {
   const code = query.id;
-  const fiat = await getSingleFiatData(code);
+  const user = getCookie("ue", { req, res });
+  const fiat = await getSingleFiatData(code, user);
 
   // console.log(fiat);
 

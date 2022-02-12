@@ -82,7 +82,7 @@ const Pocket = (props) => {
 export async function getServerSideProps({ req, res }) {
   const user = getCookie("ue", { req, res });
   const coinData = await getCoinData(user);
-  const fiatData = await getFiatData();
+  const fiatData = await getFiatData(user);
   // console.log(fiatData);
   // console.log(coinData);
 

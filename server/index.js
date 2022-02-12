@@ -234,8 +234,8 @@ app.prepare().then(() => {
   // post method to fetch all coins for a specific user
   server.post("/api/v1/allCoins", (req, res) => {
     const user = req.body.user;
-    const coins = _.filter(coinData, function (el) {
-      return el.user === user;
+    const coins = _.filter(coinData, function (coin) {
+      return coin.user === user;
     });
     return res.json(coins);
   });
@@ -328,16 +328,22 @@ app.prepare().then(() => {
     });
   });
 
-  server.get("/api/v1/allFiats", (req, res) => {
-    return res.json(fiatData);
+  // post method to fetch all fiats for a specific user
+  server.post("/api/v1/allFiats", (req, res) => {
+    const user = req.body.user;
+
+    const fiats = _.filter(fiatData, function (fiat) {
+      return fiat.user === user;
+    });
+    return res.json(fiats);
   });
 
   // post method to fetch a specific fiat
   server.post("/api/v1/singleFiat", (req, res) => {
     const fiatCode = req.body.code;
-    // const user = req.body.user;
+    const user = req.body.user;
     const fiat = fiatData.find(
-      (savedFiat) => savedFiat.code === fiatCode // && savedCoin.user === user
+      (savedFiat) => savedFiat.code === fiatCode && savedFiat.user === user
     );
 
     return res.json(fiat);
@@ -364,7 +370,10 @@ app.prepare().then(() => {
   server.patch("/api/v1/fiat/:id", (req, res) => {
     const { id } = req.params;
     const updatedAmount = req.body.amount;
-    const fiatIndex = fiatData.findIndex((fiat) => fiat.code === id);
+    const user = req.body.user;
+    const fiatIndex = fiatData.findIndex(
+      (fiat) => fiat.code === id && fiat.user === user
+    );
 
     if (fiatData[fiatIndex].amount === updatedAmount) {
       return res.json("Cannot update fiat currency: already updated");
@@ -387,7 +396,10 @@ app.prepare().then(() => {
 
   server.delete("/api/v1/fiat/:id", (req, res) => {
     const { id } = req.params;
-    const fiatIndex = fiatData.findIndex((fiat) => fiat.code === id);
+    const user = req.body.user;
+    const fiatIndex = fiatData.findIndex(
+      (fiat) => fiat.code === id && fiat.user === user
+    );
 
     if (fiatIndex < 0) {
       return res.json(`cannot remove ${id} holdings: already deleted`);
