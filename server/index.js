@@ -145,6 +145,17 @@ app.prepare().then(() => {
     return res.json(fundingData);
   });
 
+  // post method to fetch a specific investment item for a specific user
+  server.post("/api/v1/investmentItem", (req, res) => {
+    const itemId = req.body.id;
+    // const user = req.body.user;
+    const item = fundingData.find(
+      (savedItem) => savedItem.id === itemId // && savedItem.user === user
+    );
+
+    return res.json(item);
+  });
+
   server.post("/api/v1/fundingHistory", (req, res) => {
     const item = req.body;
     if (

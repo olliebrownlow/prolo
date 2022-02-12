@@ -60,16 +60,6 @@ const FundingList = (props) => {
               pathname: "/investments/[id]",
               query: {
                 id: investment.id,
-                currencyName: investment.currencyName,
-                currencyCode: investment.currencyCode,
-                currencySign: investment.currencySign,
-                type: investment.type,
-                amount: investment.amount,
-                date: investment.date,
-                euros: investment.euros,
-                britishSterling: investment.britishSterling,
-                americanDollars: investment.americanDollars,
-                sortingNumber: investment.sortingNumber,
               },
             }}
           >

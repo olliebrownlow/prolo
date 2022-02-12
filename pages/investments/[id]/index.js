@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { UserContext } from "../../../lib/UserContext";
 import {
   getNotes,
+  getSingleInvestmentItem,
   deleteInvestmentItem,
   getHistoricalData,
   updateInvestmentItem,
@@ -22,17 +23,7 @@ import _ from "lodash";
 const Investment = (props) => {
   const [user] = useContext(UserContext);
   const {
-    id,
-    currencyName,
-    currencyCode,
-    currencySign,
-    type,
-    amount,
-    date,
-    euros,
-    britishSterling,
-    americanDollars,
-    sortingNumber,
+    investmentItem,
     roundTo2DP,
   } = props;
 
@@ -44,11 +35,11 @@ const Investment = (props) => {
   useEffect(async () => {
     const noteFilter = {
       user: user.email,
-      code: id,
+      code: investmentItem.id,
     };
     const notes = await getNotes(noteFilter);
     setNoteList(notes);
-  }, [id, user]);
+  }, [investmentItem, user]);
 
   const showModal = () => {
     setIsShown(true);
@@ -107,7 +98,7 @@ const Investment = (props) => {
   const handleDelete = () => {
     setDeleted(true);
     refreshInvestmentData();
-    const res = deleteInvestmentItem(id);
+    const res = deleteInvestmentItem(investmentItem.id);
     const res2 = deleteAssociatedNotes(noteList);
     console.log(res);
     console.log(res2);
@@ -132,8 +123,8 @@ const Investment = (props) => {
     <div className={styles.pageLayout}>
       <div className={styles.flagLogo}>
         <Image
-          src={getFlag(currencySign)}
-          alt={currencyName}
+          src={getFlag(investmentItem.currencySign)}
+          alt={investmentItem.currencyName}
           layout="fill"
           priority
         />
@@ -143,59 +134,59 @@ const Investment = (props) => {
           closeModal={closeModal}
           windowOnClick={windowOnClick}
           handleFormSubmit={handleUpdate}
-          id={id}
-          currencyName={currencyName}
-          currencyCode={currencyCode}
-          currencySign={currencySign}
-          amount={amount}
-          type={type}
-          date={date}
-          sortingNumber={sortingNumber}
+          id={investmentItem.id}
+          currencyName={investmentItem.currencyName}
+          currencyCode={investmentItem.currencyCode}
+          currencySign={investmentItem.currencySign}
+          amount={investmentItem.amount}
+          type={investmentItem.type}
+          date={investmentItem.date}
+          sortingNumber={investmentItem.sortingNumber}
           label="funding item"
           isShown={isShown}
         />
       ) : (
         <React.Fragment />
       )}
-      <div className={styles.name}>{currencyName}</div>
-      <div className={styles.code2}>[{currencyCode}]</div>
+      <div className={styles.name}>{investmentItem.currencyName}</div>
+      <div className={styles.code2}>[{investmentItem.currencyCode}]</div>
       <div className={styles.amount}>
-        {currencySign}
-        {roundTo2DP(amount)}
+        {investmentItem.currencySign}
+        {roundTo2DP(investmentItem.amount)}
       </div>
-      <MrktInfoRow key1={"type"} value1={type} key2={"date"} value2={date} />
-      {roundTo2DP(euros) === roundTo2DP(amount) ? (
+      <MrktInfoRow key1={"type"} value1={investmentItem.type} key2={"date"} value2={investmentItem.date} />
+      {roundTo2DP(investmentItem.euros) === roundTo2DP(investmentItem.amount) ? (
         <MrktInfoRow
           key1={"sterling value"}
-          value1={"£" + `${roundTo2DP(britishSterling)}`}
+          value1={"£" + `${roundTo2DP(investmentItem.britishSterling)}`}
           key2={"dollar value"}
-          value2={"$" + `${roundTo2DP(americanDollars)}`}
+          value2={"$" + `${roundTo2DP(investmentItem.americanDollars)}`}
         />
       ) : (
         <React.Fragment />
       )}
-      {roundTo2DP(britishSterling) === roundTo2DP(amount) ? (
+      {roundTo2DP(investmentItem.britishSterling) === roundTo2DP(investmentItem.amount) ? (
         <MrktInfoRow
           key1={"euro value"}
-          value1={"€" + `${roundTo2DP(euros)}`}
+          value1={"€" + `${roundTo2DP(investmentItem.euros)}`}
           key2={"dollar value"}
-          value2={"$" + `${roundTo2DP(americanDollars)}`}
+          value2={"$" + `${roundTo2DP(investmentItem.americanDollars)}`}
         />
       ) : (
         <React.Fragment />
       )}
-      {roundTo2DP(americanDollars) === roundTo2DP(amount) ? (
+      {roundTo2DP(investmentItem.americanDollars) === roundTo2DP(investmentItem.amount) ? (
         <MrktInfoRow
           key1={"euro value"}
-          value1={"€" + `${roundTo2DP(euros)}`}
+          value1={"€" + `${roundTo2DP(investmentItem.euros)}`}
           key2={"sterling value"}
-          value2={"£" + `${roundTo2DP(britishSterling)}`}
+          value2={"£" + `${roundTo2DP(investmentItem.britishSterling)}`}
         />
       ) : (
         <React.Fragment />
       )}
       <NoteCollapsible
-        data={id}
+        data={investmentItem.id}
         notes={noteList}
         notepadSettingType={"showFundingItemNotepad"}
       />
@@ -208,7 +199,7 @@ const Investment = (props) => {
         deleted={deleted}
         cancel={cancel}
         buttonText={"correct"}
-        deletionText={`${type} item`}
+        deletionText={`${investmentItem.type} item`}
       />
     </div>
   );
@@ -216,30 +207,14 @@ const Investment = (props) => {
 
 export async function getServerSideProps({ query }) {
   const id = query.id;
-  const currencyName = query.currencyName;
-  const currencyCode = query.currencyCode;
-  const currencySign = query.currencySign;
-  const type = query.type;
-  const amount = query.amount;
-  const date = query.date;
-  const euros = query.euros;
-  const britishSterling = query.britishSterling;
-  const americanDollars = query.americanDollars;
-  const sortingNumber = query.sortingNumber;
+  const investmentItem = await getSingleInvestmentItem({ id: id });
+
+  // console.log(id);
+  console.log(investmentItem);
 
   return {
     props: {
-      id,
-      currencyName,
-      currencyCode,
-      currencySign,
-      type,
-      amount,
-      date,
-      euros,
-      britishSterling,
-      americanDollars,
-      sortingNumber,
+      investmentItem,
     },
   };
 }
