@@ -33,7 +33,6 @@ const FiatList = (props) => {
               pathname: "/fiat/[id]",
               query: {
                 id: fiatData.id,
-                appCurrencySign: appCurrencySign,
               },
             }}
           >

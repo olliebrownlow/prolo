@@ -158,7 +158,7 @@ const Coin = (props) => {
   };
 
   const refreshData = () => {
-    Router.replace("/pocket", undefined, {scroll: false});
+    Router.replace("/pocket", undefined, { scroll: false });
   };
 
   const refreshCoinData = () => {
@@ -299,6 +299,7 @@ const Coin = (props) => {
         data={getCoinProp("id")}
         notes={noteList}
         notepadSettingType={"showCoinNotepad"}
+        pageType={"coins"}
       />
       <motion.div
         className={styles.marketHeading}

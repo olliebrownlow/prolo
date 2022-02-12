@@ -363,13 +363,13 @@ app.prepare().then(() => {
 
   server.patch("/api/v1/fiat/:id", (req, res) => {
     const { id } = req.params;
-    const updatedAmount = req.body[0];
+    const updatedAmount = req.body.amount;
     const fiatIndex = fiatData.findIndex((fiat) => fiat.code === id);
 
-    if (fiatData[fiatIndex].amount === updatedAmount.amount) {
+    if (fiatData[fiatIndex].amount === updatedAmount) {
       return res.json("Cannot update fiat currency: already updated");
     }
-    fiatData[fiatIndex].amount = updatedAmount.amount;
+    fiatData[fiatIndex].amount = updatedAmount;
 
     const pathToFile = path.join(__dirname, fiatFilePath);
     const stringifiedData = JSON.stringify(fiatData, null, 2);
@@ -380,7 +380,7 @@ app.prepare().then(() => {
       }
 
       return res.json(
-        `${fiatData[fiatIndex].code} amount updated to ${updatedAmount.amount}`
+        `${fiatData[fiatIndex].code} amount updated to ${updatedAmount}`
       );
     });
   });

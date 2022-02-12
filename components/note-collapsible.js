@@ -32,7 +32,7 @@ const NoteCollapsible = (props) => {
   const [noteIdForDeletion, setNoteIdForDeletion] = useState("");
   const [showNotepad, setShowNotepad] = useState(false);
   const [confirmDeletion, setConfirmDeletion] = useState(false);
-  const { data, notes, notepadSettingType } = props;
+  const { data, notes, notepadSettingType, pageType } = props;
 
   useEffect(async () => {
     setNoteList(notes);
@@ -90,11 +90,12 @@ const NoteCollapsible = (props) => {
   };
 
   const refreshPageData = () => {
-    // need to not be passing through data via the query to use this
-    // const id = getCoinProp("id");
-    // Router.replace("/fiat/" + id, undefined, { scroll: false });
-    Router.reload();
-    // setTimeout(closeModal, 1000);
+    if (pageType) {
+      Router.replace(`/${pageType}/${data}`, undefined, { scroll: false });
+    } else {
+      Router.reload;
+    }
+    setTimeout(closeModal, 1000);
   };
 
   const handleAddNote = async (note) => {
@@ -125,7 +126,9 @@ const NoteCollapsible = (props) => {
   // reliable mapping.
   const emptyOrOrderedArray = () => {
     if (noteList.length) {
-      return noteList.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
+      return noteList.sort(
+        (a, b) => new Date(b.dateTime) - new Date(a.dateTime)
+      );
     } else {
       return [];
     }

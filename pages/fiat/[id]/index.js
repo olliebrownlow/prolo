@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
-import { UserContext } from "../../../lib/UserContext";
+import { getCookie } from "cookies-next";
+import CurrencySettingsContext from "../../../context/currencySettings";
 import {
   deleteFiat,
   updateFiat,
@@ -18,8 +19,8 @@ import styles from "../../../pageStyles/dynamicPage.module.scss";
 import { getSingleFiatData } from "../../../lib/core/singleFiatData";
 
 const Fiat = (props) => {
-  const [user] = useContext(UserContext);
-  const { fiat, appCurrencySign, roundTo2DP } = props;
+  const { appCurrencySign } = useContext(CurrencySettingsContext);
+  const { fiat, roundTo2DP } = props;
 
   const [isShown, setIsShown] = useState(false);
   const [deleted, setDeleted] = useState(false);
@@ -28,12 +29,12 @@ const Fiat = (props) => {
 
   useEffect(async () => {
     const noteFilter = {
-      user: user.email,
+      user: getCookie("ue"),
       code: fiat.id,
     };
     const notes = await getNotes(noteFilter);
     setNoteList(notes);
-  }, [fiat, user]);
+  }, [fiat]);
 
   const showModal = () => {
     setIsShown(true);
@@ -61,11 +62,9 @@ const Fiat = (props) => {
 
   const handleUpdate = (amount) => {
     refreshFiatData();
-    const newAmount = [
-      {
-        amount: amount,
-      },
-    ];
+    const newAmount = {
+      amount: amount,
+    };
     handleFiatUpdate(newAmount);
   };
 
@@ -149,6 +148,7 @@ const Fiat = (props) => {
         data={fiat.id}
         notes={noteList}
         notepadSettingType={"showFiatNotepad"}
+        pageType={"fiat"}
       />
       <hr className={styles.solidDivider} />
       <DetailPageButtons
@@ -168,7 +168,6 @@ const Fiat = (props) => {
 
 export async function getServerSideProps({ query }) {
   const code = query.id;
-  const appCurrencySign = query.appCurrencySign;
   const fiat = await getSingleFiatData(code);
 
   // console.log(fiat);
@@ -176,7 +175,6 @@ export async function getServerSideProps({ query }) {
   return {
     props: {
       fiat,
-      appCurrencySign,
     },
   };
 }
