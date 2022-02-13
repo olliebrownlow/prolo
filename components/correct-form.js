@@ -4,43 +4,23 @@ import toast from "react-hot-toast";
 import AddButton from "./add-button";
 
 const CorrectForm = (props) => {
-  const {
-    handleFormSubmit,
-    id,
-    currencyName,
-    currencyCode,
-    currencySign,
-    amount,
-    type,
-    date,
-    sortingNumber,
-    label,
-    isShown,
-  } = props;
+  const { handleFormSubmit, investmentItem, label, isShown } = props;
 
-  const defaultData = {
-    id: id,
-    currencyName: currencyName,
-    currencyCode: currencyCode,
-    currencySign: currencySign,
-    amount: amount,
-    type: type,
-    date: date,
-    sortingNumber: sortingNumber,
-  };
-  const [form, setForm] = useState(defaultData);
-  const [select, setSelect] = useState(`${currencyName} [${currencyCode}]`);
+  const [form, setForm] = useState(investmentItem);
+  const [select, setSelect] = useState(
+    `${investmentItem.currencyName} [${investmentItem.currencyCode}]`
+  );
   const [isShown2, setIsShown2] = useState(!isShown);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const formatDate = () => {
-    const array = date.split("-");
+    const array = investmentItem.date.split("-");
     array[2] = `20${array[2]}`;
     return array.join("/");
   };
 
   const formatDateForComparison = () => {
-    const array = date.split("-");
+    const array = investmentItem.date.split("-");
     array[2] = `20${array[2]}`;
     return array.reverse().join("-");
   };
@@ -52,12 +32,12 @@ const CorrectForm = (props) => {
       if (target.value === "-- select a type --") {
         setForm({
           ...form,
-          [target.name]: type,
+          [target.name]: investmentItem.type,
         });
       } else if (target.value === "") {
         setForm({
           ...form,
-          [target.name]: amount,
+          [target.name]: investmentItem.amount,
         });
       } else {
         setForm({
@@ -69,7 +49,7 @@ const CorrectForm = (props) => {
     // set the date
     if (target.name === "date") {
       if (target.value === "") {
-        var unFormattedDate = date;
+        var unFormattedDate = investmentItem.date;
       } else {
         var unFormattedDate = target.value;
       }
@@ -87,10 +67,10 @@ const CorrectForm = (props) => {
         id: "zeroCorrection",
       });
     } else if (
-      form.amount === defaultData.amount &&
+      form.amount === investmentItem.amount &&
       (form.date === formatDateForComparison() ||
-        form.date === defaultData.date) &&
-      form.type === defaultData.type
+        form.date === investmentItem.date) &&
+      form.type === investmentItem.type
     ) {
       toast.error("change at least one field to trigger an update", {
         id: "blankCorrection",
@@ -116,7 +96,7 @@ const CorrectForm = (props) => {
             id={name}
           >
             <option key={"option"} disabled hidden>
-              {currencyName} [{currencyCode}]
+              {investmentItem.currencyName} [{investmentItem.currencyCode}]
             </option>
           </select>
         </div>
@@ -124,13 +104,13 @@ const CorrectForm = (props) => {
           <label htmlFor="currentAmount">current values</label>
           <input
             disabled
-            value={amount}
+            value={investmentItem.amount}
             className={styles.disabledFormControl}
             id="currentAmount"
           />
           <input
             disabled
-            value={type}
+            value={investmentItem.type}
             className={styles.disabledFormControl}
             id="currentType"
           />

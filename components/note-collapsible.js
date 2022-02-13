@@ -90,11 +90,7 @@ const NoteCollapsible = (props) => {
   };
 
   const refreshPageData = () => {
-    if (pageType) {
-      Router.replace(`/${pageType}/${data}`, undefined, { scroll: false });
-    } else {
-      Router.reload;
-    }
+    Router.replace(`/${pageType}/${data}`, undefined, { scroll: false });
     setTimeout(closeModal, 1000);
   };
 

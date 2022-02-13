@@ -22,10 +22,7 @@ import _ from "lodash";
 
 const Investment = (props) => {
   const [user] = useContext(UserContext);
-  const {
-    investmentItem,
-    roundTo2DP,
-  } = props;
+  const { investmentItem, roundTo2DP } = props;
 
   const [isShown, setIsShown] = useState(false);
   const [deleted, setDeleted] = useState(false);
@@ -134,14 +131,7 @@ const Investment = (props) => {
           closeModal={closeModal}
           windowOnClick={windowOnClick}
           handleFormSubmit={handleUpdate}
-          id={investmentItem.id}
-          currencyName={investmentItem.currencyName}
-          currencyCode={investmentItem.currencyCode}
-          currencySign={investmentItem.currencySign}
-          amount={investmentItem.amount}
-          type={investmentItem.type}
-          date={investmentItem.date}
-          sortingNumber={investmentItem.sortingNumber}
+          investmentItem={investmentItem}
           label="funding item"
           isShown={isShown}
         />
@@ -154,8 +144,14 @@ const Investment = (props) => {
         {investmentItem.currencySign}
         {roundTo2DP(investmentItem.amount)}
       </div>
-      <MrktInfoRow key1={"type"} value1={investmentItem.type} key2={"date"} value2={investmentItem.date} />
-      {roundTo2DP(investmentItem.euros) === roundTo2DP(investmentItem.amount) ? (
+      <MrktInfoRow
+        key1={"type"}
+        value1={investmentItem.type}
+        key2={"date"}
+        value2={investmentItem.date}
+      />
+      {roundTo2DP(investmentItem.euros) ===
+      roundTo2DP(investmentItem.amount) ? (
         <MrktInfoRow
           key1={"sterling value"}
           value1={"£" + `${roundTo2DP(investmentItem.britishSterling)}`}
@@ -165,7 +161,8 @@ const Investment = (props) => {
       ) : (
         <React.Fragment />
       )}
-      {roundTo2DP(investmentItem.britishSterling) === roundTo2DP(investmentItem.amount) ? (
+      {roundTo2DP(investmentItem.britishSterling) ===
+      roundTo2DP(investmentItem.amount) ? (
         <MrktInfoRow
           key1={"euro value"}
           value1={"€" + `${roundTo2DP(investmentItem.euros)}`}
@@ -175,7 +172,8 @@ const Investment = (props) => {
       ) : (
         <React.Fragment />
       )}
-      {roundTo2DP(investmentItem.americanDollars) === roundTo2DP(investmentItem.amount) ? (
+      {roundTo2DP(investmentItem.americanDollars) ===
+      roundTo2DP(investmentItem.amount) ? (
         <MrktInfoRow
           key1={"euro value"}
           value1={"€" + `${roundTo2DP(investmentItem.euros)}`}
@@ -189,6 +187,7 @@ const Investment = (props) => {
         data={investmentItem.id}
         notes={noteList}
         notepadSettingType={"showFundingItemNotepad"}
+        pageType={"investments"}
       />
       <hr className={styles.solidDivider} />
       <DetailPageButtons
@@ -200,6 +199,7 @@ const Investment = (props) => {
         cancel={cancel}
         buttonText={"correct"}
         deletionText={`${investmentItem.type} item`}
+        deletionSubText={" your notes will also be deleted"}
       />
     </div>
   );
@@ -210,7 +210,7 @@ export async function getServerSideProps({ query }) {
   const investmentItem = await getSingleInvestmentItem({ id: id });
 
   // console.log(id);
-  console.log(investmentItem);
+  // console.log(investmentItem);
 
   return {
     props: {
