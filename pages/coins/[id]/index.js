@@ -43,7 +43,6 @@ const Coin = (props) => {
   const [showMrktData, setShowMrktData] = useState(
     mrktInfoSettings[0].showMrktData
   );
-  const [deleted, setDeleted] = useState(false);
   const [cancel, setCancel] = useState(false);
   const [anim, setAnim] = useState(0);
   const [currentAmount, setCurrentAmount] = useState(coin[0]["amount"]);
@@ -183,7 +182,6 @@ const Coin = (props) => {
   };
 
   const handleDeleteCoin = () => {
-    setDeleted(true);
     refreshData();
     const res = deleteCoin(getCoinProp("id"), getCookie("ue"));
     console.log(res);
@@ -507,7 +505,6 @@ const Coin = (props) => {
         handleDelete={handleDeleteCoin}
         handleCancel={handleCancel}
         isShown={isShown}
-        deleted={deleted}
         cancel={cancel}
         buttonText={"update"}
         deletionText={"coin"}

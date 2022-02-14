@@ -9,7 +9,6 @@ const DetailPageButtons = (props) => {
     handleDelete,
     handleCancel,
     isShown,
-    deleted,
     cancel,
     buttonText,
     deletionText,
@@ -62,7 +61,7 @@ const DetailPageButtons = (props) => {
         <motion.button
           whileHover={{ scale: 1.1 }}
           transition={{ duration: 0.25 }}
-          animate={deleted ? { scale: [1, 0.5, 1] } : {}}
+          animate={confirmDeletion ? { scale: [1, 0.5, 1] } : {}}
           className={styles.deleteButton}
           onClick={() => showConfirmDelete()}
           role="button"

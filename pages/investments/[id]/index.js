@@ -26,7 +26,6 @@ const Investment = (props) => {
   const { investmentItem, roundTo2DP } = props;
 
   const [isShown, setIsShown] = useState(false);
-  const [deleted, setDeleted] = useState(false);
   const [cancel, setCancel] = useState(false);
   const [noteList, setNoteList] = useState([]);
 
@@ -94,7 +93,6 @@ const Investment = (props) => {
   };
 
   const handleDelete = () => {
-    setDeleted(true);
     refreshInvestmentData();
     const res = deleteInvestmentItem(investmentItem.id, user.email);
     const res2 = deleteAssociatedNotes(noteList);
@@ -196,7 +194,6 @@ const Investment = (props) => {
         handleDelete={handleDelete}
         handleCancel={handleCancel}
         isShown={isShown}
-        deleted={deleted}
         cancel={cancel}
         buttonText={"correct"}
         deletionText={`${investmentItem.type} item`}

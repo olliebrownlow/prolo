@@ -90,12 +90,6 @@
     "user": "olliebrownlow@gmail.com"
   },
   {
-    "code": "FTM",
-    "name": "fantom",
-    "amount": "0.000001",
-    "user": "olliebrownlow@gmail.com"
-  },
-  {
     "code": "KSM",
     "name": "kusama",
     "amount": "1.27239785",
@@ -147,6 +141,12 @@
     "code": "HARMONY",
     "name": "harmony",
     "amount": "0.00001",
+    "user": "olliebrownlow@gmail.com"
+  },
+  {
+    "code": "FTM",
+    "name": "fantom",
+    "amount": "0.000001",
     "user": "olliebrownlow@gmail.com"
   }
 ]

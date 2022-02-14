@@ -23,7 +23,6 @@ const Fiat = (props) => {
   const { fiat, roundTo2DP } = props;
 
   const [isShown, setIsShown] = useState(false);
-  const [deleted, setDeleted] = useState(false);
   const [cancel, setCancel] = useState(false);
   const [noteList, setNoteList] = useState([]);
 
@@ -70,7 +69,6 @@ const Fiat = (props) => {
   };
 
   const handleDeleteFiat = async () => {
-    setDeleted(true);
     refreshFiatData();
     const res = await deleteFiat(fiat.id, getCookie("ue"));
     const res2 = await deleteAssociatedNotes(noteList);
@@ -157,7 +155,6 @@ const Fiat = (props) => {
         handleDelete={handleDeleteFiat}
         handleCancel={handleCancel}
         isShown={isShown}
-        deleted={deleted}
         cancel={cancel}
         buttonText={"update"}
         deletionText={"currency"}
