@@ -22,7 +22,7 @@ import InvestmentModal from "../components/investment-modal";
 import _ from "lodash";
 
 const Ledger = (props) => {
-  const { roundTo2DP, balance, fundingHistoryData } = props;
+  const { roundTo2DP, balance, investmentItems } = props;
 
   const [user] = useContext(UserContext);
   const { appCurrencySign, appCurrencyName } = useContext(
@@ -59,6 +59,7 @@ const Ledger = (props) => {
     );
 
     // add remaining properties and format others
+    item.user = user.email;
     item.euros = historicalData.response.rates.EUR * item.amount;
     item.britishSterling = historicalData.response.rates.GBP * item.amount;
     item.americanDollars = historicalData.response.rates.USD * item.amount;
@@ -74,7 +75,7 @@ const Ledger = (props) => {
   const prolo = () => {
     const propertyName = _.camelCase(appCurrencyName);
     const valuesArray = [];
-    fundingHistoryData.map((investment) => {
+    investmentItems.map((investment) => {
       const positiveValue = parseFloat(investment[propertyName]);
       if (investment.type === "withdrawal") {
         const negativeValue = positiveValue * -1;
@@ -146,7 +147,7 @@ const Ledger = (props) => {
             )}
             <FundingList
               roundTo2DP={roundTo2DP}
-              fundingHistoryData={fundingHistoryData}
+              investmentItems={investmentItems}
               appCurrencySign={appCurrencySign}
             />
           </>
@@ -161,16 +162,16 @@ export async function getServerSideProps({ req, res }) {
   const coinData = await getCoinData(user);
   const fiatData = await getFiatData(user);
   const balance = await calculateBalance(coinData, fiatData);
-  const fundingHistoryData = await getFundingData();
+  const investmentItems = await getFundingData({ user: user });
   // console.log(fiatData);
   // console.log(coinData);
   // console.log(balance);
-  // console.log(fundingHistoryData);
+  // console.log(investmentItems);
 
   return {
     props: {
       balance,
-      fundingHistoryData,
+      investmentItems,
     },
   };
 }

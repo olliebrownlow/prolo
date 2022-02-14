@@ -8,14 +8,14 @@ import { motion } from "framer-motion";
 import { ArrowUpRight } from "react-feather";
 
 const FundingList = (props) => {
-  const { roundTo2DP, fundingHistoryData, appCurrencySign } = props;
+  const { roundTo2DP, investmentItems, appCurrencySign } = props;
 
   // when user has not entered funding items, an
   // empty array must be returned for
   // reliable mapping.
   const emptyOrOrderedArray = () => {
-    if (fundingHistoryData.length) {
-      return fundingHistoryData.sort(
+    if (investmentItems.length) {
+      return investmentItems.sort(
         (a, b) => b.sortingNumber - a.sortingNumber
       );
     } else {

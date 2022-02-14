@@ -141,16 +141,21 @@ app.prepare().then(() => {
     });
   });
 
-  server.get("/api/v1/fundingHistory", (req, res) => {
-    return res.json(fundingData);
+  // post method to fetch all investmentItems for a specific user
+  server.post("/api/v1/investmentItems", (req, res) => {
+    const user = req.body.user;
+    const investmentItems = _.filter(fundingData, function (item) {
+      return item.user === user;
+    });
+    return res.json(investmentItems);
   });
 
   // post method to fetch a specific investment item for a specific user
   server.post("/api/v1/investmentItem", (req, res) => {
     const itemId = req.body.id;
-    // const user = req.body.user;
+    const user = req.body.user;
     const item = fundingData.find(
-      (savedItem) => savedItem.id === itemId // && savedItem.user === user
+      (savedItem) => savedItem.id === itemId && savedItem.user === user
     );
 
     return res.json(item);
@@ -188,7 +193,9 @@ app.prepare().then(() => {
   server.patch("/api/v1/fundingHistory/:id", (req, res) => {
     const { id } = req.params;
     const correctedItem = req.body;
-    const itemIndex = fundingData.findIndex((item) => item.id === id);
+    const itemIndex = fundingData.findIndex(
+      (item) => item.id === id && item.user === correctedItem.user
+    );
 
     if (
       fundingData[itemIndex].id === correctedItem.id &&
@@ -218,7 +225,10 @@ app.prepare().then(() => {
 
   server.delete("/api/v1/fundingHistory/:id", (req, res) => {
     const { id } = req.params;
-    const itemIndex = fundingData.findIndex((item) => item.id === id);
+    const user = req.body.user;
+    const itemIndex = fundingData.findIndex(
+      (item) => item.id === id && item.user === user
+    );
 
     if (itemIndex < 0) {
       return res.json("Funding item already deleted");

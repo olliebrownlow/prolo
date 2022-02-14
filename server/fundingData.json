@@ -10,6 +10,21 @@
     "euros": 900,
     "britishSterling": 773.610543,
     "americanDollars": 1072.370484,
+    "user": "olliebrownlow@gmail.com",
+    "sortingNumber": 20210315
+  },
+  {
+    "id": "tdpfhch",
+    "date": "15-03-21",
+    "type": "investment",
+    "amount": "900.00",
+    "currencyName": "euros",
+    "currencyCode": "eur",
+    "currencySign": "€",
+    "euros": 900,
+    "britishSterling": 773.610543,
+    "americanDollars": 1072.370484,
+    "user": "o.s.brownlow@gmail.com",
     "sortingNumber": 20210315
   },
   {
@@ -23,6 +38,7 @@
     "euros": 5000,
     "britishSterling": 4303.62525,
     "americanDollars": 6069.19815,
+    "user": "olliebrownlow@gmail.com",
     "sortingNumber": 20210224
   },
   {
@@ -36,6 +52,7 @@
     "euros": 1000,
     "britishSterling": 861.7811899999999,
     "americanDollars": 1214.5922899999998,
+    "user": "olliebrownlow@gmail.com",
     "sortingNumber": 20210223
   },
   {
@@ -49,6 +66,35 @@
     "euros": 3576.2857524800997,
     "britishSterling": 3000.21,
     "americanDollars": 4018.0401231216,
+    "user": "olliebrownlow@gmail.com",
     "sortingNumber": 20211122
+  },
+  {
+    "id": "uxnf051",
+    "date": "09-02-22",
+    "type": "investment",
+    "amount": "5",
+    "currencyName": "british sterling",
+    "currencyCode": "gbp",
+    "currencySign": "£",
+    "euros": 5.92119345,
+    "britishSterling": 5,
+    "americanDollars": 6.767592049999999,
+    "user": "o.s.brownlow@gmail.com",
+    "sortingNumber": 20220209
+  },
+  {
+    "id": "pmzd2oe",
+    "date": "02-02-22",
+    "type": "investment",
+    "amount": "2",
+    "currencyName": "american dollars",
+    "currencyCode": "usd",
+    "currencySign": "$",
+    "euros": 1.77020544,
+    "britishSterling": 1.47533886,
+    "americanDollars": 2,
+    "user": "o.s.brownlow@gmail.com",
+    "sortingNumber": 20220202
   }
 ]

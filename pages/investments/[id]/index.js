@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { UserContext } from "../../../lib/UserContext";
+import { getCookie } from "cookies-next";
 import {
   getNotes,
   getSingleInvestmentItem,
@@ -54,7 +55,7 @@ const Investment = (props) => {
   };
 
   const refreshInvestmentData = () => {
-    Router.replace("/ledger");
+    Router.replace("/ledger", undefined, { scroll: false });
   };
 
   const handleUpdate = async (correctedItem) => {
@@ -88,14 +89,14 @@ const Investment = (props) => {
       .reverse()
       .join("-");
 
-    const res = await updateInvestmentItem(correctedItem.id, correctedItem);
+    const res = await updateInvestmentItem(correctedItem);
     console.log(res);
   };
 
   const handleDelete = () => {
     setDeleted(true);
     refreshInvestmentData();
-    const res = deleteInvestmentItem(investmentItem.id);
+    const res = deleteInvestmentItem(investmentItem.id, user.email);
     const res2 = deleteAssociatedNotes(noteList);
     console.log(res);
     console.log(res2);
@@ -205,9 +206,10 @@ const Investment = (props) => {
   );
 };
 
-export async function getServerSideProps({ query }) {
+export async function getServerSideProps({ query, req, res }) {
   const id = query.id;
-  const investmentItem = await getSingleInvestmentItem({ id: id });
+  const user = getCookie("ue", { req, res });
+  const investmentItem = await getSingleInvestmentItem({ id: id, user: user });
 
   // console.log(id);
   // console.log(investmentItem);

@@ -8,7 +8,7 @@
   {
     "code": "ADA",
     "name": "cardano",
-    "amount": "302.212058",
+    "amount": "302.472677",
     "user": "olliebrownlow@gmail.com"
   },
   {
@@ -68,13 +68,7 @@
   {
     "code": "CRO",
     "name": "crypto.com chain",
-    "amount": "6444.39",
-    "user": "olliebrownlow@gmail.com"
-  },
-  {
-    "code": "HARMONY",
-    "name": "harmony",
-    "amount": "0.00001",
+    "amount": "6457.74",
     "user": "olliebrownlow@gmail.com"
   },
   {
@@ -147,6 +141,12 @@
     "code": "SHIB",
     "name": "shiba inu",
     "amount": "1",
+    "user": "olliebrownlow@gmail.com"
+  },
+  {
+    "code": "HARMONY",
+    "name": "harmony",
+    "amount": "0.00001",
     "user": "olliebrownlow@gmail.com"
   }
 ]

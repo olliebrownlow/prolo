@@ -70,14 +70,17 @@ export const updateNotepadSettings = (newSetting) => {
     .then((res) => console.log(res.data));
 };
 
-export const getFundingData = () => {
-  return axios.get(`${BASE_URL}/api/v1/fundingHistory`).then((res) => res.data);
+// axios does not allow get calls to pass through an argument hence the use of post
+export const getFundingData = (user) => {
+  return axios
+    .post(`${BASE_URL}/api/v1/investmentItems`, user)
+    .then((res) => res.data);
 };
 
 // axios does not allow get calls to pass through an argument hence the use of post
-export const getSingleInvestmentItem = (itemId) => {
+export const getSingleInvestmentItem = (userAnditemId) => {
   return axios
-    .post(`${BASE_URL}/api/v1/investmentItem`, itemId)
+    .post(`${BASE_URL}/api/v1/investmentItem`, userAnditemId)
     .then((res) => res.data);
 };
 
@@ -97,9 +100,12 @@ export const addInvestmentItem = (item) => {
   return res;
 };
 
-export const updateInvestmentItem = (id, correctedItem) => {
+export const updateInvestmentItem = (correctedItem) => {
   const res = axios
-    .patch(`${BASE_URL}/api/v1/fundingHistory/${id}`, correctedItem)
+    .patch(
+      `${BASE_URL}/api/v1/fundingHistory/${correctedItem.id}`,
+      correctedItem
+    )
     .then((res) => res.data);
 
   toast.promise(
@@ -119,9 +125,11 @@ export const updateInvestmentItem = (id, correctedItem) => {
   return res;
 };
 
-export const deleteInvestmentItem = (id) => {
+export const deleteInvestmentItem = (id, user) => {
   const res = axios
-    .delete(`${BASE_URL}/api/v1/fundingHistory/${id}`)
+    .delete(`${BASE_URL}/api/v1/fundingHistory/${id}`, {
+      data: { user: user },
+    })
     .then((res) => res.data);
 
   toast.promise(res, {

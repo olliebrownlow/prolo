@@ -44,7 +44,6 @@ const AddForm = (props) => {
     const bothBracketsRemoved = leftBracketRemoved.replace("]", "");
 
     const wordsArray = _.split(bothBracketsRemoved, " ");
-    console.log(wordsArray[0] + " and " + wordsArray[1]);
     // set coin data
     if (target.name === "coin") {
       setForm({
