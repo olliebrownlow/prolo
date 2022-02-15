@@ -13,13 +13,16 @@ import authButtons from "../config/authButtons";
 import currencyButtons from "../config/currencyButtons";
 import themeButtons from "../config/themeButtons";
 import { magic } from "../lib/magic";
-import useSWR from "swr";
+import useSWR, { useSWRConfig } from "swr";
 import axios from "axios";
 
 import "../pageStyles/index.scss";
 import "../pageStyles/appLayout.scss";
 
-const fetcher = (url) => axios.get(url);
+const fetcher = async (url) => {
+  const res = await axios.get(url);
+  return res;
+};
 
 function Prolo({ Component, pageProps }) {
   const [user, setUser] = useState();
@@ -62,7 +65,9 @@ function Prolo({ Component, pageProps }) {
   }, []);
 
   useEffect(async () => {
-    setAppTheme(themeSettings.data[0].theme);
+    if (themeSettings) {
+      setAppTheme(themeSettings.data[0].theme);
+    }
     const root = document.documentElement;
     root?.style.setProperty(
       "--background-color",
@@ -87,9 +92,11 @@ function Prolo({ Component, pageProps }) {
   }, [themeSettings, appTheme]);
 
   useEffect(async () => {
-    setAppCurrencySign(currencySettings.data[0].sign);
-    setAppCurrencyCode(currencySettings.data[0].currencyCode);
-    setAppCurrencyName(currencySettings.data[0].currencyName);
+    if (currencySettings) {
+      setAppCurrencySign(currencySettings.data[0].sign);
+      setAppCurrencyCode(currencySettings.data[0].currencyCode);
+      setAppCurrencyName(currencySettings.data[0].currencyName);
+    }
   }, [currencySettings, appCurrencySign, appCurrencyCode, appCurrencyName]);
 
   const roundTo2DP = (unrounded) => {
