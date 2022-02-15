@@ -33,4 +33,7 @@ yarn-error.log*
 .vscode
 
 # app settings
-/server/*.json
+/server/coinData.json
+/server/fiatData.json
+/server/noteData.json
+/server/fundingData.json
