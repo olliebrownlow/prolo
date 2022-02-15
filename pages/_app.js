@@ -13,7 +13,7 @@ import authButtons from "../config/authButtons";
 import currencyButtons from "../config/currencyButtons";
 import themeButtons from "../config/themeButtons";
 import { magic } from "../lib/magic";
-import useSWR, { useSWRConfig } from "swr";
+import useSWR from "swr";
 import axios from "axios";
 
 import "../pageStyles/index.scss";
