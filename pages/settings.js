@@ -35,7 +35,7 @@ const Settings = (props) => {
       user: user.email,
       newSettings: newCurrency,
     });
-    mutate("http://localhost:3000/api/v1/currencyAndThemeSettings");
+    mutate("http://localhost:3000/api/v1/appSettings");
   };
 
   const handleTheme = async (event) => {
@@ -49,7 +49,7 @@ const Settings = (props) => {
       user: user.email,
       newSettings: newTheme,
     });
-    mutate("http://localhost:3000/api/v1/currencyAndThemeSettings");
+    mutate("http://localhost:3000/api/v1/appSettings");
   };
 
   return (

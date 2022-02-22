@@ -29,28 +29,35 @@ app.prepare().then(() => {
   const server = express();
   server.use(bodyParser.json());
 
-  server.get("/api/v1/currencyAndThemeSettings", (req, res) => {
+  server.get("/api/v1/appSettings", (req, res) => {
     let user;
+    let concept;
     if (cookies.checkCookies("ue", { req, res })) {
       user = cookies.getCookie("ue", { req, res });
+      concept = "themeAndCurrency";
     } else {
       user = req.body.user;
+      concept = req.body.concept;
     }
+
     const allSettings = appSettingsData.find(
       (settings) => settings.user === user
     );
 
-    const currencyAndTheme = _.pick(allSettings, [
-      "theme",
-      "currencyCode",
-      "currencyName",
-      "sign",
-    ]);
+    let settings;
+    if (concept === "themeAndCurrency") {
+      settings = _.pick(allSettings, [
+        "theme",
+        "currencyCode",
+        "currencyName",
+        "sign",
+      ]);
+    }
 
-    return res.json(currencyAndTheme);
+    return res.json(settings);
   });
 
-  server.patch("/api/v1/currencyAndThemeSettings", (req, res) => {
+  server.patch("/api/v1/appSettings", (req, res) => {
     const user = req.body.user;
     const newSettings = req.body.newSettings;
     const allSettings = appSettingsData.find(

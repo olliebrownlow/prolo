@@ -27,15 +27,15 @@ export const getHistoricalData = (currencyCode, date) => {
 // axios does not allow get calls to pass through an argument hence the use of post
 export const getCurrencyAndTheme = (user) => {
   return axios
-    .get(`${BASE_URL}/api/v1/currencyAndThemeSettings`, {
-      data: { user: user },
+    .get(`${BASE_URL}/api/v1/appSettings`, {
+      data: { user: user, concept: "themeAndCurrency" },
     })
     .then((res) => res.data);
 };
 
 export const updateCurrencyOrThemeSettings = (userAndCurrencyOrTheme) => {
   return axios
-    .patch(`${BASE_URL}/api/v1/currencyAndThemeSettings`, userAndCurrencyOrTheme)
+    .patch(`${BASE_URL}/api/v1/appSettings`, userAndCurrencyOrTheme)
     .then((res) => console.log(res.data));
 };
 

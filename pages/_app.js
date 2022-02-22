@@ -35,7 +35,7 @@ function Prolo({ Component, pageProps }) {
   const BASE_URL = "http://localhost:3000";
 
   const { data: settings, error: settingsError } = useSWR(
-    user ? `${BASE_URL}/api/v1/currencyAndThemeSettings` : null,
+    user ? `${BASE_URL}/api/v1/appSettings` : null,
     fetcher
   );
 
@@ -55,7 +55,7 @@ function Prolo({ Component, pageProps }) {
         // set defaultUser to access default theme when not logged in
         setCookies("ue", "defaultUser");
       }
-      mutate("http://localhost:3000/api/v1/currencyAndThemeSettings");
+      mutate("http://localhost:3000/api/v1/appSettings");
     });
   }, []);
 
