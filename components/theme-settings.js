@@ -12,7 +12,7 @@ const ThemeSettings = (props) => {
               styles.button +
               " " +
               `${
-                props.themeInUse[0].theme === button.theme ? styles.active : ""
+                props.themeInUse === button.theme ? styles.active : ""
               }`
             }
             key={button.theme}

@@ -2,13 +2,13 @@ const next = require("next");
 const express = require("express");
 const bodyParser = require("body-parser");
 const _ = require("lodash");
+const cookies = require("cookies-next");
 
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
-const currencyFilePath = "./currencySettingsData.json";
-const themeFilePath = "./themeSettingsData.json";
+const appSettingsFilePath = "./appSettings.json";
 const coinFilePath = "./coinData.json";
 const fiatFilePath = "./fiatData.json";
 const fundingFilePath = "./fundingData.json";
@@ -17,8 +17,7 @@ const noteFilePath = "./noteData.json";
 const notePadFilePath = "./showNotepadSettings.json";
 fs = require("fs");
 path = require("path");
-const currencySettingsData = require(currencyFilePath);
-const themeSettingsData = require(themeFilePath);
+const appSettingsData = require(appSettingsFilePath);
 const coinData = require(coinFilePath);
 const fiatData = require(fiatFilePath);
 const fundingData = require(fundingFilePath);
@@ -30,45 +29,49 @@ app.prepare().then(() => {
   const server = express();
   server.use(bodyParser.json());
 
-  server.get("/api/v1/currencySettings", (req, res) => {
-    return res.json(currencySettingsData);
+  server.get("/api/v1/currencyAndThemeSettings", (req, res) => {
+    let user;
+    if (cookies.checkCookies("ue", { req, res })) {
+      user = cookies.getCookie("ue", { req, res });
+    } else {
+      user = req.body.user;
+    }
+    const allSettings = appSettingsData.find(
+      (settings) => settings.user === user
+    );
+
+    const currencyAndTheme = _.pick(allSettings, [
+      "theme",
+      "currencyCode",
+      "currencyName",
+      "sign",
+    ]);
+
+    return res.json(currencyAndTheme);
   });
 
-  server.patch("/api/v1/currencySettings", (req, res) => {
-    const currency = req.body[0];
+  server.patch("/api/v1/currencyAndThemeSettings", (req, res) => {
+    const user = req.body.user;
+    const newSettings = req.body.newSettings;
+    const allSettings = appSettingsData.find(
+      (settings) => settings.user === user
+    );
 
-    currencySettingsData[0] = currency;
+    _.merge(allSettings, newSettings);
 
-    const pathToFile = path.join(__dirname, currencyFilePath);
-    const stringifiedData = JSON.stringify(currencySettingsData, null, 2);
+    const pathToFile = path.join(__dirname, appSettingsFilePath);
+    const stringifiedData = JSON.stringify(appSettingsData, null, 2);
 
     fs.writeFile(pathToFile, stringifiedData, (err) => {
       if (err) {
         return res.status(422).send(err);
       }
 
-      return res.json(`App currency successfully updated to ${currency}`);
-    });
-  });
-
-  server.get("/api/v1/themeSettings", (req, res) => {
-    return res.json(themeSettingsData);
-  });
-
-  server.patch("/api/v1/themeSettings", (req, res) => {
-    const theme = req.body[0];
-
-    themeSettingsData[0] = theme;
-
-    const pathToFile = path.join(__dirname, themeFilePath);
-    const stringifiedData = JSON.stringify(themeSettingsData, null, 2);
-
-    fs.writeFile(pathToFile, stringifiedData, (err) => {
-      if (err) {
-        return res.status(422).send(err);
+      if (newSettings.theme) {
+        return res.json(`App theme set to ${newSettings.theme} `);
+      } else {
+        return res.json(`App currency set to ${newSettings.currencyName} `);
       }
-
-      return res.json(`Theme mode successfully updated to ${theme}`);
     });
   });
 

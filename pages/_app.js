@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { UserContext } from "../lib/UserContext";
-import { setCookies, removeCookies, checkCookies } from "cookies-next";
+import { setCookies } from "cookies-next";
 import { Toaster } from "react-hot-toast";
 import { AlertTriangle } from "react-feather";
 import CurrencySettingsContext from "../context/currencySettings";
@@ -13,7 +13,7 @@ import authButtons from "../config/authButtons";
 import currencyButtons from "../config/currencyButtons";
 import themeButtons from "../config/themeButtons";
 import { magic } from "../lib/magic";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import axios from "axios";
 
 import "../pageStyles/index.scss";
@@ -34,13 +34,8 @@ function Prolo({ Component, pageProps }) {
 
   const BASE_URL = "http://localhost:3000";
 
-  const { data: themeSettings, error: themeSettingsError } = useSWR(
-    `${BASE_URL}/api/v1/themeSettings`,
-    fetcher
-  );
-
-  const { data: currencySettings, error: currencySettingsError } = useSWR(
-    `${BASE_URL}/api/v1/currencySettings`,
+  const { data: settings, error: settingsError } = useSWR(
+    user ? `${BASE_URL}/api/v1/currencyAndThemeSettings` : null,
     fetcher
   );
 
@@ -57,16 +52,16 @@ function Prolo({ Component, pageProps }) {
       } else {
         Router.push("/login");
         setUser({ user: null });
-        if (checkCookies("ue")) {
-          removeCookies("ue");
-        }
+        // set defaultUser to access default theme when not logged in
+        setCookies("ue", "defaultUser");
       }
+      mutate("http://localhost:3000/api/v1/currencyAndThemeSettings");
     });
   }, []);
 
   useEffect(async () => {
-    if (themeSettings) {
-      setAppTheme(themeSettings.data[0].theme);
+    if (settings) {
+      setAppTheme(settings.data.theme);
     }
     const root = document.documentElement;
     root?.style.setProperty(
@@ -89,15 +84,15 @@ function Prolo({ Component, pageProps }) {
       "--border-top",
       appTheme === "light" ? "#000000" : "#ffffff"
     );
-  }, [themeSettings, appTheme]);
+  }, [settings, appTheme]);
 
   useEffect(async () => {
-    if (currencySettings) {
-      setAppCurrencySign(currencySettings.data[0].sign);
-      setAppCurrencyCode(currencySettings.data[0].currencyCode);
-      setAppCurrencyName(currencySettings.data[0].currencyName);
+    if (settings) {
+      setAppCurrencySign(settings.data.sign);
+      setAppCurrencyCode(settings.data.currencyCode);
+      setAppCurrencyName(settings.data.currencyName);
     }
-  }, [currencySettings, appCurrencySign, appCurrencyCode, appCurrencyName]);
+  }, [settings, appCurrencySign, appCurrencyCode, appCurrencyName]);
 
   const roundTo2DP = (unrounded) => {
     return (Math.round(unrounded * 100) / 100).toFixed(2);

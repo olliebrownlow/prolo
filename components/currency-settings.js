@@ -12,7 +12,7 @@ const CurrencySettings = (props) => {
               styles.button +
               " " +
               `${
-                props.currencyInUse[0].currencyCode === button.label
+                props.currencyInUseCode === button.label
                   ? styles.active
                   : ""
               }`
@@ -22,13 +22,13 @@ const CurrencySettings = (props) => {
             sign={button.sign}
             value={button.value}
             label={
-              props.currencyInUse[0].currencyCode === button.label
+              props.currencyInUseCode === button.label
                 ? null
                 : button.label
             }
             onClick={props.handleCurrency}
             style={
-              props.currencyInUse[0].currencyCode === button.label
+              props.currencyInUseCode === button.label
                 ? { backgroundImage: `url(${button.label}FlagSmall.jpg)` }
                 : {}
             }
