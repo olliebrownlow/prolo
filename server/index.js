@@ -29,6 +29,51 @@ app.prepare().then(() => {
   const server = express();
   server.use(bodyParser.json());
 
+  server.get("/api/v1/hasAppSettings", (req, res) => {
+    const user = cookies.getCookie("ue", { req, res });
+    const settings = appSettingsData.find((settings) => settings.user === user);
+    if (settings) {
+      return res.json("true");
+    } else {
+      return res.json("false");
+    }
+  });
+
+  server.post("/api/v1/appSettings", (req, res) => {
+    const user = req.body.user;
+    if (appSettingsData.find((settings) => settings.user === user)) {
+      return res.json(
+        `Cannot add new app settings for ${user}: user already exists`
+      );
+    }
+    const defaultAppSettingsForNewUser = {
+      theme: "light",
+      currencyCode: "eur",
+      currencyName: "euros",
+      sign: "€",
+      showFiatNotepad: false,
+      showCoinNotepad: false,
+      showFundingItemNotepad: false,
+      showMrktAnalysis: false,
+      showMrktData: false,
+      currentIndex: 0,
+      interval: "h",
+      intervalLabel: "1hr",
+      user: user,
+    };
+    appSettingsData.push(defaultAppSettingsForNewUser);
+
+    const pathToFile = path.join(__dirname, appSettingsFilePath);
+    const stringifiedData = JSON.stringify(appSettingsData, null, 2);
+    fs.writeFile(pathToFile, stringifiedData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+
+      return res.json(`new app settings successfully added for ${user}`);
+    });
+  });
+
   server.get("/api/v1/appSettings", (req, res) => {
     let user;
     let concept;

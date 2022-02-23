@@ -24,7 +24,17 @@ export const getHistoricalData = (currencyCode, date) => {
   return axios.get(url).then((res) => res.data);
 };
 
-// axios does not allow get calls to pass through an argument hence the use of post
+export const hasAppSettings = () => {
+  return axios.get(`${BASE_URL}/api/v1/hasAppSettings`).then((res) => res.data);
+};
+
+export const addAppSettingsForNewUser = (user) => {
+  const res = axios
+    .post(`${BASE_URL}/api/v1/appSettings`, user)
+    .then((res) => console.log(res.data));
+  return res;
+};
+
 export const getCurrencyAndTheme = (user) => {
   return axios
     .get(`${BASE_URL}/api/v1/appSettings`, {

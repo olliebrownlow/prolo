@@ -15,6 +15,7 @@ import themeButtons from "../config/themeButtons";
 import { magic } from "../lib/magic";
 import useSWR, { mutate } from "swr";
 import axios from "axios";
+import { addAppSettingsForNewUser, hasAppSettings } from "../actions";
 
 import "../pageStyles/index.scss";
 import "../pageStyles/appLayout.scss";
@@ -42,12 +43,24 @@ function Prolo({ Component, pageProps }) {
   // If isLoggedIn is true, set the UserContext with user data
   // Otherwise, redirect to /login and set UserContext to { user: null }
   useEffect(() => {
+    const addAppSettingsIfNewUser = async (user) => {
+      const res = await hasAppSettings();
+      if (res === "false") {
+        await addAppSettingsForNewUser({ user: user });
+        mutate("http://localhost:3000/api/v1/appSettings");
+        if (settings) {
+          setAppTheme(settings.data.theme);
+        }
+      }
+    };
+
     setUser({ loading: true });
     magic.user.isLoggedIn().then((isLoggedIn) => {
       if (isLoggedIn) {
         magic.user.getMetadata().then((userData) => {
           setUser(userData);
           setCookies("ue", userData.email);
+          addAppSettingsIfNewUser(userData.email);
         });
       } else {
         Router.push("/login");
