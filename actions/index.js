@@ -49,15 +49,17 @@ export const updateCurrencyOrThemeSettings = (userAndCurrencyOrTheme) => {
     .then((res) => console.log(res.data));
 };
 
-export const getMrktInfoSettings = () => {
+export const getMrktInfoSettings = (user, concept) => {
   return axios
-    .get(`${BASE_URL}/api/v1/mrktInfoSettings`)
+    .get(`${BASE_URL}/api/v1/appSettings`, {
+      data: { user: user, concept: concept },
+    })
     .then((res) => res.data);
 };
 
-export const updateMrktInfoSettings = (newSetting) => {
+export const updateMrktInfoSettings = (userAndNewMrktInfoSettings) => {
   return axios
-    .patch(`${BASE_URL}/api/v1/mrktInfoSettings`, newSetting)
+    .patch(`${BASE_URL}/api/v1/appSettings`, userAndNewMrktInfoSettings)
     .then((res) => console.log(res.data));
 };
 

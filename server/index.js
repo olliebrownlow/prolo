@@ -12,7 +12,6 @@ const appSettingsFilePath = "./appSettings.json";
 const coinFilePath = "./coinData.json";
 const fiatFilePath = "./fiatData.json";
 const fundingFilePath = "./fundingData.json";
-const mrktInfoFilePath = "./marketInfoSettings.json";
 const noteFilePath = "./noteData.json";
 const notePadFilePath = "./showNotepadSettings.json";
 fs = require("fs");
@@ -21,7 +20,6 @@ const appSettingsData = require(appSettingsFilePath);
 const coinData = require(coinFilePath);
 const fiatData = require(fiatFilePath);
 const fundingData = require(fundingFilePath);
-const mrktInfoSettingsData = require(mrktInfoFilePath);
 const noteData = require(noteFilePath);
 const showNotepadSettingsData = require(notePadFilePath);
 
@@ -97,7 +95,19 @@ app.prepare().then(() => {
         "currencyName",
         "sign",
       ]);
+    } else if (concept === "mrktInfoSettings") {
+      settings = _.pick(allSettings, [
+        "showMrktAnalysis",
+        "showMrktData",
+        "currentIndex",
+        "interval",
+        "intervalLabel",
+      ]);
     }
+
+    console.log("get");
+    console.log(settings);
+    console.log("get");
 
     return res.json(settings);
   });
@@ -108,6 +118,10 @@ app.prepare().then(() => {
     const allSettings = appSettingsData.find(
       (settings) => settings.user === user
     );
+
+    console.log("patch");
+    console.log(newSettings);
+    console.log("patch");
 
     _.merge(allSettings, newSettings);
 
@@ -121,34 +135,19 @@ app.prepare().then(() => {
 
       if (newSettings.theme) {
         return res.json(`App theme set to ${newSettings.theme} `);
-      } else {
+      } else if (newSettings.currencyName) {
         return res.json(`App currency set to ${newSettings.currencyName} `);
+      } else if (newSettings.intervalLabel) {
+        return res.json(`Interval set to ${newSettings.intervalLabel} `);
+      } else if (newSettings.showMrktAnalysis) {
+        return res.json(
+          `Show market analysis data set to ${newSettings.showMrktAnalysis} `
+        );
+      } else if (newSettings.showMrktData) {
+        return res.json(
+          `Show market info data set to ${newSettings.showMrktData} `
+        );
       }
-    });
-  });
-
-  server.get("/api/v1/mrktInfoSettings", (req, res) => {
-    return res.json(mrktInfoSettingsData);
-  });
-
-  server.patch("/api/v1/mrktInfoSettings", (req, res) => {
-    const newSettings = req.body[0];
-    const newSettingsArray = Object.entries(newSettings);
-
-    newSettingsArray.forEach((entry) => {
-      let key = entry[0];
-      let value = entry[1];
-      mrktInfoSettingsData[0][key] = value;
-    });
-
-    const pathToFile = path.join(__dirname, mrktInfoFilePath);
-    const stringifiedData = JSON.stringify(mrktInfoSettingsData, null, 2);
-    fs.writeFile(pathToFile, stringifiedData, (err) => {
-      if (err) {
-        return res.status(422).send(err);
-      }
-
-      return res.json("Market info settng(s) successfully updated");
     });
   });
 

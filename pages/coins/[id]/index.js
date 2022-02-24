@@ -38,20 +38,20 @@ const Coin = (props) => {
   const [noteList, setNoteList] = useState([]);
   const [isShown, setIsShown] = useState(false);
   const [showMrktAnalysis, setShowMrktAnalysis] = useState(
-    mrktInfoSettings[0].showMrktAnalysis
+    mrktInfoSettings.showMrktAnalysis
   );
   const [showMrktData, setShowMrktData] = useState(
-    mrktInfoSettings[0].showMrktData
+    mrktInfoSettings.showMrktData
   );
   const [cancel, setCancel] = useState(false);
   const [anim, setAnim] = useState(0);
   const [currentAmount, setCurrentAmount] = useState(coin[0]["amount"]);
   const [currentIndex, setCurrentIndex] = useState(
-    mrktInfoSettings[0].currentIndex
+    mrktInfoSettings.currentIndex
   );
-  const [interval, setInterval] = useState(mrktInfoSettings[0].interval);
+  const [interval, setInterval] = useState(mrktInfoSettings.interval);
   const [intervalLabel, setIntervalLabel] = useState(
-    mrktInfoSettings[0].intervalLabel
+    mrktInfoSettings.intervalLabel
   );
 
   useEffect(async () => {
@@ -73,17 +73,18 @@ const Coin = (props) => {
     otherwise: (fn) => fn(x),
   });
 
-  const setAndStore = (index, propPrefix, intervalDescription) => {
+  const setAndStore = async (index, propPrefix, intervalDescription) => {
     setInterval(propPrefix);
     setIntervalLabel(intervalDescription);
-    const newInfoSettings = [
-      {
-        currentIndex: index,
-        interval: propPrefix,
-        intervalLabel: intervalDescription,
-      },
-    ];
-    const res = updateMrktInfoSettings(newInfoSettings);
+    const newInfoSettings = {
+      currentIndex: index,
+      interval: propPrefix,
+      intervalLabel: intervalDescription,
+    };
+    const res = await updateMrktInfoSettings({
+      user: getCookie("ue"),
+      newSettings: newInfoSettings,
+    });
     console.log(res);
   };
 
@@ -124,27 +125,26 @@ const Coin = (props) => {
     setIsShown(false);
   };
 
-  const handleMrktInfoUpdate = (newSetting) => {
-    const res = updateMrktInfoSettings(newSetting);
+  const handleMrktInfoUpdate = async (newSetting) => {
+    const res = await updateMrktInfoSettings({
+      user: getCookie("ue"),
+      newSettings: newSetting,
+    });
     console.log(res);
   };
 
   const toggleShowMarketAnalysis = () => {
-    const newSetting = [
-      {
-        showMrktAnalysis: !showMrktAnalysis,
-      },
-    ];
+    const newSetting = {
+      showMrktAnalysis: !showMrktAnalysis,
+    };
     setShowMrktAnalysis(!showMrktAnalysis);
     handleMrktInfoUpdate(newSetting);
   };
 
   const toggleShowMarketData = () => {
-    const newSetting = [
-      {
-        showMrktData: !showMrktData,
-      },
-    ];
+    const newSetting = {
+      showMrktData: !showMrktData,
+    };
     setShowMrktData(!showMrktData);
     handleMrktInfoUpdate(newSetting);
   };
@@ -518,7 +518,7 @@ export async function getServerSideProps({ query, req, res }) {
   const code = query.id;
   const user = getCookie("ue", { req, res });
   const coin = await getSingleCoinData(code, user);
-  const mrktInfoSettings = await getMrktInfoSettings();
+  const mrktInfoSettings = await getMrktInfoSettings(user, "mrktInfoSettings");
 
   // console.log(JSON.stringify(query));
   // console.log(context.req);
