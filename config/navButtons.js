@@ -30,6 +30,11 @@ const navButtons = [
     icon: <Pocket />,
   },
   {
+    label: "monitor",
+    path: "/monitor",
+    icon: <TrendingUp />,
+  },
+  {
     label: "settings",
     path: "/settings",
     icon: <Settings />,
