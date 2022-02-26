@@ -13,7 +13,6 @@ const coinFilePath = "./coinData.json";
 const fiatFilePath = "./fiatData.json";
 const fundingFilePath = "./fundingData.json";
 const noteFilePath = "./noteData.json";
-const notePadFilePath = "./showNotepadSettings.json";
 fs = require("fs");
 path = require("path");
 const appSettingsData = require(appSettingsFilePath);
@@ -21,7 +20,6 @@ const coinData = require(coinFilePath);
 const fiatData = require(fiatFilePath);
 const fundingData = require(fundingFilePath);
 const noteData = require(noteFilePath);
-const showNotepadSettingsData = require(notePadFilePath);
 
 app.prepare().then(() => {
   const server = express();
@@ -73,14 +71,12 @@ app.prepare().then(() => {
   });
 
   server.get("/api/v1/appSettings", (req, res) => {
-    let user;
-    let concept;
-    if (cookies.checkCookies("ue", { req, res })) {
+    let user = req.query.user;
+    let concept = req.query.concept;
+
+    if (req.query.user === undefined) {
       user = cookies.getCookie("ue", { req, res });
       concept = "themeAndCurrency";
-    } else {
-      user = req.body.user;
-      concept = req.body.concept;
     }
 
     const allSettings = appSettingsData.find(
@@ -103,11 +99,13 @@ app.prepare().then(() => {
         "interval",
         "intervalLabel",
       ]);
+    } else if (concept === "notepadSettings") {
+      settings = _.pick(allSettings, [
+        "showFiatNotepad",
+        "showCoinNotepad",
+        "showFundingItemNotepad",
+      ]);
     }
-
-    console.log("get");
-    console.log(settings);
-    console.log("get");
 
     return res.json(settings);
   });
@@ -118,10 +116,6 @@ app.prepare().then(() => {
     const allSettings = appSettingsData.find(
       (settings) => settings.user === user
     );
-
-    console.log("patch");
-    console.log(newSettings);
-    console.log("patch");
 
     _.merge(allSettings, newSettings);
 
@@ -134,63 +128,21 @@ app.prepare().then(() => {
       }
 
       if (newSettings.theme) {
-        return res.json(`App theme set to ${newSettings.theme} `);
+        return res.json(`App theme set to ${newSettings.theme}`);
       } else if (newSettings.currencyName) {
-        return res.json(`App currency set to ${newSettings.currencyName} `);
+        return res.json(`App currency set to ${newSettings.currencyName}`);
       } else if (newSettings.intervalLabel) {
-        return res.json(`Interval set to ${newSettings.intervalLabel} `);
+        return res.json(`Interval set to ${newSettings.intervalLabel}`);
       } else if (newSettings.showMrktAnalysis) {
         return res.json(
-          `Show market analysis data set to ${newSettings.showMrktAnalysis} `
+          `Show market analysis data set to ${newSettings.showMrktAnalysis}`
         );
       } else if (newSettings.showMrktData) {
         return res.json(
-          `Show market info data set to ${newSettings.showMrktData} `
+          `Show market info data set to ${newSettings.showMrktData}`
         );
-      }
-    });
-  });
-
-  server.get("/api/v1/showNotepadSettings", (req, res) => {
-    return res.json(showNotepadSettingsData);
-  });
-
-  server.patch("/api/v1/showNotepadSettings", (req, res) => {
-    const newSetting = req.body;
-
-    let key = Object.keys(newSetting)[0];
-    let value = Object.values(newSetting)[0];
-    showNotepadSettingsData[0][key] = value;
-
-    const pathToFile = path.join(__dirname, notePadFilePath);
-    const stringifiedData = JSON.stringify(showNotepadSettingsData, null, 2);
-    fs.writeFile(pathToFile, stringifiedData, (err) => {
-      if (err) {
-        return res.status(422).send(err);
-      }
-
-      if (value) {
-        if (key === "showFiatNotepad") {
-          return res.json("Fiat notepad set to visible");
-        }
-        if (key === "showCoinNotepad") {
-          return res.json("Coin notepad set to visible");
-        }
-
-        if (key === "showFundingItemNotepad") {
-          return res.json("Funding item notepad set to visible");
-        }
       } else {
-        if (key === "showFiatNotepad") {
-          return res.json("Fiat notepad set to hidden");
-        }
-        if (key === "showCoinNotepad") {
-          return res.json("Coin notepad set to hidden");
-        }
-
-        if (key === "showFundingItemNotepad") {
-          return res.json("Funding item notepad set to hidden");
-        }
+        return res.json("Notepad visibilty updated");
       }
     });
   });

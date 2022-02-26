@@ -38,7 +38,7 @@ export const addAppSettingsForNewUser = (user) => {
 export const getCurrencyAndTheme = (user) => {
   return axios
     .get(`${BASE_URL}/api/v1/appSettings`, {
-      data: { user: user, concept: "themeAndCurrency" },
+      params: { user: user, concept: "themeAndCurrency" },
     })
     .then((res) => res.data);
 };
@@ -52,7 +52,7 @@ export const updateCurrencyOrThemeSettings = (userAndCurrencyOrTheme) => {
 export const getMrktInfoSettings = (user, concept) => {
   return axios
     .get(`${BASE_URL}/api/v1/appSettings`, {
-      data: { user: user, concept: concept },
+      params: { user: user, concept: concept },
     })
     .then((res) => res.data);
 };
@@ -63,15 +63,17 @@ export const updateMrktInfoSettings = (userAndNewMrktInfoSettings) => {
     .then((res) => console.log(res.data));
 };
 
-export const getNotepadSettings = () => {
+export const getNotepadSettings = (user, concept) => {
   return axios
-    .get(`${BASE_URL}/api/v1/showNotepadSettings`)
+    .get(`${BASE_URL}/api/v1/appSettings`, {
+      params: { user: user, concept: concept },
+    })
     .then((res) => res.data);
 };
 
-export const updateNotepadSettings = (newSetting) => {
+export const updateNotepadSettings = (userAndNewSetting) => {
   return axios
-    .patch(`${BASE_URL}/api/v1/showNotepadSettings`, newSetting)
+    .patch(`${BASE_URL}/api/v1/appSettings`, userAndNewSetting)
     .then((res) => console.log(res.data));
 };
 

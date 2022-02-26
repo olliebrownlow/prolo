@@ -1,5 +1,6 @@
 import AddButton from "./add-button";
 import React, { useState, useEffect, useContext } from "react";
+import { getCookie } from "cookies-next";
 import { UserContext } from "../lib/UserContext";
 import styles from "./noteCollapsible.module.scss";
 import NoteModal from "./note-modal";
@@ -36,12 +37,18 @@ const NoteCollapsible = (props) => {
 
   useEffect(async () => {
     setNoteList(notes);
-    const notepadSettings = await getNotepadSettings();
-    setShowNotepad(notepadSettings[0][notepadSettingType]);
-  }, [notes, notepadSettingType]);
+    const notepadSettings = await getNotepadSettings(
+      getCookie("ue"),
+      "notepadSettings"
+    );
+    setShowNotepad(notepadSettings[notepadSettingType]);
+  }, [notes, notepadSettingType, showNotepad]);
 
-  const handleNotepadSettingUpdate = (newSetting) => {
-    const res = updateNotepadSettings(newSetting);
+  const handleNotepadSettingUpdate = async (newSetting) => {
+    const res = await updateNotepadSettings({
+      user: getCookie("ue"),
+      newSettings: newSetting,
+    });
     console.log(res);
   };
 
