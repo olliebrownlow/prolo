@@ -10,6 +10,7 @@ import Modal from "../components/modal";
 import PocketBalance from "../components/pocket-balance";
 import { getCoinData } from "../lib/core/coinData";
 import { getFiatData } from "../lib/core/fiatData";
+import { calculateBalance } from "../lib/core/calculateBalance";
 import coinSelectOptions from "../config/coinSelectOptions";
 import fiatSelectOptions from "../config/fiatSelectOptions";
 import styles from "../pageStyles/pocket.module.scss";
@@ -17,7 +18,7 @@ import styles from "../pageStyles/pocket.module.scss";
 const Pocket = (props) => {
   const [user] = useContext(UserContext);
   const { appCurrencySign } = useContext(CurrencySettingsContext);
-  const { coinData, fiatData, roundTo2DP } = props;
+  const { coinData, fiatData, balances, roundTo2DP } = props;
   const [isCoinOptionsExhausted, setIsCoinOptionsExhausted] = useState(false);
   const [isFiatOptionsExhausted, setIsFiatOptionsExhausted] = useState(false);
 
@@ -41,11 +42,15 @@ const Pocket = (props) => {
             <div className={styles.heading}>balance</div>
             <PocketBalance
               roundTo2DP={roundTo2DP}
-              coinData={coinData}
-              fiatData={fiatData}
+              balance={balances.balance}
               appCurrencySign={appCurrencySign}
             />
             <div className={styles.heading}>coin holdings</div>
+            <div className={styles.balance}>
+              {appCurrencySign}
+              {roundTo2DP(balances.coinTotal)}
+            </div>
+            <div className={styles.subheading}>breakdown</div>
             <Modal
               buttonText={"add coin"}
               labelName={"coin"}
@@ -60,6 +65,11 @@ const Pocket = (props) => {
             />
             <div className={styles.spacer}>placeholder</div>
             <div className={styles.heading}>fiat holdings</div>
+            <div className={styles.balance}>
+              {appCurrencySign}
+              {roundTo2DP(balances.fiatTotal)}
+            </div>
+            <div className={styles.subheading}>breakdown</div>
             <Modal
               buttonText={"add fiat"}
               labelName={"fiat"}
@@ -86,10 +96,14 @@ export async function getServerSideProps({ req, res }) {
   // console.log(fiatData);
   // console.log(coinData);
 
+  const balances = await calculateBalance(coinData, fiatData);
+  // console.log(balances);
+
   return {
     props: {
       coinData,
       fiatData,
+      balances,
     },
   };
 }

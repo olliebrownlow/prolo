@@ -22,7 +22,7 @@ import InvestmentModal from "../components/investment-modal";
 import _ from "lodash";
 
 const Ledger = (props) => {
-  const { roundTo2DP, balance, investmentItems } = props;
+  const { roundTo2DP, balances, investmentItems } = props;
 
   const [user] = useContext(UserContext);
   const { appCurrencySign, appCurrencyName } = useContext(
@@ -89,9 +89,9 @@ const Ledger = (props) => {
       const unroundedInvestmentValue = valuesArray.reduce(
         (accumulator, current) => accumulator + current
       );
-      return balance - unroundedInvestmentValue;
+      return balances.balance - unroundedInvestmentValue;
     } else {
-      return balance;
+      return balances.balance;
     }
   };
 
@@ -120,13 +120,13 @@ const Ledger = (props) => {
             <div className={styles.heading}>balance</div>
             <div className={styles.balance}>
               {appCurrencySign}
-              {roundTo2DP(balance)}
+              {roundTo2DP(balances.balance)}
             </div>
             <hr className={styles.solidDivider} />
             <div className={styles.heading}>funding</div>
             <div className={styles.balance}>
               {appCurrencySign}
-              {roundTo2DP(balance - prolo())}
+              {roundTo2DP(balances.balance - prolo())}
             </div>
             <div className={styles.subheading}>breakdown</div>
             <AddButton
@@ -161,16 +161,16 @@ export async function getServerSideProps({ req, res }) {
   const user = getCookie("ue", { req, res });
   const coinData = await getCoinData(user);
   const fiatData = await getFiatData(user);
-  const balance = await calculateBalance(coinData, fiatData);
+  const balances = await calculateBalance(coinData, fiatData);
   const investmentItems = await getFundingData({ user: user });
   // console.log(fiatData);
   // console.log(coinData);
-  // console.log(balance);
+  // console.log(balances);
   // console.log(investmentItems);
 
   return {
     props: {
-      balance,
+      balances,
       investmentItems,
     },
   };
