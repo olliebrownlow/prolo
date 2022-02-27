@@ -515,9 +515,10 @@ const Coin = (props) => {
 };
 
 export async function getServerSideProps({ query, req, res }) {
-  const code = query.id;
+  const coinCode = query.id;
   const user = getCookie("ue", { req, res });
-  const coin = await getSingleCoinData(code, user);
+  const currencyCode = getCookie("cc", { req, res });
+  const coin = await getSingleCoinData(coinCode, user, currencyCode);
   const mrktInfoSettings = await getMrktInfoSettings(user, "mrktInfoSettings");
 
   // console.log(JSON.stringify(query));

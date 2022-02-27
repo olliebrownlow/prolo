@@ -1,6 +1,6 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { UserContext } from "../lib/UserContext";
-import { setCookies } from "cookies-next";
+import { setCookies, removeCookies } from "cookies-next";
 import { Toaster } from "react-hot-toast";
 import { AlertTriangle } from "react-feather";
 import CurrencySettingsContext from "../context/currencySettings";
@@ -67,6 +67,7 @@ function Prolo({ Component, pageProps }) {
         setUser({ user: null });
         // set defaultUser to access default theme when not logged in
         setCookies("ue", "defaultUser");
+        removeCookies("cc");
       }
       mutate("http://localhost:3000/api/v1/appSettings");
     });
@@ -104,6 +105,7 @@ function Prolo({ Component, pageProps }) {
       setAppCurrencySign(settings.data.sign);
       setAppCurrencyCode(settings.data.currencyCode);
       setAppCurrencyName(settings.data.currencyName);
+      setCookies("cc", settings.data.currencyCode);
     }
   }, [settings, appCurrencySign, appCurrencyCode, appCurrencyName]);
 
