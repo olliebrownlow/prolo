@@ -7,7 +7,7 @@ import fiatSelectOptions from "../config/fiatSelectOptions";
 import _ from "lodash";
 
 const AddForm = (props) => {
-  const { title, labelName, handleFormSubmit, data, isShown } = props;
+  const { title, labelName, handleFormSubmit, data, type, isShown } = props;
 
   const defaultData = {
     code: "",
@@ -50,6 +50,7 @@ const AddForm = (props) => {
         ...form,
         code: wordsArray.pop(),
         name: wordsArray.join(" "),
+        type: type,
       });
     }
     // set fiat data

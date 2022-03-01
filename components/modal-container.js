@@ -18,6 +18,7 @@ const ModalContainer = (props) => {
     title,
     labelName,
     data,
+    type,
     isShown,
     dataOptionsExhausted,
   } = props;
@@ -30,7 +31,7 @@ const ModalContainer = (props) => {
         duration: 6500,
         style: {
           backgroundColor: "#292929",
-          color: "white"
+          color: "white",
         },
       }
     );
@@ -66,6 +67,7 @@ const ModalContainer = (props) => {
             title={title}
             labelName={labelName}
             data={data}
+            type={type}
             isShown={isShown}
           />
           <hr className={styles.solidDivider} />

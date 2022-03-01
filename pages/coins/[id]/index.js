@@ -165,25 +165,30 @@ const Coin = (props) => {
     Router.replace("/coins/" + id, undefined, { scroll: false });
   };
 
-  const handleCoinUpdate = (userAndNewAmount) => {
-    const res = updateCoin(getCoinProp("id"), userAndNewAmount);
+  const handleCoinUpdate = (userTypeAndNewAmount) => {
+    const res = updateCoin(getCoinProp("id"), userTypeAndNewAmount);
     console.log(res);
     setTimeout(closeModal, 500);
   };
 
   const handleUpdate = (amount) => {
-    const userAndNewAmount = {
+    const userTypeAndNewAmount = {
       amount: amount,
       user: getCookie("ue"),
+      type: getCoinProp("type"),
     };
     setCurrentAmount(amount);
-    handleCoinUpdate(userAndNewAmount);
+    handleCoinUpdate(userTypeAndNewAmount);
     refreshCoinData();
   };
 
   const handleDeleteCoin = () => {
     refreshData();
-    const res = deleteCoin(getCoinProp("id"), getCookie("ue"));
+    const res = deleteCoin(
+      getCoinProp("id"),
+      getCookie("ue"),
+      getCoinProp("type")
+    );
     console.log(res);
   };
 
@@ -518,11 +523,11 @@ export async function getServerSideProps({ query, req, res }) {
   const coinCode = query.id;
   const user = getCookie("ue", { req, res });
   const currencyCode = getCookie("cc", { req, res });
-  const coin = await getSingleCoinData(coinCode, user, currencyCode);
+  const coin = await getSingleCoinData(coinCode, user, currencyCode, "holding");
   const mrktInfoSettings = await getMrktInfoSettings(user, "mrktInfoSettings");
 
   // console.log(JSON.stringify(query));
-  // console.log(context.req);
+  // console.log(coin[0].type);
   // console.log(mrktInfoSettings);
 
   return {

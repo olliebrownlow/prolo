@@ -261,8 +261,9 @@ app.prepare().then(() => {
   // post method to fetch all coins for a specific user
   server.post("/api/v1/allCoins", (req, res) => {
     const user = req.body.user;
+    const type = req.body.type;
     const coins = _.filter(coinData, function (coin) {
-      return coin.user === user;
+      return coin.user === user && coin.type === type;
     });
     return res.json(coins);
   });
@@ -271,8 +272,12 @@ app.prepare().then(() => {
   server.post("/api/v1/coin", (req, res) => {
     const coinCode = req.body.code;
     const user = req.body.user;
+    const type = req.body.type;
     const coin = coinData.find(
-      (savedCoin) => savedCoin.code === coinCode && savedCoin.user === user
+      (savedCoin) =>
+        savedCoin.code === coinCode &&
+        savedCoin.user === user &&
+        savedCoin.type === type
     );
 
     return res.json(coin);
@@ -283,7 +288,9 @@ app.prepare().then(() => {
     if (
       coinData.find(
         (savedCoin) =>
-          savedCoin.code === coin.code && savedCoin.user === coin.user
+          savedCoin.code === coin.code &&
+          savedCoin.user === coin.user &&
+          savedCoin.type === coin.type
       )
     ) {
       return res.json("Cannot add coin: already added");
@@ -305,8 +312,9 @@ app.prepare().then(() => {
     const { id } = req.params;
     const updatedAmount = req.body.amount;
     const user = req.body.user;
+    const type = req.body.type;
     const coinIndex = coinData.findIndex(
-      (coin) => coin.code === id && coin.user === user
+      (coin) => coin.code === id && coin.user === user && coin.type === type
     );
 
     if (coinData[coinIndex].amount === updatedAmount) {
@@ -331,8 +339,9 @@ app.prepare().then(() => {
   server.delete("/api/v1/coins/:id", (req, res) => {
     const { id } = req.params;
     const user = req.body.user;
+    const type = req.body.type;
     const coinIndex = coinData.findIndex(
-      (coin) => coin.code === id && coin.user === user
+      (coin) => coin.code === id && coin.user === user && coin.type === type
     );
 
     if (coinIndex < 0) {

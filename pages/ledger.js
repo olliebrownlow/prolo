@@ -160,7 +160,7 @@ const Ledger = (props) => {
 export async function getServerSideProps({ req, res }) {
   const user = getCookie("ue", { req, res });
   const currencyCode = getCookie("cc", { req, res });
-  const coinData = await getCoinData(user, currencyCode);
+  const coinData = await getCoinData(user, currencyCode, "holding");
   const fiatData = await getFiatData(user, currencyCode);
   const balances = await calculateBalance(coinData, fiatData);
   const investmentItems = await getFundingData({ user: user });

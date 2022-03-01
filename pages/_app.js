@@ -45,7 +45,7 @@ function Prolo({ Component, pageProps }) {
   useEffect(() => {
     const addAppSettingsIfNewUser = async (user) => {
       const res = await hasAppSettings();
-      if (res === "false") {
+      if (res === "false" && user != null) {
         await addAppSettingsForNewUser({ user: user });
         mutate("http://localhost:3000/api/v1/appSettings");
         if (settings) {

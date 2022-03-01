@@ -57,6 +57,7 @@ const Pocket = (props) => {
               data={coinData}
               dataOptionsExhausted={isCoinOptionsExhausted}
               userEmail={user.email}
+              type={"holding"}
             />
             <CoinList
               roundTo2DP={roundTo2DP}
@@ -92,7 +93,7 @@ const Pocket = (props) => {
 export async function getServerSideProps({ req, res }) {
   const user = getCookie("ue", { req, res });
   const currencyCode = getCookie("cc", { req, res });
-  const coinData = await getCoinData(user, currencyCode);
+  const coinData = await getCoinData(user, currencyCode, "holding");
   const fiatData = await getFiatData(user, currencyCode);
   // console.log(user);
   // console.log(currencyCode);

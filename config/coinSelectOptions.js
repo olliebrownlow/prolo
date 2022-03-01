@@ -54,7 +54,7 @@ const coinSelectOptions = [
     code: "[LRC]",
   },
   {
-    name: "crypto.com chain",
+    name: "cronos",
     code: "[CRO]",
   },
   {

@@ -12,6 +12,7 @@ const Modal = (props) => {
     data,
     dataOptionsExhausted,
     userEmail,
+    type,
   } = props;
 
   const showModal = () => {
@@ -62,6 +63,7 @@ const Modal = (props) => {
           title={buttonText}
           labelName={labelName}
           data={data}
+          type={type}
           isShown={isShown}
           dataOptionsExhausted={dataOptionsExhausted}
         />
