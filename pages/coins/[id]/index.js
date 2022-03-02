@@ -522,12 +522,12 @@ const Coin = (props) => {
 export async function getServerSideProps({ query, req, res }) {
   const coinCode = query.id;
   const user = getCookie("ue", { req, res });
+  const coinType = getCookie("ct", { req, res });
   const currencyCode = getCookie("cc", { req, res });
-  const coin = await getSingleCoinData(coinCode, user, currencyCode, "holding");
+  const coin = await getSingleCoinData(coinCode, user, currencyCode, coinType);
   const mrktInfoSettings = await getMrktInfoSettings(user, "mrktInfoSettings");
-
   // console.log(JSON.stringify(query));
-  // console.log(coin[0].type);
+  // console.log(coinType);
   // console.log(mrktInfoSettings);
 
   return {

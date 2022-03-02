@@ -4,7 +4,7 @@ import { setCookies, removeCookies } from "cookies-next";
 import { Toaster } from "react-hot-toast";
 import { AlertTriangle } from "react-feather";
 import CurrencySettingsContext from "../context/currencySettings";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import Head from "next/head";
 import Header from "../components/header";
 import NavBar from "../components/nav-bar";
@@ -32,6 +32,7 @@ function Prolo({ Component, pageProps }) {
   const [appCurrencyCode, setAppCurrencyCode] = useState("eur");
   const [appCurrencyName, setAppCurrencyName] = useState("euros");
   const appTitle = `pro.lo-`;
+  const router = useRouter();
 
   const BASE_URL = "http://localhost:3000";
 
@@ -39,6 +40,25 @@ function Prolo({ Component, pageProps }) {
     user ? `${BASE_URL}/api/v1/appSettings` : null,
     fetcher
   );
+
+  useEffect(() => {
+    const handleRouteChange = (url) => {
+      if (url === "/pocket" || url === "/ledger") {
+        setCookies("ct", "holding");
+      }
+      if (url === "/monitor") {
+        setCookies("ct", "monitoring");
+      }
+    };
+
+    router.events.on("routeChangeStart", handleRouteChange);
+
+    // // If the component is unmounted, unsubscribe
+    // // from the event with the `off` method:
+    // return () => {
+    //   router.events.off("routeChangeStart", handleRouteChange);
+    // };
+  }, []);
 
   // If isLoggedIn is true, set the UserContext with user data
   // Otherwise, redirect to /login and set UserContext to { user: null }

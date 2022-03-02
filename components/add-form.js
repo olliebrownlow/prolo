@@ -95,7 +95,6 @@ const AddForm = (props) => {
 
   return (
     <>
-      {/* <Toaster /> */}
       <h1 className={styles.heading}>{title}</h1>
       <hr className={styles.solidDivider} />
       <form>
