@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 const DetailPageButtons = (props) => {
   const {
     showModal,
+    type,
     handleDelete,
     handleCancel,
     isShown,
@@ -48,16 +49,18 @@ const DetailPageButtons = (props) => {
         <React.Fragment />
       )}
       <div className={styles.buttons}>
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          transition={{ duration: 0.25 }}
-          animate={isShown ? { scale: [1, 0.5, 1] } : {}}
-          className={styles.updateButton}
-          onClick={() => showModal()}
-          role="button"
-        >
-          {buttonText}
-        </motion.button>
+        {type !== "monitoring" && (
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            transition={{ duration: 0.25 }}
+            animate={isShown ? { scale: [1, 0.5, 1] } : {}}
+            className={styles.updateButton}
+            onClick={() => showModal()}
+            role="button"
+          >
+            {buttonText}
+          </motion.button>
+        )}
         <motion.button
           whileHover={{ scale: 1.1 }}
           transition={{ duration: 0.25 }}

@@ -160,6 +160,10 @@ const Coin = (props) => {
     Router.replace("/pocket", undefined, { scroll: false });
   };
 
+  const refreshMonitoredCoinData = () => {
+    Router.replace("/monitor", undefined, { scroll: false });
+  };
+
   const refreshCoinData = () => {
     const id = getCoinProp("id");
     Router.replace("/coins/" + id, undefined, { scroll: false });
@@ -183,7 +187,11 @@ const Coin = (props) => {
   };
 
   const handleDeleteCoin = () => {
-    refreshData();
+    if (getCoinProp("type") === "holding") {
+      refreshData();
+    } else {
+      refreshMonitoredCoinData();
+    }
     const res = deleteCoin(
       getCoinProp("id"),
       getCookie("ue"),
@@ -270,12 +278,40 @@ const Coin = (props) => {
       )}
       <div className={styles.name}>{getCoinProp("name")}</div>
       <div className={styles.code2}>[{getCoinProp("id")}]</div>
-      <div className={styles.currentAmount}>{currentAmount} coins</div>
-      <div className={styles.currentAmount}>
-        {appCurrencySign}
-        {roundTo2DP(getCoinProp("price"))}/coin
-      </div>
-      {currentAmount === getCoinProp("amount") ? (
+      {getCoinProp("type") === "holding" && (
+        <>
+          <div className={styles.currentAmount}>{currentAmount} coins</div>
+          <div className={styles.currentAmount}>
+            {appCurrencySign}
+            {roundTo2DP(getCoinProp("price"))}/coin
+          </div>
+        </>
+      )}
+      {getCoinProp("type") === "holding" ? (
+        currentAmount === getCoinProp("amount") ? (
+          <Link
+            href={{
+              pathname: "/coins/[id]",
+              query: { id: coin[0]["id"] },
+            }}
+            scroll={false}
+            replace
+          >
+            <div className={styles.amount} onClick={() => setAnim(1)}>
+              {appCurrencySign}
+              {roundTo2DP(getCoinProp("total"))}{" "}
+              <RefreshCw
+                className={styles.refresh}
+                onClick={() => setAnim(1)}
+                onAnimationEnd={() => setAnim(0)}
+                anim={anim}
+              />
+            </div>
+          </Link>
+        ) : (
+          <div className={styles.amount}>recalculating..</div>
+        )
+      ) : (
         <Link
           href={{
             pathname: "/coins/[id]",
@@ -286,7 +322,7 @@ const Coin = (props) => {
         >
           <div className={styles.amount} onClick={() => setAnim(1)}>
             {appCurrencySign}
-            {roundTo2DP(getCoinProp("total"))}{" "}
+            {roundTo2DP(getCoinProp("price"))}{" "}
             <RefreshCw
               className={styles.refresh}
               onClick={() => setAnim(1)}
@@ -295,8 +331,6 @@ const Coin = (props) => {
             />
           </div>
         </Link>
-      ) : (
-        <div className={styles.amount}>recalculating..</div>
       )}
       <NoteCollapsible
         data={getCoinProp("id")}
@@ -507,6 +541,7 @@ const Coin = (props) => {
       <hr className={styles.solidDivider} />
       <DetailPageButtons
         showModal={showModal}
+        type={getCoinProp("type")}
         handleDelete={handleDeleteCoin}
         handleCancel={handleCancel}
         isShown={isShown}
@@ -527,7 +562,7 @@ export async function getServerSideProps({ query, req, res }) {
   const coin = await getSingleCoinData(coinCode, user, currencyCode, coinType);
   const mrktInfoSettings = await getMrktInfoSettings(user, "mrktInfoSettings");
   // console.log(JSON.stringify(query));
-  // console.log(coinType);
+  // console.log(coin);
   // console.log(mrktInfoSettings);
 
   return {

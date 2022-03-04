@@ -4,7 +4,7 @@ import { getCoinData } from "../lib/core/coinData";
 import { getCookie } from "cookies-next";
 import CurrencySettingsContext from "../context/currencySettings";
 import Loading from "../components/loading";
-import CoinList from "../components/coin-list";
+import CoinMonitoredList from "../components/coin-monitored-list";
 import Modal from "../components/modal";
 import SettingsLink from "../components/settings-link";
 import coinSelectOptions from "../config/coinSelectOptions";
@@ -30,7 +30,7 @@ const Monitor = (props) => {
         user?.issuer && (
           <>
             <SettingsLink />
-            <div className={styles.heading}>monitored coins</div>
+            <div className={styles.heading}>coin monitor</div>
             <Modal
               buttonText={"add coin"}
               labelName={"coin"}
@@ -39,7 +39,7 @@ const Monitor = (props) => {
               userEmail={user.email}
               type={"monitoring"}
             />
-            <CoinList
+            <CoinMonitoredList
               roundTo2DP={roundTo2DP}
               coinData={coinData}
               appCurrencySign={appCurrencySign}

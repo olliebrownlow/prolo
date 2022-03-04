@@ -35,15 +35,25 @@ const Modal = (props) => {
     setTimeout(closeModal, 1000);
   };
 
+  const refreshMonitoredCoinData = () => {
+    Router.replace("/monitor", undefined, { scroll: false });
+    setTimeout(closeModal, 1000);
+  };
+
   const handleAddCoinOrFiat = async (currency) => {
     currency.user = userEmail;
     let res = "";
     if (currency.sign) {
       res = await addFiat(currency);
+      refreshData();
     } else {
       res = await addCoin(currency);
+      if (currency.amount) {
+        refreshData();
+      } else {
+        refreshMonitoredCoinData();
+      }
     }
-    refreshData();
     console.log(res);
   };
 

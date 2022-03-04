@@ -304,7 +304,11 @@ app.prepare().then(() => {
         return res.status(422).send(err);
       }
 
-      return res.json(`${coin.amount} ${coin.name} successfully added`);
+      if (coin.amount) {
+        return res.json(`${coin.amount} ${coin.name} successfully added`);
+      } else {
+        return res.json(`${coin.name} successfully added for monitoring`);
+      }
     });
   });
 
@@ -360,7 +364,7 @@ app.prepare().then(() => {
         return res.status(422).send(err);
       }
 
-      return res.json(`${coinName} holdings successfully deleted`);
+      return res.json(`${coinName} successfully deleted`);
     });
   });
 

@@ -12,7 +12,6 @@ const AddForm = (props) => {
   const defaultData = {
     code: "",
     name: "",
-    amount: "",
   };
 
   const [form, setForm] = useState(defaultData);
@@ -75,17 +74,14 @@ const AddForm = (props) => {
   };
 
   const submitForm = () => {
-    if (form.amount == 0 || form.code == "" || form.name == "") {
-      if (form.amount == 0) {
-        toast.error("please add a positive amount", {
-          id: "blankAmount",
-        });
-      }
-      if (form.name == "") {
-        toast.error("please select a currency", {
-          id: "blankCurrency",
-        });
-      }
+    if (form.amount == 0 || form.amount === undefined && type === "holding") {
+      toast.error("please add a positive amount", {
+        id: "blankAmount",
+      });
+    } else if (form.name == "" || form.code == "") {
+      toast.error("please select a currency", {
+        id: "blankCurrency",
+      });
     } else {
       setIsButtonDisabled(true);
       setIsShown2(true);
@@ -124,20 +120,22 @@ const AddForm = (props) => {
                 ))}
           </select>
         </div>
-        <div className={styles.formGroup}>
-          <label htmlFor="amount">amount*</label>
-          <input
-            onChange={handleChange}
-            value={form.amount}
-            name="amount"
-            type="tel"
-            required
-            className={styles.formControl}
-            id="amount"
-            placeholder="2.7865..."
-            maxLength="12"
-          />
-        </div>
+        {type === "holding" && (
+          <div className={styles.formGroup}>
+            <label htmlFor="amount">amount*</label>
+            <input
+              onChange={handleChange}
+              value={form.amount}
+              name="amount"
+              type="tel"
+              required
+              className={styles.formControl}
+              id="amount"
+              placeholder="2.7865..."
+              maxLength="12"
+            />
+          </div>
+        )}
       </form>
       <AddButton
         buttonText={"add"}
