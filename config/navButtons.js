@@ -1,16 +1,10 @@
 import React from "react";
 import {
-  Activity,
   Home,
-  BarChart2,
-  Loader,
   BookOpen,
   Pocket,
   Settings,
   TrendingUp,
-  RefreshCw,
-  PlusSquare,
-  Type,
 } from "react-feather";
 
 const navButtons = [

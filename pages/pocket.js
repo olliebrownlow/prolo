@@ -100,7 +100,7 @@ export async function getServerSideProps({ req, res }) {
   // console.log(coinType);
   // console.log(currencyCode);
   // console.log(fiatData);
-  // console.log(coinData[0]);
+  // console.log(coinData);
 
   const balances = await calculateBalance(coinData, fiatData);
   // console.log(balances);

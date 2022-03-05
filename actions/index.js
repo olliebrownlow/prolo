@@ -10,7 +10,7 @@ const CURRENCYSCOOP_HISTORICAL_URL =
 const CURRENCYSCOOP_KEY = process.env.CURRENCYSCOOP_API_KEY;
 
 export const getCryptoData = (coinCodes, fiatConvert) => {
-  const url = `${NOMICS_URL}${NOMICS_KEY}&ids=${coinCodes}&interval=1h,1d,7d,30d,365d,ytd&convert=${fiatConvert}`;
+  const url = `${NOMICS_URL}${NOMICS_KEY}&ids=${coinCodes}&interval=1h,1d,7d,30d,365d,ytd&convert=${fiatConvert}&per-page=100`;
   return axios.get(url).then((res) => res.data);
 };
 

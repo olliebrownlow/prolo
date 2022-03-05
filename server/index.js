@@ -391,7 +391,12 @@ app.prepare().then(() => {
 
   server.post("/api/v1/fiat", (req, res) => {
     const fiat = req.body;
-    if (fiatData.find((savedFiat) => savedFiat.code === fiat.code)) {
+    if (
+      fiatData.find(
+        (savedFiat) =>
+          savedFiat.code === fiat.code && savedFiat.user === fiat.user
+      )
+    ) {
       return res.json("Cannot add fiat currency: already added");
     }
     fiatData.push(fiat);

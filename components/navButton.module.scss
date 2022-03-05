@@ -1,20 +1,21 @@
 .NavButton {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
   align-items: center;
 
+  width: 20%;
   height: 100%;
 
   cursor: default;
 }
 
 .Icon {
-  font-size: 20px;
+  margin-top: 2px;
+  font-size: 24px;
 }
 
 .Label {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .active {

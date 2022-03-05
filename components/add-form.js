@@ -120,7 +120,7 @@ const AddForm = (props) => {
                 ))}
           </select>
         </div>
-        {type === "holding" && (
+        {type !== "monitoring" && (
           <div className={styles.formGroup}>
             <label htmlFor="amount">amount*</label>
             <input
