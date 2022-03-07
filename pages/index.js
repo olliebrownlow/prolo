@@ -32,52 +32,80 @@ const Home = (props) => {
       <Link href="/ledger">
         <motion.div
           className={styles.darkItem}
-          whileTap={{ scale: 0.9 }}
+          transition={{ duration: 0.2 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          initial={{ opacity: 0, scale: 0.1 }}
+          whileTap={{ scale: 0.5 }}
           whileHover={{ scale: 1.1 }}
         >
           <BookOpen size={44} />
-          add investment history and check balance and overall profit/loss
+          add investment history - check balance & overall profit/loss
         </motion.div>
       </Link>
       <Link href="/pocket">
         <motion.div
           className={styles.lightItem}
-          whileTap={{ scale: 0.9 }}
+          transition={{ duration: 0.2 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          initial={{ opacity: 0, scale: 0.1 }}
+          whileTap={{ scale: 0.5 }}
           whileHover={{ scale: 1.1 }}
         >
           <Pocket size={44} />
-          add, update and delete crypto and fiat portfolios
+          add, update & delete crypto and fiat portfolios
         </motion.div>
       </Link>
       <Link href="/monitor">
         <motion.div
           className={styles.darkItem}
-          whileTap={{ scale: 0.9 }}
+          transition={{ duration: 0.2 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          initial={{ opacity: 0, scale: 0.1 }}
+          whileTap={{ scale: 0.5 }}
           whileHover={{ scale: 1.1 }}
         >
           <TrendingUp size={44} />
-          monitor coins and see market data
+          monitor coins & see market data
         </motion.div>
       </Link>
       <Link href="/settings">
         <motion.div
           className={styles.lightItem}
-          whileTap={{ scale: 0.9 }}
+          transition={{ duration: 0.2 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          initial={{ opacity: 0, scale: 0.1 }}
+          whileTap={{ scale: 0.5 }}
           whileHover={{ scale: 1.1 }}
         >
           <Settings size={44} />
-          switch currency and theme settings <br /> £, $ and € supprted
+          switch currency & theme settings <br /> £, $ and € supported
           <br /> dark/light themes
         </motion.div>
       </Link>
-      <div className={styles.darkItem}>
+      <motion.div
+        className={styles.darkItem}
+        transition={{ duration: 0.2 }}
+        viewport={{ once: true }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        initial={{ opacity: 0, scale: 0.1 }}
+      >
         <Clipboard size={44} />
         use notepad functionality to remember important trading info
-      </div>
-      <div className={styles.lightItem}>
+      </motion.div>
+      <motion.div
+        className={styles.lightItem}
+        transition={{ duration: 0.2 }}
+        viewport={{ once: true }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        initial={{ opacity: 0, scale: 0.1 }}
+      >
         <CloudOff size={44} />
         no links to crypto wallets or personal trade data
-      </div>
+      </motion.div>
       <Link href="https://nomics.com">
         <motion.div
           className={styles.nomicsCredit}

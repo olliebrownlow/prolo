@@ -30,7 +30,7 @@ const Monitor = (props) => {
         user?.issuer && (
           <>
             <SettingsLink />
-            <div className={styles.heading}>coin monitor</div>
+            <div className={styles.heading}>coins</div>
             <Modal
               buttonText={"add coin"}
               labelName={"coin"}
