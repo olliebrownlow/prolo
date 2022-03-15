@@ -105,6 +105,13 @@ app.prepare().then(() => {
         "showCoinNotepad",
         "showFundingItemNotepad",
       ]);
+    } else if (concept === "orderBySettings") {
+      settings = _.pick(allSettings, [
+        "metricOneMonitor",
+        "orderByMonitor",
+        "metricTwoMonitor",
+        "directionMonitor",
+      ]);
     }
 
     return res.json(settings);
@@ -133,14 +140,16 @@ app.prepare().then(() => {
         return res.json(`App currency set to ${newSettings.currencyName}`);
       } else if (newSettings.intervalLabel) {
         return res.json(`Interval set to ${newSettings.intervalLabel}`);
-      } else if (newSettings.showMrktAnalysis) {
+      } else if (typeof newSettings.showMrktAnalysis === "boolean") {
         return res.json(
           `Show market analysis data set to ${newSettings.showMrktAnalysis}`
         );
-      } else if (newSettings.showMrktData) {
+      } else if (typeof newSettings.showMrktData === "boolean") {
         return res.json(
           `Show market info data set to ${newSettings.showMrktData}`
         );
+      } else if (newSettings.orderByMonitor) {
+        return res.json("Monitor page settngs updated");
       } else {
         return res.json("Notepad visibilty updated");
       }

@@ -29,10 +29,9 @@ export const hasAppSettings = () => {
 };
 
 export const addAppSettingsForNewUser = (user) => {
-  const res = axios
+  return axios
     .post(`${BASE_URL}/api/v1/appSettings`, user)
-    .then((res) => console.log(res.data));
-  return res;
+    .then((res) => res.data);
 };
 
 export const getCurrencyAndTheme = (user) => {
@@ -46,7 +45,7 @@ export const getCurrencyAndTheme = (user) => {
 export const updateCurrencyOrThemeSettings = (userAndCurrencyOrTheme) => {
   return axios
     .patch(`${BASE_URL}/api/v1/appSettings`, userAndCurrencyOrTheme)
-    .then((res) => console.log(res.data));
+    .then((res) => res.data);
 };
 
 export const getMrktInfoSettings = (user, concept) => {
@@ -60,7 +59,7 @@ export const getMrktInfoSettings = (user, concept) => {
 export const updateMrktInfoSettings = (userAndNewMrktInfoSettings) => {
   return axios
     .patch(`${BASE_URL}/api/v1/appSettings`, userAndNewMrktInfoSettings)
-    .then((res) => console.log(res.data));
+    .then((res) => res.data);
 };
 
 export const getNotepadSettings = (user, concept) => {
@@ -74,7 +73,21 @@ export const getNotepadSettings = (user, concept) => {
 export const updateNotepadSettings = (userAndNewSetting) => {
   return axios
     .patch(`${BASE_URL}/api/v1/appSettings`, userAndNewSetting)
-    .then((res) => console.log(res.data));
+    .then((res) => res.data);
+};
+
+export const getCustomisableMonitorSettings = (user, concept) => {
+  return axios
+    .get(`${BASE_URL}/api/v1/appSettings`, {
+      params: { user: user, concept: concept },
+    })
+    .then((res) => res.data);
+};
+
+export const updateCustomisableMonitorSettings = (userAndNewSettings) => {
+  return axios
+    .patch(`${BASE_URL}/api/v1/appSettings`, userAndNewSettings)
+    .then((res) => res.data);
 };
 
 // axios does not allow get calls to pass through an argument hence the use of post

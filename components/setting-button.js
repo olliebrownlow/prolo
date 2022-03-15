@@ -1,14 +1,11 @@
-import React from "react";
-
-const ThemeButton = (props) => {
-  const { onClick } = props;
+const SettingButton = (props) => {
 
   return (
     <button
       className={props.className}
       name={props.name}
       value={props.value}
-      onClick={onClick}
+      onClick={props.onClick}
       style={props.style}
     >
       {props.label}
@@ -16,4 +13,4 @@ const ThemeButton = (props) => {
   );
 };
 
-export default ThemeButton;
+export default SettingButton;

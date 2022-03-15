@@ -1,5 +1,5 @@
 import styles from "./currencySettings.module.scss";
-import CurrencyButton from "./currency-button";
+import SettingButton from "./setting-button";
 
 const CurrencySettings = (props) => {
   return (
@@ -7,7 +7,7 @@ const CurrencySettings = (props) => {
       <div className={styles.title}>currency:</div>
       <div className={styles.buttons}>
         {props.currencyButtons.map((button) => (
-          <CurrencyButton
+          <SettingButton
             className={
               styles.button +
               " " +

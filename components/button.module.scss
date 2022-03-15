@@ -12,13 +12,11 @@
 .button {
   display: flex;
   justify-content: space-between;
-  padding: 5px 0px 5px 0;
+  padding: 5px 8px 5px 8px;
   border-radius: 3px;
   color: white;
   font-size: 18px;
   height: 2rem;
-  padding-left: 8px;
-  padding-right: 8px;
   background-color: red;
   outline: none;
 }
@@ -32,5 +30,17 @@
 }
 .logo {
   padding-left: 8px;
+}
+.orderByButton {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 8px 5px 8px;
+  border-radius: 3px;
+  color: white;
+  font-size: 18px;
+  height: 2rem;
+  background-color: red;
+  outline: none;
+  margin: 20px 6px 0 6px;
 }
 

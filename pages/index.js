@@ -2,7 +2,7 @@ import { getCookie } from "cookies-next";
 import { getCurrencyAndTheme } from "../actions/index";
 import Image from "next/image";
 import tumbleVideo from "../public/prolo_tumble_video_2.5.gif";
-import blackImage from "../public//prolo_none_completeBlack_filled.png";
+import tumbleWhite from "../public/tumbleWhite.gif";
 import Link from "next/link";
 import styles from "../pageStyles/home.module.scss";
 import { motion } from "framer-motion";
@@ -22,7 +22,7 @@ const Home = (props) => {
     <div className={styles.homeLayout}>
       {currencyAndTheme.theme === "light" ? (
         <div className={styles.prolo}>
-          <Image src={blackImage} alt={"prolo"} layout="intrinsic" priority />
+          <Image src={tumbleWhite} alt={"prolo"} layout="intrinsic" priority />
         </div>
       ) : (
         <div className={styles.prolo}>

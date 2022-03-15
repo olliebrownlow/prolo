@@ -1,5 +1,5 @@
 import styles from "./themeSettings.module.scss";
-import ThemeButton from "./theme-button";
+import SettingButton from "./setting-button";
 
 const ThemeSettings = (props) => {
   return (
@@ -7,7 +7,7 @@ const ThemeSettings = (props) => {
       <div className={styles.title}>theme:</div>
       <div className={styles.buttons}>
         {props.themeButtons.map((button) => (
-          <ThemeButton
+          <SettingButton
             className={
               styles.button +
               " " +
