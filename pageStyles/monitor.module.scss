@@ -8,3 +8,19 @@
 .actionButtons{
   display: flex;
 }
+.refresh[anim='1'] {
+  animation: anim 1s 1, scaleup 1s 1;
+}
+@keyframes anim {
+  50% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(720deg);    
+  }
+}
+@keyframes scaleup {
+  50% {
+    transform: scale(1.25);
+  }
+}

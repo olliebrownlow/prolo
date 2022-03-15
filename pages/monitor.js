@@ -7,6 +7,8 @@ import Loading from "../components/loading";
 import CoinMonitoredList from "../components/coin-monitored-list";
 import Modal from "../components/modal";
 import CustomiseMonitor from "../components/customise-monitor";
+import Link from "next/link";
+import { RefreshCw } from "react-feather";
 import SettingsLink from "../components/settings-link";
 import coinSelectOptions from "../config/coinSelectOptions";
 import styles from "../pageStyles/monitor.module.scss";
@@ -21,6 +23,7 @@ const Monitor = (props) => {
   const { coinData, roundTo2DP, settings } = props;
   const [isCoinOptionsExhausted, setIsCoinOptionsExhausted] = useState(false);
   const [currentSettings, setCurrentSettings] = useState(settings);
+  const [anim, setAnim] = useState(0);
 
   useEffect(() => {
     if (coinSelectOptions.length === coinData.length) {
@@ -46,7 +49,17 @@ const Monitor = (props) => {
         user?.issuer && (
           <>
             <SettingsLink />
-            <div className={styles.heading}>coins</div>
+            <Link href="/monitor" scroll={false}>
+              <div className={styles.heading} onClick={() => setAnim(1)}>
+                coins{" "}
+                <RefreshCw
+                  className={styles.refresh}
+                  onClick={() => setAnim(1)}
+                  onAnimationEnd={() => setAnim(0)}
+                  anim={anim}
+                />
+              </div>
+            </Link>
             <div className={styles.actionButtons}>
               <Modal
                 buttonText={"add coin"}
