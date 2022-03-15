@@ -4245,6 +4245,11 @@ simple-swizzle@^0.2.2:
   dependencies:
     is-arrayish "^0.3.1"
 
+sort-es@^1.4.7:
+  version "1.4.7"
+  resolved "https://registry.yarnpkg.com/sort-es/-/sort-es-1.4.7.tgz#171279321c7d20c25071360a93f7fb0182953932"
+  integrity sha512-h9y2CRZyNF/pXK/N2Fyr7gXVDmozHCvjJyLh6QjXS2iEMCapAdsgOGXFYGimJ9NZsGai4Y74ofFoCsKBmvl0bg==
+
 "source-map-js@>=0.6.2 <2.0.0":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/source-map-js/-/source-map-js-1.0.1.tgz#a1741c131e3c77d048252adfa24e23b908670caf"
