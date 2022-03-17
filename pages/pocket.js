@@ -59,11 +59,7 @@ const Pocket = (props) => {
               userEmail={user.email}
               type={"holding"}
             />
-            <CoinList
-              roundTo2DP={roundTo2DP}
-              coinData={coinData}
-              appCurrencySign={appCurrencySign}
-            />
+            <CoinList coinData={coinData} appCurrencySign={appCurrencySign} />
             <div className={styles.spacer}>placeholder</div>
             <div className={styles.heading}>fiat holdings</div>
             <div className={styles.balance}>

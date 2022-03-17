@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight } from "react-feather";
 
 const CoinMonitoredList = (props) => {
-  const { roundTo2DP, coinData, currentSettings, appCurrencySign } = props;
+  const { coinData, currentSettings, appCurrencySign } = props;
 
   const orderedArray = () => {
     if (currentSettings.directionMonitor === "ascending") {

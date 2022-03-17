@@ -20,7 +20,7 @@ import {
 const Monitor = (props) => {
   const [user] = useContext(UserContext);
   const { appCurrencySign } = useContext(CurrencySettingsContext);
-  const { coinData, roundTo2DP, settings } = props;
+  const { coinData, settings } = props;
   const [isCoinOptionsExhausted, setIsCoinOptionsExhausted] = useState(false);
   const [currentSettings, setCurrentSettings] = useState(settings);
   const [anim, setAnim] = useState(0);
@@ -76,7 +76,6 @@ const Monitor = (props) => {
               />
             </div>
             <CoinMonitoredList
-              roundTo2DP={roundTo2DP}
               coinData={coinData}
               currentSettings={currentSettings}
               appCurrencySign={appCurrencySign}

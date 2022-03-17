@@ -5,10 +5,33 @@ import { motion } from "framer-motion";
 import { ArrowUpRight } from "react-feather";
 
 const CoinList = (props) => {
-  const { roundTo2DP, coinData, appCurrencySign } = props;
+  const { coinData, appCurrencySign } = props;
 
   const orderedArray = () => {
     return coinData.sort((a, b) => b.total - a.total);
+  };
+
+  const selectRoundingMethod = (value) => {
+    if (parseFloat(value) < 0.0001) {
+      return dPRounder(value, 7);
+    }
+    if (parseFloat(value) < 0.001) {
+      return dPRounder(value, 6);
+    }
+    if (parseFloat(value) < 0.01) {
+      return dPRounder(value, 5);
+    }
+    if (parseFloat(value) < 0.1) {
+      return dPRounder(value, 4);
+    }
+    if (parseFloat(value) < 1) {
+      return dPRounder(value, 3);
+    }
+    return dPRounder(value, 2);
+  };
+
+  const dPRounder = (value, places) => {
+    return (Math.round(value * 10 ** places) / 10 ** places).toFixed(places);
   };
 
   return (
@@ -50,10 +73,10 @@ const CoinList = (props) => {
                 </div>
                 <div className={styles.totalValue}>
                   {appCurrencySign}
-                  {roundTo2DP(coin.total)}
+                  {selectRoundingMethod(coin.total)}
                   <div className={styles.amount}>
                     {appCurrencySign}
-                    {roundTo2DP(+coin.price)}
+                    {selectRoundingMethod(coin.price)}
                   </div>
                 </div>
                 <div className={styles.editIcon}>
