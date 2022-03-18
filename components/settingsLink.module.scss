@@ -10,3 +10,40 @@
   border-radius: 12px; //!important;
   border: 1px solid white !important;
 }
+.split {
+
+  position: relative;  
+  margin-left: auto;
+  margin-top: 1.5rem;
+  margin-right: 1rem;
+  
+  height: 32px;
+  width: 50px;
+  display: flex;
+}
+.left {
+  height: 32px;
+  width: 50%;
+  // background-image: url("../public/eurFlagSmall.jpg");
+  background-position: left;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  border-radius: 12px 0 0 12px;
+  border: 1px solid;
+  border-right: none;
+  margin: 0;
+  padding: 0;
+}
+.right {
+  height: 32px;
+  width: 50%;
+  background-position: right;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  border-radius: 0 12px 12px 0;
+  border: 1px solid;
+  border-left: none;  
+  margin: 0;
+  padding-top: 12.5%;
+  padding-left: 10%;
+}
