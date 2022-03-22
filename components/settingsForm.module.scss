@@ -1,0 +1,49 @@
+.heading {
+  text-align: center;
+  font-size: 32px;
+  letter-spacing: 8px;
+  color: white;
+  margin-bottom: 20px;
+}
+.subheading {
+  text-align: left;
+  font-size: 24px;
+  letter-spacing: 5px;
+  color: white;
+  margin-bottom: 20px;
+}
+.solidDivider {
+  border-top: 3px solid white;
+  margin-bottom: 20px;
+  max-width: 80%;
+}
+.currencyButtons {
+  display: grid;
+  row-gap: 8px;
+  grid-template: 2.75rem / 92px 92px 92px;
+  justify-content: space-evenly;
+}
+.themeButtons {
+  display: grid;
+  row-gap: 8px;
+  grid-template: 2.75rem 2.75rem / 92px 92px;
+  justify-content: space-evenly;
+}
+.button {
+  padding: 4px;
+  border-radius: 5px;
+  font-size: 15px;
+  outline: none;
+  background-color: black;
+  color: white;
+  border-color: white;
+}
+.activeCurrency {
+  background-size: 5.7rem;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+.inactiveTheme { 
+  font-weight: lighter;
+  font-size: 12px;
+}

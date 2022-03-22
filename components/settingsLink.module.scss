@@ -11,12 +11,10 @@
   border: 1px solid white !important;
 }
 .split {
-
   position: relative;  
   margin-left: auto;
   margin-top: 1.5rem;
   margin-right: 1rem;
-  
   height: 32px;
   width: 50px;
   display: flex;
@@ -24,7 +22,7 @@
 .left {
   height: 32px;
   width: 50%;
-  // background-image: url("../public/eurFlagSmall.jpg");
+  background-size: 50px;
   background-position: left;
   background-repeat: no-repeat;
   overflow: hidden;

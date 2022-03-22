@@ -38,7 +38,7 @@ const Pocket = (props) => {
       ) : (
         user?.issuer && (
           <>
-            <SettingsLink />
+            <SettingsLink pageName={"pocket"} />
             <div className={styles.heading}>balance</div>
             <PocketBalance
               roundTo2DP={roundTo2DP}

@@ -48,7 +48,7 @@ const Monitor = (props) => {
       ) : (
         user?.issuer && (
           <>
-            <SettingsLink />
+            <SettingsLink pageName={"monitor"}/>
             <Link href="/monitor" scroll={false}>
               <div className={styles.heading} onClick={() => setAnim(1)}>
                 coins{" "}

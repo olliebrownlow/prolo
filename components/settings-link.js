@@ -1,49 +1,76 @@
-import { useContext, useState, useEffect } from "react";
-import CurrencySettingsContext from "../context/currencySettings";
+import React, { useState, useEffect } from "react";
 import { getCookie } from "cookies-next";
-import { getCurrencyAndTheme } from "../actions";
-import Link from "next/link";
-import Image from "next/image";
-import eurFlag from "../public/eurFlagSmall.jpg";
-import gbpFlag from "../public/gbpFlagSmall.png";
-import usdFlag from "../public/usdFlagSmall.jpg";
+import { getCurrencyAndTheme, updateCurrencyOrThemeSettings } from "../actions";
+import Router from "next/router";
+import SettingsModalContainer from "./settings-modal-container";
 import styles from "./settingsLink.module.scss";
+import { mutate } from "swr";
 import { Moon, Sun } from "react-feather";
 import { motion } from "framer-motion";
 
-const SettingsLink = () => {
-  const { appCurrencyCode } = useContext(CurrencySettingsContext);
-  const [currencyFlag, setCurrencyFlag] = useState(eurFlag);
-  const [currentTheme, setCurrentTheme] = useState("");
-
-  useEffect(() => {
-    if (appCurrencyCode === "gbp") {
-      setCurrencyFlag(gbpFlag);
-    } else if (appCurrencyCode != "eur") {
-      setCurrencyFlag(usdFlag);
-    }
-  }, [appCurrencyCode]);
+const SettingsLink = (props) => {
+  const { pageName } = props;
+  const [isShown, setIsShown] = useState(false);
+  const [appSettingsInUse, setAppSettingsInUse] = useState("");
 
   useEffect(async () => {
     const user = getCookie("ue");
     const currencyAndTheme = await getCurrencyAndTheme(user);
-    setCurrentTheme(currencyAndTheme.theme);
+    setAppSettingsInUse(currencyAndTheme);
+    console.log(currencyAndTheme);
   }, []);
 
+  const showModal = () => {
+    setIsShown(true);
+  };
+
+  const closeModal = () => {
+    setIsShown(false);
+  };
+
+  // close modal from window surrounding the modal itself
+  const windowOnClick = (event) => {
+    if (event.target === event.currentTarget) {
+      setIsShown(false);
+    }
+  };
+
+  const delayAndRefreshData = (ms) =>
+    new Promise(() => setTimeout(refreshData, ms));
+
+  const refreshData = () => {
+    Router.replace(`/${pageName}`, undefined, { scroll: false });
+  };
+
+  const handleCurrencyAndTheme = async (newSettings) => {
+    const settingsAndUser = {
+      user: getCookie("ue"),
+      newSettings: newSettings,
+    };
+    setAppSettingsInUse(newSettings);
+    const res = await updateCurrencyOrThemeSettings(settingsAndUser);
+    console.log(res);
+    mutate("http://localhost:3000/api/v1/appSettings");
+    delayAndRefreshData(500);
+  };
+
   return (
-    <Link href="/settings">
+    <>
       <motion.div
         className={styles.split}
         whileTap={{ scale: 0.5 }}
         whileHover={{ scale: 1.1 }}
+        onClick={showModal}
       >
-        {currentTheme === "dark" ? (
+        {appSettingsInUse.theme === "dark" ? (
           <>
             <div
               className={styles.left}
               style={{
                 backgroundImage:
-                  "url(" + `/${appCurrencyCode}FlagSmall.jpg` + ")",
+                  "url(" +
+                  `/${appSettingsInUse.currencyCode}FlagLarge.jpg` +
+                  ")",
                 borderColor: "white",
               }}
             ></div>
@@ -57,7 +84,9 @@ const SettingsLink = () => {
               className={styles.left}
               style={{
                 backgroundImage:
-                  "url(" + `/${appCurrencyCode}FlagSmall.jpg` + ")",
+                  "url(" +
+                  `/${appSettingsInUse.currencyCode}FlagLarge.jpg` +
+                  ")",
                 borderColor: "dimgrey",
               }}
             ></div>
@@ -67,7 +96,19 @@ const SettingsLink = () => {
           </>
         )}
       </motion.div>
-    </Link>
+      {isShown ? (
+        <SettingsModalContainer
+          closeModal={closeModal}
+          windowOnClick={windowOnClick}
+          handleFormSubmit={handleCurrencyAndTheme}
+          title={"app settings"}
+          currentSettings={appSettingsInUse}
+          isShown={isShown}
+        />
+      ) : (
+        <React.Fragment />
+      )}
+    </>
   );
 };
 

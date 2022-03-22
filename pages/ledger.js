@@ -102,7 +102,7 @@ const Ledger = (props) => {
       ) : (
         user?.issuer && (
           <>
-            <SettingsLink />
+            <SettingsLink pageName={"ledger"}/>
             <div className={styles.heading}>profit/loss</div>
             <Link href="/ledger" scroll={false}>
               <div className={styles.prolo} onClick={() => setAnim(1)}>
