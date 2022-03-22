@@ -3,7 +3,6 @@ import {
   Home,
   BookOpen,
   Pocket,
-  Settings,
   TrendingUp,
 } from "react-feather";
 
@@ -28,10 +27,10 @@ const navButtons = [
     path: "/monitor",
     icon: <TrendingUp />,
   },
-  {
-    label: "settings",
-    path: "/settings",
-    icon: <Settings />,
-  },
+  // {
+  //   label: "settings",
+  //   path: "/settings",
+  //   icon: <Settings />,
+  // },
 ];
 export default navButtons;
