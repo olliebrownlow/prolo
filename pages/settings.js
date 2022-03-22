@@ -1,8 +1,7 @@
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { UserContext } from "../lib/UserContext";
 import { getCookie } from "cookies-next";
 import Loading from "../components/loading";
-import React from "react";
 import CurrencySettings from "../components/currency-settings";
 import ThemeSettings from "../components/theme-settings";
 import styles from "../pageStyles/settings.module.scss";
@@ -59,16 +58,12 @@ const Settings = (props) => {
       ) : (
         user?.issuer && (
           <div className={styles.settings}>
+            <div className={styles.heading}>app settings</div>
             <CurrencySettings
               handleCurrency={handleCurrency}
               currencyInUseCode={currencyInUse}
-              currencyButtons={props.currencyButtons}
             />
-            <ThemeSettings
-              handleTheme={handleTheme}
-              themeInUse={themeInUse}
-              themeButtons={props.themeButtons}
-            />
+            <ThemeSettings handleTheme={handleTheme} themeInUse={themeInUse} />
           </div>
         )
       )}

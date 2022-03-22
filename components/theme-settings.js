@@ -1,25 +1,25 @@
 import styles from "./themeSettings.module.scss";
 import SettingButton from "./setting-button";
+import { themeButtons } from "../config/appSettingsButtons";
 
-const ThemeSettings = (props) => {
+const ThemeSettings = ({ themeInUse, handleTheme }) => {
   return (
     <>
-      <div className={styles.title}>theme:</div>
+      <div className={styles.title}>theme</div>
       <div className={styles.buttons}>
-        {props.themeButtons.map((button) => (
+        {themeButtons.map((button) => (
           <SettingButton
             className={
               styles.button +
               " " +
-              `${
-                props.themeInUse === button.theme ? styles.active : ""
-              }`
+              `${themeInUse === button.theme ? "" : styles.inactive}`
             }
             key={button.theme}
             name={button.theme}
             value={button.theme}
             label={button.theme}
-            onClick={props.handleTheme}
+            label={themeInUse === button.theme ? button.icon : button.theme}
+            onClick={handleTheme}
           />
         ))}
       </div>

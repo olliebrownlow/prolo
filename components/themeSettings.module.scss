@@ -1,24 +1,21 @@
 .title {
-  font-size: 18px;
-  padding: 8px;
+  font-size: 24px;
+  letter-spacing: 5px;
+  margin-bottom: 12px;
 }
 .buttons {
-  display: flex;
+  display: grid;
+  gap: 8px;
+  grid-template: 2.75rem / 92px 92px;
   justify-content: flex-start;
-  align-items: center;
-  max-width: 100%;
+  margin-left: 8px;
 }
 .button {
-  padding: 5px 0 5px 0;
+  padding: 4px;
   border-radius: 5px;
-  font-size: 15px;
-  width: 5rem;
-  height: 2.5rem;
-  margin-right: 1rem;
   outline: none;
 }
-
-.active {
-  font-weight: bolder;
-  font-size: 21px;
+.inactive { 
+  font-weight: lighter;
+  font-size: 12px;
 }

@@ -10,8 +10,6 @@ import Header from "../components/header";
 import NavBar from "../components/nav-bar";
 import navButtons from "../config/navButtons";
 import authButtons from "../config/authButtons";
-import currencyButtons from "../config/currencyButtons";
-import themeButtons from "../config/themeButtons";
 import { magic } from "../lib/magic";
 import useSWR, { mutate } from "swr";
 import axios from "axios";
@@ -155,12 +153,7 @@ function Prolo({ Component, pageProps }) {
             <Header appTitle={appTitle} authButtons={authButtons} />
           </div>
           <div className="Content">
-            <Component
-              {...pageProps}
-              currencyButtons={currencyButtons}
-              themeButtons={themeButtons}
-              roundTo2DP={roundTo2DP}
-            />
+            <Component {...pageProps} roundTo2DP={roundTo2DP} />
           </div>
           <Toaster
             toastOptions={{
