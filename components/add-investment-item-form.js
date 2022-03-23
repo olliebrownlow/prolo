@@ -116,9 +116,9 @@ const AddInvestmentItemForm = (props) => {
             <option key={"no option"} disabled selected hidden>
               -- select a currency --
             </option>
-            <option key="1">euros [EUR]</option>
+            <option key="1">american dollars [USD]</option>
             <option key="2">british sterling [GBP]</option>
-            <option key="3">american dollars [USD]</option>
+            <option key="3">euros [EUR]</option>
           </select>
         </div>
         <div className={styles.formGroup}>

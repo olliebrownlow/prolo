@@ -2,6 +2,7 @@ import styles from "./addForm.module.scss";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import AddButton from "./add-button";
+import { byValue, byString } from "sort-es";
 import coinSelectOptions from "../config/coinSelectOptions";
 import fiatSelectOptions from "../config/fiatSelectOptions";
 import _ from "lodash";
@@ -18,14 +19,20 @@ const AddForm = (props) => {
   const [isShown2, setIsShown2] = useState(!isShown);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
-  const filteredCoinSelectOptions = () => {
+  const filteredOrderedCoinSelectOptions = () => {
     const options = _.differenceBy(coinSelectOptions, data, "name");
-    return options;
+    const orderedOptions = options.sort(
+      byValue((i) => i.name, byString({ desc: false }))
+    );
+    return orderedOptions;
   };
 
-  const filteredFiatSelectOptions = () => {
+  const filteredOrderedFiatSelectOptions = () => {
     const options = _.differenceBy(fiatSelectOptions, data, "id");
-    return options;
+    const orderedOptions = options.sort(
+      byValue((i) => i.fullFiatName, byString({ desc: false }))
+    );
+    return orderedOptions;
   };
 
   const handleChange = (event) => {
@@ -74,7 +81,7 @@ const AddForm = (props) => {
   };
 
   const submitForm = () => {
-    if (form.amount == 0 || form.amount === undefined && type === "holding") {
+    if (form.amount == 0 || (form.amount === undefined && type === "holding")) {
       toast.error("please add a positive amount", {
         id: "blankAmount",
       });
@@ -108,12 +115,12 @@ const AddForm = (props) => {
               -- select a currency --
             </option>
             {labelName === "coin"
-              ? filteredCoinSelectOptions().map((option) => (
+              ? filteredOrderedCoinSelectOptions().map((option) => (
                   <option key={option.name}>
                     {option.name} {option.code}
                   </option>
                 ))
-              : filteredFiatSelectOptions().map((option) => (
+              : filteredOrderedFiatSelectOptions().map((option) => (
                   <option key={option.id}>
                     {option.fullFiatName} {option.code}
                   </option>
