@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Send } from "react-feather";
-const feather = require("feather-icons");
 import styles from "./emailForm.module.scss"
 
 const EmailForm = ({ onEmailSubmit, disabled }) => {

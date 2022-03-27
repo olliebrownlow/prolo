@@ -10,9 +10,9 @@ const Login = () => {
   const [disabled, setDisabled] = useState(false);
   const [user, setUser] = useContext(UserContext);
 
-  // Redirec to /ledger if the user is logged in
+  // Redirect to /pocket if the user is logged in
   useEffect(() => {
-    user?.issuer && Router.push("/ledger");
+    user?.issuer && Router.push("/pocket");
   }, [user]);
 
   async function handleLoginWithEmail(email) {
@@ -38,7 +38,7 @@ const Login = () => {
         // Set the UserContext to the now logged in user
         let userMetadata = await magic.user.getMetadata();
         await setUser(userMetadata);
-        Router.push("/ledger");
+        Router.push("/pocket");
       }
     } catch (error) {
       setDisabled(false); // re-enable login button - user may have requested to edit their email

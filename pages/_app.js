@@ -8,6 +8,7 @@ import Router, { useRouter } from "next/router";
 import Head from "next/head";
 import Header from "../components/header";
 import NavBar from "../components/nav-bar";
+import ErrorBoundary from "../components/error-boundary";
 import navButtons from "../config/navButtons";
 import authButtons from "../config/authButtons";
 import { magic } from "../lib/magic";
@@ -153,7 +154,9 @@ function Prolo({ Component, pageProps }) {
             <Header appTitle={appTitle} authButtons={authButtons} />
           </div>
           <div className="Content">
-            <Component {...pageProps} roundTo2DP={roundTo2DP} />
+            <ErrorBoundary>
+              <Component {...pageProps} roundTo2DP={roundTo2DP} />
+            </ErrorBoundary>
           </div>
           <Toaster
             toastOptions={{
