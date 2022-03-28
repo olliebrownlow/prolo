@@ -27,10 +27,12 @@ const SettingsForm = (props) => {
 
   const handleThemeChange = (event) => {
     const target = event.target;
-    setSettings({
-      ...settings,
-      theme: target.value,
-    });
+    if (target.value) {
+      setSettings({
+        ...settings,
+        theme: target.value,
+      });
+    }
   };
 
   const delayAndCloseModal = (ms) =>

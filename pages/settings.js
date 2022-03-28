@@ -40,15 +40,17 @@ const Settings = (props) => {
   const handleTheme = async (event) => {
     const target = event.target;
     const theme = target.name;
-    const newTheme = {
-      theme: theme,
-    };
-    setThemeInUse(theme);
-    await updateCurrencyOrThemeSettings({
-      user: user.email,
-      newSettings: newTheme,
-    });
-    mutate("http://localhost:3000/api/v1/appSettings");
+    if (target.name) {
+      const newTheme = {
+        theme: theme,
+      };
+      setThemeInUse(theme);
+      await updateCurrencyOrThemeSettings({
+        user: user.email,
+        newSettings: newTheme,
+      });
+      mutate("http://localhost:3000/api/v1/appSettings");
+    }
   };
 
   return (

@@ -43,7 +43,7 @@ app.prepare().then(() => {
       );
     }
     const defaultAppSettingsForNewUser = {
-      theme: "light",
+      theme: "dark",
       currencyCode: "eur",
       currencyName: "euros",
       sign: "€",
@@ -55,6 +55,10 @@ app.prepare().then(() => {
       currentIndex: 0,
       interval: "h",
       intervalLabel: "1hr",
+      metricOneMonitor: "rank",
+      metricTwoMonitor: "ath",
+      orderByMonitor: "name",
+      directionMonitor: "descending",
       user: user,
     };
     appSettingsData.push(defaultAppSettingsForNewUser);
