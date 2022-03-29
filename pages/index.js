@@ -31,7 +31,11 @@ const Home = (props) => {
       )}
       <Link href="/ledger">
         <motion.div
-          className={styles.darkItem}
+          className={
+            currencyAndTheme.theme === "dark"
+              ? styles.darkThemeDarkItem
+              : styles.lightThemeDarkItem
+          }
           transition={{ duration: 0.2 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
@@ -45,7 +49,11 @@ const Home = (props) => {
       </Link>
       <Link href="/pocket">
         <motion.div
-          className={styles.lightItem}
+          className={
+            currencyAndTheme.theme === "dark"
+              ? styles.darkThemeLightItem
+              : styles.lightThemeLightItem
+          }
           transition={{ duration: 0.2 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
@@ -59,7 +67,11 @@ const Home = (props) => {
       </Link>
       <Link href="/monitor">
         <motion.div
-          className={styles.darkItem}
+          className={
+            currencyAndTheme.theme === "dark"
+              ? styles.darkThemeDarkItem
+              : styles.lightThemeDarkItem
+          }
           transition={{ duration: 0.2 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
@@ -73,7 +85,11 @@ const Home = (props) => {
       </Link>
       <Link href="/settings">
         <motion.div
-          className={styles.lightItem}
+          className={
+            currencyAndTheme.theme === "dark"
+              ? styles.darkThemeLightItem
+              : styles.lightThemeLightItem
+          }
           transition={{ duration: 0.2 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
@@ -87,7 +103,11 @@ const Home = (props) => {
         </motion.div>
       </Link>
       <motion.div
-        className={styles.darkItem}
+        className={
+          currencyAndTheme.theme === "dark"
+            ? styles.darkThemeDarkItem
+            : styles.lightThemeDarkItem
+        }
         transition={{ duration: 0.2 }}
         viewport={{ once: true }}
         whileInView={{ opacity: 1, scale: 1 }}
@@ -97,7 +117,11 @@ const Home = (props) => {
         use notepad functionality to remember important trading info
       </motion.div>
       <motion.div
-        className={styles.lightItem}
+        className={
+          currencyAndTheme.theme === "dark"
+            ? styles.darkThemeLightItem
+            : styles.lightThemeLightItem
+        }
         transition={{ duration: 0.2 }}
         viewport={{ once: true }}
         whileInView={{ opacity: 1, scale: 1 }}

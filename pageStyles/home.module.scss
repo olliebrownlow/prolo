@@ -13,7 +13,7 @@
   max-width: 300px;
   margin-bottom: 24px;
 }
-.darkItem {
+.darkThemeDarkItem {
   max-width: 300px;
   min-width: 200px;
   max-height: 300px;
@@ -28,30 +28,78 @@
   cursor: default;
   padding: 12px;
   margin: 0 40px 24px 0;
- }
- .lightItem {
-   max-width: 300px;
-   min-width: 200px;
-   max-height: 300px;
-   color: white;
-   background-color: slategrey;
-   border: solid 1px lightgrey;
-   border-radius: 10px;
-   font-size: 28px;   
-   display: flex;
-   align-items: center;
-   flex-direction: column;
-   cursor: default;
-   padding: 12px;
-   margin: 0 0 24px 40px;
-  }
-  .nomicsCredit {
-    font-size: 14px;
-    margin-top: 20px;
-    text-decoration: underline;
-  }
-  .scoopCredit {
-    font-size: 14px;
-    margin-top: 8px;
-    text-decoration: underline;
-  }
+}
+.lightThemeDarkItem {
+  max-width: 300px;
+  min-width: 200px;
+  max-height: 300px;
+  color: dimgrey;
+  background-color: whitesmoke;
+  border: solid 1px dimgrey;
+  border-radius: 10px;
+  font-size: 28px;   
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  cursor: default;
+  padding: 12px;
+  margin: 0 40px 24px 0;
+}
+.darkThemeLightItem {
+  max-width: 300px;
+  min-width: 200px;
+  max-height: 300px;
+  color: white;
+  background-color: slategrey;
+  border: solid 1px lightgrey;
+  border-radius: 10px;
+  font-size: 28px;   
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  cursor: default;
+  padding: 12px;
+  margin: 0 0 24px 40px;
+}
+.lightThemeLightItem {
+  max-width: 300px;
+  min-width: 200px;
+  max-height: 300px;
+  color: dimgrey;
+  background-color: white;
+  border: solid 1px dimgrey;
+  border-radius: 10px;
+  font-size: 28px;   
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  cursor: default;
+  padding: 12px;
+  margin: 0 0 24px 40px;
+}
+.lightItem {
+  max-width: 300px;
+  min-width: 200px;
+  max-height: 300px;
+  color: white;
+  background-color: slategrey;
+  border: solid 1px lightgrey;
+  border-radius: 10px;
+  font-size: 28px;   
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  cursor: default;
+  padding: 12px;
+  margin: 0 0 24px 40px;
+}
+.nomicsCredit {
+  font-size: 14px;
+  margin-top: 20px;
+  text-decoration: underline;
+}
+.scoopCredit {
+  font-size: 14px;
+  margin-top: 8px;
+  text-decoration: underline;
+}
