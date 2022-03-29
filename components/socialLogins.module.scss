@@ -1,19 +1,21 @@
 .orLoginWith {
   margin: 25px 0 10px 0;
-  font-size: 12px;
+  font-size: 16px;
   text-align: center;
 }
 .socialBtn {
-  cursor: pointer;
+  cursor: default;
   border-radius: 50px;
   margin-bottom: 10px;
   border: 1px solid red;
   padding: 9px 24px 9px 35px;
   width: 80%;
+  max-width: 400px;
   color: black;
+  font-size: 20px;
 
   background-color: white;
-  background-size: 20px;
+  background-size: 28px;
   background-repeat: no-repeat;
   background-position: 23% 50%;
 }

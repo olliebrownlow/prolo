@@ -7,23 +7,27 @@
   color: red;
 }
 .button {
-  padding: 5px 12px 5px 12px;
-  border-radius: 5px;
   background-color: red;
   color: white;
+  margin: 8px;
+  border-radius: 8px;
+  font-size: 18px;
+  padding: 8px;
+  outline: none;
+  min-width: 85px;
 }
 .formHeader {
-  font-size: 32px;
+  font-size: 48px;
   margin: 25px 0;
 }
 .inputWrapper {
   margin: 0 auto 10px;
 }
-// .input {
-//   font-size: 17px;
-//   padding: 5px 0 5px 5px;
-//   border-radius: 5px;
-// }
+.input {
+  font-size: 18px;
+  padding: 5px 0 5px 5px;
+  border-radius: 5px;
+}
 .send {
   margin-top: 5px;
 }

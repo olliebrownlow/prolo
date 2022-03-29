@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Send } from "react-feather";
-import styles from "./emailForm.module.scss"
+import styles from "./emailForm.module.scss";
+import { motion } from "framer-motion";
 
 const EmailForm = ({ onEmailSubmit, disabled }) => {
   const [email, setEmail] = useState("");
@@ -18,7 +19,7 @@ const EmailForm = ({ onEmailSubmit, disabled }) => {
         </h3>
         <div className={styles.inputWrapper}>
           <input
-            // className={styles.input}
+            className={styles.input}
             placeholder="user@email.com..."
             type="email"
             value={email}
@@ -26,12 +27,19 @@ const EmailForm = ({ onEmailSubmit, disabled }) => {
           />
         </div>
         <div>
-          <button className={styles.button} disabled={disabled} onClick={handleSubmit}>
+          <motion.button
+            className={styles.button}
+            whileHover={{ scale: 1.1 }}
+            transition={{ duration: 0.25 }}
+            animate={disabled ? { scale: [1, 0.5, 1] } : {}}
+            disabled={disabled}
+            onClick={handleSubmit}
+          >
             send magic link
-          </button>
+          </motion.button>
         </div>
         <div className={styles.send}>
-          <Send />
+          <Send size={32} />
         </div>
       </form>
     </>
