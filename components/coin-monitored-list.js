@@ -173,7 +173,11 @@ const CoinMonitoredList = (props) => {
           </div>
         ))
       ) : (
-        <></>
+        <div className={styles.noCoinsContainer}>
+          <div className={styles.noCoins}>
+            no coins found: please add one to get started with monitoring
+          </div>
+        </div>
       )}
     </div>
   );
