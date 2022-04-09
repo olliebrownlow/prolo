@@ -1,6 +1,20 @@
 .listContainer {
   margin-bottom: 70px;
 }
+.noCoinsContainer {
+  display: flex;
+  text-align: center;
+}
+.noCoins {
+  font-size: 18px;
+  // width: 75%;
+  margin: 0 1rem;
+  color: white;
+  background-color: dimgrey;
+  border: solid 1px lightgrey;
+  border-radius: 3px;
+  padding: 8px 16px;
+}
 .listRow {
   display: flex;
   justify-content: center;

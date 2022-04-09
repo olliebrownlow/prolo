@@ -36,7 +36,7 @@ const ConfirmDelete = (props) => {
       <div className={styles.modalArea}>
         <HelpCircle color={"red"} size={50} stroke-width={1.5} />
         <div className={styles.text}>
-          are you sure you want to delete this {titleText}?{" "}
+          are you sure you want to {titleText}?{" "}
         </div>
         <div className={styles.buttons}>
           <motion.button

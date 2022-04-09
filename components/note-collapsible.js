@@ -281,7 +281,7 @@ const NoteCollapsible = (props) => {
                   handleDelete={handleDeleteNote}
                   data={noteIdForDeletion}
                   isShown={confirmDeletion}
-                  titleText={"note"}
+                  titleText={"delete this note"}
                 />
               ) : (
                 <React.Fragment />

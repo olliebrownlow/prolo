@@ -581,9 +581,68 @@ app.prepare().then(() => {
     });
   });
 
+  server.delete("/api/v1/account", (req, res) => {
+    const user = req.body.user;
+
+    if (
+      user === "defaultUser" ||
+      user === "olliebrownlow@gmail.com" ||
+      user === undefined
+    ) {
+      return res.json(
+        "cannot delete account: user protected or no user detected"
+      );
+    }
+
+    _.pullAllBy(coinData, [{ user: user }], "user");
+    _.pullAllBy(fiatData, [{ user: user }], "user");
+    _.pullAllBy(fundingData, [{ user: user }], "user");
+    _.pullAllBy(noteData, [{ user: user }], "user");
+    _.pullAllBy(appSettingsData, [{ user: user }], "user");
+
+    // Todo: rollback function in case any writes to file error out
+    const pathToCoinFile = path.join(__dirname, coinFilePath);
+    const stringifiedCoinData = JSON.stringify(coinData, null, 2);
+    fs.writeFile(pathToCoinFile, stringifiedCoinData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+    });
+    const pathToFiatFile = path.join(__dirname, fiatFilePath);
+    const stringifiedFiatData = JSON.stringify(fiatData, null, 2);
+    fs.writeFile(pathToFiatFile, stringifiedFiatData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+    });
+    const pathToFundingFile = path.join(__dirname, fundingFilePath);
+    const stringifiedFundingData = JSON.stringify(fundingData, null, 2);
+    fs.writeFile(pathToFundingFile, stringifiedFundingData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+    });
+    const pathToNoteFile = path.join(__dirname, noteFilePath);
+    const stringifiedNoteData = JSON.stringify(noteData, null, 2);
+    fs.writeFile(pathToNoteFile, stringifiedNoteData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+    });
+    const pathToAppSettingsFile = path.join(__dirname, appSettingsFilePath);
+    const stringifiedAppSettingsData = JSON.stringify(appSettingsData, null, 2);
+    fs.writeFile(pathToAppSettingsFile, stringifiedAppSettingsData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+    });
+
+    return res.json("account deleted");
+  });
+
   // we are handling all of the requests coming to our server
   server.get("*", (req, res) => {
-    // next.js is handling requests and providing pages where we are navigating to
+    // next.js is handling requests and providing the pages we are navigating to
     return handle(req, res);
   });
 

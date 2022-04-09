@@ -1,6 +1,5 @@
 import Link from "next/link";
- 
-import styles from "./authButton.module.scss";
+ import styles from "./authButton.module.scss";
  
 const AuthButton = (props) => (
   <Link href={props.path}>

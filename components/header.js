@@ -1,23 +1,33 @@
 import { useContext } from "react";
 import Link from "next/link";
 import AuthButton from "./auth-button";
+import { setCookies, removeCookies } from "cookies-next";
 import Router from "next/router";
+import { mutate } from "swr";
 import { magic } from "../lib/magic";
 import { UserContext } from "../lib/UserContext";
+import { deleteAccount } from "../actions";
 import { motion } from "framer-motion";
-import { CallToAction, TextButton } from "@magiclabs/ui";
-
 import styles from "./header.module.scss";
+import BurgerMenu from "./burger-menu";
 
 const Header = (props) => {
   const [user, setUser] = useContext(UserContext);
   const loginButton = props.authButtons[0];
-  const logoutButton = props.authButtons[1];
 
-  const logout = () => {
+  const logout = async (doDelete) => {
+    if (doDelete) {
+      const res = await deleteAccount(user.email);
+      console.log(res);
+    }
+
     magic.user.logout().then(() => {
       setUser({ user: null });
+      // set defaultUser to access default theme when not logged in
+      setCookies("ue", "defaultUser");
+      removeCookies("cc");
       Router.push("/login");
+      mutate("http://localhost:3000/api/v1/appSettings");
     });
   };
 
@@ -36,14 +46,7 @@ const Header = (props) => {
           {props.appTitle}
         </motion.div>
       </Link>
-      {user?.issuer && !user?.loading ? (
-        <AuthButton
-          auth={logout}
-          key={logoutButton.path}
-          path={logoutButton.path}
-          label={logoutButton.label}
-        />
-      ) : null}
+      {user?.issuer && !user?.loading ? <BurgerMenu logout={logout} /> : null}
       {!user?.issuer && !user?.loading ? (
         <AuthButton
           auth={login}
@@ -52,28 +55,6 @@ const Header = (props) => {
           label={loginButton.label}
         />
       ) : null}
-      {/* {user?.loading ? (
-        // If loading, don't display any buttons specific to the loggedIn state
-        <div style={{ height: "38px" }}></div>
-      ) : user?.issuer ? (
-        <>
-          <li className={styles.li}>
-            <a>
-              <TextButton color="warning" size="sm" onPress={logout}>
-                logout
-              </TextButton>
-            </a>
-          </li>
-        </>
-      ) : (
-        <li className={styles.li}>
-          <Link href="/login">
-            <CallToAction color="primary" size="sm">
-              login
-            </CallToAction>
-          </Link>
-        </li>
-      )} */}
     </div>
   );
 };

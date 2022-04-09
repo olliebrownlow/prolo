@@ -1,0 +1,63 @@
+.navigation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 5;
+}
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background: white;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+}
+.solidDivider {
+  border-top: 1px solid grey;
+  margin: 40px 0;
+  max-width: 90%;
+}
+.icon {
+  color: black;
+  margin-bottom: 10px;
+}
+.label {
+  font-size: 24px;
+  margin-left: 24px;
+  color: black;
+  margin-top: 5px;
+}
+.user {
+  font-size: 20px;
+  color: black;
+}
+.button {
+  outline: none;
+  border: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  cursor: default;
+  position: absolute;
+  top: 4px;
+  left: 11.5px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: transparent;
+}
+.ul {
+  padding: 25px 0 25px 25px;
+  position: absolute;
+  top: 20px;
+}
+.li {
+  list-style: none;
+  display: flex;
+  cursor: default;
+}
+.active {
+  color: red;
+}

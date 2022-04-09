@@ -9,7 +9,6 @@ import Head from "next/head";
 import Header from "../components/header";
 import NavBar from "../components/nav-bar";
 import ErrorBoundary from "../components/error-boundary";
-import navButtons from "../config/navButtons";
 import authButtons from "../config/authButtons";
 import { magic } from "../lib/magic";
 import useSWR, { mutate } from "swr";
@@ -170,7 +169,7 @@ function Prolo({ Component, pageProps }) {
             }}
           />
           <div className="Footer">
-            <NavBar navButtons={navButtons} />
+            <NavBar />
           </div>
         </div>
       </CurrencySettingsContext.Provider>

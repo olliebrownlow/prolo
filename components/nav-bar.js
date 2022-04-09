@@ -1,9 +1,10 @@
 import styles from "./navBar.module.scss";
+import navButtons from "../config/navButtons";
 import NavButton from "./nav-button";
 
-const NavBar = (props) => (
+const NavBar = () => (
   <div className={styles.NavBar}>
-    {props.navButtons.map((button) => (
+    {navButtons.map((button) => (
       <NavButton
         key={button.path}
         path={button.path}

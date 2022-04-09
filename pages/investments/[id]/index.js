@@ -196,7 +196,7 @@ const Investment = (props) => {
         isShown={isShown}
         cancel={cancel}
         buttonText={"correct"}
-        deletionText={`${investmentItem.type} item`}
+        deletionText={`delete this ${investmentItem.type} item`}
         deletionSubText={" your notes will also be deleted"}
       />
     </div>

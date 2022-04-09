@@ -1,26 +1,15 @@
 .Header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-
   height: 50px;
   width: 100%;
-
   padding: 0 20px;
-
-  font-size: 24px;
-  font-weight: bold;
+  font-size: 32px;
   color: white;
-
   background: red;
 }
 .AppTitle {
-  padding: 0 20px;
-
-  font-size: 24px;
   font-weight: bold;
-  color: white;
-
-  background: red;
   cursor: default;
 }

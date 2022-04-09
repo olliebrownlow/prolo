@@ -157,7 +157,7 @@ const Fiat = (props) => {
         isShown={isShown}
         cancel={cancel}
         buttonText={"update"}
-        deletionText={"currency"}
+        deletionText={"delete this currency"}
         deletionSubText={" your notes will also be deleted"}
       />
     </div>

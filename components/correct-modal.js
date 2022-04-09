@@ -15,14 +15,6 @@ const CorrectModal = (props) => {
     windowOnClick,
     handleFormSubmit,
     investmentItem,
-    id,
-    currencyName,
-    currencyCode,
-    currencySign,
-    amount,
-    type,
-    date,
-    sortingNumber,
     label,
     isShown,
   } = props;
@@ -50,7 +42,7 @@ const CorrectModal = (props) => {
         </motion.button>
         <CorrectForm
           handleFormSubmit={handleFormSubmit}
-          investmentItem ={investmentItem}
+          investmentItem={investmentItem}
           label={label}
           isShown={isShown}
         />

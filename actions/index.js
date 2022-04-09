@@ -340,3 +340,19 @@ export const deleteAssociatedNotes = (noteListArray) => {
 
   return res;
 };
+
+export const deleteAccount = (user) => {
+  const res = axios
+    .delete(`${BASE_URL}/api/v1/account`, {
+      data: { user: user },
+    })
+    .then((res) => res.data);
+
+  toast.promise(res, {
+    loading: "loading",
+    success: (data) => data,
+    error: (err) => err.toString(),
+  });
+
+  return res;
+};
