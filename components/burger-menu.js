@@ -14,6 +14,7 @@ const sidebar = {
     },
     height: "auto",
     width: "300px",
+    overflow: "scroll",
   }),
   closed: {
     clipPath: "circle(20px at 36px 25px)",

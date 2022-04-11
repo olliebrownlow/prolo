@@ -6,7 +6,7 @@ Simple crypto-currency profit/loss tracker. Does not require any linking up with
 
 ## Auth
 
-Uses magic (https://docs.magic.link), a passwordless authentication protocol. To get prolo worling locally you will need an account.
+Uses magic (https://docs.magic.link), a passwordless authentication protocol. To get prolo working locally you will need an account.
 
 ## Quick Start Instructions
 
@@ -15,5 +15,5 @@ git clone https://github.com/olliebrownlow/prolo
 cd prolo
 touch .env.local // add your Magic API keys in your env variables
 yarn install
-yarn dev // starts app in http://localhost:3000
+yarn dev // starts app on http://localhost:3000
 ```
