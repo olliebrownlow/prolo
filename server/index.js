@@ -187,11 +187,12 @@ app.prepare().then(() => {
         (savedItem) =>
           savedItem.date === item.date &&
           savedItem.type === item.type &&
-          savedItem.currencyCode === item.currencyCode
+          savedItem.currencyCode === item.currencyCode &&
+          savedItem.user === item.user
       )
     ) {
       return res.json(
-        "Cannot add funding item. It has either been added already or you should add it to the existing item of the same date, type and currency"
+        "Cannot add funding item. It has either been added already or you should update the existing item of the same date, type and currency"
       );
     }
     fundingData.push(item);
