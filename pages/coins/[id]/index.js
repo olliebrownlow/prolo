@@ -54,13 +54,16 @@ const Coin = (props) => {
     mrktInfoSettings.intervalLabel
   );
 
-  useEffect(async () => {
-    const noteFilter = {
-      user: getCookie("ue"),
-      code: coin[0]["id"],
+  useEffect(() => {
+    const handleNotes = async () => {
+      const noteFilter = {
+        user: getCookie("ue"),
+        code: coin[0]["id"],
+      };
+      const notes = await getNotes(noteFilter);
+      setNoteList(notes);
     };
-    const notes = await getNotes(noteFilter);
-    setNoteList(notes);
+    handleNotes();
   }, [coin]);
 
   // alternative to using a switch statement

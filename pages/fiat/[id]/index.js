@@ -26,13 +26,16 @@ const Fiat = (props) => {
   const [cancel, setCancel] = useState(false);
   const [noteList, setNoteList] = useState([]);
 
-  useEffect(async () => {
-    const noteFilter = {
-      user: getCookie("ue"),
-      code: fiat.id,
+  useEffect(() => {
+    const handleNotes = async () => {
+      const noteFilter = {
+        user: getCookie("ue"),
+        code: fiat.id,
+      };
+      const notes = await getNotes(noteFilter);
+      setNoteList(notes);
     };
-    const notes = await getNotes(noteFilter);
-    setNoteList(notes);
+    handleNotes();
   }, [fiat]);
 
   const showModal = () => {

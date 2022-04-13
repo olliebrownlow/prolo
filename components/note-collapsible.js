@@ -35,13 +35,16 @@ const NoteCollapsible = (props) => {
   const [confirmDeletion, setConfirmDeletion] = useState(false);
   const { data, notes, notepadSettingType, pageType } = props;
 
-  useEffect(async () => {
+  useEffect(() => {
     setNoteList(notes);
-    const notepadSettings = await getNotepadSettings(
-      getCookie("ue"),
-      "notepadSettings"
-    );
-    setShowNotepad(notepadSettings[notepadSettingType]);
+    const returnNotepadSettings = async () => {
+      const notepadSettings = await getNotepadSettings(
+        getCookie("ue"),
+        "notepadSettings"
+      );
+      setShowNotepad(notepadSettings[notepadSettingType]);
+    };
+    returnNotepadSettings();
   }, [notes, notepadSettingType, showNotepad]);
 
   const handleNotepadSettingUpdate = async (newSetting) => {

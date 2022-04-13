@@ -91,40 +91,46 @@ function Prolo({ Component, pageProps }) {
     });
   }, []);
 
-  useEffect(async () => {
-    if (settings) {
-      setAppTheme(settings.data.theme);
-    }
-    const root = document.documentElement;
-    root?.style.setProperty(
-      "--background-color",
-      appTheme === "dark" ? "#000000" : "#ffffff"
-    );
-    root?.style.setProperty(
-      "--background",
-      appTheme === "dark" ? "#000000" : "#ffffff"
-    );
-    root?.style.setProperty(
-      "--color",
-      appTheme === "light" ? "dimgrey" : "#ffffff"
-    );
-    root?.style.setProperty(
-      "--border",
-      appTheme === "light" ? "#000000" : "#ffffff"
-    );
-    root?.style.setProperty(
-      "--border-top",
-      appTheme === "light" ? "#000000" : "#ffffff"
-    );
+  useEffect(() => {
+    const handleThemeSettings = async () => {
+      if (settings) {
+        setAppTheme(settings.data.theme);
+      }
+      const root = document.documentElement;
+      root?.style.setProperty(
+        "--background-color",
+        appTheme === "dark" ? "#000000" : "#ffffff"
+      );
+      root?.style.setProperty(
+        "--background",
+        appTheme === "dark" ? "#000000" : "#ffffff"
+      );
+      root?.style.setProperty(
+        "--color",
+        appTheme === "light" ? "dimgrey" : "#ffffff"
+      );
+      root?.style.setProperty(
+        "--border",
+        appTheme === "light" ? "#000000" : "#ffffff"
+      );
+      root?.style.setProperty(
+        "--border-top",
+        appTheme === "light" ? "#000000" : "#ffffff"
+      );
+    };
+    handleThemeSettings();
   }, [settings, appTheme]);
 
-  useEffect(async () => {
-    if (settings) {
-      setAppCurrencySign(settings.data.sign);
-      setAppCurrencyCode(settings.data.currencyCode);
-      setAppCurrencyName(settings.data.currencyName);
-      setCookies("cc", settings.data.currencyCode);
-    }
+  useEffect(() => {
+    const handleCurrencySettings = async () => {
+      if (settings) {
+        setAppCurrencySign(settings.data.sign);
+        setAppCurrencyCode(settings.data.currencyCode);
+        setAppCurrencyName(settings.data.currencyName);
+        setCookies("cc", settings.data.currencyCode);
+      }
+    };
+    handleCurrencySettings();
   }, [settings, appCurrencySign, appCurrencyCode, appCurrencyName]);
 
   const roundTo2DP = (unrounded) => {

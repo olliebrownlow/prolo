@@ -11,13 +11,15 @@ import { motion } from "framer-motion";
 const SettingsLink = (props) => {
   const { pageName } = props;
   const [isShown, setIsShown] = useState(false);
-  const [appSettingsInUse, setAppSettingsInUse] = useState("");
+  const [appSettingsInUse, setAppSettingsInUse] = useState("yo");
 
-  useEffect(async () => {
-    const user = getCookie("ue");
-    const currencyAndTheme = await getCurrencyAndTheme(user);
-    setAppSettingsInUse(currencyAndTheme);
-    console.log(currencyAndTheme);
+  useEffect(() => {
+    const returnCurrencyAndTheme = async () => {
+      const user = getCookie("ue");
+      const currencyAndTheme = await getCurrencyAndTheme(user);
+      setAppSettingsInUse(currencyAndTheme);
+    };
+    returnCurrencyAndTheme();
   }, []);
 
   const showModal = () => {
