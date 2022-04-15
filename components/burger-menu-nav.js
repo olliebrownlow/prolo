@@ -7,6 +7,7 @@ import {
   burgerMenuDangerButtons,
 } from "../config/burgerMenuButtons";
 import styles from "./burgerMenu.module.scss";
+import { User } from "react-feather";
 
 const variants = {
   open: {
@@ -63,7 +64,7 @@ const BurgerMenuNav = (props) => {
   return (
     <motion.ul className={styles.ul} variants={variants}>
       <motion.div className={styles.user} variants={variants2}>
-        user: {extractUserName(userEmail)}
+        <User size={20} /> {extractUserName(userEmail)}
       </motion.div>
       <motion.hr className={styles.solidDivider} variants={variants2} />
       {burgerMenuNavButtons.map((button) => (
@@ -86,6 +87,7 @@ const BurgerMenuNav = (props) => {
           icon={button.icon}
         />
       ))}
+      <motion.hr className={styles.solidDivider} variants={variants2} />
     </motion.ul>
   );
 };
