@@ -4,6 +4,7 @@ import { getCookie } from "cookies-next";
 import Loading from "../components/loading";
 import CurrencySettings from "../components/currency-settings";
 import ThemeSettings from "../components/theme-settings";
+import NotLoggedIn from "../components/not-logged-in";
 import styles from "../pageStyles/settings.module.scss";
 import {
   getCurrencyAndTheme,
@@ -57,17 +58,17 @@ const Settings = (props) => {
     <>
       {user?.loading ? (
         <Loading />
+      ) : user?.issuer ? (
+        <div className={styles.settings}>
+          <div className={styles.heading}>app settings</div>
+          <CurrencySettings
+            handleCurrency={handleCurrency}
+            currencyInUseCode={currencyInUse}
+          />
+          <ThemeSettings handleTheme={handleTheme} themeInUse={themeInUse} />
+        </div>
       ) : (
-        user?.issuer && (
-          <div className={styles.settings}>
-            <div className={styles.heading}>app settings</div>
-            <CurrencySettings
-              handleCurrency={handleCurrency}
-              currencyInUseCode={currencyInUse}
-            />
-            <ThemeSettings handleTheme={handleTheme} themeInUse={themeInUse} />
-          </div>
-        )
+        <NotLoggedIn />
       )}
     </>
   );

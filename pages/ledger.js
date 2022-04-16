@@ -8,6 +8,7 @@ import Loading from "../components/loading";
 import SettingsLink from "../components/settings-link";
 import AddButton from "../components/add-button";
 import FundingList from "../components/funding-list";
+import NotLoggedIn from "../components/not-logged-in";
 import styles from "../pageStyles/ledger.module.scss";
 import { getCoinData } from "../lib/core/coinData";
 import { getFiatData } from "../lib/core/fiatData";
@@ -99,59 +100,59 @@ const Ledger = (props) => {
     <>
       {user?.loading ? (
         <Loading />
-      ) : (
-        user?.issuer && (
-          <>
-            <SettingsLink pageName={"ledger"}/>
-            <div className={styles.heading}>profit/loss</div>
-            <Link href="/ledger" scroll={false}>
-              <div className={styles.prolo} onClick={() => setAnim(1)}>
-                {appCurrencySign}
-                {roundTo2DP(prolo())}{" "}
-                <RefreshCw
-                  className={styles.refresh}
-                  onClick={() => setAnim(1)}
-                  onAnimationEnd={() => setAnim(0)}
-                  anim={anim}
-                />
-              </div>
-            </Link>
-            <hr className={styles.solidDivider} />
-            <div className={styles.heading}>balance</div>
-            <div className={styles.balance}>
+      ) : user?.issuer ? (
+        <>
+          <SettingsLink pageName={"ledger"} />
+          <div className={styles.heading}>profit/loss</div>
+          <Link href="/ledger" scroll={false}>
+            <div className={styles.prolo} onClick={() => setAnim(1)}>
               {appCurrencySign}
-              {roundTo2DP(balances.balance)}
+              {roundTo2DP(prolo())}{" "}
+              <RefreshCw
+                className={styles.refresh}
+                onClick={() => setAnim(1)}
+                onAnimationEnd={() => setAnim(0)}
+                anim={anim}
+              />
             </div>
-            <hr className={styles.solidDivider} />
-            <div className={styles.heading}>funding</div>
-            <div className={styles.balance}>
-              {appCurrencySign}
-              {roundTo2DP(balances.balance - prolo())}
-            </div>
-            <div className={styles.subheading}>breakdown</div>
-            <AddButton
-              buttonText={"add item"}
-              showModal={showModal}
-              showLogo={true}
+          </Link>
+          <hr className={styles.solidDivider} />
+          <div className={styles.heading}>balance</div>
+          <div className={styles.balance}>
+            {appCurrencySign}
+            {roundTo2DP(balances.balance)}
+          </div>
+          <hr className={styles.solidDivider} />
+          <div className={styles.heading}>funding</div>
+          <div className={styles.balance}>
+            {appCurrencySign}
+            {roundTo2DP(balances.balance - prolo())}
+          </div>
+          <div className={styles.subheading}>breakdown</div>
+          <AddButton
+            buttonText={"add item"}
+            showModal={showModal}
+            showLogo={true}
+            isShown={isShown}
+          />
+          {isShown ? (
+            <InvestmentModal
+              closeModal={closeModal}
+              windowOnClick={windowOnClick}
+              handleFormSubmit={handleAddInvestmentItem}
               isShown={isShown}
             />
-            {isShown ? (
-              <InvestmentModal
-                closeModal={closeModal}
-                windowOnClick={windowOnClick}
-                handleFormSubmit={handleAddInvestmentItem}
-                isShown={isShown}
-              />
-            ) : (
-              <React.Fragment />
-            )}
-            <FundingList
-              roundTo2DP={roundTo2DP}
-              investmentItems={investmentItems}
-              appCurrencySign={appCurrencySign}
-            />
-          </>
-        )
+          ) : (
+            <React.Fragment />
+          )}
+          <FundingList
+            roundTo2DP={roundTo2DP}
+            investmentItems={investmentItems}
+            appCurrencySign={appCurrencySign}
+          />
+        </>
+      ) : (
+        <NotLoggedIn />
       )}
     </>
   );

@@ -1,13 +1,18 @@
 import Link from "next/link";
- import styles from "./authButton.module.scss";
- 
+import { motion } from "framer-motion";
+import styles from "./authButton.module.scss";
+
 const AuthButton = (props) => (
   <Link href={props.path}>
-    <div onClick={props.auth} className={styles.AuthButton}>
+    <motion.div
+      onClick={props.auth}
+      className={styles.AuthButton}
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.5 }}
+    >
       <span className={styles.Label}>{props.label}</span>
-    </div>
+    </motion.div>
   </Link>
 );
- 
+
 export default AuthButton;
- 

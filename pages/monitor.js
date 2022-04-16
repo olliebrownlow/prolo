@@ -9,6 +9,7 @@ import Modal from "../components/modal";
 import CustomiseMonitor from "../components/customise-monitor";
 import Link from "next/link";
 import { RefreshCw } from "react-feather";
+import NotLoggedIn from "../components/not-logged-in";
 import SettingsLink from "../components/settings-link";
 import coinSelectOptions from "../config/coinSelectOptions";
 import styles from "../pageStyles/monitor.module.scss";
@@ -45,43 +46,43 @@ const Monitor = (props) => {
     <>
       {user?.loading ? (
         <Loading />
-      ) : (
-        user?.issuer && (
-          <>
-            <SettingsLink pageName={"monitor"} />
-            <Link href="/monitor" scroll={false}>
-              <div className={styles.heading} onClick={() => setAnim(1)}>
-                coins{" "}
-                <RefreshCw
-                  className={styles.refresh}
-                  onClick={() => setAnim(1)}
-                  onAnimationEnd={() => setAnim(0)}
-                  anim={anim}
-                />
-              </div>
-            </Link>
-            <div className={styles.actionButtons}>
-              <Modal
-                buttonText={"add coin"}
-                labelName={"coin"}
-                data={coinData}
-                dataOptionsExhausted={isCoinOptionsExhausted}
-                userEmail={user.email}
-                type={"monitoring"}
-              />
-              <CustomiseMonitor
-                buttonText={"customise"}
-                currentSettings={currentSettings}
-                handleFormSubmit={handleMonitorDisplaySettingsUpdate}
+      ) : user?.issuer ? (
+        <>
+          <SettingsLink pageName={"monitor"} />
+          <Link href="/monitor" scroll={false}>
+            <div className={styles.heading} onClick={() => setAnim(1)}>
+              coins{" "}
+              <RefreshCw
+                className={styles.refresh}
+                onClick={() => setAnim(1)}
+                onAnimationEnd={() => setAnim(0)}
+                anim={anim}
               />
             </div>
-            <CoinMonitoredList
-              coinData={coinData}
-              currentSettings={currentSettings}
-              appCurrencySign={appCurrencySign}
+          </Link>
+          <div className={styles.actionButtons}>
+            <Modal
+              buttonText={"add coin"}
+              labelName={"coin"}
+              data={coinData}
+              dataOptionsExhausted={isCoinOptionsExhausted}
+              userEmail={user.email}
+              type={"monitoring"}
             />
-          </>
-        )
+            <CustomiseMonitor
+              buttonText={"customise"}
+              currentSettings={currentSettings}
+              handleFormSubmit={handleMonitorDisplaySettingsUpdate}
+            />
+          </div>
+          <CoinMonitoredList
+            coinData={coinData}
+            currentSettings={currentSettings}
+            appCurrencySign={appCurrencySign}
+          />
+        </>
+      ) : (
+        <NotLoggedIn />
       )}
     </>
   );

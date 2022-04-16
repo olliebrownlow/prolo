@@ -8,6 +8,7 @@ import CoinList from "../components/coin-list";
 import FiatList from "../components/fiat-list";
 import Modal from "../components/modal";
 import PocketBalance from "../components/pocket-balance";
+import NotLoggedIn from "../components/not-logged-in";
 import { getCoinData } from "../lib/core/coinData";
 import { getFiatData } from "../lib/core/fiatData";
 import { calculateBalance } from "../lib/core/calculateBalance";
@@ -35,52 +36,52 @@ const Pocket = (props) => {
     <>
       {user?.loading ? (
         <Loading />
+      ) : user?.issuer ? (
+        <>
+          <SettingsLink pageName={"pocket"} />
+          <div className={styles.heading}>balance</div>
+          <PocketBalance
+            roundTo2DP={roundTo2DP}
+            balance={balances.balance}
+            appCurrencySign={appCurrencySign}
+          />
+          <div className={styles.heading}>coin holdings</div>
+          <div className={styles.balance}>
+            {appCurrencySign}
+            {roundTo2DP(balances.coinTotal)}
+          </div>
+          <div className={styles.subheading}>breakdown</div>
+          <Modal
+            buttonText={"add coin"}
+            labelName={"coin"}
+            data={coinData}
+            dataOptionsExhausted={isCoinOptionsExhausted}
+            userEmail={user.email}
+            type={"holding"}
+          />
+          <CoinList coinData={coinData} appCurrencySign={appCurrencySign} />
+          <div className={styles.spacer}>placeholder</div>
+          <div className={styles.heading}>fiat holdings</div>
+          <div className={styles.balance}>
+            {appCurrencySign}
+            {roundTo2DP(balances.fiatTotal)}
+          </div>
+          <div className={styles.subheading}>breakdown</div>
+          <Modal
+            buttonText={"add fiat"}
+            labelName={"fiat"}
+            data={fiatData}
+            dataOptionsExhausted={isFiatOptionsExhausted}
+            userEmail={user.email}
+          />
+          <FiatList
+            roundTo2DP={roundTo2DP}
+            fiatData={fiatData}
+            appCurrencySign={appCurrencySign}
+          />
+        </>
       ) : (
-        user?.issuer && (
-          <>
-            <SettingsLink pageName={"pocket"} />
-            <div className={styles.heading}>balance</div>
-            <PocketBalance
-              roundTo2DP={roundTo2DP}
-              balance={balances.balance}
-              appCurrencySign={appCurrencySign}
-            />
-            <div className={styles.heading}>coin holdings</div>
-            <div className={styles.balance}>
-              {appCurrencySign}
-              {roundTo2DP(balances.coinTotal)}
-            </div>
-            <div className={styles.subheading}>breakdown</div>
-            <Modal
-              buttonText={"add coin"}
-              labelName={"coin"}
-              data={coinData}
-              dataOptionsExhausted={isCoinOptionsExhausted}
-              userEmail={user.email}
-              type={"holding"}
-            />
-            <CoinList coinData={coinData} appCurrencySign={appCurrencySign} />
-            <div className={styles.spacer}>placeholder</div>
-            <div className={styles.heading}>fiat holdings</div>
-            <div className={styles.balance}>
-              {appCurrencySign}
-              {roundTo2DP(balances.fiatTotal)}
-            </div>
-            <div className={styles.subheading}>breakdown</div>
-            <Modal
-              buttonText={"add fiat"}
-              labelName={"fiat"}
-              data={fiatData}
-              dataOptionsExhausted={isFiatOptionsExhausted}
-              userEmail={user.email}
-            />
-            <FiatList
-              roundTo2DP={roundTo2DP}
-              fiatData={fiatData}
-              appCurrencySign={appCurrencySign}
-            />
-          </>
-        )
+        <NotLoggedIn />
       )}
     </>
   );

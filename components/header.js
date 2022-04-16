@@ -41,7 +41,7 @@ const Header = (props) => {
         <motion.div
           className={styles.AppTitle}
           whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.8 }}
+          whileTap={{ scale: 0.5 }}
         >
           {props.appTitle}
         </motion.div>
