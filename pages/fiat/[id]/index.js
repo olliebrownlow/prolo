@@ -6,6 +6,7 @@ import {
   updateFiat,
   getNotes,
   deleteAssociatedNotes,
+  getCurrencyAndTheme,
 } from "../../../actions";
 import Router from "next/router";
 import Image from "next/image";
@@ -20,7 +21,7 @@ import { getSingleFiatData } from "../../../lib/core/singleFiatData";
 
 const Fiat = (props) => {
   const { appCurrencySign } = useContext(CurrencySettingsContext);
-  const { fiat, roundTo2DP } = props;
+  const { fiat, currencyAndTheme, roundTo2DP } = props;
 
   const [isShown, setIsShown] = useState(false);
   const [cancel, setCancel] = useState(false);
@@ -151,6 +152,7 @@ const Fiat = (props) => {
         notes={noteList}
         notepadSettingType={"showFiatNotepad"}
         pageType={"fiat"}
+        theme={currencyAndTheme.theme}
       />
       <hr className={styles.solidDivider} />
       <DetailPageButtons
@@ -172,12 +174,14 @@ export async function getServerSideProps({ req, res, query }) {
   const user = getCookie("ue", { req, res });
   const currencyCode = getCookie("cc", { req, res });
   const fiat = await getSingleFiatData(coinCode, user, currencyCode);
+  const currencyAndTheme = await getCurrencyAndTheme(user);
 
   // console.log(fiat);
 
   return {
     props: {
       fiat,
+      currencyAndTheme,
     },
   };
 }

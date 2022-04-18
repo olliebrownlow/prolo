@@ -7,6 +7,7 @@ import {
   updateCoin,
   getMrktInfoSettings,
   updateMrktInfoSettings,
+  getCurrencyAndTheme,
 } from "../../../actions";
 import { getSingleCoinData } from "../../../lib/core/singleCoinData";
 import Router from "next/router";
@@ -33,7 +34,7 @@ const variants = {
 
 const Coin = (props) => {
   const { appCurrencySign } = useContext(CurrencySettingsContext);
-  const { coin, mrktInfoSettings, roundTo2DP } = props;
+  const { coin, mrktInfoSettings, currencyAndTheme, roundTo2DP } = props;
 
   const [noteList, setNoteList] = useState([]);
   const [isShown, setIsShown] = useState(false);
@@ -340,6 +341,7 @@ const Coin = (props) => {
         notes={noteList}
         notepadSettingType={"showCoinNotepad"}
         pageType={"coins"}
+        theme={currencyAndTheme.theme}
       />
       <motion.div
         className={styles.marketHeading}
@@ -564,6 +566,7 @@ export async function getServerSideProps({ query, req, res }) {
   const currencyCode = getCookie("cc", { req, res });
   const coin = await getSingleCoinData(coinCode, user, currencyCode, coinType);
   const mrktInfoSettings = await getMrktInfoSettings(user, "mrktInfoSettings");
+  const currencyAndTheme = await getCurrencyAndTheme(user);
   // console.log(JSON.stringify(query));
   // console.log(coin);
   // console.log(mrktInfoSettings);
@@ -572,6 +575,7 @@ export async function getServerSideProps({ query, req, res }) {
     props: {
       coin,
       mrktInfoSettings,
+      currencyAndTheme,
     },
   };
 }

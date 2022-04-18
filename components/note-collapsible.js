@@ -33,7 +33,7 @@ const NoteCollapsible = (props) => {
   const [noteIdForDeletion, setNoteIdForDeletion] = useState("");
   const [showNotepad, setShowNotepad] = useState(false);
   const [confirmDeletion, setConfirmDeletion] = useState(false);
-  const { data, notes, notepadSettingType, pageType } = props;
+  const { data, notes, notepadSettingType, pageType, theme } = props;
 
   useEffect(() => {
     setNoteList(notes);
@@ -230,7 +230,13 @@ const NoteCollapsible = (props) => {
                     whileInView={{ opacity: 1 }}
                     initial={{ opacity: 0 }}
                   >
-                    <div className={styles.card}>
+                    <div
+                      className={
+                        styles.card +
+                        " " +
+                        `${theme === "light" ? styles.light : styles.dark}`
+                      }
+                    >
                       {note.noteTitle && (
                         <div className={styles.title}>{note.noteTitle}</div>
                       )}

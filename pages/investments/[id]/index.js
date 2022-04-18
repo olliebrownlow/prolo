@@ -8,6 +8,7 @@ import {
   getHistoricalData,
   updateInvestmentItem,
   deleteAssociatedNotes,
+  getCurrencyAndTheme,
 } from "../../../actions";
 import Router from "next/router";
 import Image from "next/image";
@@ -23,7 +24,7 @@ import _ from "lodash";
 
 const Investment = (props) => {
   const [user] = useContext(UserContext);
-  const { investmentItem, roundTo2DP } = props;
+  const { investmentItem, currencyAndTheme, roundTo2DP } = props;
 
   const [isShown, setIsShown] = useState(false);
   const [cancel, setCancel] = useState(false);
@@ -190,6 +191,7 @@ const Investment = (props) => {
         notes={noteList}
         notepadSettingType={"showFundingItemNotepad"}
         pageType={"investments"}
+        theme={currencyAndTheme.theme}
       />
       <hr className={styles.solidDivider} />
       <DetailPageButtons
@@ -210,6 +212,7 @@ export async function getServerSideProps({ query, req, res }) {
   const id = query.id;
   const user = getCookie("ue", { req, res });
   const investmentItem = await getSingleInvestmentItem({ id: id, user: user });
+  const currencyAndTheme = await getCurrencyAndTheme(user);
 
   // console.log(id);
   // console.log(investmentItem);
@@ -217,6 +220,7 @@ export async function getServerSideProps({ query, req, res }) {
   return {
     props: {
       investmentItem,
+      currencyAndTheme,
     },
   };
 }

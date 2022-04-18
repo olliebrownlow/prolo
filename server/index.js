@@ -192,7 +192,7 @@ app.prepare().then(() => {
       )
     ) {
       return res.json(
-        "Cannot add funding item. It has either been added already or you should update the existing item of the same date, type and currency"
+        "Cannot add funding item. It has either been added already or you should update the existing item with the same date, type and currency"
       );
     }
     fundingData.push(item);
