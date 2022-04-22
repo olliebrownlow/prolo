@@ -13,7 +13,7 @@ const NotLoggedIn = () => {
 
   return (
     <div className={styles.container}>
-      <UserX size={88} strokeWidth={1} borderStyle="solid" />
+      <UserX size={88} strokeWidth={1} />
       <div className={styles.heading}>
         oops!
         <br />
