@@ -113,6 +113,10 @@ const coinSelectOptions = [
     name: "verasity",
     code: "[VRA]",
   },
+  {
+    name: "apecoin",
+    code: "[APE7]",
+  },
 ];
 
 export default coinSelectOptions;
