@@ -38,3 +38,5 @@ yarn-error.log*
 /server/noteData.json
 /server/fundingData.json
 /server/appSettings.json
+/server/userData.json
+/server/autoNumber.json
