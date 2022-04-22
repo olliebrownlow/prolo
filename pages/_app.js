@@ -13,7 +13,11 @@ import authButtons from "../config/authButtons";
 import { magic } from "../lib/magic";
 import useSWR, { mutate } from "swr";
 import axios from "axios";
-import { addAppSettingsForNewUser, hasAppSettings } from "../actions";
+import {
+  addAppSettingsForNewUser,
+  isAlreadyAUser,
+  getUserNumber,
+} from "../actions";
 
 import "../pageStyles/index.scss";
 import "../pageStyles/appLayout.scss";
@@ -61,13 +65,20 @@ function Prolo({ Component, pageProps }) {
   // If isLoggedIn is true, set the UserContext with user data
   // Otherwise, redirect to /login and set UserContext to { user: null }
   useEffect(() => {
-    const addAppSettingsIfNewUser = async (user) => {
-      const res = await hasAppSettings();
-      if (res === "false" && user != null) {
-        await addAppSettingsForNewUser({ user: user });
-        mutate("http://localhost:3000/api/v1/appSettings");
-        if (settings) {
-          setAppTheme(settings.data.theme);
+    const createNewUserIfNeededAndSetCookie = async (user) => {
+      if (user != null) {
+        const res = await isAlreadyAUser(user);
+        const userNumber = await getUserNumber(res, user);
+        setCookies("un", userNumber);
+        if (res === "false") {
+          await addAppSettingsForNewUser({
+            user: user,
+            userNumber: userNumber,
+          });
+          mutate("http://localhost:3000/api/v1/appSettings");
+          if (settings) {
+            setAppTheme(settings.data.theme);
+          }
         }
       }
     };
@@ -78,13 +89,14 @@ function Prolo({ Component, pageProps }) {
         magic.user.getMetadata().then((userData) => {
           setUser(userData);
           setCookies("ue", userData.email);
-          addAppSettingsIfNewUser(userData.email);
+          createNewUserIfNeededAndSetCookie(userData.email);
         });
       } else {
         Router.push("/login");
         setUser({ user: null });
         // set defaultUser to access default theme when not logged in
         setCookies("ue", "defaultUser");
+        setCookies("un", 0);
         removeCookies("cc");
       }
       mutate("http://localhost:3000/api/v1/appSettings");

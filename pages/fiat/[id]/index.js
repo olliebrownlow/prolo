@@ -172,9 +172,10 @@ const Fiat = (props) => {
 export async function getServerSideProps({ req, res, query }) {
   const coinCode = query.id;
   const user = getCookie("ue", { req, res });
+  const userNumber = getCookie("un", { req, res });
   const currencyCode = getCookie("cc", { req, res });
   const fiat = await getSingleFiatData(coinCode, user, currencyCode);
-  const currencyAndTheme = await getCurrencyAndTheme(user);
+  const currencyAndTheme = await getCurrencyAndTheme(userNumber);
 
   // console.log(fiat);
 

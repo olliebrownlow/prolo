@@ -39,7 +39,7 @@ const NoteCollapsible = (props) => {
     setNoteList(notes);
     const returnNotepadSettings = async () => {
       const notepadSettings = await getNotepadSettings(
-        getCookie("ue"),
+        getCookie("un"),
         "notepadSettings"
       );
       setShowNotepad(notepadSettings[notepadSettingType]);
@@ -49,7 +49,7 @@ const NoteCollapsible = (props) => {
 
   const handleNotepadSettingUpdate = async (newSetting) => {
     const res = await updateNotepadSettings({
-      user: getCookie("ue"),
+      userNumber: getCookie("un"),
       newSettings: newSetting,
     });
     console.log(res);

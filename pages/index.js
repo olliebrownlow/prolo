@@ -153,9 +153,9 @@ const Home = (props) => {
 };
 
 export async function getServerSideProps({ req, res }) {
-  const user = getCookie("ue", { req, res });
-  const currencyAndTheme = await getCurrencyAndTheme(user);
-  // console.log(user);
+  const userNumber = getCookie("un", { req, res });
+  const currencyAndTheme = await getCurrencyAndTheme(userNumber);
+  // console.log(userNumber);
   // console.log(currencyAndTheme);
   return {
     props: {

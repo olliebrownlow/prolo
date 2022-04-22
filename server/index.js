@@ -13,6 +13,8 @@ const coinFilePath = "./coinData.json";
 const fiatFilePath = "./fiatData.json";
 const fundingFilePath = "./fundingData.json";
 const noteFilePath = "./noteData.json";
+const userFilePath = "./userData.json";
+const autoNumberFilePath = "./autoNumber.json";
 fs = require("fs");
 path = require("path");
 const appSettingsData = require(appSettingsFilePath);
@@ -20,28 +22,75 @@ const coinData = require(coinFilePath);
 const fiatData = require(fiatFilePath);
 const fundingData = require(fundingFilePath);
 const noteData = require(noteFilePath);
+const userData = require(userFilePath);
+const autoNumberData = require(autoNumberFilePath);
 
 app.prepare().then(() => {
   const server = express();
   server.use(bodyParser.json());
 
-  server.get("/api/v1/hasAppSettings", (req, res) => {
-    const user = cookies.getCookie("ue", { req, res });
-    const settings = appSettingsData.find((settings) => settings.user === user);
-    if (settings) {
+  server.get("/api/v1/isAUser", (req, res) => {
+    let user = req.query.user;
+
+    const existingUser = userData.find((userData) => userData.user === user);
+
+    if (existingUser) {
       return res.json("true");
     } else {
       return res.json("false");
     }
   });
 
+  server.get("/api/v1/userNumber", (req, res) => {
+    let userExists = req.query.userExists;
+    let user = req.query.user;
+
+    if (userExists === "true") {
+      const existingUser = userData.find((userData) => userData.user === user);
+      return res.json(existingUser.userNumber);
+    }
+
+    const currentUserNumber = autoNumberData[0].nextUserNumber;
+
+    const newUser = {
+      userNumber: currentUserNumber,
+      user: user,
+    };
+    userData.push(newUser);
+
+    autoNumberData[0].nextUserNumber = currentUserNumber + 1;
+
+    const pathToUserFile = path.join(__dirname, userFilePath);
+    const stringifiedUserData = JSON.stringify(userData, null, 2);
+    fs.writeFile(pathToUserFile, stringifiedUserData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+    });
+
+    const pathToAutoNumberFile = path.join(__dirname, autoNumberFilePath);
+    const stringifiedAutoNumberData = JSON.stringify(autoNumberData, null, 2);
+    fs.writeFile(pathToAutoNumberFile, stringifiedAutoNumberData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+    });
+
+    return res.json(currentUserNumber);
+  });
+
+  // refactor last
   server.post("/api/v1/appSettings", (req, res) => {
     const user = req.body.user;
-    if (appSettingsData.find((settings) => settings.user === user)) {
+    const userNumber = req.body.userNumber;
+    if (
+      appSettingsData.find((settings) => settings.userNumber === userNumber)
+    ) {
       return res.json(
         `Cannot add new app settings for ${user}: user already exists`
       );
     }
+
     const defaultAppSettingsForNewUser = {
       theme: "dark",
       currencyCode: "eur",
@@ -59,6 +108,7 @@ app.prepare().then(() => {
       metricTwoMonitor: "ath",
       orderByMonitor: "name",
       directionMonitor: "descending",
+      userNumber: userNumber,
       user: user,
     };
     appSettingsData.push(defaultAppSettingsForNewUser);
@@ -69,22 +119,21 @@ app.prepare().then(() => {
       if (err) {
         return res.status(422).send(err);
       }
-
       return res.json(`new app settings successfully added for ${user}`);
     });
   });
 
   server.get("/api/v1/appSettings", (req, res) => {
-    let user = req.query.user;
+    let userNumber = parseInt(req.query.userNumber);
     let concept = req.query.concept;
 
-    if (req.query.user === undefined) {
-      user = cookies.getCookie("ue", { req, res });
+    if (req.query.userNumber === undefined) {
+      userNumber = parseInt(cookies.getCookie("un", { req, res }));
       concept = "themeAndCurrency";
     }
 
     const allSettings = appSettingsData.find(
-      (settings) => settings.user === user
+      (settings) => settings.userNumber === userNumber
     );
 
     let settings;
@@ -122,10 +171,10 @@ app.prepare().then(() => {
   });
 
   server.patch("/api/v1/appSettings", (req, res) => {
-    const user = req.body.user;
+    const userNumber = parseInt(req.body.userNumber);
     const newSettings = req.body.newSettings;
     const allSettings = appSettingsData.find(
-      (settings) => settings.user === user
+      (settings) => settings.userNumber === userNumber
     );
 
     _.merge(allSettings, newSettings);
@@ -600,6 +649,7 @@ app.prepare().then(() => {
     _.pullAllBy(fundingData, [{ user: user }], "user");
     _.pullAllBy(noteData, [{ user: user }], "user");
     _.pullAllBy(appSettingsData, [{ user: user }], "user");
+    _.pullAllBy(userData, [{ user: user }], "user");
 
     // Todo: rollback function in case any writes to file error out
     const pathToCoinFile = path.join(__dirname, coinFilePath);
@@ -633,6 +683,13 @@ app.prepare().then(() => {
     const pathToAppSettingsFile = path.join(__dirname, appSettingsFilePath);
     const stringifiedAppSettingsData = JSON.stringify(appSettingsData, null, 2);
     fs.writeFile(pathToAppSettingsFile, stringifiedAppSettingsData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+    });
+    const pathToUserFile = path.join(__dirname, userFilePath);
+    const stringifiedUserData = JSON.stringify(userData, null, 2);
+    fs.writeFile(pathToUserFile, stringifiedUserData, (err) => {
       if (err) {
         return res.status(422).send(err);
       }

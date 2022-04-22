@@ -15,8 +15,8 @@ const SettingsLink = (props) => {
 
   useEffect(() => {
     const returnCurrencyAndTheme = async () => {
-      const user = getCookie("ue");
-      const currencyAndTheme = await getCurrencyAndTheme(user);
+      const userNumber = getCookie("un");
+      const currencyAndTheme = await getCurrencyAndTheme(userNumber);
       setAppSettingsInUse(currencyAndTheme);
     };
     returnCurrencyAndTheme();
@@ -45,12 +45,12 @@ const SettingsLink = (props) => {
   };
 
   const handleCurrencyAndTheme = async (newSettings) => {
-    const settingsAndUser = {
-      user: getCookie("ue"),
+    const settingsAndUserNumber = {
+      userNumber: getCookie("un"),
       newSettings: newSettings,
     };
     setAppSettingsInUse(newSettings);
-    const res = await updateCurrencyOrThemeSettings(settingsAndUser);
+    const res = await updateCurrencyOrThemeSettings(settingsAndUserNumber);
     console.log(res);
     mutate("http://localhost:3000/api/v1/appSettings");
     delayAndRefreshData(500);

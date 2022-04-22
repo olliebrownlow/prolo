@@ -14,7 +14,7 @@ import { mutate } from "swr";
 
 const Settings = (props) => {
   const [user] = useContext(UserContext);
-  const { currencyAndTheme } = props;
+  const { currencyAndTheme, userNumber } = props;
   const [currencyInUse, setCurrencyInUse] = useState(
     currencyAndTheme.currencyCode
   );
@@ -32,7 +32,7 @@ const Settings = (props) => {
     };
     setCurrencyInUse(code);
     await updateCurrencyOrThemeSettings({
-      user: user.email,
+      userNumber: userNumber,
       newSettings: newCurrency,
     });
     mutate("http://localhost:3000/api/v1/appSettings");
@@ -47,7 +47,7 @@ const Settings = (props) => {
       };
       setThemeInUse(theme);
       await updateCurrencyOrThemeSettings({
-        user: user.email,
+        userNumber: userNumber,
         newSettings: newTheme,
       });
       mutate("http://localhost:3000/api/v1/appSettings");
@@ -75,12 +75,13 @@ const Settings = (props) => {
 };
 
 export async function getServerSideProps({ req, res }) {
-  const user = getCookie("ue", { req, res });
-  const currencyAndTheme = await getCurrencyAndTheme(user);
+  const userNumber = getCookie("un", { req, res });
+  const currencyAndTheme = await getCurrencyAndTheme(userNumber);
   // console.log(currencyAndTheme);
   return {
     props: {
       currencyAndTheme,
+      userNumber: userNumber,
     },
   };
 }

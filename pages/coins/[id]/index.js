@@ -34,7 +34,13 @@ const variants = {
 
 const Coin = (props) => {
   const { appCurrencySign } = useContext(CurrencySettingsContext);
-  const { coin, mrktInfoSettings, currencyAndTheme, roundTo2DP } = props;
+  const {
+    coin,
+    mrktInfoSettings,
+    currencyAndTheme,
+    userNumber,
+    roundTo2DP,
+  } = props;
 
   const [noteList, setNoteList] = useState([]);
   const [isShown, setIsShown] = useState(false);
@@ -86,7 +92,7 @@ const Coin = (props) => {
       intervalLabel: intervalDescription,
     };
     const res = await updateMrktInfoSettings({
-      user: getCookie("ue"),
+      userNumber: userNumber,
       newSettings: newInfoSettings,
     });
     console.log(res);
@@ -131,7 +137,7 @@ const Coin = (props) => {
 
   const handleMrktInfoUpdate = async (newSetting) => {
     const res = await updateMrktInfoSettings({
-      user: getCookie("ue"),
+      userNumber: userNumber,
       newSettings: newSetting,
     });
     console.log(res);
@@ -562,11 +568,15 @@ const Coin = (props) => {
 export async function getServerSideProps({ query, req, res }) {
   const coinCode = query.id;
   const user = getCookie("ue", { req, res });
+  const userNumber = getCookie("un", { req, res });
   const coinType = getCookie("ct", { req, res });
   const currencyCode = getCookie("cc", { req, res });
   const coin = await getSingleCoinData(coinCode, user, currencyCode, coinType);
-  const mrktInfoSettings = await getMrktInfoSettings(user, "mrktInfoSettings");
-  const currencyAndTheme = await getCurrencyAndTheme(user);
+  const mrktInfoSettings = await getMrktInfoSettings(
+    userNumber,
+    "mrktInfoSettings"
+  );
+  const currencyAndTheme = await getCurrencyAndTheme(userNumber);
   // console.log(JSON.stringify(query));
   // console.log(coin);
   // console.log(mrktInfoSettings);
@@ -576,6 +586,7 @@ export async function getServerSideProps({ query, req, res }) {
       coin,
       mrktInfoSettings,
       currencyAndTheme,
+      userNumber: userNumber,
     },
   };
 }

@@ -24,69 +24,81 @@ export const getHistoricalData = (currencyCode, date) => {
   return axios.get(url).then((res) => res.data);
 };
 
-export const hasAppSettings = () => {
-  return axios.get(`${BASE_URL}/api/v1/hasAppSettings`).then((res) => res.data);
-};
-
-export const addAppSettingsForNewUser = (user) => {
+export const isAlreadyAUser = (user) => {
   return axios
-    .post(`${BASE_URL}/api/v1/appSettings`, user)
-    .then((res) => res.data);
-};
-
-export const getCurrencyAndTheme = (user) => {
-  return axios
-    .get(`${BASE_URL}/api/v1/appSettings`, {
-      params: { user: user, concept: "themeAndCurrency" },
+    .get(`${BASE_URL}/api/v1/isAUser`, {
+      params: { user: user },
     })
     .then((res) => res.data);
 };
 
-export const updateCurrencyOrThemeSettings = (userAndCurrencyOrTheme) => {
+export const getUserNumber = (userExists, user) => {
   return axios
-    .patch(`${BASE_URL}/api/v1/appSettings`, userAndCurrencyOrTheme)
-    .then((res) => res.data);
-};
-
-export const getMrktInfoSettings = (user, concept) => {
-  return axios
-    .get(`${BASE_URL}/api/v1/appSettings`, {
-      params: { user: user, concept: concept },
+    .get(`${BASE_URL}/api/v1/userNumber`, {
+      params: { userExists: userExists, user: user },
     })
     .then((res) => res.data);
 };
 
-export const updateMrktInfoSettings = (userAndNewMrktInfoSettings) => {
+export const addAppSettingsForNewUser = (userData) => {
   return axios
-    .patch(`${BASE_URL}/api/v1/appSettings`, userAndNewMrktInfoSettings)
+    .post(`${BASE_URL}/api/v1/appSettings`, userData)
     .then((res) => res.data);
 };
 
-export const getNotepadSettings = (user, concept) => {
+export const getCurrencyAndTheme = (userNumber) => {
   return axios
     .get(`${BASE_URL}/api/v1/appSettings`, {
-      params: { user: user, concept: concept },
+      params: { userNumber: userNumber, concept: "themeAndCurrency" },
     })
     .then((res) => res.data);
 };
 
-export const updateNotepadSettings = (userAndNewSetting) => {
+export const updateCurrencyOrThemeSettings = (userNumberAndCurrencyOrTheme) => {
   return axios
-    .patch(`${BASE_URL}/api/v1/appSettings`, userAndNewSetting)
+    .patch(`${BASE_URL}/api/v1/appSettings`, userNumberAndCurrencyOrTheme)
     .then((res) => res.data);
 };
 
-export const getCustomisableMonitorSettings = (user, concept) => {
+export const getMrktInfoSettings = (userNumber, concept) => {
   return axios
     .get(`${BASE_URL}/api/v1/appSettings`, {
-      params: { user: user, concept: concept },
+      params: { userNumber: userNumber, concept: concept },
     })
     .then((res) => res.data);
 };
 
-export const updateCustomisableMonitorSettings = (userAndNewSettings) => {
+export const updateMrktInfoSettings = (userNumberAndNewMrktInfoSettings) => {
   return axios
-    .patch(`${BASE_URL}/api/v1/appSettings`, userAndNewSettings)
+    .patch(`${BASE_URL}/api/v1/appSettings`, userNumberAndNewMrktInfoSettings)
+    .then((res) => res.data);
+};
+
+export const getNotepadSettings = (userNumber, concept) => {
+  return axios
+    .get(`${BASE_URL}/api/v1/appSettings`, {
+      params: { userNumber: userNumber, concept: concept },
+    })
+    .then((res) => res.data);
+};
+
+export const updateNotepadSettings = (userNumberAndNewSetting) => {
+  return axios
+    .patch(`${BASE_URL}/api/v1/appSettings`, userNumberAndNewSetting)
+    .then((res) => res.data);
+};
+
+export const getCustomisableMonitorSettings = (userNumber, concept) => {
+  return axios
+    .get(`${BASE_URL}/api/v1/appSettings`, {
+      params: { userNumber: userNumber, concept: concept },
+    })
+    .then((res) => res.data);
+};
+
+export const updateCustomisableMonitorSettings = (userNumberAndNewSettings) => {
+  return axios
+    .patch(`${BASE_URL}/api/v1/appSettings`, userNumberAndNewSettings)
     .then((res) => res.data);
 };
 

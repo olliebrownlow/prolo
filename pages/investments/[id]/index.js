@@ -211,8 +211,9 @@ const Investment = (props) => {
 export async function getServerSideProps({ query, req, res }) {
   const id = query.id;
   const user = getCookie("ue", { req, res });
+  const userNumber = getCookie("un", { req, res });
   const investmentItem = await getSingleInvestmentItem({ id: id, user: user });
-  const currencyAndTheme = await getCurrencyAndTheme(user);
+  const currencyAndTheme = await getCurrencyAndTheme(userNumber);
 
   // console.log(id);
   // console.log(investmentItem);

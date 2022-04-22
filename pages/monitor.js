@@ -21,7 +21,7 @@ import {
 const Monitor = (props) => {
   const [user] = useContext(UserContext);
   const { appCurrencySign } = useContext(CurrencySettingsContext);
-  const { coinData, settings } = props;
+  const { coinData, settings, userNumber } = props;
   const [isCoinOptionsExhausted, setIsCoinOptionsExhausted] = useState(false);
   const [currentSettings, setCurrentSettings] = useState(settings);
   const [anim, setAnim] = useState(0);
@@ -33,12 +33,12 @@ const Monitor = (props) => {
   }, [coinData]);
 
   const handleMonitorDisplaySettingsUpdate = async (newSettings) => {
-    const settingsAndUser = {
-      user: user.email,
+    const settingsAndUserNumber = {
+      userNumber: userNumber,
       newSettings: newSettings,
     };
     setCurrentSettings(newSettings);
-    const res = await updateCustomisableMonitorSettings(settingsAndUser);
+    const res = await updateCustomisableMonitorSettings(settingsAndUserNumber);
     console.log(res);
   };
 
@@ -90,11 +90,12 @@ const Monitor = (props) => {
 
 export async function getServerSideProps({ req, res }) {
   const user = getCookie("ue", { req, res });
+  const userNumber = getCookie("un", { req, res });
   const coinType = getCookie("ct", { req, res });
   const currencyCode = getCookie("cc", { req, res });
   const coinData = await getCoinData(user, currencyCode, coinType);
   const settings = await getCustomisableMonitorSettings(
-    user,
+    userNumber,
     "orderBySettings"
   );
   // console.log(user);
@@ -106,6 +107,7 @@ export async function getServerSideProps({ req, res }) {
     props: {
       coinData,
       settings,
+      userNumber: userNumber,
     },
   };
 }
