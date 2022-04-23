@@ -60,7 +60,6 @@ const Ledger = (props) => {
     );
 
     // add remaining properties and format others
-    item.user = user.email;
     item.userNumber = parseInt(userNumber);
     item.euros = historicalData.response.rates.EUR * item.amount;
     item.britishSterling = historicalData.response.rates.GBP * item.amount;
