@@ -211,9 +211,9 @@ app.prepare().then(() => {
 
   // post method to fetch all investmentItems for a specific user
   server.post("/api/v1/investmentItems", (req, res) => {
-    const user = req.body.user;
+    const userNumber = parseInt(req.body.userNumber);
     const investmentItems = _.filter(fundingData, function (item) {
-      return item.user === user;
+      return item.userNumber === userNumber;
     });
     return res.json(investmentItems);
   });
@@ -221,9 +221,10 @@ app.prepare().then(() => {
   // post method to fetch a specific investment item for a specific user
   server.post("/api/v1/investmentItem", (req, res) => {
     const itemId = req.body.id;
-    const user = req.body.user;
+    const userNumber = parseInt(req.body.userNumber);
     const item = fundingData.find(
-      (savedItem) => savedItem.id === itemId && savedItem.user === user
+      (savedItem) =>
+        savedItem.id === itemId && savedItem.userNumber === userNumber
     );
 
     return res.json(item);
@@ -237,7 +238,7 @@ app.prepare().then(() => {
           savedItem.date === item.date &&
           savedItem.type === item.type &&
           savedItem.currencyCode === item.currencyCode &&
-          savedItem.user === item.user
+          savedItem.userNumber === item.userNumber
       )
     ) {
       return res.json(
@@ -263,7 +264,8 @@ app.prepare().then(() => {
     const { id } = req.params;
     const correctedItem = req.body;
     const itemIndex = fundingData.findIndex(
-      (item) => item.id === id && item.user === correctedItem.user
+      (item) =>
+        item.id === id && item.userNumber === parseInt(correctedItem.userNumber)
     );
 
     if (
@@ -294,9 +296,9 @@ app.prepare().then(() => {
 
   server.delete("/api/v1/fundingHistory/:id", (req, res) => {
     const { id } = req.params;
-    const user = req.body.user;
+    const userNumber = parseInt(req.body.userNumber);
     const itemIndex = fundingData.findIndex(
-      (item) => item.id === id && item.user === user
+      (item) => item.id === id && item.userNumber === userNumber
     );
 
     if (itemIndex < 0) {

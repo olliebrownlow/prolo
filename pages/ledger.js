@@ -23,7 +23,7 @@ import InvestmentModal from "../components/investment-modal";
 import _ from "lodash";
 
 const Ledger = (props) => {
-  const { roundTo2DP, balances, investmentItems } = props;
+  const { roundTo2DP, balances, investmentItems, userNumber } = props;
 
   const [user] = useContext(UserContext);
   const { appCurrencySign, appCurrencyName } = useContext(
@@ -61,11 +61,12 @@ const Ledger = (props) => {
 
     // add remaining properties and format others
     item.user = user.email;
+    item.userNumber = parseInt(userNumber);
     item.euros = historicalData.response.rates.EUR * item.amount;
     item.britishSterling = historicalData.response.rates.GBP * item.amount;
     item.americanDollars = historicalData.response.rates.USD * item.amount;
     item.currencyCode = item.currencyCode.toLowerCase();
-    item.sortingNumber = Number(_.words(item.date).join(""));
+    item.sortingNumber = parseInt(_.words(item.date).join(""));
     item.date = _.words(item.date.substring(2)).reverse().join("-");
 
     const res = await addInvestmentItem(item);
@@ -160,13 +161,15 @@ const Ledger = (props) => {
 
 export async function getServerSideProps({ req, res }) {
   const user = getCookie("ue", { req, res });
+  const userNumber = getCookie("un", { req, res });
   const coinType = getCookie("ct", { req, res });
   const currencyCode = getCookie("cc", { req, res });
   const coinData = await getCoinData(user, currencyCode, coinType);
   const fiatData = await getFiatData(user, currencyCode);
   const balances = await calculateBalance(coinData, fiatData);
-  const investmentItems = await getFundingData({ user: user });
+  const investmentItems = await getFundingData({ userNumber: userNumber });
   // console.log(user);
+  // console.log(userNumber);
   // console.log(coinType);
   // console.log(fiatData);
   // console.log(coinData);
@@ -177,6 +180,7 @@ export async function getServerSideProps({ req, res }) {
     props: {
       balances,
       investmentItems,
+      userNumber: userNumber,
     },
   };
 }

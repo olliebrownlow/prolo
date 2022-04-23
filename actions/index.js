@@ -103,16 +103,16 @@ export const updateCustomisableMonitorSettings = (userNumberAndNewSettings) => {
 };
 
 // axios does not allow get calls to pass through an argument hence the use of post
-export const getFundingData = (user) => {
+export const getFundingData = (userNumber) => {
   return axios
-    .post(`${BASE_URL}/api/v1/investmentItems`, user)
+    .post(`${BASE_URL}/api/v1/investmentItems`, userNumber)
     .then((res) => res.data);
 };
 
 // axios does not allow get calls to pass through an argument hence the use of post
-export const getSingleInvestmentItem = (userAnditemId) => {
+export const getSingleInvestmentItem = (userNumberAnditemId) => {
   return axios
-    .post(`${BASE_URL}/api/v1/investmentItem`, userAnditemId)
+    .post(`${BASE_URL}/api/v1/investmentItem`, userNumberAnditemId)
     .then((res) => res.data);
 };
 
@@ -157,10 +157,10 @@ export const updateInvestmentItem = (correctedItem) => {
   return res;
 };
 
-export const deleteInvestmentItem = (id, user) => {
+export const deleteInvestmentItem = (id, userNumber) => {
   const res = axios
     .delete(`${BASE_URL}/api/v1/fundingHistory/${id}`, {
-      data: { user: user },
+      data: { userNumber: userNumber },
     })
     .then((res) => res.data);
 

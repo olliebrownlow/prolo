@@ -24,7 +24,7 @@ import _ from "lodash";
 
 const Investment = (props) => {
   const [user] = useContext(UserContext);
-  const { investmentItem, currencyAndTheme, roundTo2DP } = props;
+  const { investmentItem, currencyAndTheme, userNumber, roundTo2DP } = props;
 
   const [isShown, setIsShown] = useState(false);
   const [cancel, setCancel] = useState(false);
@@ -98,7 +98,7 @@ const Investment = (props) => {
 
   const handleDelete = () => {
     refreshInvestmentData();
-    const res = deleteInvestmentItem(investmentItem.id, user.email);
+    const res = deleteInvestmentItem(investmentItem.id, userNumber);
     const res2 = deleteAssociatedNotes(noteList);
     console.log(res);
     console.log(res2);
@@ -210,18 +210,22 @@ const Investment = (props) => {
 
 export async function getServerSideProps({ query, req, res }) {
   const id = query.id;
-  const user = getCookie("ue", { req, res });
   const userNumber = getCookie("un", { req, res });
-  const investmentItem = await getSingleInvestmentItem({ id: id, user: user });
+  const investmentItem = await getSingleInvestmentItem({
+    id: id,
+    userNumber: userNumber,
+  });
   const currencyAndTheme = await getCurrencyAndTheme(userNumber);
 
   // console.log(id);
+  // console.log(userNumber);
   // console.log(investmentItem);
 
   return {
     props: {
       investmentItem,
       currencyAndTheme,
+      userNumber: userNumber,
     },
   };
 }
