@@ -179,20 +179,20 @@ const Coin = (props) => {
     Router.replace("/coins/" + id, undefined, { scroll: false });
   };
 
-  const handleCoinUpdate = (userTypeAndNewAmount) => {
-    const res = updateCoin(getCoinProp("id"), userTypeAndNewAmount);
+  const handleCoinUpdate = (userNumberTypeAndNewAmount) => {
+    const res = updateCoin(getCoinProp("id"), userNumberTypeAndNewAmount);
     console.log(res);
     setTimeout(closeModal, 500);
   };
 
   const handleUpdate = (amount) => {
-    const userTypeAndNewAmount = {
+    const userNumberTypeAndNewAmount = {
       amount: amount,
-      user: getCookie("ue"),
+      userNumber: userNumber,
       type: getCoinProp("type"),
     };
     setCurrentAmount(amount);
-    handleCoinUpdate(userTypeAndNewAmount);
+    handleCoinUpdate(userNumberTypeAndNewAmount);
     refreshCoinData();
   };
 
@@ -202,11 +202,7 @@ const Coin = (props) => {
     } else {
       refreshMonitoredCoinData();
     }
-    const res = deleteCoin(
-      getCoinProp("id"),
-      getCookie("ue"),
-      getCoinProp("type")
-    );
+    const res = deleteCoin(getCoinProp("id"), userNumber, getCoinProp("type"));
     console.log(res);
   };
 
@@ -567,11 +563,15 @@ const Coin = (props) => {
 
 export async function getServerSideProps({ query, req, res }) {
   const coinCode = query.id;
-  const user = getCookie("ue", { req, res });
   const userNumber = getCookie("un", { req, res });
   const coinType = getCookie("ct", { req, res });
   const currencyCode = getCookie("cc", { req, res });
-  const coin = await getSingleCoinData(coinCode, user, currencyCode, coinType);
+  const coin = await getSingleCoinData(
+    coinCode,
+    userNumber,
+    currencyCode,
+    coinType
+  );
   const mrktInfoSettings = await getMrktInfoSettings(
     userNumber,
     "mrktInfoSettings"

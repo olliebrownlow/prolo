@@ -325,10 +325,10 @@ app.prepare().then(() => {
 
   // post method to fetch all coins for a specific user
   server.post("/api/v1/allCoins", (req, res) => {
-    const user = req.body.user;
+    const userNumber = parseInt(req.body.userNumber);
     const type = req.body.type;
     const coins = _.filter(coinData, function (coin) {
-      return coin.user === user && coin.type === type;
+      return coin.userNumber === userNumber && coin.type === type;
     });
     return res.json(coins);
   });
@@ -336,12 +336,12 @@ app.prepare().then(() => {
   // post method to fetch a specific coin for a specific user
   server.post("/api/v1/coin", (req, res) => {
     const coinCode = req.body.code;
-    const user = req.body.user;
+    const userNumber = parseInt(req.body.userNumber);
     const type = req.body.type;
     const coin = coinData.find(
       (savedCoin) =>
         savedCoin.code === coinCode &&
-        savedCoin.user === user &&
+        savedCoin.userNumber === userNumber &&
         savedCoin.type === type
     );
 
@@ -354,7 +354,7 @@ app.prepare().then(() => {
       coinData.find(
         (savedCoin) =>
           savedCoin.code === coin.code &&
-          savedCoin.user === coin.user &&
+          savedCoin.userNumber === coin.userNumber &&
           savedCoin.type === coin.type
       )
     ) {
@@ -380,10 +380,11 @@ app.prepare().then(() => {
   server.patch("/api/v1/coins/:id", (req, res) => {
     const { id } = req.params;
     const updatedAmount = req.body.amount;
-    const user = req.body.user;
+    const userNumber = parseInt(req.body.userNumber);
     const type = req.body.type;
     const coinIndex = coinData.findIndex(
-      (coin) => coin.code === id && coin.user === user && coin.type === type
+      (coin) =>
+        coin.code === id && coin.userNumber === userNumber && coin.type === type
     );
 
     if (coinData[coinIndex].amount === updatedAmount) {
@@ -407,10 +408,11 @@ app.prepare().then(() => {
 
   server.delete("/api/v1/coins/:id", (req, res) => {
     const { id } = req.params;
-    const user = req.body.user;
+    const userNumber = parseInt(req.body.userNumber);
     const type = req.body.type;
     const coinIndex = coinData.findIndex(
-      (coin) => coin.code === id && coin.user === user && coin.type === type
+      (coin) =>
+        coin.code === id && coin.userNumber === userNumber && coin.type === type
     );
 
     if (coinIndex < 0) {

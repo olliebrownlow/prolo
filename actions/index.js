@@ -174,16 +174,16 @@ export const deleteInvestmentItem = (id, userNumber) => {
 };
 
 // axios does not allow get calls to pass through an argument hence the use of post
-export const getCoins = (userAndType) => {
+export const getCoins = (userNumberAndType) => {
   return axios
-    .post(`${BASE_URL}/api/v1/allCoins`, userAndType)
+    .post(`${BASE_URL}/api/v1/allCoins`, userNumberAndType)
     .then((res) => res.data);
 };
 
 // axios does not allow get calls to pass through an argument hence the use of post
-export const getCoin = (coinCodeTypeAndUser) => {
+export const getCoin = (coinCodeTypeAndUserNumber) => {
   return axios
-    .post(`${BASE_URL}/api/v1/coin`, coinCodeTypeAndUser)
+    .post(`${BASE_URL}/api/v1/coin`, coinCodeTypeAndUserNumber)
     .then((res) => res.data);
 };
 
@@ -201,9 +201,9 @@ export const addCoin = (coin) => {
   return res;
 };
 
-export const updateCoin = (code, userTypeAndNewAmount) => {
+export const updateCoin = (code, userNumberTypeAndNewAmount) => {
   const res = axios
-    .patch(`${BASE_URL}/api/v1/coins/${code}`, userTypeAndNewAmount)
+    .patch(`${BASE_URL}/api/v1/coins/${code}`, userNumberTypeAndNewAmount)
     .then((res) => res.data);
 
   toast.promise(res, {
@@ -215,10 +215,10 @@ export const updateCoin = (code, userTypeAndNewAmount) => {
   return res;
 };
 
-export const deleteCoin = (code, user, type) => {
+export const deleteCoin = (code, userNumber, type) => {
   const res = axios
     .delete(`${BASE_URL}/api/v1/coins/${code}`, {
-      data: { user: user, type: type },
+      data: { userNumber: userNumber, type: type },
     })
     .then((res) => res.data);
 

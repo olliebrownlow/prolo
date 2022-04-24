@@ -11,7 +11,7 @@ const Modal = (props) => {
     labelName,
     data,
     dataOptionsExhausted,
-    userEmail,
+    userNumber,
     type,
   } = props;
 
@@ -41,7 +41,7 @@ const Modal = (props) => {
   };
 
   const handleAddCoinOrFiat = async (currency) => {
-    currency.user = userEmail;
+    currency.userNumber = parseInt(userNumber);
     let res = "";
     if (currency.sign) {
       res = await addFiat(currency);

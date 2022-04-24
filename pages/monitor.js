@@ -66,7 +66,7 @@ const Monitor = (props) => {
               labelName={"coin"}
               data={coinData}
               dataOptionsExhausted={isCoinOptionsExhausted}
-              userEmail={user.email}
+              userNumber={userNumber}
               type={"monitoring"}
             />
             <CustomiseMonitor
@@ -89,11 +89,10 @@ const Monitor = (props) => {
 };
 
 export async function getServerSideProps({ req, res }) {
-  const user = getCookie("ue", { req, res });
   const userNumber = getCookie("un", { req, res });
   const coinType = getCookie("ct", { req, res });
   const currencyCode = getCookie("cc", { req, res });
-  const coinData = await getCoinData(user, currencyCode, coinType);
+  const coinData = await getCoinData(userNumber, currencyCode, coinType);
   const settings = await getCustomisableMonitorSettings(
     userNumber,
     "orderBySettings"

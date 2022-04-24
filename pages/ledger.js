@@ -163,7 +163,7 @@ export async function getServerSideProps({ req, res }) {
   const userNumber = getCookie("un", { req, res });
   const coinType = getCookie("ct", { req, res });
   const currencyCode = getCookie("cc", { req, res });
-  const coinData = await getCoinData(user, currencyCode, coinType);
+  const coinData = await getCoinData(userNumber, currencyCode, coinType);
   const fiatData = await getFiatData(user, currencyCode);
   const balances = await calculateBalance(coinData, fiatData);
   const investmentItems = await getFundingData({ userNumber: userNumber });

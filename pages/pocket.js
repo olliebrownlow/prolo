@@ -19,7 +19,7 @@ import styles from "../pageStyles/pocket.module.scss";
 const Pocket = (props) => {
   const [user] = useContext(UserContext);
   const { appCurrencySign } = useContext(CurrencySettingsContext);
-  const { coinData, fiatData, balances, roundTo2DP } = props;
+  const { coinData, fiatData, balances, userNumber, roundTo2DP } = props;
   const [isCoinOptionsExhausted, setIsCoinOptionsExhausted] = useState(false);
   const [isFiatOptionsExhausted, setIsFiatOptionsExhausted] = useState(false);
 
@@ -56,7 +56,8 @@ const Pocket = (props) => {
             labelName={"coin"}
             data={coinData}
             dataOptionsExhausted={isCoinOptionsExhausted}
-            userEmail={user.email}
+            userNumber={userNumber}
+            user={user.email}
             type={"holding"}
           />
           <CoinList coinData={coinData} appCurrencySign={appCurrencySign} />
@@ -72,7 +73,7 @@ const Pocket = (props) => {
             labelName={"fiat"}
             data={fiatData}
             dataOptionsExhausted={isFiatOptionsExhausted}
-            userEmail={user.email}
+            userNumber={userNumber}
           />
           <FiatList
             roundTo2DP={roundTo2DP}
@@ -89,9 +90,10 @@ const Pocket = (props) => {
 
 export async function getServerSideProps({ req, res }) {
   const user = getCookie("ue", { req, res });
+  const userNumber = getCookie("un", { req, res });
   const coinType = getCookie("ct", { req, res });
   const currencyCode = getCookie("cc", { req, res });
-  const coinData = await getCoinData(user, currencyCode, coinType);
+  const coinData = await getCoinData(userNumber, currencyCode, coinType);
   const fiatData = await getFiatData(user, currencyCode);
   // console.log(user);
   // console.log(coinType);
@@ -107,6 +109,7 @@ export async function getServerSideProps({ req, res }) {
       coinData,
       fiatData,
       balances,
+      userNumber: userNumber,
     },
   };
 }
