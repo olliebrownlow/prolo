@@ -107,7 +107,7 @@ const NoteCollapsible = (props) => {
   const handleAddNote = async (note) => {
     let now = new Date();
     note.dateTime = now;
-    note.user = user.email;
+    note.userNumber = parseInt(getCookie("un"));
     const res = await addNote(note);
     refreshPageData();
     console.log(res);

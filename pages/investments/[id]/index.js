@@ -33,7 +33,7 @@ const Investment = (props) => {
   useEffect(() => {
     const handleNotes = async () => {
       const noteFilter = {
-        user: user.email,
+        userNumber: userNumber,
         code: investmentItem.id,
       };
       const notes = await getNotes(noteFilter);

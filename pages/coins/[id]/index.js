@@ -64,7 +64,7 @@ const Coin = (props) => {
   useEffect(() => {
     const handleNotes = async () => {
       const noteFilter = {
-        user: getCookie("ue"),
+        userNumber: userNumber,
         code: coin[0]["id"],
       };
       const notes = await getNotes(noteFilter);
