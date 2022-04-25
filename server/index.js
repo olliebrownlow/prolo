@@ -437,10 +437,10 @@ app.prepare().then(() => {
 
   // post method to fetch all fiats for a specific user
   server.post("/api/v1/allFiats", (req, res) => {
-    const user = req.body.user;
+    const userNumber = parseInt(req.body.userNumber);
 
     const fiats = _.filter(fiatData, function (fiat) {
-      return fiat.user === user;
+      return fiat.userNumber === userNumber;
     });
     return res.json(fiats);
   });
@@ -448,9 +448,10 @@ app.prepare().then(() => {
   // post method to fetch a specific fiat
   server.post("/api/v1/singleFiat", (req, res) => {
     const fiatCode = req.body.code;
-    const user = req.body.user;
+    const userNumber = parseInt(req.body.userNumber);
     const fiat = fiatData.find(
-      (savedFiat) => savedFiat.code === fiatCode && savedFiat.user === user
+      (savedFiat) =>
+        savedFiat.code === fiatCode && savedFiat.userNumber === userNumber
     );
 
     return res.json(fiat);
@@ -461,7 +462,8 @@ app.prepare().then(() => {
     if (
       fiatData.find(
         (savedFiat) =>
-          savedFiat.code === fiat.code && savedFiat.user === fiat.user
+          savedFiat.code === fiat.code &&
+          savedFiat.userNumber === fiat.userNumber
       )
     ) {
       return res.json("Cannot add fiat currency: already added");
@@ -482,9 +484,9 @@ app.prepare().then(() => {
   server.patch("/api/v1/fiat/:id", (req, res) => {
     const { id } = req.params;
     const updatedAmount = req.body.amount;
-    const user = req.body.user;
+    const userNumber = parseInt(req.body.userNumber);
     const fiatIndex = fiatData.findIndex(
-      (fiat) => fiat.code === id && fiat.user === user
+      (fiat) => fiat.code === id && fiat.userNumber === userNumber
     );
 
     if (fiatData[fiatIndex].amount === updatedAmount) {
@@ -508,9 +510,9 @@ app.prepare().then(() => {
 
   server.delete("/api/v1/fiat/:id", (req, res) => {
     const { id } = req.params;
-    const user = req.body.user;
+    const userNumber = parseInt(req.body.userNumber);
     const fiatIndex = fiatData.findIndex(
-      (fiat) => fiat.code === id && fiat.user === user
+      (fiat) => fiat.code === id && fiat.userNumber === userNumber
     );
 
     if (fiatIndex < 0) {

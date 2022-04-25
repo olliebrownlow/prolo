@@ -21,7 +21,7 @@ import { getSingleFiatData } from "../../../lib/core/singleFiatData";
 
 const Fiat = (props) => {
   const { appCurrencySign } = useContext(CurrencySettingsContext);
-  const { fiat, currencyAndTheme, roundTo2DP } = props;
+  const { fiat, currencyAndTheme, userNumber, roundTo2DP } = props;
 
   const [isShown, setIsShown] = useState(false);
   const [cancel, setCancel] = useState(false);
@@ -58,23 +58,23 @@ const Fiat = (props) => {
     Router.replace("/pocket", undefined, { scroll: false });
   };
 
-  const handleFiatUpdate = (userAndNewAmount) => {
-    const res = updateFiat(fiat.id, userAndNewAmount);
+  const handleFiatUpdate = (userNumberAndNewAmount) => {
+    const res = updateFiat(fiat.id, userNumberAndNewAmount);
     console.log(res);
   };
 
   const handleUpdate = (amount) => {
     refreshFiatData();
-    const userAndNewAmount = {
+    const userNumberAndNewAmount = {
       amount: amount,
-      user: getCookie("ue"),
+      userNumber: userNumber,
     };
-    handleFiatUpdate(userAndNewAmount);
+    handleFiatUpdate(userNumberAndNewAmount);
   };
 
   const handleDeleteFiat = async () => {
     refreshFiatData();
-    const res = await deleteFiat(fiat.id, getCookie("ue"));
+    const res = await deleteFiat(fiat.id, userNumber);
     const res2 = await deleteAssociatedNotes(noteList);
     console.log(res);
     console.log(res2);
@@ -171,10 +171,9 @@ const Fiat = (props) => {
 
 export async function getServerSideProps({ req, res, query }) {
   const coinCode = query.id;
-  const user = getCookie("ue", { req, res });
   const userNumber = getCookie("un", { req, res });
   const currencyCode = getCookie("cc", { req, res });
-  const fiat = await getSingleFiatData(coinCode, user, currencyCode);
+  const fiat = await getSingleFiatData(coinCode, userNumber, currencyCode);
   const currencyAndTheme = await getCurrencyAndTheme(userNumber);
 
   // console.log(fiat);
@@ -183,6 +182,7 @@ export async function getServerSideProps({ req, res, query }) {
     props: {
       fiat,
       currencyAndTheme,
+      userNumber: userNumber,
     },
   };
 }

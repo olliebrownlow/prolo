@@ -97,7 +97,7 @@ export async function getServerSideProps({ req, res }) {
     userNumber,
     "orderBySettings"
   );
-  // console.log(user);
+  // console.log(userNumber);
   // console.log(coinType);
   // console.log(currencyCode);
   // console.log(coinData);
