@@ -353,10 +353,10 @@ export const deleteAssociatedNotes = (noteListArray) => {
   return res;
 };
 
-export const deleteAccount = (user) => {
+export const deleteAccount = (userNumber) => {
   const res = axios
     .delete(`${BASE_URL}/api/v1/account`, {
-      data: { user: user },
+      data: { userNumber: userNumber },
     })
     .then((res) => res.data);
 

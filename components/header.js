@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import Link from "next/link";
 import AuthButton from "./auth-button";
-import { setCookies, removeCookies } from "cookies-next";
+import { setCookies, removeCookies, getCookie } from "cookies-next";
 import Router from "next/router";
 import { mutate } from "swr";
 import { magic } from "../lib/magic";
@@ -17,16 +17,16 @@ const Header = (props) => {
 
   const logout = async (doDelete) => {
     if (doDelete) {
-      const res = await deleteAccount(user.email);
+      const res = await deleteAccount(getCookie("un"));
       console.log(res);
     }
 
     magic.user.logout().then(() => {
       setUser({ user: null });
       // set defaultUser to access default theme when not logged in
-      setCookies("ue", "defaultUser");
+      setCookies("un", 0);
       removeCookies("cc");
-      Router.push("/login");
+      login();
       mutate("http://localhost:3000/api/v1/appSettings");
     });
   };

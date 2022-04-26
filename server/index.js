@@ -549,7 +549,7 @@ app.prepare().then(() => {
     noteData.push(note);
     const pathToFile = path.join(__dirname, noteFilePath);
     const stringifiedData = JSON.stringify(noteData, null, 2);
-a
+    a;
     fs.writeFile(pathToFile, stringifiedData, (err) => {
       if (err) {
         return res.status(422).send(err);
@@ -638,24 +638,26 @@ a
   });
 
   server.delete("/api/v1/account", (req, res) => {
-    const user = req.body.user;
+    const userNumber = parseInt(req.body.userNumber);
 
-    if (
-      user === "defaultUser" ||
-      user === "olliebrownlow@gmail.com" ||
-      user === undefined
-    ) {
+    if (userNumber <= 1 || userNumber === undefined) {
       return res.json(
         "cannot delete account: user protected or no user detected"
       );
     }
 
-    _.pullAllBy(coinData, [{ user: user }], "user");
-    _.pullAllBy(fiatData, [{ user: user }], "user");
-    _.pullAllBy(fundingData, [{ user: user }], "user");
-    _.pullAllBy(noteData, [{ user: user }], "user");
-    _.pullAllBy(appSettingsData, [{ user: user }], "user");
-    _.pullAllBy(userData, [{ user: user }], "user");
+    const dataTypes = [
+      coinData,
+      fiatData,
+      fundingData,
+      noteData,
+      appSettingsData,
+      userData,
+    ];
+
+    dataTypes.forEach((dataType) =>
+      _.pullAllBy(dataType, [{ userNumber: userNumber }], "userNumber")
+    );
 
     // Todo: rollback function in case any writes to file error out
     const pathToCoinFile = path.join(__dirname, coinFilePath);
