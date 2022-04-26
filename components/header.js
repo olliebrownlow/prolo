@@ -26,12 +26,12 @@ const Header = (props) => {
       // set defaultUser to access default theme when not logged in
       setCookies("un", 0);
       removeCookies("cc");
-      login();
+      navigateToLogin();
       mutate("http://localhost:3000/api/v1/appSettings");
     });
   };
 
-  const login = () => {
+  const navigateToLogin = () => {
     Router.push("/login");
   };
 
@@ -49,7 +49,7 @@ const Header = (props) => {
       {user?.issuer && !user?.loading ? <BurgerMenu logout={logout} /> : null}
       {!user?.issuer && !user?.loading ? (
         <AuthButton
-          auth={login}
+          auth={navigateToLogin}
           key={loginButton.path}
           path={loginButton.path}
           label={loginButton.label}

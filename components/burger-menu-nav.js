@@ -6,6 +6,7 @@ import {
   burgerMenuNavButtons,
   burgerMenuDangerButtons,
 } from "../config/burgerMenuButtons";
+import { getUserEmail } from "../actions";
 import styles from "./burgerMenu.module.scss";
 import { User } from "react-feather";
 
@@ -50,11 +51,12 @@ const BurgerMenuNav = (props) => {
   const [userEmail, setUserEmail] = useState("");
 
   useEffect(() => {
-    if (getCookie("ue") != "") {
-      const user = getCookie("ue");
-      setUserEmail(user);
-    }
-  }, [getCookie("ue")]);
+    const getAndSetUserEmail = async () => {
+      const res = await getUserEmail(getCookie("un"));
+      setUserEmail(res);
+    };
+    getAndSetUserEmail();
+  }, [getCookie("un")]);
 
   const extractUserName = (userEmail) => {
     const name = userEmail.split("@");

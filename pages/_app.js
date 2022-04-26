@@ -16,7 +16,7 @@ import axios from "axios";
 import {
   addAppSettingsForNewUser,
   isAlreadyAUser,
-  getUserNumber,
+  getOrSetUserNumber,
 } from "../actions";
 
 import "../pageStyles/index.scss";
@@ -68,11 +68,10 @@ function Prolo({ Component, pageProps }) {
     const createNewUserIfNeededAndSetCookie = async (user) => {
       if (user != null) {
         const res = await isAlreadyAUser(user);
-        const userNumber = await getUserNumber(res, user);
+        const userNumber = await getOrSetUserNumber(res, user);
         setCookies("un", userNumber);
         if (res === "false") {
           await addAppSettingsForNewUser({
-            user: user,
             userNumber: userNumber,
           });
           mutate("http://localhost:3000/api/v1/appSettings");
@@ -88,14 +87,12 @@ function Prolo({ Component, pageProps }) {
       if (isLoggedIn) {
         magic.user.getMetadata().then((userData) => {
           setUser(userData);
-          setCookies("ue", userData.email);
           createNewUserIfNeededAndSetCookie(userData.email);
         });
       } else {
         Router.push("/login");
         setUser({ user: null });
         // set defaultUser to access default theme when not logged in
-        setCookies("ue", "defaultUser");
         setCookies("un", 0);
         removeCookies("cc");
       }

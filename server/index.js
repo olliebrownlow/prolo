@@ -79,9 +79,14 @@ app.prepare().then(() => {
     return res.json(currentUserNumber);
   });
 
-  // refactor last
+  server.get("/api/v1/userName", (req, res) => {
+    let userNumber = parseInt(req.query.userNumber);
+
+    const result = userData.find((user) => user.userNumber === userNumber);
+    return res.json(result.user);
+  });
+
   server.post("/api/v1/appSettings", (req, res) => {
-    const user = req.body.user;
     const userNumber = req.body.userNumber;
     if (
       appSettingsData.find((settings) => settings.userNumber === userNumber)
@@ -109,7 +114,6 @@ app.prepare().then(() => {
       orderByMonitor: "name",
       directionMonitor: "descending",
       userNumber: userNumber,
-      user: user,
     };
     appSettingsData.push(defaultAppSettingsForNewUser);
 

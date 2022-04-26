@@ -32,10 +32,18 @@ export const isAlreadyAUser = (user) => {
     .then((res) => res.data);
 };
 
-export const getUserNumber = (userExists, user) => {
+export const getOrSetUserNumber = (userExists, user) => {
   return axios
     .get(`${BASE_URL}/api/v1/userNumber`, {
       params: { userExists: userExists, user: user },
+    })
+    .then((res) => res.data);
+};
+
+export const getUserEmail = (userNumber) => {
+  return axios
+    .get(`${BASE_URL}/api/v1/userName`, {
+      params: { userNumber: userNumber },
     })
     .then((res) => res.data);
 };
