@@ -40,3 +40,4 @@ yarn-error.log*
 /server/appSettings.json
 /server/userData.json
 /server/autoNumber.json
+/server/portfolioData.json
