@@ -10,9 +10,8 @@
   top: 0;
   left: 0;
   bottom: 0;
-  background: white;
-  border-right: 1px solid black;
-  border-bottom: 1px solid black;
+  background: whitesmoke;
+  border: 1px solid black;
 }
 .solidDivider {
   border-top: 1px solid grey;
@@ -43,8 +42,8 @@
   -ms-user-select: none;
   cursor: default;
   position: absolute;
-  top: 4px;
-  left: 11.5px;
+  top: 3px;
+  left: 10px;
   width: 50px;
   height: 50px;
   border-radius: 50%;

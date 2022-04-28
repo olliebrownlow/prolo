@@ -5,7 +5,7 @@ import BurgerMenuNav from "./burger-menu-nav";
 import styles from "./burgerMenu.module.scss";
 
 const sidebar = {
-  open: (height = 800) => ({
+  open: (height = window.innerHeight + 50) => ({
     clipPath: `circle(${height}px at 36px 25px)`,
     transition: {
       type: "spring",
@@ -13,8 +13,10 @@ const sidebar = {
       damping: 40,
     },
     height: "auto",
-    width: "300px",
+    width: `300px`,
     overflow: "scroll",
+    marginLeft: "4px",
+    marginTop: "4px",
   }),
   closed: {
     clipPath: "circle(20px at 36px 25px)",
