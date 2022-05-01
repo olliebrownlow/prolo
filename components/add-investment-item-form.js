@@ -64,6 +64,32 @@ const AddInvestmentItemForm = (props) => {
     }
   };
 
+  const isFutureDated = (date) => {
+    const now = new Date();
+    const yr = now.getFullYear();
+    const mnth = now.getMonth() + 1;
+    const dy = now.getDate();
+
+    const dateArray = date.split("-").map(Number);
+    if (dateArray[0] >= yr) {
+      if (dateArray[0] > yr) {
+        return true;
+      } else {
+        // same year
+        if (dateArray[1] >= mnth) {
+          if (dateArray[1] > mnth) {
+            return true;
+          } else {
+            // same year and month
+            if (dateArray[2] > dy) {
+              return true;
+            }
+          }
+        }
+      }
+    }
+  };
+
   const submitForm = () => {
     if (
       form.amount == 0 ||
@@ -73,6 +99,10 @@ const AddInvestmentItemForm = (props) => {
     ) {
       toast.error("make sure all fields have a value", {
         id: "blankItemField",
+      });
+    } else if (isFutureDated(form.date)) {
+      toast.error("cannot add future-dated items", {
+        id: "futureDatedItem",
       });
     } else {
       setIsButtonDisabled(true);

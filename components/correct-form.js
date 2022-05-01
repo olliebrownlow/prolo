@@ -61,6 +61,32 @@ const CorrectForm = (props) => {
     }
   };
 
+  const isFutureDated = (date) => {
+    const now = new Date();
+    const yr = now.getFullYear();
+    const mnth = now.getMonth() + 1;
+    const dy = now.getDate();
+
+    const dateArray = date.split("-").map(Number);
+    if (dateArray[0] >= yr) {
+      if (dateArray[0] > yr) {
+        return true;
+      } else {
+        // same year
+        if (dateArray[1] >= mnth) {
+          if (dateArray[1] > mnth) {
+            return true;
+          } else {
+            // same year and month
+            if (dateArray[2] > dy) {
+              return true;
+            }
+          }
+        }
+      }
+    }
+  };
+
   const submitForm = () => {
     if (form.amount == 0) {
       toast.error("did you want to delete this item?", {
@@ -74,6 +100,10 @@ const CorrectForm = (props) => {
     ) {
       toast.error("change at least one field to trigger an update", {
         id: "blankCorrection",
+      });
+    } else if (form.date !== investmentItem.date && isFutureDated(form.date)) {
+      toast.error("items cannot be future-dated", {
+        id: "futureDatedCorrection",
       });
     } else {
       setIsButtonDisabled(true);
