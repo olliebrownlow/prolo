@@ -26,6 +26,7 @@ const Header = (props) => {
       // set defaultUser to access default theme when not logged in
       setCookies("un", 0);
       removeCookies("cc");
+      removeCookies("pn");
       navigateToLogin();
       mutate("http://localhost:3000/api/v1/appSettings");
     });

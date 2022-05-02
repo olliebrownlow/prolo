@@ -24,7 +24,13 @@ import _ from "lodash";
 
 const Investment = (props) => {
   const [user] = useContext(UserContext);
-  const { investmentItem, currencyAndTheme, userNumber, roundTo2DP } = props;
+  const {
+    investmentItem,
+    currencyAndTheme,
+    userNumber,
+    portfolioNumber,
+    roundTo2DP,
+  } = props;
 
   const [isShown, setIsShown] = useState(false);
   const [cancel, setCancel] = useState(false);
@@ -62,8 +68,6 @@ const Investment = (props) => {
   };
 
   const handleUpdate = async (correctedItem) => {
-    refreshInvestmentData();
-
     if (correctedItem.date.length === 10) {
       correctedItem.sortingNumber = Number(
         _.words(correctedItem.date).join("")
@@ -94,14 +98,19 @@ const Investment = (props) => {
 
     const res = await updateInvestmentItem(correctedItem);
     console.log(res);
+    refreshInvestmentData();
   };
 
   const handleDelete = () => {
-    refreshInvestmentData();
-    const res = deleteInvestmentItem(investmentItem.id, userNumber);
+    const res = deleteInvestmentItem(
+      investmentItem.id,
+      userNumber,
+      portfolioNumber
+    );
     const res2 = deleteAssociatedNotes(noteList);
     console.log(res);
     console.log(res2);
+    refreshInvestmentData();
   };
 
   const handleCancel = () => {
@@ -211,9 +220,11 @@ const Investment = (props) => {
 export async function getServerSideProps({ query, req, res }) {
   const id = query.id;
   const userNumber = getCookie("un", { req, res });
+  const portfolioNumber = getCookie("pn", { req, res });
   const investmentItem = await getSingleInvestmentItem({
     id: id,
     userNumber: userNumber,
+    portfolioNumber: portfolioNumber,
   });
   const currencyAndTheme = await getCurrencyAndTheme(userNumber);
 
@@ -226,6 +237,7 @@ export async function getServerSideProps({ query, req, res }) {
       investmentItem,
       currencyAndTheme,
       userNumber: userNumber,
+      portfolioNumber: portfolioNumber,
     },
   };
 }

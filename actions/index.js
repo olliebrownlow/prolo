@@ -40,6 +40,14 @@ export const getOrSetUserNumber = (userExists, user) => {
     .then((res) => res.data);
 };
 
+export const getOrSetPortfolioNumber = (userExists, userNumber) => {
+  return axios
+    .get(`${BASE_URL}/api/v1/portfolioNumber`, {
+      params: { userExists: userExists, userNumber: userNumber },
+    })
+    .then((res) => res.data);
+};
+
 export const getUserEmail = (userNumber) => {
   return axios
     .get(`${BASE_URL}/api/v1/userName`, {
@@ -48,9 +56,9 @@ export const getUserEmail = (userNumber) => {
     .then((res) => res.data);
 };
 
-export const addAppSettingsForNewUser = (userData) => {
+export const addAppSettingsForNewUser = (data) => {
   return axios
-    .post(`${BASE_URL}/api/v1/appSettings`, userData)
+    .post(`${BASE_URL}/api/v1/appSettings`, data)
     .then((res) => res.data);
 };
 
@@ -111,16 +119,16 @@ export const updateCustomisableMonitorSettings = (userNumberAndNewSettings) => {
 };
 
 // axios does not allow get calls to pass through an argument hence the use of post
-export const getFundingData = (userNumber) => {
+export const getFundingData = (userAndPortfolioNumbers) => {
   return axios
-    .post(`${BASE_URL}/api/v1/investmentItems`, userNumber)
+    .post(`${BASE_URL}/api/v1/investmentItems`, userAndPortfolioNumbers)
     .then((res) => res.data);
 };
 
 // axios does not allow get calls to pass through an argument hence the use of post
-export const getSingleInvestmentItem = (userNumberAnditemId) => {
+export const getSingleInvestmentItem = (userAndPortfolioNumbersAnditemId) => {
   return axios
-    .post(`${BASE_URL}/api/v1/investmentItem`, userNumberAnditemId)
+    .post(`${BASE_URL}/api/v1/investmentItem`, userAndPortfolioNumbersAnditemId)
     .then((res) => res.data);
 };
 
@@ -165,10 +173,10 @@ export const updateInvestmentItem = (correctedItem) => {
   return res;
 };
 
-export const deleteInvestmentItem = (id, userNumber) => {
+export const deleteInvestmentItem = (id, userNumber, portfolioNumber) => {
   const res = axios
     .delete(`${BASE_URL}/api/v1/fundingHistory/${id}`, {
-      data: { userNumber: userNumber },
+      data: { userNumber: userNumber, portfolioNumber: portfolioNumber },
     })
     .then((res) => res.data);
 

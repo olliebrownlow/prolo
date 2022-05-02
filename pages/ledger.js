@@ -23,7 +23,13 @@ import InvestmentModal from "../components/investment-modal";
 import _ from "lodash";
 
 const Ledger = (props) => {
-  const { roundTo2DP, balances, investmentItems, userNumber } = props;
+  const {
+    roundTo2DP,
+    balances,
+    investmentItems,
+    userNumber,
+    portfolioNumber,
+  } = props;
 
   const [user] = useContext(UserContext);
   const { appCurrencySign, appCurrencyName } = useContext(
@@ -52,15 +58,14 @@ const Ledger = (props) => {
   };
 
   const handleAddInvestmentItem = async (item) => {
-    refreshFundingHistoryData();
-
     const historicalData = await getHistoricalData(
       item.currencyCode,
       item.date
     );
-
+    
     // add remaining properties and format others
     item.userNumber = parseInt(userNumber);
+    item.portfolioNumber = parseInt(portfolioNumber);
     item.euros = historicalData.response.rates.EUR * item.amount;
     item.britishSterling = historicalData.response.rates.GBP * item.amount;
     item.americanDollars = historicalData.response.rates.USD * item.amount;
@@ -70,7 +75,10 @@ const Ledger = (props) => {
 
     const res = await addInvestmentItem(item);
     console.log(res);
-    setTimeout(closeModal(), 1000);
+    if (res !== "cannot add future-dated funding items") {
+      setTimeout(closeModal(), 1000);
+      refreshFundingHistoryData();
+    }
   };
 
   const prolo = () => {
@@ -160,13 +168,18 @@ const Ledger = (props) => {
 
 export async function getServerSideProps({ req, res }) {
   const userNumber = getCookie("un", { req, res });
+  const portfolioNumber = getCookie("pn", { req, res });
   const coinType = getCookie("ct", { req, res });
   const currencyCode = getCookie("cc", { req, res });
   const coinData = await getCoinData(userNumber, currencyCode, coinType);
   const fiatData = await getFiatData(userNumber, currencyCode);
   const balances = await calculateBalance(coinData, fiatData);
-  const investmentItems = await getFundingData({ userNumber: userNumber });
+  const investmentItems = await getFundingData({
+    userNumber: userNumber,
+    portfolioNumber: portfolioNumber,
+  });
   // console.log(userNumber);
+  // console.log(portfolioNumber);
   // console.log(coinType);
   // console.log(fiatData);
   // console.log(coinData);
@@ -178,6 +191,7 @@ export async function getServerSideProps({ req, res }) {
       balances,
       investmentItems,
       userNumber: userNumber,
+      portfolioNumber: portfolioNumber,
     },
   };
 }

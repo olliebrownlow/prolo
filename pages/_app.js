@@ -17,6 +17,7 @@ import {
   addAppSettingsForNewUser,
   isAlreadyAUser,
   getOrSetUserNumber,
+  getOrSetPortfolioNumber,
 } from "../actions";
 
 import "../pageStyles/index.scss";
@@ -70,14 +71,17 @@ function Prolo({ Component, pageProps }) {
         const res = await isAlreadyAUser(user);
         const userNumber = await getOrSetUserNumber(res, user);
         setCookies("un", userNumber);
+        const portfolioNumber = await getOrSetPortfolioNumber(res, userNumber);
+        setCookies("pn", portfolioNumber);
         if (res === "false") {
           await addAppSettingsForNewUser({
             userNumber: userNumber,
+            portfolioNumber: portfolioNumber,
           });
-          mutate("http://localhost:3000/api/v1/appSettings");
-          if (settings) {
-            setAppTheme(settings.data.theme);
-          }
+        }
+        mutate("http://localhost:3000/api/v1/appSettings");
+        if (settings) {
+          setAppTheme(settings.data.theme);
         }
       }
     };
@@ -95,6 +99,7 @@ function Prolo({ Component, pageProps }) {
         // set defaultUser to access default theme when not logged in
         setCookies("un", 0);
         removeCookies("cc");
+        removeCookies("pn");
       }
       mutate("http://localhost:3000/api/v1/appSettings");
     });

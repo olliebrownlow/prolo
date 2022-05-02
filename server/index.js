@@ -14,6 +14,7 @@ const fiatFilePath = "./fiatData.json";
 const fundingFilePath = "./fundingData.json";
 const noteFilePath = "./noteData.json";
 const userFilePath = "./userData.json";
+const portfolioFilePath = "./portfolioData.json";
 const autoNumberFilePath = "./autoNumber.json";
 fs = require("fs");
 path = require("path");
@@ -23,6 +24,7 @@ const fiatData = require(fiatFilePath);
 const fundingData = require(fundingFilePath);
 const noteData = require(noteFilePath);
 const userData = require(userFilePath);
+const portfolioData = require(portfolioFilePath);
 const autoNumberData = require(autoNumberFilePath);
 
 app.prepare().then(() => {
@@ -50,15 +52,15 @@ app.prepare().then(() => {
       return res.json(existingUser.userNumber);
     }
 
-    const currentUserNumber = autoNumberData[0].nextUserNumber;
+    const newUserNumber = autoNumberData[0].nextUserNumber;
 
     const newUser = {
-      userNumber: currentUserNumber,
+      userNumber: newUserNumber,
       user: user,
     };
     userData.push(newUser);
 
-    autoNumberData[0].nextUserNumber = currentUserNumber + 1;
+    autoNumberData[0].nextUserNumber = newUserNumber + 1;
 
     const pathToUserFile = path.join(__dirname, userFilePath);
     const stringifiedUserData = JSON.stringify(userData, null, 2);
@@ -76,7 +78,48 @@ app.prepare().then(() => {
       }
     });
 
-    return res.json(currentUserNumber);
+    return res.json(newUserNumber);
+  });
+
+  server.get("/api/v1/portfolioNumber", (req, res) => {
+    let userExists = req.query.userExists;
+    let userNumber = parseInt(req.query.userNumber);
+
+    if (userExists === "true") {
+      const settingsForUser = appSettingsData.find(
+        (settings) => settings.userNumber === userNumber
+      );
+      return res.json(settingsForUser.currentPortfolioNumber);
+    }
+
+    const newPortfolioNumber = autoNumberData[0].nextPortfolioNumber;
+
+    const newPortfolio = {
+      userNumber: userNumber,
+      portfolioName: "main",
+      portfolioNumber: newPortfolioNumber,
+    };
+    portfolioData.push(newPortfolio);
+
+    autoNumberData[0].nextUserNumber = newPortfolioNumber + 1;
+
+    const pathToPortfolioFile = path.join(__dirname, portfolioFilePath);
+    const stringifiedPortfolioData = JSON.stringify(portfolioData, null, 2);
+    fs.writeFile(pathToPortfolioFile, stringifiedPortfolioData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+    });
+
+    const pathToAutoNumberFile = path.join(__dirname, autoNumberFilePath);
+    const stringifiedAutoNumberData = JSON.stringify(autoNumberData, null, 2);
+    fs.writeFile(pathToAutoNumberFile, stringifiedAutoNumberData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+    });
+
+    return res.json(newPortfolioNumber);
   });
 
   server.get("/api/v1/userName", (req, res) => {
@@ -88,11 +131,12 @@ app.prepare().then(() => {
 
   server.post("/api/v1/appSettings", (req, res) => {
     const userNumber = req.body.userNumber;
+    const portfolioNumber = req.body.portfolioNumber;
     if (
       appSettingsData.find((settings) => settings.userNumber === userNumber)
     ) {
       return res.json(
-        `Cannot add new app settings for ${user}: user already exists`
+        `Cannot add new app settings for user: user already exists`
       );
     }
 
@@ -114,6 +158,7 @@ app.prepare().then(() => {
       orderByMonitor: "name",
       directionMonitor: "descending",
       userNumber: userNumber,
+      currentPortfolioNumber: portfolioNumber,
     };
     appSettingsData.push(defaultAppSettingsForNewUser);
 
@@ -216,8 +261,12 @@ app.prepare().then(() => {
   // post method to fetch all investmentItems for a specific user
   server.post("/api/v1/investmentItems", (req, res) => {
     const userNumber = parseInt(req.body.userNumber);
+    const portfolioNumber = parseInt(req.body.portfolioNumber);
     const investmentItems = _.filter(fundingData, function (item) {
-      return item.userNumber === userNumber;
+      return (
+        item.userNumber === userNumber &&
+        item.portfolioNumber === portfolioNumber
+      );
     });
     return res.json(investmentItems);
   });
@@ -226,9 +275,12 @@ app.prepare().then(() => {
   server.post("/api/v1/investmentItem", (req, res) => {
     const itemId = req.body.id;
     const userNumber = parseInt(req.body.userNumber);
+    const portfolioNumber = parseInt(req.body.portfolioNumber);
     const item = fundingData.find(
       (savedItem) =>
-        savedItem.id === itemId && savedItem.userNumber === userNumber
+        savedItem.id === itemId &&
+        savedItem.userNumber === userNumber &&
+        savedItem.portfolioNumber === portfolioNumber
     );
 
     return res.json(item);
@@ -240,13 +292,13 @@ app.prepare().then(() => {
       fundingData.find(
         (savedItem) =>
           savedItem.date === item.date &&
-          savedItem.type === item.type &&
           savedItem.currencyCode === item.currencyCode &&
-          savedItem.userNumber === item.userNumber
+          savedItem.userNumber === item.userNumber &&
+          savedItem.portfolioNumber === item.portfolioNumber
       )
     ) {
       return res.json(
-        "Cannot add funding item. It has either been added already or you should update the existing item with the same date, type and currency"
+        "cannot add funding item: item with the same date and currency already exists. try joining with it."
       );
     }
     fundingData.push(item);
@@ -269,7 +321,9 @@ app.prepare().then(() => {
     const correctedItem = req.body;
     const itemIndex = fundingData.findIndex(
       (item) =>
-        item.id === id && item.userNumber === parseInt(correctedItem.userNumber)
+        item.id === id &&
+        item.userNumber === parseInt(correctedItem.userNumber) &&
+        item.portfolioNumber === parseInt(correctedItem.portfolioNumber)
     );
 
     if (
@@ -301,8 +355,12 @@ app.prepare().then(() => {
   server.delete("/api/v1/fundingHistory/:id", (req, res) => {
     const { id } = req.params;
     const userNumber = parseInt(req.body.userNumber);
+    const portfolioNumber = parseInt(req.body.portfolioNumber);
     const itemIndex = fundingData.findIndex(
-      (item) => item.id === id && item.userNumber === userNumber
+      (item) =>
+        item.id === id &&
+        item.userNumber === userNumber &&
+        item.portfolioNumber === portfolioNumber
     );
 
     if (itemIndex < 0) {
@@ -657,6 +715,7 @@ app.prepare().then(() => {
       noteData,
       appSettingsData,
       userData,
+      portfolioData,
     ];
 
     dataTypes.forEach((dataType) =>
@@ -721,5 +780,5 @@ app.prepare().then(() => {
   server.listen(PORT, (err) => {
     if (err) throw err;
     console.log("> Ready on port " + PORT);
-  });
+  });  
 });
