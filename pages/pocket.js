@@ -108,7 +108,7 @@ export async function getServerSideProps({ req, res }) {
     currencyCode,
     coinType
   );
-  const fiatData = await getFiatData(userNumber, currencyCode);
+  const fiatData = await getFiatData(userNumber, portfolioNumber, currencyCode);
   // console.log(coinType);
   // console.log(currencyCode);
   // console.log(fiatData);

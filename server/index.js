@@ -516,9 +516,13 @@ app.prepare().then(() => {
   // post method to fetch all fiats for a specific user
   server.post("/api/v1/allFiats", (req, res) => {
     const userNumber = parseInt(req.body.userNumber);
+    const portfolioNumber = parseInt(req.body.portfolioNumber);
 
     const fiats = _.filter(fiatData, function (fiat) {
-      return fiat.userNumber === userNumber;
+      return (
+        fiat.userNumber === userNumber &&
+        fiat.portfolioNumber === portfolioNumber
+      );
     });
     return res.json(fiats);
   });
@@ -527,9 +531,12 @@ app.prepare().then(() => {
   server.post("/api/v1/singleFiat", (req, res) => {
     const fiatCode = req.body.code;
     const userNumber = parseInt(req.body.userNumber);
+    const portfolioNumber = parseInt(req.body.portfolioNumber);
     const fiat = fiatData.find(
       (savedFiat) =>
-        savedFiat.code === fiatCode && savedFiat.userNumber === userNumber
+        savedFiat.code === fiatCode &&
+        savedFiat.userNumber === userNumber &&
+        savedFiat.portfolioNumber === portfolioNumber
     );
 
     return res.json(fiat);
@@ -541,7 +548,8 @@ app.prepare().then(() => {
       fiatData.find(
         (savedFiat) =>
           savedFiat.code === fiat.code &&
-          savedFiat.userNumber === fiat.userNumber
+          savedFiat.userNumber === fiat.userNumber &&
+          savedFiat.portfolioNumber === fiat.portfolioNumber
       )
     ) {
       return res.json("Cannot add fiat currency: already added");
@@ -563,8 +571,12 @@ app.prepare().then(() => {
     const { id } = req.params;
     const updatedAmount = req.body.amount;
     const userNumber = parseInt(req.body.userNumber);
+    const portfolioNumber = parseInt(req.body.portfolioNumber);
     const fiatIndex = fiatData.findIndex(
-      (fiat) => fiat.code === id && fiat.userNumber === userNumber
+      (fiat) =>
+        fiat.code === id &&
+        fiat.userNumber === userNumber &&
+        fiat.portfolioNumber === portfolioNumber
     );
 
     if (fiatData[fiatIndex].amount === updatedAmount) {
@@ -589,8 +601,12 @@ app.prepare().then(() => {
   server.delete("/api/v1/fiat/:id", (req, res) => {
     const { id } = req.params;
     const userNumber = parseInt(req.body.userNumber);
+    const portfolioNumber = parseInt(req.body.userNumber);
     const fiatIndex = fiatData.findIndex(
-      (fiat) => fiat.code === id && fiat.userNumber === userNumber
+      (fiat) =>
+        fiat.code === id &&
+        fiat.userNumber === userNumber &&
+        fiat.portfolioNumber === portfolioNumber
     );
 
     if (fiatIndex < 0) {

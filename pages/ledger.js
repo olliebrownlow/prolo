@@ -177,7 +177,7 @@ export async function getServerSideProps({ req, res }) {
     currencyCode,
     coinType
   );
-  const fiatData = await getFiatData(userNumber, currencyCode);
+  const fiatData = await getFiatData(userNumber, portfolioNumber, currencyCode);
   const balances = await calculateBalance(coinData, fiatData);
   const investmentItems = await getFundingData({
     userNumber: userNumber,

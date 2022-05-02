@@ -21,7 +21,13 @@ import { getSingleFiatData } from "../../../lib/core/singleFiatData";
 
 const Fiat = (props) => {
   const { appCurrencySign } = useContext(CurrencySettingsContext);
-  const { fiat, currencyAndTheme, userNumber, roundTo2DP } = props;
+  const {
+    fiat,
+    currencyAndTheme,
+    userNumber,
+    portfolioNumber,
+    roundTo2DP,
+  } = props;
 
   const [isShown, setIsShown] = useState(false);
   const [cancel, setCancel] = useState(false);
@@ -58,8 +64,8 @@ const Fiat = (props) => {
     Router.replace("/pocket", undefined, { scroll: false });
   };
 
-  const handleFiatUpdate = (userNumberAndNewAmount) => {
-    const res = updateFiat(fiat.id, userNumberAndNewAmount);
+  const handleFiatUpdate = (userNumPortfolioNumAndNewAmount) => {
+    const res = updateFiat(fiat.id, userNumPortfolioNumAndNewAmount);
     console.log(res);
   };
 
@@ -68,13 +74,14 @@ const Fiat = (props) => {
     const userNumberAndNewAmount = {
       amount: amount,
       userNumber: userNumber,
+      portfolioNumber: portfolioNumber,
     };
     handleFiatUpdate(userNumberAndNewAmount);
   };
 
   const handleDeleteFiat = async () => {
     refreshFiatData();
-    const res = await deleteFiat(fiat.id, userNumber);
+    const res = await deleteFiat(fiat.id, userNumber, portfolioNumber);
     const res2 = await deleteAssociatedNotes(noteList);
     console.log(res);
     console.log(res2);
@@ -172,8 +179,14 @@ const Fiat = (props) => {
 export async function getServerSideProps({ req, res, query }) {
   const coinCode = query.id;
   const userNumber = getCookie("un", { req, res });
+  const portfolioNumber = getCookie("pn", { req, res });
   const currencyCode = getCookie("cc", { req, res });
-  const fiat = await getSingleFiatData(coinCode, userNumber, currencyCode);
+  const fiat = await getSingleFiatData(
+    coinCode,
+    userNumber,
+    portfolioNumber,
+    currencyCode
+  );
   const currencyAndTheme = await getCurrencyAndTheme(userNumber);
 
   // console.log(fiat);
@@ -183,6 +196,7 @@ export async function getServerSideProps({ req, res, query }) {
       fiat,
       currencyAndTheme,
       userNumber: userNumber,
+      portfolioNumber: portfolioNumber,
     },
   };
 }
