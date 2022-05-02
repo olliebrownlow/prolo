@@ -62,7 +62,7 @@ const Ledger = (props) => {
       item.currencyCode,
       item.date
     );
-    
+
     // add remaining properties and format others
     item.userNumber = parseInt(userNumber);
     item.portfolioNumber = parseInt(portfolioNumber);
@@ -171,7 +171,12 @@ export async function getServerSideProps({ req, res }) {
   const portfolioNumber = getCookie("pn", { req, res });
   const coinType = getCookie("ct", { req, res });
   const currencyCode = getCookie("cc", { req, res });
-  const coinData = await getCoinData(userNumber, currencyCode, coinType);
+  const coinData = await getCoinData(
+    userNumber,
+    portfolioNumber,
+    currencyCode,
+    coinType
+  );
   const fiatData = await getFiatData(userNumber, currencyCode);
   const balances = await calculateBalance(coinData, fiatData);
   const investmentItems = await getFundingData({

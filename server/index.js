@@ -388,9 +388,14 @@ app.prepare().then(() => {
   // post method to fetch all coins for a specific user
   server.post("/api/v1/allCoins", (req, res) => {
     const userNumber = parseInt(req.body.userNumber);
+    const portfolioNumber = parseInt(req.body.portfolioNumber);
     const type = req.body.type;
     const coins = _.filter(coinData, function (coin) {
-      return coin.userNumber === userNumber && coin.type === type;
+      return (
+        coin.userNumber === userNumber &&
+        coin.portfolioNumber === portfolioNumber &&
+        coin.type === type
+      );
     });
     return res.json(coins);
   });
@@ -399,11 +404,13 @@ app.prepare().then(() => {
   server.post("/api/v1/coin", (req, res) => {
     const coinCode = req.body.code;
     const userNumber = parseInt(req.body.userNumber);
+    const portfolioNumber = parseInt(req.body.portfolioNumber);
     const type = req.body.type;
     const coin = coinData.find(
       (savedCoin) =>
         savedCoin.code === coinCode &&
         savedCoin.userNumber === userNumber &&
+        savedCoin.portfolioNumber === portfolioNumber &&
         savedCoin.type === type
     );
 
@@ -417,6 +424,7 @@ app.prepare().then(() => {
         (savedCoin) =>
           savedCoin.code === coin.code &&
           savedCoin.userNumber === coin.userNumber &&
+          savedCoin.portfolioNumber === coin.portfolioNumber &&
           savedCoin.type === coin.type
       )
     ) {
@@ -443,10 +451,14 @@ app.prepare().then(() => {
     const { id } = req.params;
     const updatedAmount = req.body.amount;
     const userNumber = parseInt(req.body.userNumber);
+    const portfolioNumber = parseInt(req.body.portfolioNumber);
     const type = req.body.type;
     const coinIndex = coinData.findIndex(
       (coin) =>
-        coin.code === id && coin.userNumber === userNumber && coin.type === type
+        coin.code === id &&
+        coin.userNumber === userNumber &&
+        coin.portfolioNumber === portfolioNumber &&
+        coin.type === type
     );
 
     if (coinData[coinIndex].amount === updatedAmount) {
@@ -471,10 +483,14 @@ app.prepare().then(() => {
   server.delete("/api/v1/coins/:id", (req, res) => {
     const { id } = req.params;
     const userNumber = parseInt(req.body.userNumber);
+    const portfolioNumber = parseInt(req.body.portfolioNumber);
     const type = req.body.type;
     const coinIndex = coinData.findIndex(
       (coin) =>
-        coin.code === id && coin.userNumber === userNumber && coin.type === type
+        coin.code === id &&
+        coin.userNumber === userNumber &&
+        coin.portfolioNumber === portfolioNumber &&
+        coin.type === type
     );
 
     if (coinIndex < 0) {
@@ -780,5 +796,5 @@ app.prepare().then(() => {
   server.listen(PORT, (err) => {
     if (err) throw err;
     console.log("> Ready on port " + PORT);
-  });  
+  });
 });

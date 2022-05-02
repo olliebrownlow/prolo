@@ -21,7 +21,7 @@ import {
 const Monitor = (props) => {
   const [user] = useContext(UserContext);
   const { appCurrencySign } = useContext(CurrencySettingsContext);
-  const { coinData, settings, userNumber } = props;
+  const { coinData, settings, userNumber, portfolioNumber } = props;
   const [isCoinOptionsExhausted, setIsCoinOptionsExhausted] = useState(false);
   const [currentSettings, setCurrentSettings] = useState(settings);
   const [anim, setAnim] = useState(0);
@@ -67,6 +67,7 @@ const Monitor = (props) => {
               data={coinData}
               dataOptionsExhausted={isCoinOptionsExhausted}
               userNumber={userNumber}
+              portfolioNumber={portfolioNumber}
               type={"monitoring"}
             />
             <CustomiseMonitor
@@ -90,9 +91,15 @@ const Monitor = (props) => {
 
 export async function getServerSideProps({ req, res }) {
   const userNumber = getCookie("un", { req, res });
+  const portfolioNumber = getCookie("pn", { req, res });
   const coinType = getCookie("ct", { req, res });
   const currencyCode = getCookie("cc", { req, res });
-  const coinData = await getCoinData(userNumber, currencyCode, coinType);
+  const coinData = await getCoinData(
+    userNumber,
+    portfolioNumber,
+    currencyCode,
+    coinType
+  );
   const settings = await getCustomisableMonitorSettings(
     userNumber,
     "orderBySettings"
@@ -107,6 +114,7 @@ export async function getServerSideProps({ req, res }) {
       coinData,
       settings,
       userNumber: userNumber,
+      portfolioNumber: portfolioNumber,
     },
   };
 }

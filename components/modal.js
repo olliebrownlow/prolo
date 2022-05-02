@@ -12,6 +12,7 @@ const Modal = (props) => {
     data,
     dataOptionsExhausted,
     userNumber,
+    portfolioNumber,
     type,
   } = props;
 
@@ -42,6 +43,7 @@ const Modal = (props) => {
 
   const handleAddCoinOrFiat = async (currency) => {
     currency.userNumber = parseInt(userNumber);
+    currency.portfolioNumber = parseInt(portfolioNumber);
     let res = "";
     if (currency.sign) {
       res = await addFiat(currency);

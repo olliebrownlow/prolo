@@ -39,6 +39,7 @@ const Coin = (props) => {
     mrktInfoSettings,
     currencyAndTheme,
     userNumber,
+    portfolioNumber,
     roundTo2DP,
   } = props;
 
@@ -179,20 +180,24 @@ const Coin = (props) => {
     Router.replace("/coins/" + id, undefined, { scroll: false });
   };
 
-  const handleCoinUpdate = (userNumberTypeAndNewAmount) => {
-    const res = updateCoin(getCoinProp("id"), userNumberTypeAndNewAmount);
+  const handleCoinUpdate = (userNumPortfolioNumTypeAndNewAmount) => {
+    const res = updateCoin(
+      getCoinProp("id"),
+      userNumPortfolioNumTypeAndNewAmount
+    );
     console.log(res);
     setTimeout(closeModal, 500);
   };
 
   const handleUpdate = (amount) => {
-    const userNumberTypeAndNewAmount = {
+    const userNumPortfolioNumTypeAndNewAmount = {
       amount: amount,
       userNumber: userNumber,
+      portfolioNumber: portfolioNumber,
       type: getCoinProp("type"),
     };
     setCurrentAmount(amount);
-    handleCoinUpdate(userNumberTypeAndNewAmount);
+    handleCoinUpdate(userNumPortfolioNumTypeAndNewAmount);
     refreshCoinData();
   };
 
@@ -202,7 +207,12 @@ const Coin = (props) => {
     } else {
       refreshMonitoredCoinData();
     }
-    const res = deleteCoin(getCoinProp("id"), userNumber, getCoinProp("type"));
+    const res = deleteCoin(
+      getCoinProp("id"),
+      userNumber,
+      portfolioNumber,
+      getCoinProp("type")
+    );
     console.log(res);
   };
 
@@ -564,11 +574,13 @@ const Coin = (props) => {
 export async function getServerSideProps({ query, req, res }) {
   const coinCode = query.id;
   const userNumber = getCookie("un", { req, res });
+  const portfolioNumber = getCookie("pn", { req, res });
   const coinType = getCookie("ct", { req, res });
   const currencyCode = getCookie("cc", { req, res });
   const coin = await getSingleCoinData(
     coinCode,
     userNumber,
+    portfolioNumber,
     currencyCode,
     coinType
   );
@@ -587,6 +599,7 @@ export async function getServerSideProps({ query, req, res }) {
       mrktInfoSettings,
       currencyAndTheme,
       userNumber: userNumber,
+      portfolioNumber: portfolioNumber,
     },
   };
 }
