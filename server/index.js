@@ -92,7 +92,7 @@ app.prepare().then(() => {
       return res.json(settingsForUser.currentPortfolioNumber);
     }
 
-    const newPortfolioNumber = autoNumberData[0].nextPortfolioNumber + 1;
+    const newPortfolioNumber = autoNumberData[0].nextPortfolioNumber;
 
     const newPortfolio = {
       userNumber: userNumber,
@@ -101,7 +101,7 @@ app.prepare().then(() => {
     };
     portfolioData.push(newPortfolio);
 
-    autoNumberData[0].nextUserNumber = newPortfolioNumber + 1;
+    autoNumberData[0].nextPortfolioNumber = newPortfolioNumber + 1;
 
     const pathToPortfolioFile = path.join(__dirname, portfolioFilePath);
     const stringifiedPortfolioData = JSON.stringify(portfolioData, null, 2);
