@@ -66,6 +66,7 @@ const Coin = (props) => {
     const handleNotes = async () => {
       const noteFilter = {
         userNumber: userNumber,
+        portfolioNumber: portfolioNumber,
         code: coin[0]["id"],
       };
       const notes = await getNotes(noteFilter);

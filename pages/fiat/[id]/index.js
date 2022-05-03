@@ -37,6 +37,7 @@ const Fiat = (props) => {
     const handleNotes = async () => {
       const noteFilter = {
         userNumber: userNumber,
+        portfolioNumber: portfolioNumber,
         code: fiat.id,
       };
       const notes = await getNotes(noteFilter);
@@ -80,11 +81,11 @@ const Fiat = (props) => {
   };
 
   const handleDeleteFiat = async () => {
-    refreshFiatData();
     const res = await deleteFiat(fiat.id, userNumber, portfolioNumber);
     const res2 = await deleteAssociatedNotes(noteList);
     console.log(res);
     console.log(res2);
+    refreshFiatData();
   };
 
   const handleCancel = () => {

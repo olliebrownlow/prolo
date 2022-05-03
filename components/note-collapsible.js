@@ -108,6 +108,7 @@ const NoteCollapsible = (props) => {
     let now = new Date();
     note.dateTime = now;
     note.userNumber = parseInt(getCookie("un"));
+    note.portfolioNumber = parseInt(getCookie("pn"));
     const res = await addNote(note);
     refreshPageData();
     console.log(res);

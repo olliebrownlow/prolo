@@ -627,13 +627,17 @@ app.prepare().then(() => {
     });
   });
 
-  // gets notes for a specific user, for a specific entity id
+  // gets notes for a specific user, for a specific entity id in a specific portfolio
   server.post("/api/v1/notes", (req, res) => {
     const code = req.body.code;
     const userNumber = parseInt(req.body.userNumber);
+    const portfolioNumber = parseInt(req.body.portfolioNumber);
 
     const filteredNoteData = noteData.filter(
-      (note) => note.userNumber === userNumber && note.code === code
+      (note) =>
+        note.userNumber === userNumber &&
+        note.portfolioNumber === portfolioNumber &&
+        note.code === code
     );
     return res.json(filteredNoteData);
   });
@@ -643,7 +647,6 @@ app.prepare().then(() => {
     noteData.push(note);
     const pathToFile = path.join(__dirname, noteFilePath);
     const stringifiedData = JSON.stringify(noteData, null, 2);
-    a;
     fs.writeFile(pathToFile, stringifiedData, (err) => {
       if (err) {
         return res.status(422).send(err);
@@ -672,7 +675,6 @@ app.prepare().then(() => {
 
     const pathToFile = path.join(__dirname, noteFilePath);
     const stringifiedData = JSON.stringify(noteData, null, 2);
-
     fs.writeFile(pathToFile, stringifiedData, (err) => {
       if (err) {
         return res.status(422).send(err);

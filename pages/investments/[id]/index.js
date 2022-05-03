@@ -40,6 +40,7 @@ const Investment = (props) => {
     const handleNotes = async () => {
       const noteFilter = {
         userNumber: userNumber,
+        portfolioNumber: portfolioNumber,
         code: investmentItem.id,
       };
       const notes = await getNotes(noteFilter);
