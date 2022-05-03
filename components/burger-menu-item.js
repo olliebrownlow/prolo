@@ -55,7 +55,7 @@ const BurgerMenuItem = (props) => {
       setConfirmDeletion(true);
       setLogoutText("delete your account");
       setLogoutSubText(
-        " all coin, currency, investment item and note data will be lost as well as your app settings"
+        " all coins, currencies, investment items, portfolios and note data will be lost as well as your app settings"
       );
       setDoDelete(true);
     } else {

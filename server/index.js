@@ -92,7 +92,7 @@ app.prepare().then(() => {
       return res.json(settingsForUser.currentPortfolioNumber);
     }
 
-    const newPortfolioNumber = autoNumberData[0].nextPortfolioNumber;
+    const newPortfolioNumber = autoNumberData[0].nextPortfolioNumber + 1;
 
     const newPortfolio = {
       userNumber: userNumber,
@@ -795,6 +795,13 @@ app.prepare().then(() => {
     const pathToUserFile = path.join(__dirname, userFilePath);
     const stringifiedUserData = JSON.stringify(userData, null, 2);
     fs.writeFile(pathToUserFile, stringifiedUserData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+    });
+    const pathToPortfolioFile = path.join(__dirname, portfolioFilePath);
+    const stringifiedPortfolioData = JSON.stringify(portfolioData, null, 2);
+    fs.writeFile(pathToPortfolioFile, stringifiedPortfolioData, (err) => {
       if (err) {
         return res.status(422).send(err);
       }
