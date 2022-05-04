@@ -3,6 +3,7 @@ import {
   BookOpen,
   Pocket,
   TrendingUp,
+  Folder,
   Settings,
   LogOut,
   UserX,
@@ -30,6 +31,11 @@ export const burgerMenuNavButtons = [
     label: "monitor",
     path: "/monitor",
     icon: <TrendingUp size={size} />,
+  },
+  {
+    label: "portfolios",
+    path: "/portfolios",
+    icon: <Folder size={size} />,
   },
   {
     label: "settings",
