@@ -89,7 +89,14 @@ app.prepare().then(() => {
       const settingsForUser = appSettingsData.find(
         (settings) => settings.userNumber === userNumber
       );
-      return res.json(settingsForUser.currentPortfolioNumber);
+      const portfolio = portfolioData.find(
+        (portfolio) =>
+          portfolio.portfolioNumber === settingsForUser.currentPortfolioNumber
+      );
+      return res.json({
+        portfolioNumber: settingsForUser.currentPortfolioNumber,
+        portfolioName: portfolio.portfolioName,
+      });
     }
 
     const newPortfolioNumber = autoNumberData[0].nextPortfolioNumber;

@@ -40,7 +40,7 @@ export const getOrSetUserNumber = (userExists, user) => {
     .then((res) => res.data);
 };
 
-export const getOrSetPortfolioNumber = (userExists, userNumber) => {
+export const getOrSetPortfolioData = (userExists, userNumber) => {
   return axios
     .get(`${BASE_URL}/api/v1/portfolioNumber`, {
       params: { userExists: userExists, userNumber: userNumber },

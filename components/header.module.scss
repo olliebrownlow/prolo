@@ -1,6 +1,6 @@
 .Header {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template: 50px / 33% 33% 33%;
   align-items: center;
   height: 50px;
   width: 100%;
@@ -10,6 +10,17 @@
   background: red;
 }
 .AppTitle {
-  font-weight: bold;
+  font-weight: bolder;
+  justify-self: center;
   cursor: default;
+}
+.Portfolio {
+  font-weight: lighter;
+  justify-self: right;
+  font-size: 20px;
+  cursor: default;
+}
+.hidden {
+  visibility: hidden;
+  font-size: 16px;
 }

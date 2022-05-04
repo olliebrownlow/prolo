@@ -17,7 +17,7 @@ import {
   addAppSettingsForNewUser,
   isAlreadyAUser,
   getOrSetUserNumber,
-  getOrSetPortfolioNumber,
+  getOrSetPortfolioData,
 } from "../actions";
 
 import "../pageStyles/index.scss";
@@ -71,7 +71,8 @@ function Prolo({ Component, pageProps }) {
         const res = await isAlreadyAUser(user);
         const userNumber = await getOrSetUserNumber(res, user);
         setCookies("un", userNumber);
-        const portfolioNumber = await getOrSetPortfolioNumber(res, userNumber);
+        const portfolioData = await getOrSetPortfolioData(res, userNumber);
+        const portfolioNumber = portfolioData.portfolioNumber;
         setCookies("pn", portfolioNumber);
         if (res === "false") {
           await addAppSettingsForNewUser({
