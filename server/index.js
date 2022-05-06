@@ -81,7 +81,7 @@ app.prepare().then(() => {
     return res.json(newUserNumber);
   });
 
-  server.get("/api/v1/portfolioNumber", (req, res) => {
+  server.get("/api/v1/portfolioData", (req, res) => {
     let userExists = req.query.userExists;
     let userNumber = parseInt(req.query.userNumber);
 
@@ -105,6 +105,7 @@ app.prepare().then(() => {
       userNumber: userNumber,
       portfolioName: "main",
       portfolioNumber: newPortfolioNumber,
+      portfolioDescription: "",
     };
     portfolioData.push(newPortfolio);
 
@@ -117,6 +118,22 @@ app.prepare().then(() => {
         return res.status(422).send(err);
       }
     });
+
+    const pathToAutoNumberFile = path.join(__dirname, autoNumberFilePath);
+    const stringifiedAutoNumberData = JSON.stringify(autoNumberData, null, 2);
+    fs.writeFile(pathToAutoNumberFile, stringifiedAutoNumberData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+    });
+
+    return res.json(newPortfolioNumber);
+  });
+
+  server.get("/api/v1/portfolioNumber", (req, res) => {
+    const newPortfolioNumber = autoNumberData[0].nextPortfolioNumber;
+
+    autoNumberData[0].nextPortfolioNumber = newPortfolioNumber + 1;
 
     const pathToAutoNumberFile = path.join(__dirname, autoNumberFilePath);
     const stringifiedAutoNumberData = JSON.stringify(autoNumberData, null, 2);
@@ -262,6 +279,40 @@ app.prepare().then(() => {
       } else {
         return res.json("Notepad visibilty updated");
       }
+    });
+  });
+
+  // post method to fetch all portfolios for a specific user
+  server.post("/api/v1/allPortfoliosForUser", (req, res) => {
+    const userNumber = parseInt(req.body.userNumber);
+    const portfolios = _.filter(portfolioData, function (portfolio) {
+      return portfolio.userNumber === userNumber;
+    });
+    return res.json(portfolios);
+  });
+
+  server.post("/api/v1/portfolios", (req, res) => {
+    const portfolio = req.body;
+    if (
+      portfolioData.find(
+        (savedPortfolio) =>
+          savedPortfolio.portfolioNumber === portfolio.portfolioNumber
+      )
+    ) {
+      return res.json("Cannot add portfolio: already added");
+    }
+    portfolioData.push(portfolio);
+    const pathToFile = path.join(__dirname, portfolioFilePath);
+    const stringifiedData = JSON.stringify(portfolioData, null, 2);
+
+    fs.writeFile(pathToFile, stringifiedData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+
+      return res.json(
+        `portfolio with name ${portfolio.portfolioName} successfully added`
+      );
     });
   });
 

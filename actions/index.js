@@ -42,9 +42,15 @@ export const getOrSetUserNumber = (userExists, user) => {
 
 export const getOrSetPortfolioData = (userExists, userNumber) => {
   return axios
-    .get(`${BASE_URL}/api/v1/portfolioNumber`, {
+    .get(`${BASE_URL}/api/v1/portfolioData`, {
       params: { userExists: userExists, userNumber: userNumber },
     })
+    .then((res) => res.data);
+};
+
+export const getNextPortfolioNumber = () => {
+  return axios
+    .get(`${BASE_URL}/api/v1/portfolioNumber`)
     .then((res) => res.data);
 };
 
@@ -116,6 +122,27 @@ export const updateCustomisableMonitorSettings = (userNumberAndNewSettings) => {
   return axios
     .patch(`${BASE_URL}/api/v1/appSettings`, userNumberAndNewSettings)
     .then((res) => res.data);
+};
+
+// axios does not allow get calls to pass through an argument hence the use of post
+export const getPortfolios = (userNumber) => {
+  return axios
+    .post(`${BASE_URL}/api/v1/allPortfoliosForUser`, userNumber)
+    .then((res) => res.data);
+};
+
+export const addPortfolio = (portfolio) => {
+  const res = axios
+    .post(`${BASE_URL}/api/v1/portfolios`, portfolio)
+    .then((res) => res.data);
+
+  toast.promise(res, {
+    loading: "loading",
+    success: (data) => data,
+    error: (err) => err.toString(),
+  });
+
+  return res;
 };
 
 // axios does not allow get calls to pass through an argument hence the use of post
