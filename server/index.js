@@ -316,6 +316,108 @@ app.prepare().then(() => {
     });
   });
 
+  server.patch("/api/v1/portfolios", (req, res) => {
+    const updatedPortfolio = req.body;
+    const portfolioIndex = portfolioData.findIndex(
+      (portfolio) =>
+        portfolio.portfolioNumber === updatedPortfolio.portfolioNumber
+    );
+    const currentPortfolio = portfolioData[portfolioIndex];
+
+    if (
+      currentPortfolio.portfolioName === updatedPortfolio.portfolioName &&
+      currentPortfolio.portfolioDescription ===
+        updatedPortfolio.portfolioDescription
+    ) {
+      return res.send(404, {
+        error: "Cannot update portfolio: already updated",
+      });
+    }
+
+    portfolioData[portfolioIndex] = updatedPortfolio;
+
+    const pathToFile = path.join(__dirname, portfolioFilePath);
+    const stringifiedData = JSON.stringify(portfolioData, null, 2);
+    fs.writeFile(pathToFile, stringifiedData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+
+      return res.json("portfolio successfully updated");
+    });
+  });
+
+  server.delete("/api/v1/portfolios/:id", (req, res) => {
+    let { id } = req.params;
+    console.log(id);
+    id = parseInt(id);
+    console.log(id);
+
+    const portfolioCount = req.body.portfolioCount;
+    const portfolioIndex = portfolioData.findIndex(
+      (portfolio) => portfolio.portfolioNumber === id
+    );
+
+    if (portfolioIndex < 0) {
+      return res.json("portfolio already deleted");
+    }
+
+    if (portfolioCount < 2) {
+      return res.json("cannot delete: you must have at least one portfolio");
+    }
+
+    const dataTypes = [
+      coinData,
+      fiatData,
+      fundingData,
+      noteData,
+      portfolioData,
+    ];
+
+    dataTypes.forEach((dataType) =>
+      _.pullAllBy(dataType, [{ portfolioNumber: id }], "portfolioNumber")
+    );
+
+    // Todo: rollback function in case any writes to file error out
+    const pathToCoinFile = path.join(__dirname, coinFilePath);
+    const stringifiedCoinData = JSON.stringify(coinData, null, 2);
+    fs.writeFile(pathToCoinFile, stringifiedCoinData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+    });
+    const pathToFiatFile = path.join(__dirname, fiatFilePath);
+    const stringifiedFiatData = JSON.stringify(fiatData, null, 2);
+    fs.writeFile(pathToFiatFile, stringifiedFiatData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+    });
+    const pathToFundingFile = path.join(__dirname, fundingFilePath);
+    const stringifiedFundingData = JSON.stringify(fundingData, null, 2);
+    fs.writeFile(pathToFundingFile, stringifiedFundingData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+    });
+    const pathToNoteFile = path.join(__dirname, noteFilePath);
+    const stringifiedNoteData = JSON.stringify(noteData, null, 2);
+    fs.writeFile(pathToNoteFile, stringifiedNoteData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+    });
+    const pathToPortfolioFile = path.join(__dirname, portfolioFilePath);
+    const stringifiedPortfolioData = JSON.stringify(portfolioData, null, 2);
+    fs.writeFile(pathToPortfolioFile, stringifiedPortfolioData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+    });
+
+    return res.json("portfolio deleted");
+  });
+
   // post method to fetch all investmentItems for a specific user
   server.post("/api/v1/investmentItems", (req, res) => {
     const userNumber = parseInt(req.body.userNumber);

@@ -5,6 +5,7 @@ import CurrencySettingsContext from "../context/currencySettings";
 import { UserContext } from "../lib/UserContext";
 import Loading from "../components/loading";
 import SettingsLink from "../components/settings-link";
+import ConfirmDelete from "../components/confirm-delete";
 import AddButton from "../components/add-button";
 import PortfolioModal from "../components/portfolio-modal";
 import NotLoggedIn from "../components/not-logged-in";
@@ -16,10 +17,12 @@ import {
   getPortfolios,
   getNextPortfolioNumber,
   addPortfolio,
+  updatePortfolio,
+  deletePortfolio,
   getCurrencyAndTheme,
 } from "../actions";
 import _ from "lodash";
-import { Trash2, Edit } from "react-feather";
+import { Trash2, Edit, Anchor } from "react-feather";
 import { motion } from "framer-motion";
 
 const Portfolios = (props) => {
@@ -27,7 +30,6 @@ const Portfolios = (props) => {
     roundTo2DP,
     portfolios,
     balances,
-    investmentItems,
     userNumber,
     portfolioNumber,
     currencyAndTheme,
@@ -38,24 +40,46 @@ const Portfolios = (props) => {
     CurrencySettingsContext
   );
   const [isShown, setIsShown] = useState(false);
+  const [isShownForUpdating, setIsShownForUpdating] = useState(false);
+  const [confirmDeletion, setConfirmDeletion] = useState(false);
+  const [portfolio, setPortfolio] = useState({});
+  const [
+    portfolioNumberForDeletion,
+    setPortfolioNumberForDeletion,
+  ] = useState();
 
   const showModal = () => {
     setIsShown(true);
   };
 
+  const showUpdateModal = (portfolio) => {
+    setIsShownForUpdating(true);
+    setPortfolio(portfolio);
+  };
+
+  const showConfirmDelete = (portfolioNumber) => {
+    setConfirmDeletion(true);
+    setPortfolioNumberForDeletion(portfolioNumber);
+  };
+
   const closeModal = () => {
     setIsShown(false);
+    setIsShownForUpdating(false);
+    setConfirmDeletion(false);
   };
 
   // close modal from window surrounding the modal itself
   const windowOnClick = (event) => {
     if (event.target === event.currentTarget) {
       setIsShown(false);
+      setIsShownForUpdating(false);
+      setConfirmDeletion(false);
     }
   };
 
-  const refreshFPortfoliosPage = () => {
+  const refreshPortfoliosPage = () => {
     Router.replace("/portfolios", undefined, { scroll: false });
+    setTimeout(closeModal, 1000);
   };
 
   const basePortfolioData = {
@@ -68,9 +92,20 @@ const Portfolios = (props) => {
     const newPortfolioNumber = await getNextPortfolioNumber();
     portfolio.portfolioNumber = newPortfolioNumber;
     const res = await addPortfolio(portfolio);
-    refreshFPortfoliosPage();
+    refreshPortfoliosPage();
     console.log(res);
-    closeModal();
+  };
+
+  const handleUpdatePortfolio = async (portfolio) => {
+    const res = await updatePortfolio(portfolio);
+    refreshPortfoliosPage();
+    console.log(res);
+  };
+
+  const handleDeletePortfolio = async (id) => {
+    const res = await deletePortfolio(id, portfolios.length);
+    refreshPortfoliosPage();
+    console.log(res);
   };
 
   return (
@@ -96,6 +131,19 @@ const Portfolios = (props) => {
               data={basePortfolioData}
               title={"new portfolio"}
               addButtonText={"add"}
+            />
+          ) : (
+            <React.Fragment />
+          )}
+          {isShownForUpdating ? (
+            <PortfolioModal
+              closeModal={closeModal}
+              windowOnClick={windowOnClick}
+              handleFormSubmit={handleUpdatePortfolio}
+              isShown={isShownForUpdating}
+              data={portfolio}
+              title={"update portfolio"}
+              addButtonText={"update"}
             />
           ) : (
             <React.Fragment />
@@ -126,6 +174,18 @@ const Portfolios = (props) => {
                   )}
                   <motion.div
                     whileTap={{ scale: 0.5 }}
+                    className={styles.anchorContainer}
+                    whileHover={{ scale: 1.1 }}
+                  >
+                    <Anchor
+                      size={24}
+                      color={"red"}
+                      className={styles.anchor}
+                      // onClick={() => showUpdateModal(portfolio)}
+                    />
+                  </motion.div>
+                  <motion.div
+                    whileTap={{ scale: 0.5 }}
                     className={styles.editContainer}
                     whileHover={{ scale: 1.1 }}
                   >
@@ -133,7 +193,7 @@ const Portfolios = (props) => {
                       size={24}
                       color={"red"}
                       className={styles.edit}
-                      // onClick={() => showUpdateModal(portfolio)}
+                      onClick={() => showUpdateModal(portfolio)}
                     />
                   </motion.div>
                   <motion.div
@@ -144,15 +204,30 @@ const Portfolios = (props) => {
                     <Trash2
                       size={24}
                       className={styles.trash}
-                      // onClick={() =>
-                      //   showConfirmDelete(portfolio.portfolioNumber)
-                      // }
+                      onClick={() =>
+                        showConfirmDelete(portfolio.portfolioNumber)
+                      }
                     />
                   </motion.div>
                 </div>
               </motion.div>
             </div>
           ))}
+          {confirmDeletion ? (
+            <ConfirmDelete
+              closeModal={closeModal}
+              windowOnClick={windowOnClick}
+              handleDelete={handleDeletePortfolio}
+              data={portfolioNumberForDeletion}
+              isShown={confirmDeletion}
+              titleText={"delete this portfolio"}
+              subText={
+                " all coins, currencies, investment items and note data associated with this portfolio will be permanently deleted"
+              }
+            />
+          ) : (
+            <React.Fragment />
+          )}
         </>
       ) : (
         <NotLoggedIn />
@@ -184,7 +259,7 @@ export async function getServerSideProps({ req, res }) {
   // console.log(fiatData);
   // console.log(coinData);
   // console.log(balances);
-  // console.log(investmentItems);
+  // console.log(portfolios.length);
 
   return {
     props: {

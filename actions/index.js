@@ -145,6 +145,35 @@ export const addPortfolio = (portfolio) => {
   return res;
 };
 
+export const updatePortfolio = (portfolio) => {
+  const res = axios
+    .patch(`${BASE_URL}/api/v1/portfolios`, portfolio)
+    .then((res) => res.data);
+
+  toast.promise(res, {
+    loading: "loading",
+    success: (data) => data,
+    error: (err) => err.toString(),
+  });
+
+  return res;
+};
+
+export const deletePortfolio = (id, portfolioCount) => {
+  const res = axios
+    .delete(`${BASE_URL}/api/v1/portfolios/${id}`, {
+      data: { portfolioCount: portfolioCount },
+    })
+    .then((res) => res.data);
+  toast.promise(res, {
+    loading: "loading",
+    success: (data) => data,
+    error: (err) => err.toString(),
+  });
+
+  return res;
+};
+
 // axios does not allow get calls to pass through an argument hence the use of post
 export const getFundingData = (userAndPortfolioNumbers) => {
   return axios

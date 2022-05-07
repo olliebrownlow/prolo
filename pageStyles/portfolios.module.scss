@@ -66,6 +66,19 @@
   border: solid 1px lightgrey;
   color: white;
 }
+.anchorContainer {
+  right: 78px;
+  bottom: 8px;
+  left: auto;
+  top: auto;
+  position: absolute;
+}
+.anchor {
+  background-color: lightgrey;
+  border-radius: 30%;
+  border: solid 1px #292929;
+  padding: 4px;
+}
 .editContainer {
   right: 44px;
   bottom: 8px;
