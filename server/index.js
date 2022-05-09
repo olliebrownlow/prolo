@@ -349,9 +349,7 @@ app.prepare().then(() => {
 
   server.delete("/api/v1/portfolios/:id", (req, res) => {
     let { id } = req.params;
-    console.log(id);
     id = parseInt(id);
-    console.log(id);
 
     const portfolioCount = req.body.portfolioCount;
     const portfolioIndex = portfolioData.findIndex(

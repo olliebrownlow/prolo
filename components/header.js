@@ -22,7 +22,7 @@ const Header = (props) => {
       setPortfolioName(data.portfolioName);
     };
     setCurrentPortfolioName();
-  }, [portfolioName]);
+  }, [portfolioName, getCookie("pn")]);
 
   const logout = async (doDelete) => {
     if (doDelete) {

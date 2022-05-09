@@ -124,6 +124,12 @@ export const updateCustomisableMonitorSettings = (userNumberAndNewSettings) => {
     .then((res) => res.data);
 };
 
+export const setCurrentPortfolioNumber = (userNumberAndNewSetting) => {
+  return axios
+    .patch(`${BASE_URL}/api/v1/appSettings`, userNumberAndNewSetting)
+    .then((res) => res.data);
+};
+
 // axios does not allow get calls to pass through an argument hence the use of post
 export const getPortfolios = (userNumber) => {
   return axios

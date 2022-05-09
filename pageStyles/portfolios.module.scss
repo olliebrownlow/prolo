@@ -18,15 +18,10 @@
 }
 .card {
   width: 100%;
-  max-width: 300px;
   min-width: 200px;
   max-height: 300px;
   margin: 10px;
-  background-color: #292929;
-  color: white;
-  border: solid 1px lightgrey;
   border-radius: 10px;
-  font-size: 18px;   
   position: relative;
   display: flex;
   justify-content: center;
@@ -34,6 +29,34 @@
   flex-direction: column;
   cursor: default;
   padding-bottom: 12px;
+}
+.darkactive {
+  background-color: #292929;
+  border: solid 3px lightgrey;
+  max-width: 300px;
+  font-size: 24px;   
+  color: white;
+}
+.darkinactive {
+  border: solid 1px lightgrey;
+  background-color: #292929;
+  max-width: 300px;
+  font-size: 18px;   
+  color: white;
+}
+.lightactive {
+  background-color: whitesmoke;
+  border: solid 3px dimgrey;
+  max-width: 300px;
+  font-size: 22px;   
+  color: dimgrey;
+}
+.lightinactive {
+  background-color: whitesmoke;
+  border: solid 1px dimgrey;
+  max-width: 300px;
+  font-size: 18px;   
+  color: dimgrey;
 }
 .title {
   width: 100%;
@@ -56,16 +79,6 @@
   margin-bottom: 32px;
   letter-spacing: 2px;
 }
-.light {
-  background-color: whitesmoke;
-  border: solid 1px dimgrey;
-  color: dimgrey;
-}
-.dark {
-  background-color: #292929;
-  border: solid 1px lightgrey;
-  color: white;
-}
 .anchorContainer {
   right: 78px;
   bottom: 8px;
@@ -81,6 +94,13 @@
 }
 .editContainer {
   right: 44px;
+  bottom: 8px;
+  left: auto;
+  top: auto;
+  position: absolute;
+}
+.editContainerNoDelete {
+  right: 10px;
   bottom: 8px;
   left: auto;
   top: auto;

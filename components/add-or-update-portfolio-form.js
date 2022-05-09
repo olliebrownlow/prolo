@@ -55,6 +55,7 @@ const AddOrUpdatePortfolioForm = (props) => {
             type="text"
             placeholder="max 12 characters..."
             maxLength="12"
+            autoCapitalize="off"
           ></input>
         </div>
         <div className={styles.formGroup}>

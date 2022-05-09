@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import Router from "next/router";
-import { getCookie } from "cookies-next";
+import { setCookies, getCookie } from "cookies-next";
 import CurrencySettingsContext from "../context/currencySettings";
 import { UserContext } from "../lib/UserContext";
 import Loading from "../components/loading";
@@ -20,6 +20,7 @@ import {
   updatePortfolio,
   deletePortfolio,
   getCurrencyAndTheme,
+  setCurrentPortfolioNumber,
 } from "../actions";
 import _ from "lodash";
 import { Trash2, Edit, Anchor } from "react-feather";
@@ -43,10 +44,7 @@ const Portfolios = (props) => {
   const [isShownForUpdating, setIsShownForUpdating] = useState(false);
   const [confirmDeletion, setConfirmDeletion] = useState(false);
   const [portfolio, setPortfolio] = useState({});
-  const [
-    portfolioNumberForDeletion,
-    setPortfolioNumberForDeletion,
-  ] = useState();
+  const [portfolioIndexForDeletion, setPortfolioIndexForDeletion] = useState();
 
   const showModal = () => {
     setIsShown(true);
@@ -57,9 +55,9 @@ const Portfolios = (props) => {
     setPortfolio(portfolio);
   };
 
-  const showConfirmDelete = (portfolioNumber) => {
+  const showConfirmDelete = (index) => {
     setConfirmDeletion(true);
-    setPortfolioNumberForDeletion(portfolioNumber);
+    setPortfolioIndexForDeletion(index);
   };
 
   const closeModal = () => {
@@ -102,10 +100,30 @@ const Portfolios = (props) => {
     console.log(res);
   };
 
-  const handleDeletePortfolio = async (id) => {
-    const res = await deletePortfolio(id, portfolios.length);
-    refreshPortfoliosPage();
+  const handleDeletePortfolio = async (index) => {
+    const res = await deletePortfolio(
+      portfolios[index].portfolioNumber,
+      portfolios.length
+    );
     console.log(res);
+    if (portfolios[index].portfolioNumber === parseInt(portfolioNumber)) {
+      if (index > 0) {
+        anchorPortfolio(portfolios[0]);
+      } else {
+        anchorPortfolio(portfolios[1]);
+      }
+      return;
+    }
+    refreshPortfoliosPage();
+  };
+
+  const anchorPortfolio = async (portfolio) => {
+    setCookies("pn", portfolio.portfolioNumber);
+    await setCurrentPortfolioNumber({
+      userNumber: portfolio.userNumber,
+      newSettings: { currentPortfolioNumber: portfolio.portfolioNumber },
+    });
+    refreshPortfoliosPage();
   };
 
   return (
@@ -161,8 +179,14 @@ const Portfolios = (props) => {
                     " " +
                     `${
                       currencyAndTheme.theme === "light"
-                        ? styles.light
-                        : styles.dark
+                        ? portfolio.portfolioNumber ===
+                          parseInt(portfolioNumber)
+                          ? styles.lightactive
+                          : styles.lightinactive
+                        : portfolio.portfolioNumber ===
+                          parseInt(portfolioNumber)
+                        ? styles.darkactive
+                        : styles.darkinactive
                     }`
                   }
                 >
@@ -172,21 +196,27 @@ const Portfolios = (props) => {
                       {portfolio.portfolioDescription}
                     </div>
                   )}
+                  {portfolio.portfolioNumber !== parseInt(portfolioNumber) && (
+                    <motion.div
+                      whileTap={{ scale: 0.5 }}
+                      className={styles.anchorContainer}
+                      whileHover={{ scale: 1.1 }}
+                    >
+                      <Anchor
+                        size={24}
+                        color={"red"}
+                        className={styles.anchor}
+                        onClick={() => anchorPortfolio(portfolio)}
+                      />
+                    </motion.div>
+                  )}
                   <motion.div
                     whileTap={{ scale: 0.5 }}
-                    className={styles.anchorContainer}
-                    whileHover={{ scale: 1.1 }}
-                  >
-                    <Anchor
-                      size={24}
-                      color={"red"}
-                      className={styles.anchor}
-                      // onClick={() => showUpdateModal(portfolio)}
-                    />
-                  </motion.div>
-                  <motion.div
-                    whileTap={{ scale: 0.5 }}
-                    className={styles.editContainer}
+                    className={
+                      portfolios.length > 1
+                        ? styles.editContainer
+                        : styles.editContainerNoDelete
+                    }
                     whileHover={{ scale: 1.1 }}
                   >
                     <Edit
@@ -196,19 +226,19 @@ const Portfolios = (props) => {
                       onClick={() => showUpdateModal(portfolio)}
                     />
                   </motion.div>
-                  <motion.div
-                    whileTap={{ scale: 0.5 }}
-                    whileHover={{ scale: 1.1 }}
-                    className={styles.trashContainer}
-                  >
-                    <Trash2
-                      size={24}
-                      className={styles.trash}
-                      onClick={() =>
-                        showConfirmDelete(portfolio.portfolioNumber)
-                      }
-                    />
-                  </motion.div>
+                  {portfolios.length > 1 && (
+                    <motion.div
+                      whileTap={{ scale: 0.5 }}
+                      whileHover={{ scale: 1.1 }}
+                      className={styles.trashContainer}
+                    >
+                      <Trash2
+                        size={24}
+                        className={styles.trash}
+                        onClick={() => showConfirmDelete(index)}
+                      />
+                    </motion.div>
+                  )}
                 </div>
               </motion.div>
             </div>
@@ -218,7 +248,7 @@ const Portfolios = (props) => {
               closeModal={closeModal}
               windowOnClick={windowOnClick}
               handleDelete={handleDeletePortfolio}
-              data={portfolioNumberForDeletion}
+              data={portfolioIndexForDeletion}
               isShown={confirmDeletion}
               titleText={"delete this portfolio"}
               subText={
