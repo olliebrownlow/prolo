@@ -281,7 +281,7 @@ const Portfolios = (props) => {
                         }`
                       }
                     >
-                      balances
+                      pocket
                     </div>
                     <div
                       className={
@@ -445,15 +445,6 @@ export async function getServerSideProps({ req, res }) {
   const currencyCode = getCookie("cc", { req, res });
   const portfolios = await getPortfolios({ userNumber: userNumber });
   const currencyAndTheme = await getCurrencyAndTheme(userNumber);
-
-  // const coinData = await getCoinData(
-  //   userNumber,
-  //   portfolioNumber,
-  //   currencyCode,
-  //   coinType
-  // );
-  // const fiatData = await getFiatData(userNumber, portfolioNumber, currencyCode);
-  // const balances = calculateBalance(coinData, fiatData);
 
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 

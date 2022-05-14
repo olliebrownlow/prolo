@@ -13,6 +13,7 @@ import styles from "../pageStyles/ledger.module.scss";
 import { getCoinData } from "../lib/core/coinData";
 import { getFiatData } from "../lib/core/fiatData";
 import { calculateBalance } from "../lib/core/calculateBalance";
+import { getProlo } from "../lib/core/profitLossCalc";
 import {
   getFundingData,
   getHistoricalData,
@@ -82,26 +83,7 @@ const Ledger = (props) => {
   };
 
   const prolo = () => {
-    const propertyName = _.camelCase(appCurrencyName);
-    const valuesArray = [];
-    investmentItems.map((investment) => {
-      const positiveValue = parseFloat(investment[propertyName]);
-      if (investment.type === "withdrawal") {
-        const negativeValue = positiveValue * -1;
-        valuesArray.push(negativeValue);
-      } else {
-        valuesArray.push(positiveValue);
-      }
-    });
-    // reduce causes error when array is empty
-    if (valuesArray.length) {
-      const unroundedInvestmentValue = valuesArray.reduce(
-        (accumulator, current) => accumulator + current
-      );
-      return balances.balance - unroundedInvestmentValue;
-    } else {
-      return balances.balance;
-    }
+    return getProlo(appCurrencyName, investmentItems, balances.balance);
   };
 
   return (
@@ -115,7 +97,9 @@ const Ledger = (props) => {
           <Link href="/ledger" scroll={false}>
             <div className={styles.prolo} onClick={() => setAnim(1)}>
               {appCurrencySign}
-              {roundTo2DP(prolo())}{" "}
+              {roundTo2DP(
+                getProlo(appCurrencyName, investmentItems, balances.balance)
+              )}{" "}
               <RefreshCw
                 className={styles.refresh}
                 onClick={() => setAnim(1)}
@@ -134,7 +118,10 @@ const Ledger = (props) => {
           <div className={styles.heading}>funding</div>
           <div className={styles.balance}>
             {appCurrencySign}
-            {roundTo2DP(balances.balance - prolo())}
+            {roundTo2DP(
+              balances.balance -
+                getProlo(appCurrencyName, investmentItems, balances.balance)
+            )}
           </div>
           <div className={styles.subheading}>breakdown</div>
           <AddButton
