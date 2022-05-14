@@ -126,6 +126,12 @@ const Portfolios = (props) => {
     refreshPortfoliosPage();
   };
 
+  const getBalances = (portfolioNumber) => {
+    return balances.find(
+      (pfBalances) => pfBalances.portfolioNumber === portfolioNumber
+    );
+  };
+
   return (
     <>
       {user?.loading ? (
@@ -166,83 +172,249 @@ const Portfolios = (props) => {
           ) : (
             <React.Fragment />
           )}
-          {portfolios.map((portfolio, index) => (
-            <div className={styles.contentContainer} key={index}>
-              <motion.div
-                className={styles.content}
-                whileInView={{ opacity: 1 }}
-                initial={{ opacity: 0 }}
-              >
-                <div
-                  className={
-                    styles.card +
-                    " " +
-                    `${
-                      currencyAndTheme.theme === "light"
-                        ? portfolio.portfolioNumber ===
-                          parseInt(portfolioNumber)
-                          ? styles.lightactive
-                          : styles.lightinactive
-                        : portfolio.portfolioNumber ===
-                          parseInt(portfolioNumber)
-                        ? styles.darkactive
-                        : styles.darkinactive
-                    }`
-                  }
+          <div className={styles.contentContainer}>
+            {portfolios.map((portfolio, index) => (
+              <div key={index}>
+                <motion.div
+                  className={styles.content}
+                  whileInView={{ opacity: 1 }}
+                  initial={{ opacity: 0 }}
                 >
-                  <div className={styles.title}>{portfolio.portfolioName}</div>
-                  {portfolio.portfolioDescription && (
-                    <div className={styles.text}>
-                      {portfolio.portfolioDescription}
+                  <div
+                    className={
+                      styles.card +
+                      " " +
+                      `${
+                        currencyAndTheme.theme === "light"
+                          ? portfolio.portfolioNumber ===
+                            parseInt(portfolioNumber)
+                            ? styles.lightactivecard
+                            : styles.lightinactivecard
+                          : portfolio.portfolioNumber ===
+                            parseInt(portfolioNumber)
+                          ? styles.darkactivecard
+                          : styles.darkinactivecard
+                      }`
+                    }
+                  >
+                    <div
+                      className={
+                        styles.title +
+                        " " +
+                        `${
+                          currencyAndTheme.theme === "light"
+                            ? portfolio.portfolioNumber ===
+                              parseInt(portfolioNumber)
+                              ? styles.activelighttitle
+                              : styles.inactivelighttitle
+                            : portfolio.portfolioNumber ===
+                              parseInt(portfolioNumber)
+                            ? styles.activedarktitle
+                            : styles.inactivedarktitle
+                        }`
+                      }
+                    >
+                      {portfolio.portfolioName}
                     </div>
-                  )}
-                  {portfolio.portfolioNumber !== parseInt(portfolioNumber) && (
+                    {portfolio.portfolioDescription ? (
+                      <>
+                        <div
+                          className={
+                            styles.key +
+                            " " +
+                            `${
+                              currencyAndTheme.theme === "light"
+                                ? portfolio.portfolioNumber ===
+                                  parseInt(portfolioNumber)
+                                  ? styles.activelightkey
+                                  : styles.inactivelightkey
+                                : portfolio.portfolioNumber ===
+                                  parseInt(portfolioNumber)
+                                ? styles.activedarkkey
+                                : styles.inactivedarkkey
+                            }`
+                          }
+                        >
+                          description
+                        </div>
+                        <div
+                          className={
+                            styles.value +
+                            " " +
+                            `${
+                              currencyAndTheme.theme === "light"
+                                ? portfolio.portfolioNumber ===
+                                  parseInt(portfolioNumber)
+                                  ? styles.activelightvalue
+                                  : styles.inactivelightvalue
+                                : portfolio.portfolioNumber ===
+                                  parseInt(portfolioNumber)
+                                ? styles.activedarkvalue
+                                : styles.inactivedarkvalue
+                            }`
+                          }
+                        >
+                          {portfolio.portfolioDescription}
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                      </>
+                    )}
+                    <div
+                      className={
+                        styles.key +
+                        " " +
+                        `${
+                          currencyAndTheme.theme === "light"
+                            ? portfolio.portfolioNumber ===
+                              parseInt(portfolioNumber)
+                              ? styles.activelightkey
+                              : styles.inactivelightkey
+                            : portfolio.portfolioNumber ===
+                              parseInt(portfolioNumber)
+                            ? styles.activedarkkey
+                            : styles.inactivedarkkey
+                        }`
+                      }
+                    >
+                      balances
+                    </div>
+                    <div
+                      className={
+                        styles.balancevaluetitle +
+                        " " +
+                        `${
+                          currencyAndTheme.theme === "light"
+                            ? styles.lightbalancevaluetitle
+                            : styles.darkbalancevaluetitle
+                        }`
+                      }
+                    >
+                      coins
+                      <br />
+                      fiat
+                      <br />
+                      total
+                    </div>
+                    <div
+                      className={
+                        styles.balancevalue +
+                        " " +
+                        `${
+                          currencyAndTheme.theme === "light"
+                            ? portfolio.portfolioNumber ===
+                              parseInt(portfolioNumber)
+                              ? styles.activelightvalue
+                              : styles.inactivelightvalue
+                            : portfolio.portfolioNumber ===
+                              parseInt(portfolioNumber)
+                            ? styles.activedarkvalue
+                            : styles.inactivedarkvalue
+                        }`
+                      }
+                    >
+                      {appCurrencySign}
+                      {roundTo2DP(
+                        getBalances(portfolio.portfolioNumber).coinTotal
+                      )}
+                      <br />
+                      {appCurrencySign}
+                      {roundTo2DP(
+                        getBalances(portfolio.portfolioNumber).fiatTotal
+                      )}
+                      <br />
+                      {appCurrencySign}
+                      {roundTo2DP(
+                        getBalances(portfolio.portfolioNumber).balance
+                      )}
+                    </div>
+                    <div
+                      className={
+                        styles.lastkey +
+                        " " +
+                        `${
+                          currencyAndTheme.theme === "light"
+                            ? portfolio.portfolioNumber ===
+                              parseInt(portfolioNumber)
+                              ? styles.activelightlastkey
+                              : styles.inactivelightlastkey
+                            : portfolio.portfolioNumber ===
+                              parseInt(portfolioNumber)
+                            ? styles.activedarklastkey
+                            : styles.inactivedarklastkey
+                        }`
+                      }
+                    ></div>
+                    <div
+                      className={
+                        styles.lastvalue +
+                        " " +
+                        `${
+                          currencyAndTheme.theme === "light"
+                            ? portfolio.portfolioNumber ===
+                              parseInt(portfolioNumber)
+                              ? styles.activelightlastvalue
+                              : styles.inactivelightlastvalue
+                            : portfolio.portfolioNumber ===
+                              parseInt(portfolioNumber)
+                            ? styles.activedarklastvalue
+                            : styles.inactivedarklastvalue
+                        }`
+                      }
+                    ></div>
+                    {portfolio.portfolioNumber !==
+                      parseInt(portfolioNumber) && (
+                      <motion.div
+                        whileTap={{ scale: 0.5 }}
+                        className={styles.anchorContainer}
+                        whileHover={{ scale: 1.1 }}
+                      >
+                        <Anchor
+                          size={24}
+                          color={"red"}
+                          className={styles.anchor}
+                          onClick={() => anchorPortfolio(portfolio)}
+                        />
+                      </motion.div>
+                    )}
                     <motion.div
                       whileTap={{ scale: 0.5 }}
-                      className={styles.anchorContainer}
+                      className={
+                        portfolios.length > 1
+                          ? styles.editContainer
+                          : styles.editContainerNoDelete
+                      }
                       whileHover={{ scale: 1.1 }}
                     >
-                      <Anchor
+                      <Edit
                         size={24}
                         color={"red"}
-                        className={styles.anchor}
-                        onClick={() => anchorPortfolio(portfolio)}
+                        className={styles.edit}
+                        onClick={() => showUpdateModal(portfolio)}
                       />
                     </motion.div>
-                  )}
-                  <motion.div
-                    whileTap={{ scale: 0.5 }}
-                    className={
-                      portfolios.length > 1
-                        ? styles.editContainer
-                        : styles.editContainerNoDelete
-                    }
-                    whileHover={{ scale: 1.1 }}
-                  >
-                    <Edit
-                      size={24}
-                      color={"red"}
-                      className={styles.edit}
-                      onClick={() => showUpdateModal(portfolio)}
-                    />
-                  </motion.div>
-                  {portfolios.length > 1 && (
-                    <motion.div
-                      whileTap={{ scale: 0.5 }}
-                      whileHover={{ scale: 1.1 }}
-                      className={styles.trashContainer}
-                    >
-                      <Trash2
-                        size={24}
-                        className={styles.trash}
-                        onClick={() => showConfirmDelete(index)}
-                      />
-                    </motion.div>
-                  )}
-                </div>
-              </motion.div>
-            </div>
-          ))}
+                    {portfolios.length > 1 && (
+                      <motion.div
+                        whileTap={{ scale: 0.5 }}
+                        whileHover={{ scale: 1.1 }}
+                        className={styles.trashContainer}
+                      >
+                        <Trash2
+                          size={24}
+                          className={styles.trash}
+                          onClick={() => showConfirmDelete(index)}
+                        />
+                      </motion.div>
+                    )}
+                  </div>
+                </motion.div>
+              </div>
+            ))}
+          </div>
           {confirmDeletion ? (
             <ConfirmDelete
               closeModal={closeModal}
@@ -274,21 +446,65 @@ export async function getServerSideProps({ req, res }) {
   const portfolios = await getPortfolios({ userNumber: userNumber });
   const currencyAndTheme = await getCurrencyAndTheme(userNumber);
 
-  const coinData = await getCoinData(
-    userNumber,
-    portfolioNumber,
-    currencyCode,
-    coinType
+  // const coinData = await getCoinData(
+  //   userNumber,
+  //   portfolioNumber,
+  //   currencyCode,
+  //   coinType
+  // );
+  // const fiatData = await getFiatData(userNumber, portfolioNumber, currencyCode);
+  // const balances = calculateBalance(coinData, fiatData);
+
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  let coinDataPerPortfolio = [];
+  await Promise.all(
+    portfolios.map(async (pf, index) => {
+      await sleep(index * 1250);
+      let item = await getCoinData(
+        pf.userNumber,
+        pf.portfolioNumber,
+        currencyCode,
+        coinType
+      );
+      let data = {};
+      data[index] = item;
+      coinDataPerPortfolio.push(data);
+    })
   );
-  const fiatData = await getFiatData(userNumber, portfolioNumber, currencyCode);
-  const balances = await calculateBalance(coinData, fiatData);
+
+  let fiatDataPerPortfolio = [];
+  await Promise.all(
+    portfolios.map(async (pf, index) => {
+      await sleep(index * 100);
+      let item = await getFiatData(
+        pf.userNumber,
+        pf.portfolioNumber,
+        currencyCode
+      );
+      let data = {};
+      data[index] = item;
+      fiatDataPerPortfolio.push(data);
+    })
+  );
+
+  let balances = [];
+  for (let i = 0; i < portfolios.length; i++) {
+    const balance = calculateBalance(
+      coinDataPerPortfolio.find((entry) => entry[`${i}`])[`${i}`],
+      fiatDataPerPortfolio.find((entry) => entry[`${i}`])[`${i}`]
+    );
+    balances.push(balance);
+  }
 
   // console.log(userNumber);
   // console.log(portfolioNumber);
   // console.log(coinType);
+  // console.log(currencyCode);
   // console.log(fiatData);
   // console.log(coinData);
-  // console.log(balances);
+  console.log(balances);
+  console.log(portfolios);
   // console.log(portfolios.length);
 
   return {

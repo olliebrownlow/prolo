@@ -6,82 +6,217 @@
 }
 .contentContainer {
   width: 100%;
+  margin-bottom: 64px;
 }
 .content {
   max-width: 1024px;
   width: 100%;
-  padding: 0 4%;
-  margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .card {
   width: 100%;
-  min-width: 200px;
-  max-height: 300px;
-  margin: 10px;
-  border-radius: 10px;
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  max-width: 300px;
+  display: grid;
+  grid-template-columns: 40% 20% 40%;
+  grid-template-rows: 40px auto auto 40px;
+  gap: 0 0;
+  // align-items: stretch;
   cursor: default;
-  padding-bottom: 12px;
-}
-.darkactive {
-  background-color: #292929;
-  border: solid 3px lightgrey;
-  max-width: 300px;
-  font-size: 24px;   
-  color: white;
-}
-.darkinactive {
-  border: solid 1px lightgrey;
-  background-color: #292929;
-  max-width: 300px;
-  font-size: 18px;   
-  color: white;
-}
-.lightactive {
-  background-color: whitesmoke;
-  border: solid 3px dimgrey;
-  max-width: 300px;
-  font-size: 22px;   
-  color: dimgrey;
-}
-.lightinactive {
-  background-color: whitesmoke;
-  border: solid 1px dimgrey;
-  max-width: 300px;
-  font-size: 18px;   
-  color: dimgrey;
+  margin: 10px 0;
 }
 .title {
-  width: 100%;
-  margin-bottom: 4px;
+  grid-column-start: 1;
+  grid-column-end: 4;
   text-align: center;
   background-color: red;
   color: white;
-  font-weight: 600;
+  font-weight: 900;
   letter-spacing: 4px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
   padding: 4px;
 }
-.text {
-  width: 94%;
-  margin: 0 auto;
+.activedarktitle {
+  border-right: solid 4px lightgrey;
+  border-left: solid 4px lightgrey;
+  border-top: solid 4px lightgrey;
+  border-bottom: solid 1px lightgrey;
+}
+.inactivedarktitle {
+  border-right: solid 2px lightgrey;
+  border-left: solid 2px lightgrey;
+  border-top: solid 2px lightgrey;
+  border-bottom: solid 1px lightgrey;
+}
+.activelighttitle {
+  border-right: solid 4px dimgrey;
+  border-left: solid 4px dimgrey;
+  border-top: solid 4px dimgrey;
+  border-bottom: solid 1px dimgrey;
+}
+.inactivelighttitle {
+  border-right: solid 2px dimgrey;
+  border-left: solid 2px dimgrey;
+  border-top: solid 2px dimgrey;
+  border-bottom: solid 1px dimgrey;
+}
+.key {
+  display: flex;
+  align-items: center;
+  justify-content: right;
   font-size: 14px;
-  text-align: left;
-  white-space: pre-wrap;
-  margin-bottom: 32px;
+  font-weight: 900;
   letter-spacing: 2px;
+  padding: 8px;
+}
+.activedarkkey {
+  border-right: solid 1px lightgrey;
+  border-left: solid 4px lightgrey;
+  background-color: #292929;
+}
+.inactivedarkkey {
+  border-right: solid 1px lightgrey;
+  border-left: solid 2px lightgrey;
+  background-color: #292929;
+}
+.activelightkey {
+  border-right: solid 1px dimgrey;
+  border-left: solid 4px dimgrey;
+  background-color: whitesmoke;
+}
+.inactivelightkey {
+  border-right: solid 1px dimgrey;
+  border-left: solid 2px dimgrey;
+  background-color: whitesmoke;
+}
+.value {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  font-size: 14px;
+  font-weight: 100;
+  padding: 4px;
+  white-space: pre-wrap;
+  letter-spacing: 2px;
+  grid-column-start: 2;
+  grid-column-end: 4;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  font-size: 14px;
+  font-weight: 100;
+  padding: 8px;
+  white-space: pre-wrap;
+  letter-spacing: 2px;
+}
+.activedarkvalue {
+  border-right: solid 4px lightgrey;
+  background-color: #292929;
+}
+.inactivedarkvalue {
+  border-right: solid 2px lightgrey;
+  background-color: #292929;
+}
+.activelightvalue {
+  border-right: solid 4px dimgrey;
+  background-color: whitesmoke;
+}
+.inactivelightvalue {
+  border-right: solid 2px dimgrey;
+  background-color: whitesmoke;
+}
+.balancevaluetitle {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  text-align: right;
+  font-size: 14px;
+  font-weight: 100;
+  padding: 4px;
+  white-space: pre-wrap;
+  letter-spacing: 2px;
+}
+.darkbalancevaluetitle {
+  background-color: #292929;
+}
+.lightbalancevaluetitle {
+  background-color: whitesmoke;
+}
+.balancevalue {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  font-size: 14px;
+  font-weight: 100;
+  padding: 4px;
+  white-space: pre-wrap;
+  letter-spacing: 2px;
+}
+.lastkey {
+  border-bottom-left-radius: 10px;
+}
+.activedarklastkey {
+  border-left: solid 4px lightgrey;
+  border-top: solid 1px lightgrey;
+  border-bottom: solid 4px lightgrey;
+  background-color: #292929;
+}
+.inactivedarklastkey {
+  border-left: solid 2px lightgrey;
+  border-top: solid 1px lightgrey;
+  border-bottom: solid 2px lightgrey;
+  background-color: #292929;
+}
+.activelightlastkey {
+  border-left: solid 4px dimgrey;
+  border-top: solid 1px dimgrey;
+  border-bottom: solid 4px dimgrey;
+  background-color: whitesmoke;
+}
+.inactivelightlastkey {
+  border-left: solid 2px dimgrey;
+  border-top: solid 1px dimgrey;
+  border-bottom: solid 2px dimgrey;
+  background-color: whitesmoke;
+}
+.lastvalue {
+  grid-column-start: 2;
+  grid-column-end: 4;
+  border-bottom-right-radius: 10px;
+}
+.activedarklastvalue {
+  border-right: solid 4px lightgrey;
+  border-top: solid 1px lightgrey;
+  border-bottom: solid 4px lightgrey;
+  background-color: #292929;
+}
+.inactivedarklastvalue {
+  border-right: solid 2px lightgrey;
+  border-top: solid 1px lightgrey;
+  border-bottom: solid 2px lightgrey;
+  background-color: #292929;
+}
+.activelightlastvalue {
+  border-right: solid 4px dimgrey;
+  border-top: solid 1px dimgrey;
+  border-bottom: solid 4px dimgrey;
+  background-color: whitesmoke;
+}
+.inactivelightlastvalue {
+  border-right: solid 2px dimgrey;
+  border-top: solid 1px dimgrey;
+  border-bottom: solid 2px dimgrey;
+  background-color: whitesmoke;
 }
 .anchorContainer {
   right: 78px;
-  bottom: 8px;
+  bottom: 4px;
   left: auto;
   top: auto;
   position: absolute;
@@ -94,14 +229,14 @@
 }
 .editContainer {
   right: 44px;
-  bottom: 8px;
+  bottom: 4px;
   left: auto;
   top: auto;
   position: absolute;
 }
 .editContainerNoDelete {
   right: 10px;
-  bottom: 8px;
+  bottom: 4px;
   left: auto;
   top: auto;
   position: absolute;
@@ -114,7 +249,7 @@
 }
 .trashContainer {
   right: 10px;
-  bottom: 8px;
+  bottom: 4px;
   left: auto;
   top: auto;
   position: absolute;
@@ -125,4 +260,20 @@
   border: solid 1px #292929;
   padding: 4px;
   color: white;
+}
+.darkactivecard {
+  font-size: 24px;   
+  color: white;
+}
+.darkinactivecard {
+  font-size: 18px;   
+  color: white;
+}
+.lightactivecard {
+  font-size: 24px;   
+  color: dimgrey;
+}
+.lightinactivecard {
+  font-size: 18px;   
+  color: dimgrey;
 }

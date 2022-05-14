@@ -46,7 +46,7 @@ function Prolo({ Component, pageProps }) {
 
   useEffect(() => {
     const handleRouteChange = (url) => {
-      if (url === "/pocket" || url === "/ledger") {
+      if (url === "/pocket" || url === "/ledger" || url === "/portfolios") {
         setCookies("ct", "holding");
       }
       if (url === "/monitor") {
