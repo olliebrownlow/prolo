@@ -225,16 +225,16 @@
   background-color: whitesmoke;
 }
 .anchorContainer {
-  right: 78px;
-  bottom: 4px;
+  right: 10px;
+  bottom: auto;
   left: auto;
-  top: auto;
+  top: 9px;
   position: absolute;
 }
 .anchor {
   background-color: lightgrey;
   border-radius: 30%;
-  border: solid 1px #292929;
+  border: solid 1px white;
   padding: 4px;
 }
 .editContainer {
