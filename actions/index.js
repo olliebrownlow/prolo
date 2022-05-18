@@ -188,6 +188,13 @@ export const getFundingData = (userAndPortfolioNumbers) => {
 };
 
 // axios does not allow get calls to pass through an argument hence the use of post
+export const getAllUserFundingData = (userNumber) => {
+  return axios
+    .post(`${BASE_URL}/api/v1/allInvestmentItems`, userNumber)
+    .then((res) => res.data);
+};
+
+// axios does not allow get calls to pass through an argument hence the use of post
 export const getSingleInvestmentItem = (userAndPortfolioNumbersAnditemId) => {
   return axios
     .post(`${BASE_URL}/api/v1/investmentItem`, userAndPortfolioNumbersAnditemId)

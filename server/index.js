@@ -416,7 +416,7 @@ app.prepare().then(() => {
     return res.json("portfolio deleted");
   });
 
-  // post method to fetch all investmentItems for a specific user
+  // post method to fetch all investmentItems on a specific user's specific portfolio
   server.post("/api/v1/investmentItems", (req, res) => {
     const userNumber = parseInt(req.body.userNumber);
     const portfolioNumber = parseInt(req.body.portfolioNumber);
@@ -425,6 +425,15 @@ app.prepare().then(() => {
         item.userNumber === userNumber &&
         item.portfolioNumber === portfolioNumber
       );
+    });
+    return res.json(investmentItems);
+  });
+
+  // post method to fetch all investmentItems for a specific user
+  server.post("/api/v1/allInvestmentItems", (req, res) => {
+    const userNumber = parseInt(req.body.userNumber);
+    const investmentItems = _.filter(fundingData, function (item) {
+      return item.userNumber === userNumber;
     });
     return res.json(investmentItems);
   });

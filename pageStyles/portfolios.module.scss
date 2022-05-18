@@ -20,12 +20,28 @@
   position: relative;
   max-width: 300px;
   display: grid;
-  grid-template-columns: 40% 20% 40%;
-  grid-template-rows: 40px auto auto 40px;
+  grid-template-columns: 40% 23% 37%;
+  grid-template-rows: 40px auto auto auto 40px;
   gap: 0 0;
   // align-items: stretch;
   cursor: default;
   margin: 10px 0;
+}
+.darkactivecard {
+  font-size: 24px;   
+  color: white;
+}
+.darkinactivecard {
+  font-size: 18px;   
+  color: white;
+}
+.lightactivecard {
+  font-size: 24px;   
+  color: dimgrey;
+}
+.lightinactivecard {
+  font-size: 18px;   
+  color: dimgrey;
 }
 .title {
   grid-column-start: 1;
@@ -96,14 +112,6 @@
   background-color: whitesmoke;
 }
 .value {
-  display: flex;
-  align-items: center;
-  justify-content: left;
-  font-size: 14px;
-  font-weight: 100;
-  padding: 4px;
-  white-space: pre-wrap;
-  letter-spacing: 2px;
   grid-column-start: 2;
   grid-column-end: 4;
   display: flex;
@@ -113,6 +121,7 @@
   font-weight: 100;
   padding: 8px;
   white-space: pre-wrap;
+  word-break: break-word;
   letter-spacing: 2px;
 }
 .activedarkvalue {
@@ -156,6 +165,7 @@
   font-weight: 100;
   padding: 4px;
   white-space: pre-wrap;
+  word-break: break-word;
   letter-spacing: 2px;
 }
 .lastkey {
@@ -260,20 +270,4 @@
   border: solid 1px #292929;
   padding: 4px;
   color: white;
-}
-.darkactivecard {
-  font-size: 24px;   
-  color: white;
-}
-.darkinactivecard {
-  font-size: 18px;   
-  color: white;
-}
-.lightactivecard {
-  font-size: 24px;   
-  color: dimgrey;
-}
-.lightinactivecard {
-  font-size: 18px;   
-  color: dimgrey;
 }

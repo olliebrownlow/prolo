@@ -57,7 +57,20 @@ const Header = (props) => {
           {props.appTitle}
         </motion.div>
       </Link>
-      {user?.issuer && !user?.loading ? <BurgerMenu logout={logout} /> : null}
+      {user?.issuer && !user?.loading ? (
+        <>
+          <BurgerMenu logout={logout} />{" "}
+          <Link href="/portfolios">
+            <motion.div
+              className={styles.Portfolio}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.5 }}
+            >
+              {portfolioName}
+            </motion.div>
+          </Link>{" "}
+        </>
+      ) : null}
       {!user?.issuer && !user?.loading ? (
         <AuthButton
           auth={navigateToLogin}
@@ -65,17 +78,7 @@ const Header = (props) => {
           path={loginButton.path}
           label={loginButton.label}
         />
-      ) : (
-        <Link href="/portfolios">
-          <motion.div
-            className={styles.Portfolio}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.5 }}
-          >
-            {portfolioName}
-          </motion.div>
-        </Link>
-      )}
+      ) : null}
     </div>
   );
 };

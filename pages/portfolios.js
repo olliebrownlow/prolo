@@ -13,12 +13,14 @@ import styles from "../pageStyles/portfolios.module.scss";
 import { getCoinData } from "../lib/core/coinData";
 import { getFiatData } from "../lib/core/fiatData";
 import { calculateBalance } from "../lib/core/calculateBalance";
+import { getProlo } from "../lib/core/profitLossCalc";
 import {
   getPortfolios,
   getNextPortfolioNumber,
   addPortfolio,
   updatePortfolio,
   deletePortfolio,
+  getAllUserFundingData,
   getCurrencyAndTheme,
   setCurrentPortfolioNumber,
 } from "../actions";
@@ -31,6 +33,7 @@ const Portfolios = (props) => {
     roundTo2DP,
     portfolios,
     balances,
+    allInvestmentItems,
     userNumber,
     portfolioNumber,
     currencyAndTheme,
@@ -130,6 +133,16 @@ const Portfolios = (props) => {
     return balances.find(
       (pfBalances) => pfBalances.portfolioNumber === portfolioNumber
     );
+  };
+
+  const getInvestmentItems = (portfolioNumber) => {
+    const items = allInvestmentItems.filter(
+      (item) => item.portfolioNumber === portfolioNumber
+    );
+    console.log("items");
+    console.log(items);
+    console.log("items");
+    return items;
   };
 
   return (
@@ -332,6 +345,77 @@ const Portfolios = (props) => {
                         getBalances(portfolio.portfolioNumber).balance
                       )}
                     </div>
+
+                    <div
+                      className={
+                        styles.key +
+                        " " +
+                        `${
+                          currencyAndTheme.theme === "light"
+                            ? portfolio.portfolioNumber ===
+                              parseInt(portfolioNumber)
+                              ? styles.activelightkey
+                              : styles.inactivelightkey
+                            : portfolio.portfolioNumber ===
+                              parseInt(portfolioNumber)
+                            ? styles.activedarkkey
+                            : styles.inactivedarkkey
+                        }`
+                      }
+                    >
+                      ledger
+                    </div>
+                    <div
+                      className={
+                        styles.balancevaluetitle +
+                        " " +
+                        `${
+                          currencyAndTheme.theme === "light"
+                            ? styles.lightbalancevaluetitle
+                            : styles.darkbalancevaluetitle
+                        }`
+                      }
+                    >
+                      funds
+                      <br />
+                      pro.lo-
+                    </div>
+                    <div
+                      className={
+                        styles.balancevalue +
+                        " " +
+                        `${
+                          currencyAndTheme.theme === "light"
+                            ? portfolio.portfolioNumber ===
+                              parseInt(portfolioNumber)
+                              ? styles.activelightvalue
+                              : styles.inactivelightvalue
+                            : portfolio.portfolioNumber ===
+                              parseInt(portfolioNumber)
+                            ? styles.activedarkvalue
+                            : styles.inactivedarkvalue
+                        }`
+                      }
+                    >
+                      {appCurrencySign}
+                      {roundTo2DP(
+                        getBalances(portfolio.portfolioNumber).balance -
+                          getProlo(
+                            appCurrencyName,
+                            getInvestmentItems(portfolio.portfolioNumber),
+                            getBalances(portfolio.portfolioNumber).balance
+                          )
+                      )}
+                      <br />
+                      {appCurrencySign}
+                      {roundTo2DP(
+                        getProlo(
+                          appCurrencyName,
+                          getInvestmentItems(portfolio.portfolioNumber),
+                          getBalances(portfolio.portfolioNumber).balance
+                        )
+                      )}
+                    </div>
                     <div
                       className={
                         styles.lastkey +
@@ -445,7 +529,13 @@ export async function getServerSideProps({ req, res }) {
   const currencyCode = getCookie("cc", { req, res });
   const portfolios = await getPortfolios({ userNumber: userNumber });
   const currencyAndTheme = await getCurrencyAndTheme(userNumber);
+  const allInvestmentItems = await getAllUserFundingData({
+    userNumber: userNumber,
+  });
 
+  // nomics api free account only allows one request per second, hence
+  // the need to delay each call -> the more portfolios, the longer it
+  // takes to render!
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   let coinDataPerPortfolio = [];
@@ -494,15 +584,16 @@ export async function getServerSideProps({ req, res }) {
   // console.log(currencyCode);
   // console.log(fiatData);
   // console.log(coinData);
-  console.log(balances);
-  console.log(portfolios);
-  // console.log(portfolios.length);
+  // console.log(allInvestmentItems);
+  // console.log(balances);
+  // console.log(portfolios);
 
   return {
     props: {
       portfolios,
       currencyAndTheme,
       balances,
+      allInvestmentItems,
       userNumber: userNumber,
       portfolioNumber: portfolioNumber,
     },

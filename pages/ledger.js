@@ -80,11 +80,7 @@ const Ledger = (props) => {
       setTimeout(closeModal(), 1000);
       refreshFundingHistoryData();
     }
-  };
-
-  const prolo = () => {
-    return getProlo(appCurrencyName, investmentItems, balances.balance);
-  };
+  };  
 
   return (
     <>
