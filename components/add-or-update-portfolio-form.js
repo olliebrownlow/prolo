@@ -2,6 +2,7 @@ import styles from "./addForm.module.scss";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import AddButton from "./add-button";
+import colourOptions from "../config/portfolioColourOptions";
 import _ from "lodash";
 
 const AddOrUpdatePortfolioForm = (props) => {
@@ -26,7 +27,8 @@ const AddOrUpdatePortfolioForm = (props) => {
       });
     } else if (
       form.portfolioName === data.portfolioName &&
-      form.portfolioDescription === data.portfolioDescription
+      form.portfolioDescription === data.portfolioDescription &&
+      form.colour === data.colour
     ) {
       toast.error("make changes to trigger an update", {
         id: "noPortfolioChanges",
@@ -74,6 +76,31 @@ const AddOrUpdatePortfolioForm = (props) => {
             rows="2"
             cols="20"
           />
+        </div>
+        <div className={styles.formGroup}>
+          <div className={styles.row}>
+            <label className={styles.colourLabel} htmlFor="colour">colour</label>
+            <label className={styles.preview}>preview</label>
+          </div>
+          <div className={styles.row}>
+            <select
+              onChange={handleChange}
+              value={form.colour}
+              name="colour"
+              className={styles.narrowFormControl}
+              id="colour"
+            >
+              {colourOptions.map((option) => (
+                <option key={option.colour}>{option.colour}</option>
+              ))}
+            </select>
+            <div
+              className={styles.rectangle}
+              style={{ backgroundColor: `${form.colour}` }}
+            >
+              {form.portfolioName}
+            </div>
+          </div>
         </div>
       </form>
       <AddButton

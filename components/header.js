@@ -6,7 +6,7 @@ import Router from "next/router";
 import { mutate } from "swr";
 import { magic } from "../lib/magic";
 import { UserContext } from "../lib/UserContext";
-import { getOrSetPortfolioData, deleteAccount } from "../actions";
+import { deleteAccount } from "../actions";
 import { motion } from "framer-motion";
 import styles from "./header.module.scss";
 import BurgerMenu from "./burger-menu";
@@ -15,14 +15,12 @@ const Header = (props) => {
   const [user, setUser] = useContext(UserContext);
   const loginButton = props.authButtons[0];
   const [portfolioName, setPortfolioName] = useState("main");
+  const [colour, setColour] = useState("red");
 
   useEffect(() => {
-    const setCurrentPortfolioName = async () => {
-      const data = await getOrSetPortfolioData(true, getCookie("un"));
-      setPortfolioName(data.portfolioName);
-    };
-    setCurrentPortfolioName();
-  }, [portfolioName, getCookie("pn")]);
+    setPortfolioName(getCookie("pnm"));
+    setColour(getCookie("pc"));
+  }, [getCookie("pnm"), getCookie("pc")]);
 
   const logout = async (doDelete) => {
     if (doDelete) {
@@ -34,8 +32,10 @@ const Header = (props) => {
       setUser({ user: null });
       // set defaultUser to access default theme when not logged in
       setCookies("un", 0);
+      setCookies("pc", "red");
       removeCookies("cc");
       removeCookies("pn");
+      removeCookies("pnm");
       navigateToLogin();
       mutate("http://localhost:3000/api/v1/appSettings");
     });
@@ -46,7 +46,10 @@ const Header = (props) => {
   };
 
   return (
-    <div className={styles.Header}>
+    <div
+      className={styles.Header}
+      style={{ backgroundImage: `linear-gradient(to right, red, red, ${colour})` }}
+    >
       <div className={styles.hidden}>placeholder</div>
       <Link href="/">
         <motion.div

@@ -73,7 +73,11 @@ function Prolo({ Component, pageProps }) {
         setCookies("un", userNumber);
         const portfolioData = await getOrSetPortfolioData(res, userNumber);
         const portfolioNumber = portfolioData.portfolioNumber;
+        const portfolioName = portfolioData.portfolioName;
+        const portfolioColour = portfolioData.colour;
         setCookies("pn", portfolioNumber);
+        setCookies("pnm", portfolioName);
+        setCookies("pc", portfolioColour);
         if (res === "false") {
           await addAppSettingsForNewUser({
             userNumber: userNumber,
@@ -99,8 +103,10 @@ function Prolo({ Component, pageProps }) {
         setUser({ user: null });
         // set defaultUser to access default theme when not logged in
         setCookies("un", 0);
+        setCookies("pc", "red");
         removeCookies("cc");
         removeCookies("pn");
+        removeCookies("pnm");
       }
       mutate("http://localhost:3000/api/v1/appSettings");
     });

@@ -232,9 +232,29 @@
   position: absolute;
 }
 .anchor {
+  background-color: white;
+  border-radius: 30%;
+  border: solid 1px lightgrey;
+  padding: 4px;
+}
+.cloneContainer {
+  right: 78px;
+  bottom: 4px;
+  left: auto;
+  top: auto;
+  position: absolute;
+}
+.cloneContainerNoDelete {
+  right: 44px;
+  bottom: 4px;
+  left: auto;
+  top: auto;
+  position: absolute;
+}
+.clone {
   background-color: lightgrey;
   border-radius: 30%;
-  border: solid 1px white;
+  border: solid 1px #292929;
   padding: 4px;
 }
 .editContainer {

@@ -24,8 +24,9 @@ import {
   getCurrencyAndTheme,
   setCurrentPortfolioNumber,
 } from "../actions";
+import toast from "react-hot-toast";
 import _ from "lodash";
-import { Trash2, Edit, Anchor } from "react-feather";
+import { Trash2, Edit, Anchor, Copy } from "react-feather";
 import { motion } from "framer-motion";
 
 const Portfolios = (props) => {
@@ -46,6 +47,7 @@ const Portfolios = (props) => {
   const [isShown, setIsShown] = useState(false);
   const [isShownForUpdating, setIsShownForUpdating] = useState(false);
   const [confirmDeletion, setConfirmDeletion] = useState(false);
+  const [confirmClone, setConfirmClone] = useState(false);
   const [portfolio, setPortfolio] = useState({});
   const [portfolioIndexForDeletion, setPortfolioIndexForDeletion] = useState();
 
@@ -63,10 +65,16 @@ const Portfolios = (props) => {
     setPortfolioIndexForDeletion(index);
   };
 
+  const showConfirmClone = () => {
+    setConfirmClone(true);
+    // setPortfolioIndexForDeletion(index);
+  };
+
   const closeModal = () => {
     setIsShown(false);
     setIsShownForUpdating(false);
     setConfirmDeletion(false);
+    setConfirmClone(false);
   };
 
   // close modal from window surrounding the modal itself
@@ -75,6 +83,7 @@ const Portfolios = (props) => {
       setIsShown(false);
       setIsShownForUpdating(false);
       setConfirmDeletion(false);
+      setConfirmClone(false);
     }
   };
 
@@ -87,6 +96,7 @@ const Portfolios = (props) => {
     userNumber: parseInt(userNumber),
     portfolioName: "",
     portfolioDescription: "",
+    colour: "red",
   };
 
   const handleAddPortfolio = async (portfolio) => {
@@ -99,8 +109,13 @@ const Portfolios = (props) => {
 
   const handleUpdatePortfolio = async (portfolio) => {
     const res = await updatePortfolio(portfolio);
-    refreshPortfoliosPage();
+    if (portfolio.portfolioNumber == getCookie("pn")) {
+      console.log("here");
+      setCookies("pnm", portfolio.portfolioName);
+      setCookies("pc", portfolio.colour);
+    }
     console.log(res);
+    refreshPortfoliosPage();
   };
 
   const handleDeletePortfolio = async (index) => {
@@ -121,7 +136,12 @@ const Portfolios = (props) => {
   };
 
   const anchorPortfolio = async (portfolio) => {
+    toast.error(`switching to ${portfolio.portfolioName}: please wait...`, {
+      id: "portfolioSwitch",
+    });
     setCookies("pn", portfolio.portfolioNumber);
+    setCookies("pnm", portfolio.portfolioName);
+    setCookies("pc", portfolio.colour);
     await setCurrentPortfolioNumber({
       userNumber: portfolio.userNumber,
       newSettings: { currentPortfolioNumber: portfolio.portfolioNumber },
@@ -139,9 +159,6 @@ const Portfolios = (props) => {
     const items = allInvestmentItems.filter(
       (item) => item.portfolioNumber === portfolioNumber
     );
-    console.log("items");
-    console.log(items);
-    console.log("items");
     return items;
   };
 
@@ -226,6 +243,9 @@ const Portfolios = (props) => {
                             : styles.inactivedarktitle
                         }`
                       }
+                      style={{
+                        backgroundColor: portfolio.colour,
+                      }}
                     >
                       {portfolio.portfolioName}
                     </div>
@@ -469,6 +489,22 @@ const Portfolios = (props) => {
                       whileTap={{ scale: 0.5 }}
                       className={
                         portfolios.length > 1
+                          ? styles.cloneContainer
+                          : styles.cloneContainerNoDelete
+                      }
+                      whileHover={{ scale: 1.1 }}
+                    >
+                      <Copy
+                        size={24}
+                        color={"red"}
+                        className={styles.clone}
+                        onClick={() => showConfirmClone()}
+                      />
+                    </motion.div>
+                    <motion.div
+                      whileTap={{ scale: 0.5 }}
+                      className={
+                        portfolios.length > 1
                           ? styles.editContainer
                           : styles.editContainerNoDelete
                       }
@@ -509,6 +545,21 @@ const Portfolios = (props) => {
               titleText={"delete this portfolio"}
               subText={
                 " all coins, currencies, investment items and note data associated with this portfolio will be permanently deleted"
+              }
+            />
+          ) : (
+            <React.Fragment />
+          )}
+          {confirmClone ? (
+            <ConfirmDelete
+              closeModal={closeModal}
+              windowOnClick={windowOnClick}
+              handleDelete={handleDeletePortfolio}
+              data={null}
+              isShown={confirmClone}
+              titleText={"clone this portfolio"}
+              subText={
+                " all coins, currencies, investment items and note data associated with this portfolio will be copied over"
               }
             />
           ) : (

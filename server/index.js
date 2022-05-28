@@ -96,6 +96,7 @@ app.prepare().then(() => {
       return res.json({
         portfolioNumber: settingsForUser.currentPortfolioNumber,
         portfolioName: portfolio.portfolioName,
+        colour: portfolio.colour,
       });
     }
 
@@ -106,6 +107,7 @@ app.prepare().then(() => {
       portfolioName: "main",
       portfolioNumber: newPortfolioNumber,
       portfolioDescription: "",
+      colour: "red",
     };
     portfolioData.push(newPortfolio);
 
@@ -327,11 +329,10 @@ app.prepare().then(() => {
     if (
       currentPortfolio.portfolioName === updatedPortfolio.portfolioName &&
       currentPortfolio.portfolioDescription ===
-        updatedPortfolio.portfolioDescription
+        updatedPortfolio.portfolioDescription &&
+      currentPortfolio.colour === updatedPortfolio.colour
     ) {
-      return res.send(404, {
-        error: "Cannot update portfolio: already updated",
-      });
+      return res.json("Cannot update portfolio: already updated");
     }
 
     portfolioData[portfolioIndex] = updatedPortfolio;
@@ -343,7 +344,7 @@ app.prepare().then(() => {
         return res.status(422).send(err);
       }
 
-      return res.json("portfolio successfully updated");
+      return res.json("updating portfolio");
     });
   });
 
@@ -413,7 +414,7 @@ app.prepare().then(() => {
       }
     });
 
-    return res.json("portfolio deleted");
+    return res.json("deleting portfolio");
   });
 
   // post method to fetch all investmentItems on a specific user's specific portfolio
@@ -833,9 +834,7 @@ app.prepare().then(() => {
       currentNote.noteTitle === updatedNote.noteTitle &&
       currentNote.noteContent === updatedNote.noteContent
     ) {
-      return res.send(404, {
-        error: "Cannot update note: already updated",
-      });
+      return res.json("Cannot update note: already updated");
     }
 
     noteData[noteIndex] = updatedNote;
