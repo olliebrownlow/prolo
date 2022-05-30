@@ -20,6 +20,7 @@ import {
   addPortfolio,
   updatePortfolio,
   deletePortfolio,
+  clonePortfolio,
   getAllUserFundingData,
   getCurrencyAndTheme,
   setCurrentPortfolioNumber,
@@ -65,9 +66,9 @@ const Portfolios = (props) => {
     setPortfolioIndexForDeletion(index);
   };
 
-  const showConfirmClone = () => {
+  const showConfirmClone = (portfolio) => {
     setConfirmClone(true);
-    // setPortfolioIndexForDeletion(index);
+    setPortfolio(portfolio);
   };
 
   const closeModal = () => {
@@ -107,10 +108,15 @@ const Portfolios = (props) => {
     console.log(res);
   };
 
+  const handleClonePortfolio = async (portfolio) => {
+    const res = await clonePortfolio(portfolio);
+    console.log(res);
+    refreshPortfoliosPage();
+  };
+
   const handleUpdatePortfolio = async (portfolio) => {
     const res = await updatePortfolio(portfolio);
     if (portfolio.portfolioNumber == getCookie("pn")) {
-      console.log("here");
       setCookies("pnm", portfolio.portfolioName);
       setCookies("pc", portfolio.colour);
     }
@@ -498,7 +504,7 @@ const Portfolios = (props) => {
                         size={24}
                         color={"red"}
                         className={styles.clone}
-                        onClick={() => showConfirmClone()}
+                        onClick={() => showConfirmClone(portfolio)}
                       />
                     </motion.div>
                     <motion.div
@@ -554,8 +560,8 @@ const Portfolios = (props) => {
             <ConfirmDelete
               closeModal={closeModal}
               windowOnClick={windowOnClick}
-              handleDelete={handleDeletePortfolio}
-              data={null}
+              handleDelete={handleClonePortfolio}
+              data={portfolio}
               isShown={confirmClone}
               titleText={"clone this portfolio"}
               subText={

@@ -318,6 +318,78 @@ app.prepare().then(() => {
     });
   });
 
+  server.post("/api/v1/portfolioClone", (req, res) => {
+    const portfolio = req.body;
+    const portfolioName = portfolio.portfolioName;
+    const sourcePortfolioNumber = portfolio.portfolioNumber;
+    const targetPortfolioNumber = autoNumberData[0].nextPortfolioNumber;
+
+    autoNumberData[0].nextPortfolioNumber = targetPortfolioNumber + 1;
+    const pathToAutoNumberFile = path.join(__dirname, autoNumberFilePath);
+    const stringifiedAutoNumberData = JSON.stringify(autoNumberData, null, 2);
+    fs.writeFile(pathToAutoNumberFile, stringifiedAutoNumberData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+    });
+
+    portfolio.portfolioNumber = targetPortfolioNumber;
+    portfolioData.push(portfolio);
+    const pathToPortfolioFile = path.join(__dirname, portfolioFilePath);
+    const stringifiedPortfolioData = JSON.stringify(portfolioData, null, 2);
+    fs.writeFile(pathToPortfolioFile, stringifiedPortfolioData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+    });
+
+    const dataTypes = [coinData, fiatData, fundingData, noteData];
+
+    dataTypes.forEach((dataType) => {
+      dataType.forEach((element) => {
+        if (element.portfolioNumber === sourcePortfolioNumber) {
+          const clonedElement = {
+            ...element,
+            portfolioNumber: targetPortfolioNumber,
+          };
+          dataType.push(clonedElement);
+        }
+      });
+    });
+
+    // Todo: rollback function in case any writes to file error out
+    const pathToCoinFile = path.join(__dirname, coinFilePath);
+    const stringifiedCoinData = JSON.stringify(coinData, null, 2);
+    fs.writeFile(pathToCoinFile, stringifiedCoinData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+    });
+    const pathToFiatFile = path.join(__dirname, fiatFilePath);
+    const stringifiedFiatData = JSON.stringify(fiatData, null, 2);
+    fs.writeFile(pathToFiatFile, stringifiedFiatData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+    });
+    const pathToFundingFile = path.join(__dirname, fundingFilePath);
+    const stringifiedFundingData = JSON.stringify(fundingData, null, 2);
+    fs.writeFile(pathToFundingFile, stringifiedFundingData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+    });
+    const pathToNoteFile = path.join(__dirname, noteFilePath);
+    const stringifiedNoteData = JSON.stringify(noteData, null, 2);
+    fs.writeFile(pathToNoteFile, stringifiedNoteData, (err) => {
+      if (err) {
+        return res.status(422).send(err);
+      }
+    });
+
+    return res.json(`cloning ${portfolioName}`);
+  });
+
   server.patch("/api/v1/portfolios", (req, res) => {
     const updatedPortfolio = req.body;
     const portfolioIndex = portfolioData.findIndex(
@@ -351,7 +423,6 @@ app.prepare().then(() => {
   server.delete("/api/v1/portfolios/:id", (req, res) => {
     let { id } = req.params;
     id = parseInt(id);
-
     const portfolioCount = req.body.portfolioCount;
     const portfolioIndex = portfolioData.findIndex(
       (portfolio) => portfolio.portfolioNumber === id

@@ -151,6 +151,20 @@ export const addPortfolio = (portfolio) => {
   return res;
 };
 
+export const clonePortfolio = (portfolio) => {
+  const res = axios
+    .post(`${BASE_URL}/api/v1/portfolioClone`, portfolio)
+    .then((res) => res.data);
+
+  toast.promise(res, {
+    loading: "loading",
+    success: (data) => data,
+    error: (err) => err.toString(),
+  });
+
+  return res;
+};
+
 export const updatePortfolio = (portfolio) => {
   const res = axios
     .patch(`${BASE_URL}/api/v1/portfolios`, portfolio)

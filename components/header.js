@@ -48,7 +48,9 @@ const Header = (props) => {
   return (
     <div
       className={styles.Header}
-      style={{ backgroundImage: `linear-gradient(to right, red, red, ${colour})` }}
+      style={{
+        backgroundImage: `linear-gradient(to right, red, red, red, ${colour})`,
+      }}
     >
       <div className={styles.hidden}>placeholder</div>
       <Link href="/">
