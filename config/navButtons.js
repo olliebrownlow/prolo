@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Home,
-  BookOpen,
-  Pocket,
-  TrendingUp,
-} from "react-feather";
+import { Home, BookOpen, Pocket, TrendingUp, Folder } from "react-feather";
 
 const navButtons = [
   {
@@ -27,10 +22,10 @@ const navButtons = [
     path: "/monitor",
     icon: <TrendingUp />,
   },
-  // {
-  //   label: "settings",
-  //   path: "/settings",
-  //   icon: <Settings />,
-  // },
+  {
+    label: "portfolios",
+    path: "/portfolios",
+    icon: <Folder />,
+  },
 ];
 export default navButtons;
