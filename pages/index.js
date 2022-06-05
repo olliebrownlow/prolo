@@ -10,6 +10,7 @@ import {
   BookOpen,
   Pocket,
   TrendingUp,
+  Folder,
   Settings,
   Clipboard,
   CloudOff,
@@ -62,7 +63,7 @@ const Home = (props) => {
           whileHover={{ scale: 1.1 }}
         >
           <Pocket size={44} />
-          add, update & delete crypto and fiat portfolios
+          add, update & delete crypto and fiat holdings
         </motion.div>
       </Link>
       <Link href="/monitor">
@@ -83,12 +84,30 @@ const Home = (props) => {
           monitor coins & see market data
         </motion.div>
       </Link>
-      <Link href="/settings">
+      <Link href="/portfolios">
         <motion.div
           className={
             currencyAndTheme.theme === "dark"
               ? styles.darkThemeLightItem
               : styles.lightThemeLightItem
+          }
+          transition={{ duration: 0.2 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          initial={{ opacity: 0, scale: 0.1 }}
+          whileTap={{ scale: 0.5 }}
+          whileHover={{ scale: 1.1 }}
+        >
+          <Folder size={44} />
+          create new/clone existing portfolios for tracking multiple collections
+        </motion.div>
+      </Link>
+      <Link href="/settings">
+        <motion.div
+          className={
+            currencyAndTheme.theme === "dark"
+              ? styles.darkThemeDarkItem
+              : styles.lightThemeDarkItem
           }
           transition={{ duration: 0.2 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -105,8 +124,8 @@ const Home = (props) => {
       <motion.div
         className={
           currencyAndTheme.theme === "dark"
-            ? styles.darkThemeDarkItem
-            : styles.lightThemeDarkItem
+            ? styles.darkThemeLightItem
+            : styles.lightThemeLightItem
         }
         transition={{ duration: 0.2 }}
         viewport={{ once: true }}
@@ -119,8 +138,8 @@ const Home = (props) => {
       <motion.div
         className={
           currencyAndTheme.theme === "dark"
-            ? styles.darkThemeLightItem
-            : styles.lightThemeLightItem
+            ? styles.darkThemeDarkItem
+            : styles.lightThemeDarkItem
         }
         transition={{ duration: 0.2 }}
         viewport={{ once: true }}
