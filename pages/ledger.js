@@ -80,7 +80,7 @@ const Ledger = (props) => {
       setTimeout(closeModal(), 1000);
       refreshFundingHistoryData();
     }
-  };  
+  };
 
   return (
     <>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getCookie } from "cookies-next";
+import { getCookie, checkCookies } from "cookies-next";
 import { motion } from "framer-motion";
 import BurgerMenuItem from "./burger-menu-item";
 import {
@@ -55,7 +55,9 @@ const BurgerMenuNav = (props) => {
       const res = await getUserEmail(getCookie("un"));
       setUserEmail(res);
     };
-    getAndSetUserEmail();
+    if (checkCookies("un")) {
+      getAndSetUserEmail();
+    }
   }, [getCookie("un")]);
 
   const extractUserName = (userEmail) => {

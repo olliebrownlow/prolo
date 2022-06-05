@@ -1,0 +1,29 @@
+.heading {
+  text-align: center;
+  font-size: 32px;
+  letter-spacing: 8px;
+  color: white;
+  margin-bottom: 20px;
+}
+.solidDivider {
+  border-top: 3px solid white;
+  margin-bottom: 20px;
+  max-width: 80%;
+}
+.portfolioButtons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.button {
+  padding: 6px;
+  margin: 12px;
+  border-radius: 5px;
+  border-color: white;
+  border-style: solid;
+  outline: none;
+  text-align: center;
+  color: white;
+  width: 70%;
+}
