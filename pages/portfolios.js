@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import Router from "next/router";
+import Link from "next/link";
 import { setCookies, getCookie } from "cookies-next";
 import CurrencySettingsContext from "../context/currencySettings";
 import { UserContext } from "../lib/UserContext";
@@ -27,7 +28,7 @@ import {
 } from "../actions";
 import toast from "react-hot-toast";
 import _ from "lodash";
-import { Trash2, Edit, Anchor, Copy } from "react-feather";
+import { Trash2, Edit, Anchor, Copy, RefreshCw } from "react-feather";
 import { motion } from "framer-motion";
 
 const Portfolios = (props) => {
@@ -51,6 +52,7 @@ const Portfolios = (props) => {
   const [confirmClone, setConfirmClone] = useState(false);
   const [portfolio, setPortfolio] = useState({});
   const [portfolioIndexForDeletion, setPortfolioIndexForDeletion] = useState();
+  const [anim, setAnim] = useState(0);
 
   const showModal = () => {
     setIsShown(true);
@@ -175,7 +177,17 @@ const Portfolios = (props) => {
       ) : user?.issuer ? (
         <>
           <SettingsLink pageName={"portfolios"} />
-          <div className={styles.heading}>portfolios</div>
+          <Link href="/portfolios" scroll={false}>
+            <div className={styles.heading} onClick={() => setAnim(1)}>
+              portfolios{" "}
+              <RefreshCw
+                className={styles.refresh}
+                onClick={() => setAnim(1)}
+                onAnimationEnd={() => setAnim(0)}
+                anim={anim}
+              />
+            </div>
+          </Link>
           <AddButton
             buttonText={"add portfolio"}
             showModal={showModal}
