@@ -57,7 +57,6 @@ const Pocket = (props) => {
             {appCurrencySign}
             {roundTo2DP(balances.coinTotal)}
           </div>
-          <div className={styles.subheading}>breakdown</div>
           <Modal
             buttonText={"add coin"}
             labelName={"coin"}
@@ -68,6 +67,9 @@ const Pocket = (props) => {
             user={user.email}
             type={"holding"}
           />
+          <div className={styles.subheading}>crypto</div>
+          <CoinList coinData={coinData} appCurrencySign={appCurrencySign} />
+          <div className={styles.subheading}>staked</div>
           <CoinList coinData={coinData} appCurrencySign={appCurrencySign} />
           <div className={styles.spacer}>placeholder</div>
           <div className={styles.heading}>fiat holdings</div>
